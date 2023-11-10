@@ -1,0 +1,30 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ES - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/es/</link>
+        <description>ES - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 15 Apr 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/es/" rel="self" type="application/rss+xml" /><item>
+    <title>Elatic Stack</title>
+    <link>https://zhang21.cn/elastic/</link>
+    <pubDate>Sun, 15 Apr 2018 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/elastic/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener noreffer ">Elastic指南</a></li>
+<li><a href="https://wizardforcel.gitbooks.io/mastering-elasticsearch/content/chapter-1/114_README.html" target="_blank" rel="noopener noreffer ">Lucence查询语法</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOS7.x86_64</li>
+<li>Elastcisearch v6.2.3</li>
+<li>Kibana v6.2.3</li>
+<li>Logstash v6.2.3</li>
+<li>Beats v6.2.3</li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+</channel>
+</rss>

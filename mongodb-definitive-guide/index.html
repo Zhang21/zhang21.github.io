@@ -10,12 +10,6 @@
 MongoDB权威指南
 
 
-环境:
-
-centos7
-mongodb4.2&#43;
-
-
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhang21.cn/mongodb-definitive-guide/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
@@ -29,12 +23,6 @@ mongodb4.2&#43;
 <meta name="twitter:description" content="参考:
 
 MongoDB权威指南
-
-
-环境:
-
-centos7
-mongodb4.2&#43;
 
 
 "/>
@@ -57,7 +45,7 @@ mongodb4.2&#43;
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "database, mongodb, nosql","wordcount":  42937 ,
+                        }],"genre": "posts","keywords": "Database, NoSQL, MongoDB","wordcount":  49410 ,
         "url": "https:\/\/zhang21.cn\/mongodb-definitive-guide\/","datePublished": "2022-04-29T10:49:26+00:00","dateModified": "2022-04-29T10:49:26+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -74,7 +62,7 @@ mongodb4.2&#43;
             <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -116,7 +104,7 @@ mongodb4.2&#43;
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -131,8 +119,8 @@ mongodb4.2&#43;
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MongoDB权威指南</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>database</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-29">2022-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 42937 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 86 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-29">2022-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 49410 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 99 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -194,7 +182,7 @@ mongodb4.2&#43;
             <li><a href="#优先级">优先级</a></li>
             <li><a href="#隐藏成员">隐藏成员</a></li>
             <li><a href="#选举仲裁者">选举仲裁者</a></li>
-            <li><a href="#创建索引-1">创建索引</a></li>
+            <li><a href="#副本集创建索引">副本集创建索引</a></li>
           </ul>
         </li>
       </ul>
@@ -248,7 +236,7 @@ mongodb4.2&#43;
             <li><a href="#禁用复制链">禁用复制链</a></li>
             <li><a href="#计算延迟">计算延迟</a></li>
             <li><a href="#调整oplog大小">调整oplog大小</a></li>
-            <li><a href="#创建索引-2">创建索引</a></li>
+            <li><a href="#创建索引-1">创建索引</a></li>
             <li><a href="#在预算有限的情况下进行复制">在预算有限的情况下进行复制</a></li>
           </ul>
         </li>
@@ -429,6 +417,33 @@ mongodb4.2&#43;
       </ul>
     </li>
     <li><a href="#部署mongodb">部署MongoDB</a></li>
+    <li><a href="#mongodb日志分析">MongoDB日志分析</a>
+      <ul>
+        <li><a href="#系统日志">系统日志</a></li>
+        <li><a href="#journal日志">Journal日志</a></li>
+        <li><a href="#固定集合">固定集合</a></li>
+        <li><a href="#oplog主从日志">OPlog主从日志</a></li>
+        <li><a href="#慢查询日志">慢查询日志</a></li>
+        <li><a href="#cpu使用率高排查">CPU使用率高排查</a>
+          <ul>
+            <li><a href="#查看正在运行的语句">查看正在运行的语句</a></li>
+            <li><a href="#查看慢日志">查看慢日志</a></li>
+            <li><a href="#分析执行计划">分析执行计划</a></li>
+            <li><a href="#使用与业务负载相匹配的实例配置">使用与业务负载相匹配的实例配置</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#mtools工具">mtools工具</a>
+      <ul>
+        <li><a href="#安装mtools">安装mtools</a></li>
+        <li><a href="#mlaunch工具">mlaunch工具</a></li>
+        <li><a href="#mlogfilter工具">mlogfilter工具</a></li>
+        <li><a href="#mongoinfo工具">mongoinfo工具</a></li>
+        <li><a href="#mplotqueries工具">mplotqueries工具</a></li>
+        <li><a href="#mtransfer工具">mtransfer工具</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>参考:</p>
@@ -436,14 +451,7 @@ mongodb4.2&#43;
 <li><a href="https://book.douban.com/subject/35688800/" target="_blank" rel="noopener noreffer ">MongoDB权威指南</a></li>
 </ul>
 <br/>
-<p>环境:</p>
-<ul>
-<li>centos7</li>
-<li>mongodb4.2+</li>
-</ul>
-<br/>
-<br/>
-<br/>
+<hr>
 <br/>
 <h1 id="简介">简介</h1>
 <p>MongoDB中没有预定义模式，文档键值的类型和大小不是固定的，因此按需添加或删除字段变得很容易。</p>
@@ -1585,18 +1593,18 @@ mongod --replSet mdbDefGuide --dbpath /test/mongodb/rs3 --port <span class="m">3
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">rsconf = {
-  _id: &#34;mdbDefGuide&#34;,
-  members: [
-    {_id: 0, host: &#34;localhost:27017&#34;},
-    {_id: 1, host: &#34;localhost:27018&#34;},
-    {_id: 2, host: &#34;localhost:27019&#34;}
-  ]
-}
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">rsconf</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="mi">_</span><span class="nx">id</span><span class="o">:</span> <span class="s2">&#34;mdbDefGuide&#34;</span><span class="p">,</span>
+  <span class="nx">members</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="mi">_</span><span class="nx">id</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">host</span><span class="o">:</span> <span class="s2">&#34;localhost:27017&#34;</span><span class="p">},</span>
+    <span class="p">{</span><span class="mi">_</span><span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">host</span><span class="o">:</span> <span class="s2">&#34;localhost:27018&#34;</span><span class="p">},</span>
+    <span class="p">{</span><span class="mi">_</span><span class="nx">id</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">host</span><span class="o">:</span> <span class="s2">&#34;localhost:27019&#34;</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
 
-rs.initiate(rsconf)
+<span class="nx">rs</span><span class="p">.</span><span class="nx">initiate</span><span class="p">(</span><span class="nx">rsconf</span><span class="p">)</span>
 
-rs.status()
+<span class="nx">rs</span><span class="p">.</span><span class="nx">status</span><span class="p">()</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>这个配置文档就是副本集的配置。在某个mongod上运行的成员会解析配置并将消息发送给其他成员（不能在多个成员上使用数据初始化副本集），提醒它们存在新的配置。一旦所有成员都加载了配置，它们就会选择一个主节点并开始处理读写请求。</p>
@@ -1631,26 +1639,30 @@ mdbDefGuide:SECONDARY&gt;
 </div><br/>
 <p>从节点可能会落后于主节点（延迟）而缺少最新的写入，所以默认情况下从节点会拒绝读请求，以防止应用程序意外读取过期数据。</p>
 <p><strong>从节点不接受写操作</strong>。从节点只能通过复制功能写入数据，不接受客户端的写请求。</p>
-<p>因此，如果尝试在从节点上查询，则会弹出一条表明它不是主节点的错误消息。想要在从节点上进行查询操作，可以设置<strong>在从节点中读取是没有问题的</strong>标志。注意，slaveOk是在**连接(secondaryConn)**上设置，而不是在数据库(secodaryDB)上。</p>
-<p>如果主节点停止运行，那么其中一个从节点将自动被选举为主节点。</p>
+<p>因此，如果尝试在从节点上查询，则会弹出一条表明它不是主节点的错误消息。想要在从节点上进行查询操作，可以设置 <strong>在从节点中读取是没有问题的</strong> 标志。注意，<code>slaveOk</code> 是在 <strong>连接(secondaryConn)</strong> 上设置，而不是在数据库(secodaryDB)上。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">secondaryConn.setSlaveOk()
+
 rs.slaveOk()
+
 rs.secondaryOk()
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<p>如果主节点停止运行，那么其中一个从节点将自动被选举为主节点。</p>
 <p>需要注意的几个关键概念：</p>
 <ul>
 <li>客户端在单台服务器上执行的请求都可以发送到主节点执行（读操作、写操作、执行命令、创建索引等）。</li>
 <li>客户端不能在从节点上执行写操作。</li>
-<li>默认情况下，客户端不能再从节点上读取数据，但可以启用从节点读取数据的功能。</li>
+<li>默认情况下，客户端不能在从节点上读取数据，但可以启用从节点读取数据的功能。</li>
 </ul>
 <br/>
 <br/>
@@ -1753,7 +1765,7 @@ rs.reconfig(config)
 <p>你可能希望让某个成员拥有优先选举成为主节点的权力，或者将某个成员设置为对客户端不可见以便阻止将请求发送给它。</p>
 <br/>
 <h3 id="优先级">优先级</h3>
-<p>优先级用于表示一个成员渴望成为主节点的程度。它的取值范围是0到100，默认是1。将<strong>priority</strong>设置为0有特殊的含义：优先级为0的成员永远不可能成为主节点。这样的成员称为**被动(passive)**成员。</p>
+<p>优先级用于表示一个成员渴望成为主节点的程度。它的取值范围是0到100，默认是1。将<strong>priority</strong>设置为0有特殊的含义：优先级为0的成员永远不可能成为主节点。这样的成员称为 <strong>被动(passive)</strong> 成员。</p>
 <p>拥有最高优先级的成员总是会被选举为主节点（只要他能连接到副本集中的大多数成员，并且拥有最新的数据）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1782,19 +1794,19 @@ rs.add({&#34;host&#34;: &#34;server-4:27017&#34;, &#34;priority&#34;: 1.5})
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">var config = rs.confg()
-config.members[3].hidden = true
 config.members[3].priority = 0
+config.members[3].hidden = true
 
 rs.reconfig(config)
 </code></pre></td></tr></table>
 </div>
-</div><p>使用<code>rs.status()</code>和<code>rs.config()</code>能够看到隐藏成员，隐藏成员只对<code>isMaster</code>不可见。当客户端连接到副本集时，会调用<code>isMaster</code>来查看副本集中的成员。因此，隐藏成员永远不会收到客户端的读请求。</p>
+</div><p>使用 <code>rs.status()</code> 和 <code>rs.config()</code> 能够看到隐藏成员，隐藏成员只对 <code>isMaster</code> 不可见。当客户端连接到副本集时，会调用 <code>isMaster</code> 来查看副本集中的成员。因此，隐藏成员永远不会收到客户端的读请求。</p>
 <br/>
 <br/>
 <h3 id="选举仲裁者">选举仲裁者</h3>
 <p>对于大多数需求来说，两节点的副本集具有明显的缺点。然而，许多小型部署不希望保存三份数据副本集，觉得两份副本集就足够了，而保存第三份副本集会付出不必要的管理、操作和财务成本。</p>
-<p>MongoDB支持一种特殊类型的成员，称为<strong>仲裁者(arbiter)</strong>，其唯一作用就是参与选举。仲裁者并不保存数据，也不会为客户端提供服务。它只是为了帮助具有两个成员的副本集满足<strong>大多数</strong>这个条件。通常来说，最好使用没有仲裁者的部署。</p>
-<p>由于仲裁者并不需要履行传统mongod服务器端的责任，因此可以将其作为轻量级进程运行在配置比较差的服务器上。如果可能，应将找那个踩着与其他成员分开，放在单独的<strong>故障域(failure domain)</strong>，以便它以一个外部视角来看待副本集中的成员。</p>
+<p>MongoDB支持一种特殊类型的成员，称为 <strong>仲裁者(arbiter)</strong>，其唯一作用就是参与选举。仲裁者并不保存数据，也不会为客户端提供服务。它只是为了帮助具有两个成员的副本集满足 <strong>大多数</strong>这个条件。通常来说，最好使用没有仲裁者的部署。</p>
+<p>由于仲裁者并不需要履行传统mongod服务器端的责任，因此可以将其作为轻量级进程运行在配置比较差的服务器上。如果可能，应将找那个踩着与其他成员分开，放在单独的 <strong>故障域(failure domain)</strong>，以便它以一个外部视角来看待副本集中的成员。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1803,13 +1815,13 @@ rs.reconfig(config)
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 添加仲裁者
-# 有两种方式
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 添加仲裁者
+// 有两种方式
 rs.addArb(&#34;server-5:27017&#34;)
 rs.add({&#34;_id&#34;: 4, &#34;host&#34;: &#34;server-5:27017&#34;, &#34;arbiterOnly&#34;: true})
 </code></pre></td></tr></table>
 </div>
-</div><p>成员一旦以仲裁者的身份被添加到副本集中，它就永远只能是仲裁者。无法将仲裁者重新配置为非仲裁者，反之易燃。</p>
+</div><p>成员一旦以仲裁者的身份被添加到副本集中，它就永远只能是仲裁者。无法将仲裁者重新配置为非仲裁者，反之亦然。</p>
 <br/>
 <p>使用仲裁者需要考虑以下几件事：</p>
 <ul>
@@ -1818,7 +1830,7 @@ rs.add({&#34;_id&#34;: 4, &#34;host&#34;: &#34;server-5:27017&#34;, &#34;arbiter
 </ul>
 <br/>
 <blockquote>
-<p>在具有主-从-仲裁(PSA)架构的三成员副本集或具有PSA分片的分片集群中，如果两个数据节点的任何一个停止运行并启用了<code>majority</code>的<strong>读关注(read concern)</strong>，则必然存在缓存压力增加的问题。理想情况下，应该将仲裁者替换为数据成员。或者为了防止存储缓存压力，可以在部署或分片中的每个mongod实例上禁用majority的读关注。</p>
+<p>在具有主-从-仲裁(PSA)架构的三成员副本集或具有PSA分片的分片集群中，如果两个数据节点的任何一个停止运行并启用了 <code>majority</code> 的 <strong>读关注(read concern)</strong>，则必然存在缓存压力增加的问题。理想情况下，应该将仲裁者替换为数据成员。或者为了防止存储缓存压力，可以在部署或分片中的每个mongod实例上禁用majority的读关注。</p>
 </blockquote>
 <br/>
 <p>注意两个关键词：</p>
@@ -1828,7 +1840,7 @@ rs.add({&#34;_id&#34;: 4, &#34;host&#34;: &#34;server-5:27017&#34;, &#34;arbiter
 </ul>
 <br/>
 <br/>
-<h3 id="创建索引-1">创建索引</h3>
+<h3 id="副本集创建索引">副本集创建索引</h3>
 <p>有时从节点不需要具有与主节点上相同的索引，甚至可以没有索引。如果仅使用从节点备份数据或脱机批量处理作业，则可以在成员配置中指定<code>&quot;buildIndexed&quot;: false</code>，此选项可防止从节点创建任何索引。</p>
 <p>与隐藏成员一样，此选项要求成员的优先级为0。</p>
 <br/>
@@ -1844,11 +1856,11 @@ rs.add({&#34;_id&#34;: 4, &#34;host&#34;: &#34;server-5:27017&#34;, &#34;arbiter
 </ul>
 <br/>
 <h2 id="同步">同步</h2>
-<p><strong>复制</strong>是指在多台服务器上保持相同的数据副本。MongoDB实现此功能的方式是保存<strong>操作日志(oplog)</strong>，其中包含了主节点执行的每一次写操作。oplog是存在于主节点local数据库中的一个固定集合。从节点通过查询此集合以获取需要复制的操作。</p>
+<p><strong>复制</strong> 是指在多台服务器上保持相同的数据副本。MongoDB实现此功能的方式是保存 <strong>操作日志(oplog)</strong>，其中包含了主节点执行的每一次写操作。oplog是存在于主节点local数据库中的一个固定集合。从节点通过查询此集合以获取需要复制的操作。</p>
 <p>每个从节点都维护着自己的oplog，用来记录它从主节点复制的每个操作。这使得每个成员都可以被用作其他成员的<strong>同步源</strong>。从节点从同步源中获取操作，将其应用到自己的数据集上，然后再写入oplog中。如果应用某个操作失败（只有再基础数据已损坏或数据与主节点不一致时才会发生此情况），则从节点会停止从当前数据源复制数据。</p>
 <p>如果一个从节点由于某种原因而停止运行，那么当它重新启动后，就会从oplog中的最后一个操作开始同步。由于这些操作是先应用到数据上然后再写入oplog，因此从节点可能会重复已经应用到其数据上的操作。MongoDB在设计时就考虑到了这种情况：将oplog中的同一个操作执行多次与执行一次的效果是一样的。oplog中的每个操作都是幂等的。也就是说，无论对目标数据集应用一次还是多次，oplog操作都会产生相同的结果。</p>
 <p>由于oplog的大小是固定的，因此它只能容纳一定数量的操作。在大多数情况下，默认的oplog大小就足够了。但你也可以修改oplog的大小。</p>
-<p>在mongod进程创建oplog之前，可以使用<code>oplogSizeMB</code>选项指定其大小。然而，在第一次启动副本集成员后，只能使用<code>更改oplog大小</code>这个流程来更改oplog。</p>
+<p>在mongod进程创建oplog之前，可以使用 <code>oplogSizeMB</code> 选项指定其大小。然而，在第一次启动副本集成员后，只能使用 <code>更改oplog大小</code> 这个流程来更改oplog。</p>
 <br/>
 <p>MongoDB中存在两种形式的数据同步：</p>
 <ul>
@@ -2054,14 +2066,16 @@ rs.add({&#34;_id&#34;: 4, &#34;host&#34;: &#34;server-5:27017&#34;, &#34;arbiter
 <p>保持dbpath不间，因为以这种方式重启是为了对这台服务器的数据进行一些操作。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback"># 查看用于启动的命令行选项
@@ -2072,6 +2086,8 @@ db.shutdownServer()
 
 # 以单机而不是副本启动
 /path/bin/mongod --port 新端口 --dbpath /var/lib/db
+# 可以需要添加一些额外的参数，才能正常启动，例如
+# --bind_ip=127.0.0.1 --port=xxx --dbpath=xxx  --storageEngine=wiredTiger --directoryperdb --logpath=/var/log/mongod.log --fork
 </code></pre></td></tr></table>
 </div>
 </div><p>当完成了对服务器的维护后，可以使用原始的副本集选项重启启动它。重启之后，它会自动与副本集的其它成员进行同步。复制它在离开期间错过的所有操作。</p>
@@ -2272,7 +2288,7 @@ db.adminCommand({replSetResizeOplog: 1, size: 16000})
 </div><p>一般情况下，不应该减少oplog的大小。oplog不会占用有价值的像RAM或CPU这样的资源，只要有足够的磁盘空间来容纳它即可。</p>
 <br/>
 <br/>
-<h3 id="创建索引-2">创建索引</h3>
+<h3 id="创建索引-1">创建索引</h3>
 <p>如果向主节点发送创建索引的命令，那么主节点会正常创建索引，然后从节点会在复制<code>创建索引</code>这条操作时进行索引的创建。</p>
 <p>索引创建是资源密集型操作，可能会导致成员不可用。如果所有从节点同时创建索引，那么副本集中的大部分成员将处于离线状态，直到索引创建完成。这个过程只适用于副本集。</p>
 <br/>
@@ -3400,9 +3416,9 @@ mongostat
 </ul>
 <br/>
 <h2 id="使用日志机制的成员级别持久性">使用日志机制的成员级别持久性</h2>
-<p>为了在服务器发生故障时提供持久性，MongoDB使用了一种称为<strong>日志(journal)<strong>的</strong>预写式(WAL)机制</strong>。WAL是数据库系统中一种常用的持久性技术，其基本原理是，在将对数据库所作的更改应用到数据库本身之前，将对这些更改的一种表示写道持久介质（如磁盘）上。</p>
+<p>为了在服务器发生故障时提供持久性，MongoDB使用了一种称为 <strong>日志(journal)</strong> 的 <strong>预写式(WAL)机制</strong>。WAL是数据库系统中一种常用的持久性技术，其基本原理是，在将对数据库所作的更改应用到数据库本身之前，将对这些更改的一种表示写道持久介质（如磁盘）上。</p>
 <p>从MongoDB4.0开始，当应用程序对副本集执行写操作时，MongoDB会使用与oplog相同的格式创建日志条目。oplog中的语句是对写操作影响的每个文档所做的实际更改的表示。因此，oplog语句很容易应用于副本集的其他成员，而无须考虑版本、硬件或副本集成员之间的其他差异。此外，每个oplog语句都是幂等的，这意味着它可以被应用任意次数，而对数据库的更改结果总是相同的。</p>
-<p>像大多数数据库一样，MongoDB同时维护了日志和数据库文件的内存试图。默认情况下，它每50毫秒会将日志条目刷新到磁盘上，每60秒会将数据库文件刷新到磁盘上。刷新数据文件的60秒间隔称为<strong>检查点(checkpoint)</strong>。日志用于为上一个检查点以来写入的数据提供持久性。关于持久性的问题，如果服务器突然停了了，那么在其重新启动时，可以使用日志重放在关闭前没有刷新到磁盘的所有写操作。</p>
+<p>像大多数数据库一样，MongoDB同时维护了日志和数据库文件的内存试图。默认情况下，它每50毫秒会将日志条目刷新到磁盘上，每60秒会将数据库文件刷新到磁盘上。刷新数据文件的60秒间隔称为 <strong>检查点(checkpoint)</strong>。日志用于为上一个检查点以来写入的数据提供持久性。关于持久性的问题，如果服务器突然停了了，那么在其重新启动时，可以使用日志重放在关闭前没有刷新到磁盘的所有写操作。</p>
 <br/>
 <br/>
 <h2 id="使用写关注的集群级别持久性">使用写关注的集群级别持久性</h2>
@@ -3712,17 +3728,17 @@ db.fsyncUnlock();
 <h1 id="部署mongodb">部署MongoDB</h1>
 <p>生产环境部署的相关建议：</p>
 <ul>
-<li>建议SSD</li>
-<li>磁盘阵列建议RAID10</li>
+<li>建议使用 SSD</li>
+<li>磁盘阵列建议 RAID-10</li>
 <li>不要使用网络磁盘</li>
-<li>MongoDB对CPU的负载不高。如果在速度和核数间选择，应该选择速度。</li>
-<li>64位Linux操作系统的稳定版本</li>
+<li>MongoDB 对 CPU 的负载不高。如果在速度和核数间选择，应该选择速度。</li>
+<li>64 位 Linux 操作系统的稳定版本</li>
 <li>内存根据实际情况配置</li>
 <li>时钟同步</li>
-<li>建议关闭SWAP交换空间</li>
-<li>建议使用XFS文件系统</li>
+<li>建议关闭 SWAP 交换空间</li>
+<li>建议使用 XFS 文件系统</li>
 <li>内存过度分配(memory overcommit)</li>
-<li>关闭NUMA</li>
+<li>关闭 NUMA</li>
 <li>禁用区域回收</li>
 <li>禁用透明大内存页(THP)，透明大内存页会导致更多的磁盘IO。</li>
 <li>修改限制，文件打开数、进程允许创建的线程数，通常都应该设置为无限制。</li>
@@ -3730,19 +3746,45 @@ db.fsyncUnlock();
 <li>注意缺页错误率</li>
 <li>注意TCP丢包</li>
 <li>注意OOM killer</li>
+<li>配置 oplog 大小以适合你的用例</li>
+<li>确保副本集成员包含奇数个投票成员</li>
+<li>不要强制关闭(<code>-9/SIGKILL</code>)，而要温柔的关闭
+<ul>
+<li><code>kill -2</code> 或 <code>kill</code></li>
+<li><code>db.shutdownServer()</code></li>
+</ul>
+</li>
 </ul>
 <br/>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 内存过度分配, 建议为2</span>
@@ -3754,9 +3796,635 @@ db.fsyncUnlock();
 
 <span class="c1"># 禁用区域回收</span>
 sysctl -w vm.zone_reclaim_mode<span class="o">=</span><span class="m">0</span>
+
+<span class="c1"># 文件打开数</span>
+<span class="nb">ulimit</span> -n <span class="m">1000000</span>
+<span class="c1"># 程序数</span>
+<span class="nb">ulimit</span> -u <span class="m">500000</span>
+<span class="c1"># 推荐的 ulimit 设置</span>
+<span class="c1"># -f （文件大小）： unlimited</span>
+<span class="c1"># -t （CPU时间）： unlimited</span>
+<span class="c1"># -v（虚拟内存）：unlimited [1]</span>
+<span class="c1"># -l （锁定的内存大小）： unlimited</span>
+<span class="c1"># -n （打开的文件）： 64000</span>
+<span class="c1"># -m（内存大小）：unlimited [1] [2]</span>
+<span class="c1"># -u （进程/线程）： 64000</span>
+
+<span class="c1"># 禁用透明大页</span>
+<span class="nb">echo</span> <span class="s2">&#34;never&#34;</span> &gt; /sys/kernel/mm/transparent_hugepage/enabled
+<span class="c1"># 禁用透明大页碎片整理</span>
+<span class="nb">echo</span> <span class="s2">&#34;never&#34;</span> &gt; /sys/kernel/mm/transparent_hugepage/defrag
 </code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><br/>
+<hr>
+<br/>
+<h1 id="mongodb日志分析">MongoDB日志分析</h1>
+<p>参考文档:</p>
+<ul>
+<li><a href="https://developer.aliyun.com/article/716765" target="_blank" rel="noopener noreffer ">MongoDB日志浅析</a></li>
+<li><a href="https://generalthink.github.io/2019/06/27/logs-in-mongodb/" target="_blank" rel="noopener noreffer ">MongoDB中有几种日志</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1711795" target="_blank" rel="noopener noreffer ">MongoDB慢日志字段解析</a></li>
+<li><a href="https://www.volcengine.com/docs/6447/174018" target="_blank" rel="noopener noreffer ">MongoDB CPU 使用率高排查手册</a></li>
+</ul>
+<br/>
+<br/>
+<p>MongoDB 主要包括四种日志，这些日志记录着不同的信息。</p>
+<ul>
+<li>系统日志</li>
+<li>Journal 日志</li>
+<li>Oplog 日志</li>
+<li>慢查询日志</li>
+</ul>
+<br/>
+<br/>
+<h2 id="系统日志">系统日志</h2>
+<p>系统日志记录了 MongoDB 的启动和停止的操作，以及服务运行过程中发生的任何异常的信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># 系统日志</span><span class="w">
+</span><span class="w"></span><span class="nt">systemLog</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log/mongodb/mongod.log</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="journal日志">Journal日志</h2>
+<p>以下介绍主要基于 WiredTiger 存储引擎，它是 MongoDB 3.2 版本之后推荐的默认存储引擎。</p>
+<p>Journaling(日记) 日志功能是 MongoDB 里非常重要的一个功能，它保证了数据库服务器在意外关机等情况下数据的完整性。Journal 日志就是预写的 redo 日志，它为 MongoDB 增加了额外的可靠性保障。除了故障恢复之外，它还可以提高写入的性能，批量提交。在这个过程中，所有的写入都可以一次提交，是单事务的（也就是全部成功或全部失败）。</p>
+<p>不开启此功能，写入存储引擎的数据，并不会立即持久化存储，而是每一分钟做一次全量的 checkpoint，将所有数据持久化。</p>
+<p>开启此功能，MongoDB 会在进行写入时建立一条 Journal 日志（其中包括此次写入操作具体更高的磁盘地址和字符）。因此一旦服务器突然停机，可在启动时对日记进行重放，从而重新执行那些停机之前没能够刷新到磁盘的写入操作。</p>
+<p>MongoDB 配置 WiredTiger 引擎使用内存缓冲区来保存 journal 记录，WiredTiger 根据以下间隔或条件将缓冲的 journal 记录同步到磁盘。</p>
+<ul>
+<li>由于 MongoDB 使用的 journal 文件大小限制为 100MB，因此 WiredTiger 大约每 100MB 数据创建一个新的 journal 日志文件。</li>
+<li>从 MongoDB 3.2 版本开始，每隔 50ms 将缓冲的 journal 数据同步到磁盘。</li>
+<li>如果写入操作设置了 <code>j: true</code>，则 WiredTiger 会强制同步 journal 日志文件。</li>
+</ul>
+<p>上面的介绍，意味着 MongoDB 会批量地提交更改，即每次写入不会立即刷新到磁盘。不过在默认设置下，如果系统发生奔溃，不可能丢失超过 50ms 的写入数据。</p>
+<p>向 MongoDB 中写入数据是先写入内存，然后每隔 60s 刷新到磁盘。也就是数据文件默认 60s 刷新到磁盘一次。因此 journal 日志只需要记录约 60s 的写入数据。Journal 日志系统预先分配了若干个空文件，这些文件存放在 <code>/dbpath/journal/_j.数字</code> 。数据库正常关闭后，这些文件会被清楚。</p>
+<p>如果发生系统崩溃或使用 <code>kill -9</code> 命令强制终止数据库的运行，则 mongod 会在启动时重放 journal 日志文件，同时会显示大量的校验信息。</p>
+<p>需要注意的是，如果客户端的写入速度超过了日志的刷新速度，mongod 则会限制写入操作，直到 journal 日志完成磁盘的写入。这是 mongod 会限制写入的唯一情况。</p>
+<br/>
+<br/>
+<h2 id="固定集合">固定集合</h2>
+<p>在介绍 oplog 日志和慢查询日志时，需要先介绍固定集合(Capped Collection)。</p>
+<p>MongoDB 中的普通集合是动态创建的，而且可以自动增长以容纳更多的数据。</p>
+<p>MongoDB 中还有另一种不通类型的集合，叫做固定集合。固定集合需要事先创建好，并且它的大小是固定的。固定集合的行为与循环队列一样。如果没有空间了，最老的文档会被删除以释放新的空间，新插入的文档会占据这块空间。</p>
+<p>固定集合创建之后就不能改变，无法将固定集合转换为非固定集合，但是可以将常规集合转换为固定集合。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 创建固定集合
+</span><span class="c1">// 大小为 100000 字节的固定大小集合，文档数量为 100
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="s2">&#34;collectionName&#34;</span><span class="p">,{</span><span class="s2">&#34;capped&#34;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="s2">&#34;size&#34;</span><span class="o">:</span><span class="mi">100000</span><span class="p">,</span> <span class="s2">&#34;max&#34;</span><span class="o">:</span><span class="mi">100</span><span class="p">});</span>
+
+<span class="c1">// 将常规集合转换为固定集合
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">runCommand</span><span class="p">({</span><span class="s2">&#34;convertToCapped&#34;</span><span class="o">:</span> <span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;size&#34;</span> <span class="o">:</span> <span class="mi">10000</span><span class="p">});</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>固定集合可以进行一种特殊的排序，称为自然排序(natural sort)，自然排序返回结果集中文档的顺序就是文档在磁盘中的顺序。自然顺序就行文档在固定集合中的插入顺序。</p>
+<br/>
+<br/>
+<h2 id="oplog主从日志">OPlog主从日志</h2>
+<p>MongoDB Replica Sets(副本集) 用于在多台服务器之间备份数据。它的复制功能是使用 oplog 实现的，操作日志包含了每一次写操作。oplog 是主节点的 local 数据库中的一个固定集合。备份节点通过查询这个集合就可以直到需要进行复制的操作。</p>
+<p>一个 mongod 实例中的所有数据库都是用同一个 oplog，也就是所有数据库的操作日志都会记录到 oplog 中。</p>
+<p>每个备份节点都维护者自己的 oplog，记录着每一次从主节点复制数据的操作。这样，每个成员都可以作为同步源给其他成员使用。</p>
+<p>备份节点从当前使用的同步源中获取需要执行的操作，然后在自己的数据集上执行这些操作，最后再将这些操作写入自己的 oplog。如果遇到某个操作失败的情况（如当前同步源的数据损坏或数据不一致时），那么备份节点就会停止从当前的同步源复制数据。</p>
+<p>oplog 中按顺序保存着所有执行过的写操作，副本集中每个成员都维护着一份自己的 oplog，每个成员的 oplog 都应该跟主节点的 oplog 完全一致（可能会有一些延迟）。</p>
+<p>如果某个备份节点由于某些原因挂了，但它重新启动后，就会自动从 oplog 中最后一个操作开始同步。由于复制操作的过程是复制数据再写入 oplog，所以备份节点可能会在已经同步过的数据上再次执行复制操作。MongoDB 在设计之初就考虑到了这种情况：将 oplog 中的同一操作执行多次，与只执行一次的效果是一样的。</p>
+<p>由于 oplog 是固定集合，它只能保持特定数量的操作日志。MongoDB 默认将其大小设置为可用磁盘空间的 5%（默认最小 1G，最大 50G）。可以在配置文件中首次配置 <code>oplogSizeMB</code> 设置为我们需要的值。</p>
+<p>通常，oplog 使用空间的增长速度与系统处理写请求的速率几乎相同：如果主节点上每分钟处理了 1KB 的写入请求，那么 oplog 很可能也会在一分钟内写入 1KB 条操作日志。</p>
+<p>如果单次请求能够影响到多个文档（比如删除/更新多个文档），oplog 中就会出现多条操作日志。如果单个操作会影响多个文档，那么每个受影响的文档都会对应 oplog 的一条日志。</p>
+<br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="err">#</span> <span class="nx">查看</span> <span class="nx">oplog</span>
+<span class="nx">user</span> <span class="nx">local</span><span class="p">;</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">oplog</span><span class="p">.</span><span class="nx">rs</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">sort</span><span class="p">({</span><span class="s2">&#34;ts&#34;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">});</span>
+<span class="p">{</span>
+    <span class="s2">&#34;ts&#34;</span><span class="o">:</span> <span class="nx">Timestamp</span><span class="p">(</span><span class="mi">1625660877</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="s2">&#34;t&#34;</span><span class="o">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s2">&#34;h&#34;</span><span class="o">:</span> <span class="nx">NumberLong</span><span class="p">(</span><span class="s2">&#34;5521980394145765083&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;v&#34;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&#34;op&#34;</span><span class="o">:</span> <span class="s2">&#34;i&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;ns&#34;</span><span class="o">:</span> <span class="s2">&#34;test.users&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;ui&#34;</span><span class="o">:</span> <span class="nx">UUID</span><span class="p">(</span><span class="s2">&#34;edabbd93-76eb-42be-b54a-cdc29eb1f267&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;wall&#34;</span><span class="o">:</span> <span class="nx">ISODate</span><span class="p">(</span><span class="s2">&#34;2021-07-07T12:27:57.689Z&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;o&#34;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&#34;_id&#34;</span><span class="o">:</span> <span class="nx">ObjectId</span><span class="p">(</span><span class="s2">&#34;60e59dcd46db1fb4605f8b18&#34;</span><span class="p">),</span>
+        <span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;1&#34;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># oplog 日志个字段详解</span><span class="w">
+</span><span class="w"></span><span class="nt">ts</span><span class="p">:</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="l">字节的时间戳，由4字节unix timestamp + 4字节自增计数表示。这个值很重要，在选举(如主宕机时)新主时，会选择 ts 最大的那个从作为新主</span><span class="w">
+</span><span class="w"></span><span class="nt">t</span><span class="p">:</span><span class="w"> </span><span class="l">election term。对应raft协议里面的term，每次发生节点down掉，新节点加入，主从切换，term都会自增。</span><span class="w">
+</span><span class="w"></span><span class="nt">h</span><span class="p">:</span><span class="w"> </span><span class="l">操作的全局唯一id的hash结果</span><span class="w">
+</span><span class="w"></span><span class="nt">v</span><span class="p">:</span><span class="w"> </span><span class="l">oplog 的版本字段</span><span class="w">
+</span><span class="w"></span><span class="nt">op</span><span class="p">:</span><span class="w"> </span><span class="l">具体操作类型, i 插入，d 删除，u 更新，c 是DDL操作(数据库命令)，n 是空消息</span><span class="w">
+</span><span class="w"></span><span class="nt">ns</span><span class="p">:</span><span class="w"> </span><span class="l">命名空间，即库和集合</span><span class="w">
+</span><span class="w"></span><span class="nt">ui</span><span class="p">:</span><span class="w"> </span><span class="l">客户端会话 id</span><span class="w">
+</span><span class="w"></span><span class="nt">wall</span><span class="p">:</span><span class="w"> </span><span class="l">毫秒粒度的 utc 执行时间</span><span class="w">
+</span><span class="w"></span><span class="nt">o</span><span class="p">:</span><span class="w"> </span><span class="l">具体的操作内容</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="慢查询日志">慢查询日志</h2>
+<p>MongoDB 中使用系统分析器(profiler) 来查找耗时过长的操作。分析器将记录的慢日志写入 <code>system.profile</code> 固定集合中，但相应的整体性能也会有所下降。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 默认情况下，分析器处于关闭状态，不会进行任何记录。
+</span><span class="c1">// 0=off 1=slow 2=all
+</span><span class="c1">// 第一个参数指定级别，第二个参数自定义耗时过长的标准，单位毫秒
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">setProfilingLevel</span><span class="p">(</span><span class="nx">level</span><span class="p">,</span><span class="o">&lt;</span><span class="nx">slowms</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>即使默认没有启用分析器，我们也可以在 mongod 实例的系统日志中看到查询日志。</p>
+<br/>
+<p>一条示例日志:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;Thu Apr  2 07:51:50.985 I COMMAND  [conn541] command animal.MongoUser_58 command: find { find: \&#34;MongoUser_58\&#34;, filter: { $and: [ { lld: { $gte: 18351 } }, { fc: { $lt: 120 } }, { _id: { $nin: [ 1244093274 ] } }, { $or: [ { rc: { $exists: false } }, { rc: { $lte: 1835400100 } } ] }, { lv: { $gte: 69 } }, { lv: { $lte: 99 } }, { cc: { $in: [ 440512, 440513, 440514, 440500, 440515, 440511, 440523, 440507 ] } } ] }, limit: 30 } planSummary: IXSCAN { lv: -1 } keysExamined:20856 docsExamined:20856 cursorExhausted:1 keyUpdates:0 writeConflicts:0 numYields:6801 nreturned:0 reslen:110 locks:{ Global: { acquireCount: { r: 13604 } }, Database: { acquireCount: { r: 6802 } }, Collection: { acquireCount: { r: 6802 } } } protocol:op_command 8938329ms&#34;
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;timestamp&#34;</span><span class="p">:</span> <span class="s2">&#34;Thu Apr  2 07:51:50.985&#34;</span>  <span class="err">//</span> <span class="err">日期和时间</span><span class="p">,</span> <span class="err">ISO8601格式</span>
+    <span class="nt">&#34;severityLevel&#34;</span><span class="p">:</span> <span class="s2">&#34;I&#34;</span>  <span class="err">//</span> <span class="err">日志级别</span> <span class="err">I代表info的意思，其他的还有F</span><span class="p">,</span><span class="err">E,W,D等</span>
+    <span class="nt">&#34;components&#34;</span><span class="p">:</span> <span class="s2">&#34;COMMAND&#34;</span>  <span class="err">//组件类别，不同组件打印出的日志带不同的标签，便于日志分类</span>
+    <span class="s2">&#34;namespace&#34;</span><span class="p">:</span> <span class="s2">&#34;animal.MongoUser_58&#34;</span>  <span class="err">//查询的命名空间，即&lt;databse.collection&gt;</span>
+    <span class="s2">&#34;operation&#34;</span><span class="p">:</span> <span class="s2">&#34;find&#34;</span> <span class="err">//操作类别，可能是</span><span class="p">[</span><span class="err">find</span><span class="p">,</span><span class="err">insert</span><span class="p">,</span><span class="err">update</span><span class="p">,</span><span class="err">remove</span><span class="p">,</span><span class="err">getmore</span><span class="p">,</span><span class="err">command</span><span class="p">]</span>
+    <span class="s2">&#34;command&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="err">find:</span> <span class="nt">&#34;MongoUser_58&#34;</span><span class="p">,</span> <span class="err">filter:</span> <span class="err">{</span> <span class="err">$and:</span> <span class="err">[</span> <span class="err">{</span> <span class="err">lld:</span> <span class="err">{</span> <span class="err">$gte:</span> <span class="err">18351</span> <span class="p">}</span> <span class="p">}</span><span class="err">,</span> <span class="p">{</span> <span class="err">fc:</span> <span class="err">{</span> <span class="err">$lt:</span> <span class="err">120</span> <span class="p">}</span> <span class="err">},</span> <span class="p">{</span> <span class="err">_id:</span> <span class="err">{</span> <span class="err">$nin:</span> <span class="err">[1244093274</span> <span class="err">]</span> <span class="p">}</span> <span class="err">},</span> <span class="p">{</span> <span class="err">$or:</span> <span class="err">[</span> <span class="err">{</span> <span class="err">rc:</span> <span class="err">{</span> <span class="err">$exists:</span> <span class="err">false</span> <span class="p">}</span> <span class="err">},</span> <span class="p">{</span> <span class="err">rc:</span> <span class="err">{</span> <span class="err">$lte:</span> <span class="err">1835400100</span> <span class="p">}</span> <span class="err">}</span> <span class="err">]</span> <span class="err">},</span> <span class="p">{</span> <span class="err">lv:</span> <span class="err">{</span> <span class="err">$gte:</span> <span class="err">69</span> <span class="p">}</span> <span class="err">},</span> <span class="p">{</span> <span class="err">lv:</span> <span class="err">{</span> <span class="err">$lte:</span> <span class="err">99</span> <span class="p">}</span> <span class="err">},</span> <span class="p">{</span> <span class="err">cc:</span> <span class="err">{</span> <span class="err">$in:</span> <span class="err">[</span> <span class="err">440512,</span> <span class="err">440513,</span> <span class="err">440514,</span> <span class="err">440500,</span> <span class="err">440515,</span> <span class="err">440511,</span> <span class="err">440523,</span> <span class="err">440507</span> <span class="err">]</span> <span class="p">}</span> <span class="err">}</span> <span class="err">]</span> <span class="err">},</span> <span class="err">limit:</span> <span class="mi">30</span> <span class="err">}</span> <span class="err">//具体的操作命令细节</span>
+    <span class="s2">&#34;planSummary&#34;</span><span class="err">:</span> <span class="s2">&#34;IXSCAN { lv: -1 }&#34;</span><span class="err">,</span> <span class="err">//</span> <span class="err">命令执行计划的简要说明，当前使用了</span> <span class="err">lv</span> <span class="err">这个字段的索引。如果是全表扫描，则是COLLSCAN</span>
+    <span class="s2">&#34;keysExamined&#34;</span><span class="err">:</span> <span class="mi">20856</span><span class="err">,</span> <span class="err">//</span> <span class="err">该项表明为了找出最终结果MongoDB搜索了索引中的多少个key</span>
+    <span class="s2">&#34;docsExamined&#34;</span><span class="err">:</span> <span class="mi">20856</span><span class="err">,</span> <span class="err">//</span> <span class="err">该项表明为了找出最终结果MongoDB搜索了多少个文档</span>
+    <span class="s2">&#34;cursorExhausted&#34;</span><span class="err">:</span> <span class="mi">1</span><span class="err">,</span> <span class="err">//</span> <span class="err">该项表明本次查询中游标耗尽的次数</span>
+    <span class="s2">&#34;keyUpdates&#34;</span><span class="err">:</span><span class="mi">0</span><span class="err">,</span>  <span class="err">//</span> <span class="err">该项表名有多少个index</span> <span class="err">key在该操作中被更改，更改索引键也会有少量的性能消耗，因为数据库不单单要删除旧Key，还要插入新的Key到B-Tree索引中</span>
+    <span class="s2">&#34;writeConflicts&#34;</span><span class="err">:</span><span class="mi">0</span><span class="err">,</span> <span class="err">//</span> <span class="err">写冲突发生的数量，例如update一个正在被别的update操作的文档</span>
+    <span class="s2">&#34;numYields&#34;</span><span class="err">:</span><span class="mi">6801</span><span class="err">,</span> <span class="err">//</span> <span class="err">为了让别的操作完成而屈服的次数，一般发生在需要访问的数据尚未被完全读取到内存中，MongoDB会优先完成在内存中的操作</span>
+    <span class="s2">&#34;nreturned&#34;</span><span class="err">:</span><span class="mi">0</span><span class="err">,</span> <span class="err">//</span> <span class="err">该操作最终返回文档的数量</span>
+    <span class="s2">&#34;reslen&#34;</span><span class="err">:</span><span class="mi">110</span><span class="err">,</span> <span class="err">//</span> <span class="err">结果返回的大小，单位为bytes，该值如果过大，则需考虑limit()等方式减少输出结果</span>
+    <span class="s2">&#34;locks&#34;</span><span class="err">:</span> <span class="p">{</span> <span class="err">//</span> <span class="err">在操作中产生的锁，锁的种类有多种，如下</span>
+        <span class="err">Global:</span> <span class="err">{</span> <span class="err">acquireCount:</span> <span class="err">{</span> <span class="err">r:</span> <span class="err">13604</span> <span class="p">}</span> <span class="err">},</span>   <span class="err">//具体每一种锁请求锁的次数</span>
+        <span class="err">Database:</span> <span class="p">{</span> <span class="err">acquireCount:</span> <span class="err">{</span> <span class="err">r:</span> <span class="err">6802</span> <span class="p">}</span> <span class="err">},</span> 
+        <span class="err">Collection:</span> <span class="p">{</span> <span class="err">acquireCount:</span> <span class="err">{</span> <span class="err">r:</span> <span class="err">6802</span> <span class="p">}</span> <span class="err">}</span> 
+    <span class="err">},</span>
+    <span class="s2">&#34;protocol&#34;</span><span class="err">:</span> <span class="s2">&#34;op_command&#34;</span><span class="err">,</span> <span class="err">//</span>  <span class="err">消息的协议</span>
+    <span class="s2">&#34;millis&#34;</span> <span class="err">:</span> <span class="mi">69132</span><span class="err">,</span> <span class="err">//</span> <span class="err">从</span> <span class="err">MongoDB</span> <span class="err">操作开始到结束耗费的时间，单位为ms</span>
+<span class="err">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>某些字段的一些值：</p>
+<ul>
+<li>severityLevels(严重级别)</li>
+<li>components(组件)
+<ul>
+<li>ACCESS：访问控制相关，比如认证</li>
+<li>COMMAND：数据库命令，CRUD 等</li>
+<li>CONTROL：控制行为，比如初始化等</li>
+<li>FTDC：诊断数据收集机制相关，比如服务器统计信息和状态信息</li>
+<li>GEO：与解析地理空间形状相关</li>
+<li>INDEX：索引操作相关，比如创建索引</li>
+<li>NETWORK：网络相关，比如链接的建立和断开</li>
+<li>QUERY: 查询相关，比如查询计划</li>
+<li>REPL：副本集相关，包括初始化同步、副本集节点心跳、主从同步、回滚等
+<ul>
+<li>ELECTION：副本集选举相关</li>
+<li>INITSYNC：初始化同步相关</li>
+<li>REPL_HB：副本集内节点心跳相关</li>
+<li>ROLLBACK：回滚状态相关</li>
+</ul>
+</li>
+<li>SHARDING：分片行为相关，比如 mongos 的启动</li>
+<li>STORAGE：存储相关</li>
+<li>RECOVERY：恢复状态相关</li>
+<li>JOURNAL：journal相关</li>
+<li>TXN：多文档事务相关</li>
+<li>其他</li>
+</ul>
+</li>
+<li>operation(操作类别)
+<ul>
+<li>find</li>
+<li>insert</li>
+<li>delete</li>
+<li>replace</li>
+<li>update</li>
+<li>drop</li>
+<li>renmae</li>
+<li>dropDatabse</li>
+</ul>
+</li>
+<li>writeConflicts(写冲突次数)：写是要加写锁的，如果写冲突次数很多，比如多个操作同时更新同一个文档，可能会导致该操作耗时较长，主要就消耗在写操作这里。</li>
+<li>planSummary(执行计划)
+<ul>
+<li>COLLSCAN：全表扫描，考虑添加相应的索引或优化查询语句</li>
+<li>IXSCAN：索引扫描，正常情况下一般是它</li>
+<li>IDHACK：使用默认的 <code>_id</code> 索引</li>
+<li>FETCH：根据索引去检索某一个文档</li>
+<li>SHARD_METGE：将各个分片的返回数据进行聚合</li>
+<li>SHARDING_FILTER：通过 mongos 对分片数据进行查询</li>
+</ul>
+</li>
+<li>yield(屈服)：就是让出锁的意思</li>
+<li>locks(锁)
+<ul>
+<li>global(全局维度)</li>
+<li>Database(库维度)</li>
+<li>Collection(集合维度)</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h2 id="cpu使用率高排查">CPU使用率高排查</h2>
+<p>若存在查询语句不够优化（如未设置合理的索引）、并发请求量大、计算任务过重时，可能会使 CPU 满载，从而导致数据读写变慢、超时增加等问题。</p>
+<br/>
+<br/>
+<h3 id="查看正在运行的语句">查看正在运行的语句</h3>
+<p>执行 <code>db.currentOp()</code> 命令查看数据库正在运行的语句。</p>
+<p>在返回结果中，需要重点关注以下字段:</p>
+<ul>
+<li>client：发起请求的客户端。</li>
+<li>opid：当前操作的标识符，可通过 <code>db.killOp(opid)</code> 命令来终止操作。</li>
+<li>secs_running：当前操作的持续时间，单位秒。如果操作持续时间较长，建议您查看请求是否合理。</li>
+<li>microsecs_running：单位毫秒。</li>
+<li>ns：命名空间</li>
+<li>op：当前操作的类型。</li>
+<li>locks：与锁相关的信息。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="查看慢日志">查看慢日志</h3>
+<p>下表列举了慢日志中部分关键字以及导致慢查询的原因，并提供了一些处理建议。</p>
+<table>
+<thead>
+<tr>
+<th>导致慢查询出现的原因</th>
+<th>关键字<img width=250/></th>
+<th>处理建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>执行了全表扫描</td>
+<td><code>COLLSCAN</code> <br/> <code>docsExamined</code></td>
+<td>如果慢日志中的请求出现了 <code>COLLSCAN</code> 关键字，表示这些请求执行了全表扫描，全表扫描会非常占用大量 CPU 资源。如果这些请求比较频繁，您可以对查询的字段建立索引来优化。 <br/> 您可以通过 <code>docsExamined</code> 字段值，帮助确认当前查询请求扫描了多少文档，该值越大，表示当前请求所占用的 CPU 越多。</td>
+</tr>
+<tr>
+<td>索引使用不合理</td>
+<td><code>IXSCAN</code> <br> <code>keysExamined</code></td>
+<td>如果慢日志中出现了<code>IXSCAN</code> 关键字，表示该请求使用了索引。 <br> 您可以进一步查看 <code>keysExamined</code> 字段值，帮助确认当前请求扫描了多少条索引。该值越大，表示 CPU 占用越多。 <br/> 索引建立的是否合理，对查询的请求开销和执行速度影响很大。索引不是越多越好，索引过多会影响写入、更新的性能。如果您的应用偏向于写操作，索引可能会影响性能。建议您根据业务特点建立合理的索引。</td>
+</tr>
+<tr>
+<td>存在大量数据数据排序</td>
+<td><code>SORT</code> <br> <code>hasSortStage</code></td>
+<td>如果在慢日志中出现了<code>SORT</code> 关键字，您可以考虑通过索引来优化排序。<br/> 当查询请求中的 <code>hasSortStage</code> 字段为 <code>true</code> 时，表示当前请求中存在排序。 <br> 如果排序无法通过索引满足，MongoDB 会在查询结果中进行排序，而排序操作会消耗大量 CPU 资源，这种情况下，您可以对需要经常排序的字段建立索引，来优化查询，减少 CPU 资源的占用。</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h3 id="分析执行计划">分析执行计划</h3>
+<p>MongoDB 提供了 <code>explain()</code> 命令来查看指定查询的查询计划统计信息，例如所用的索引、查询语句能否被索引覆盖、所扫描的索引项数量、所读取的文档数量、所返回的文档数量、执行查询所需的时间等信息。</p>
+<p>您可以通过查询计划中的上述信息帮助建立合适的索引，来优化查询从而减少 CPU 资源消耗。</p>
+<br/>
+<br/>
+<h3 id="使用与业务负载相匹配的实例配置">使用与业务负载相匹配的实例配置</h3>
+<p>根据数据库正在运行的语句、慢请求以及执行计划的分析结果，对数据库请求使用了合理索引后， 如果 CPU 使用率高的问题仍然存在，那么您还需要评估 MongoDB 实例的当前配置是否能够满足业务需求。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="mtools工具">mtools工具</h1>
+<p>参考:</p>
+<ul>
+<li><a href="https://github.com/rueckstiess/mtools" target="_blank" rel="noopener noreffer ">mtools</a></li>
+<li><a href="https://rueckstiess.github.io/mtools/" target="_blank" rel="noopener noreffer ">mtools docs</a></li>
+</ul>
+<br/>
+<p>mtools 是一个辅助脚本的工具集，用于解析、过滤和可视化 MongoDB 日志文件，也可以在本地机器上快速地建立 MongoDB 测试环境，以及在 MongoDB 实例之间传输数据库的工具。</p>
+<p>mtools 工具集包含以下工具：</p>
+<ul>
+<li>mlogfilter：按时间切分日志文件，合并日志文件，过滤慢查询，查找全表扫描，缩短日志行，按其他属性过滤，转换为 JSON 格式。</li>
+<li>mloginfo：返回有关日志文件的信息，如开始和结束时间、版本、二进制，特殊部分如重启、连接、试图等。</li>
+<li>mplotqueries：可视化日志文件。</li>
+<li>mlaunch：用于快速启动本地测试环境，包括复制集和分片。</li>
+<li>mtransfer：一个实验性的脚本，通过复制 WiredTiger 数据文件在 MongoDB 实例之间转移数据库。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="安装mtools">安装mtools</h2>
+<p>mtools 工具集使用 Python 编写，它只对 MongoDB 服务器的有效版本进行测试。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">pip3 install mtools
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="mlaunch工具">mlaunch工具</h2>
+<p>mlaunch 工具在本地快速启动和监控 MongoDB 环境。它支持单节点、副本集和分片集群的各种配置。</p>
+<br/>
+<br/>
+<h2 id="mlogfilter工具">mlogfilter工具</h2>
+<p>mlogfilter 是一个用于减少 MongoDB 日志文件的信息量的脚本，它将 MongoDB 日志文件作为输入，加上一些过滤参数，解析包含的日志行，并根据过滤参数输出匹配的行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 用法</span>
+mlogfilter mongod.log
+
+<span class="c1"># 或通过 pipe</span>
+tail -f mongod.log <span class="p">|</span> mlogfilter <span class="o">[</span>parameters<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一些有用的参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 把长行缩短为指定字符，默认为200</span>
+--shorten <span class="o">[</span>LENGTH<span class="o">]</span>
+
+<span class="c1"># 人类可读</span>
+--human
+
+<span class="c1"># 排除所有匹配过滤器的行</span>
+--exclude
+
+<span class="c1"># json 格式输出，可与 mongoimport 命令结合使用，将日志文件存储到 MongoDB 数据库中。</span>
+--json
+<span class="c1"># mlogfilter mongod.log --slow --json | mongoimport -d test -c mycoll</span>
+
+<span class="c1"># 时间戳格式 iso8601-utc, iso8601-local</span>
+--timestamp-format FORMAT
+
+<span class="c1"># 指定命名空间, &lt;database&gt;.&lt;collection&gt;</span>
+--namespace admin.<span class="se">\$</span>cmd
+
+<span class="c1"># 指定操作, query, insert, update, delete, command, getmore</span>
+--operation OP
+
+<span class="c1"># 按线程名称过滤</span>
+--thread conn1234
+
+<span class="c1"># 按模式过滤</span>
+--pattern <span class="s1">&#39;{&#34;_id&#34;: 1, &#34;host&#34;: 1, &#34;ns&#34;: 1}&#39;</span>
+
+<span class="c1"># 按大于/小于 执行时间过滤</span>
+--slow MS
+--fast MS
+
+<span class="c1"># 按未使用索引的全表扫描过滤</span>
+--scan
+
+<span class="c1"># 按关键字过滤</span>
+--word assert warning error
+
+<span class="c1"># 按时间片过滤</span>
+--from FROM <span class="o">[</span>FROM ...<span class="o">]</span>, --to TO <span class="o">[</span>TO ...<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="mongoinfo工具">mongoinfo工具</h2>
+<p>mongoinfo 报告日志文件的默认信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 用法</span>
+mloginfo mongod.log
+
+     source: mongod.log
+       host: enter.local:27019
+      start: <span class="m">2017</span> Dec <span class="m">14</span> 05:56:48.578
+        end: <span class="m">2017</span> Dec <span class="m">14</span> 05:57:55.965
+date format: iso8601-local
+     length: <span class="m">190</span>
+     binary: mongod
+    version: 3.4.9
+    storage: wiredTiger
+</code></pre></td></tr></table>
+</div>
+</div><p>一些有用的参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 收集每个查询模式的统计信息</span>
+--queries
+<span class="c1"># 根据查询排序</span>
+<span class="c1"># 有效的排序项: ns, pattern, count, min, max, mean, 95% and sum.</span>
+--queries --sort count
+
+<span class="c1"># 查看重启信息</span>
+--restarts
+
+<span class="c1"># 根据消息类型将所有行分组</span>
+--distinct
+
+<span class="c1"># 打开和关闭的连接数信息</span>
+--connections
+
+<span class="c1"># 副本集状态变化信息</span>
+--rsstate
+
+<span class="c1"># 事务信息</span>
+--transactions
+
+<span class="c1"># 游标信息</span>
+--cursors
+
+<span class="c1"># 有关慢事务的存储信息</span>
+--storagestats
+
+<span class="c1"># 分片信息</span>
+--sharding
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="mplotqueries工具">mplotqueries工具</h2>
+<p>mplotqueries 是一个可视化 MongoDB 日志文件的工具。</p>
+<br/>
+<br/>
+<h2 id="mtransfer工具">mtransfer工具</h2>
+<p>mtransfer 工具允许 WiredTiger 数据库从一个 MongoDB 实例导出并导入到另一个实例中。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -3767,19 +4435,19 @@ sysctl -w vm.zone_reclaim_mode<span class="o">=</span><span class="m">0</span>
                             <a class="link-to-markdown" href="/mongodb-definitive-guide/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南" data-hashtags="database,mongodb,nosql"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/mongodb-definitive-guide/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南" data-hashtags="Database,NoSQL,MongoDB"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/mongodb-definitive-guide/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/mongodb-definitive-guide/" data-title="MongoDB权威指南"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/database/">database</a>,&nbsp;<a href="/tags/mongodb/">mongodb</a>,&nbsp;<a href="/tags/nosql/">nosql</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/database/">database</a>,&nbsp;<a href="/tags/nosql/">NoSQL</a>,&nbsp;<a href="/tags/mongodb/">MongoDB</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/kafka/" class="prev" rel="prev" title="kafka"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>kafka</a>
+    <div class="post-nav"><a href="/kafka/" class="prev" rel="prev" title="Kafka"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Kafka</a>
             <a href="/terraform/" class="next" rel="next" title="Terraform">Terraform<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>

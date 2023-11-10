@@ -1,7 +1,6 @@
 # JavaScript
 
 
-
 参考:
 
 - wiki: <https://zh.wikipedia.org/zh-cn/JavaScript>
@@ -14,18 +13,6 @@
 
 - ELRH7x86_64
 
-
-
-
-
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
@@ -33,29 +20,6 @@
 <!--more-->
 
 <br/>
-<br/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

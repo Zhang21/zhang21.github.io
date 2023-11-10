@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>React - 标签 - 风继续吹</title>
+        <title>react - 标签 - 风继续吹</title>
         <link>https://zhang21.cn/tags/react/</link>
-        <description>React - 标签 - 风继续吹</description>
+        <description>react - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
             <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/react/" rel="self" type="application/rss+xml" /><item>
     <title>React</title>
@@ -20,7 +20,8 @@
 <ul>
 <li>React: v17.0</li>
 </ul>
-<br>]]></description>
+<br>
+<hr>]]></description>
 </item>
 </channel>
 </rss>

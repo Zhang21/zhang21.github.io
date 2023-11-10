@@ -1,0 +1,3728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Redis使用手册 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Redis使用手册" />
+<meta property="og:description" content="参考：
+
+Redis 使用手册
+Redis 官方文档
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/redis-guide/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-04T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-10-04T00:00:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Redis使用手册"/>
+<meta name="twitter:description" content="参考：
+
+Redis 使用手册
+Redis 官方文档
+
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/redis-guide/" /><link rel="prev" href="https://zhang21.cn/computer-science/" /><link rel="next" href="https://zhang21.cn/lua/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Redis使用手册",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/redis-guide\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "Database, NoSQL, Redis","wordcount":  28215 ,
+        "url": "https:\/\/zhang21.cn\/redis-guide\/","datePublished": "2023-10-04T00:00:00+00:00","dateModified": "2023-10-04T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Redis使用手册</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>database</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-04">2023-10-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 28215 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 57 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#执行命令">执行命令</a></li>
+        <li><a href="#配置服务器">配置服务器</a></li>
+      </ul>
+    </li>
+    <li><a href="#字符串">字符串</a></li>
+    <li><a href="#散列">散列</a></li>
+    <li><a href="#集合">集合</a></li>
+    <li><a href="#有序集合">有序集合</a></li>
+    <li><a href="#hyperloglog">HyperLogLog</a></li>
+    <li><a href="#位图">位图</a></li>
+    <li><a href="#地理坐标">地理坐标</a></li>
+    <li><a href="#流">流</a></li>
+    <li><a href="#数据库">数据库</a>
+      <ul>
+        <li><a href="#切换到指定的数据库">切换到指定的数据库</a></li>
+        <li><a href="#获取所有与给定匹配符相匹配的键">获取所有与给定匹配符相匹配的键</a></li>
+        <li><a href="#以渐进方式迭代数据库中的键">以渐进方式迭代数据库中的键</a>
+          <ul>
+            <li><a href="#以此简单的迭代示例">以此简单的迭代示例</a></li>
+            <li><a href="#迭代命令的迭代保证">迭代命令的迭代保证</a></li>
+            <li><a href="#游标的使用">游标的使用</a></li>
+            <li><a href="#迭代与给定匹配符相匹配的键">迭代与给定匹配符相匹配的键</a></li>
+            <li><a href="#指定返回键的期望数量">指定返回键的期望数量</a></li>
+            <li><a href="#数据结构迭代命令">数据结构迭代命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#随机返回一个键">随机返回一个键</a></li>
+        <li><a href="#对键的值进行排序">对键的值进行排序</a></li>
+        <li><a href="#检查给定键是否存在">检查给定键是否存在</a></li>
+        <li><a href="#获取数据库包含的键值对数量">获取数据库包含的键值对数量</a></li>
+        <li><a href="#查看键的类型">查看键的类型</a></li>
+        <li><a href="#修改键名">修改键名</a></li>
+        <li><a href="#将一个键移动到另一个库">将一个键移动到另一个库</a></li>
+        <li><a href="#移除指定的键">移除指定的键</a></li>
+        <li><a href="#以异步的方式移除指定的键">以异步的方式移除指定的键</a></li>
+        <li><a href="#清空当前数据库">清空当前数据库</a></li>
+        <li><a href="#清空所有数据库">清空所有数据库</a></li>
+        <li><a href="#互换数据库">互换数据库</a></li>
+      </ul>
+    </li>
+    <li><a href="#自动过期">自动过期</a>
+      <ul>
+        <li><a href="#设置和更新键的生存时间">设置和更新键的生存时间</a></li>
+        <li><a href="#set命令的ex选项和px选项">SET命令的EX选项和PX选项</a></li>
+        <li><a href="#设置键的过期时间">设置键的过期时间</a></li>
+        <li><a href="#获取键的剩余生存时间">获取键的剩余生存时间</a></li>
+      </ul>
+    </li>
+    <li><a href="#流水线和事务">流水线和事务</a>
+      <ul>
+        <li><a href="#流水线">流水线</a></li>
+        <li><a href="#事务">事务</a>
+          <ul>
+            <li><a href="#开启事务">开启事务</a></li>
+            <li><a href="#执行事务">执行事务</a></li>
+            <li><a href="#放弃事务">放弃事务</a></li>
+            <li><a href="#事务的安全性">事务的安全性</a></li>
+            <li><a href="#事务对服务器的影响">事务对服务器的影响</a></li>
+            <li><a href="#流水线和事务的组合">流水线和事务的组合</a></li>
+          </ul>
+        </li>
+        <li><a href="#带有乐观锁的事务">带有乐观锁的事务</a>
+          <ul>
+            <li><a href="#对键进行监视">对键进行监视</a></li>
+            <li><a href="#取消对键的监视">取消对键的监视</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#lua脚本">Lua脚本</a>
+      <ul>
+        <li><a href="#执行lua脚本">执行Lua脚本</a></li>
+      </ul>
+    </li>
+    <li><a href="#持久化">持久化</a>
+      <ul>
+        <li><a href="#rdb持久化">RDB持久化</a>
+          <ul>
+            <li><a href="#阻塞服务器并创建rdb文件">阻塞服务器并创建RDB文件</a></li>
+            <li><a href="#非阻塞方式创建rdb文件">非阻塞方式创建RDB文件</a></li>
+            <li><a href="#通过配置项自动创建rdb文件">通过配置项自动创建RDB文件</a></li>
+            <li><a href="#rdb文件结构">RDB文件结构</a></li>
+            <li><a href="#载入rdb文件">载入RDB文件</a></li>
+            <li><a href="#数据丢失">数据丢失</a></li>
+          </ul>
+        </li>
+        <li><a href="#aof持久化">AOF持久化</a>
+          <ul>
+            <li><a href="#启用aof持久化功能">启用AOF持久化功能</a></li>
+            <li><a href="#设置aof文件的冲洗频率">设置AOF文件的冲洗频率</a></li>
+            <li><a href="#aof重写">AOF重写</a></li>
+            <li><a href="#aof持久化的优缺点">AOF持久化的优缺点</a></li>
+          </ul>
+        </li>
+        <li><a href="#rdb-aof混合持久化">RDB-AOF混合持久化</a></li>
+        <li><a href="#同时使用rdb持久化和aof持久化">同时使用RDB持久化和AOF持久化</a></li>
+        <li><a href="#无持久化">无持久化</a></li>
+        <li><a href="#关闭redis服务器">关闭Redis服务器</a></li>
+      </ul>
+    </li>
+    <li><a href="#发布与订阅">发布与订阅</a>
+      <ul>
+        <li><a href="#向频道发送消息">向频道发送消息</a></li>
+        <li><a href="#订阅频道">订阅频道</a></li>
+        <li><a href="#退订频道">退订频道</a></li>
+        <li><a href="#订阅模式">订阅模式</a></li>
+        <li><a href="#退订模式">退订模式</a></li>
+        <li><a href="#查看发布与订阅的相关信息">查看发布与订阅的相关信息</a></li>
+      </ul>
+    </li>
+    <li><a href="#模块">模块</a>
+      <ul>
+        <li><a href="#模块的管理">模块的管理</a>
+          <ul>
+            <li><a href="#编译模块">编译模块</a></li>
+            <li><a href="#载入模块">载入模块</a></li>
+            <li><a href="#列出已载入的模块">列出已载入的模块</a></li>
+            <li><a href="#卸载模块">卸载模块</a></li>
+          </ul>
+        </li>
+        <li><a href="#rejson模块介绍">ReJSON模块介绍</a></li>
+      </ul>
+    </li>
+    <li><a href="#架构模式">架构模式</a>
+      <ul>
+        <li><a href="#架构模式和架构图">架构模式和架构图</a></li>
+        <li><a href="#安装和部署">安装和部署</a></li>
+      </ul>
+    </li>
+    <li><a href="#主从复制">主从复制</a>
+      <ul>
+        <li><a href="#复制简介">复制简介</a></li>
+        <li><a href="#将服务器设置为从服务器">将服务器设置为从服务器</a>
+          <ul>
+            <li><a href="#通过配置项设置从服务器">通过配置项设置从服务器</a></li>
+            <li><a href="#取消复制">取消复制</a></li>
+            <li><a href="#复制的其它信息">复制的其它信息</a></li>
+          </ul>
+        </li>
+        <li><a href="#查看服务器的角色">查看服务器的角色</a></li>
+        <li><a href="#数据同步">数据同步</a>
+          <ul>
+            <li><a href="#完整同步">完整同步</a></li>
+            <li><a href="#在线更新">在线更新</a></li>
+            <li><a href="#部分同步">部分同步</a></li>
+          </ul>
+        </li>
+        <li><a href="#无须硬盘的复制">无须硬盘的复制</a></li>
+        <li><a href="#降低数据不一致情况出现的概率">降低数据不一致情况出现的概率</a></li>
+        <li><a href="#可写的从服务器">可写的从服务器</a>
+          <ul>
+            <li><a href="#使用从服务器处理复杂计算操作">使用从服务器处理复杂计算操作</a></li>
+          </ul>
+        </li>
+        <li><a href="#脚本复制">脚本复制</a>
+          <ul>
+            <li><a href="#脚本传播模式">脚本传播模式</a></li>
+            <li><a href="#命令传播模式">命令传播模式</a></li>
+            <li><a href="#选择性命令传播">选择性命令传播</a></li>
+            <li><a href="#模式的选择">模式的选择</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#哨兵模式">哨兵模式</a>
+      <ul>
+        <li><a href="#启动哨兵">启动哨兵</a>
+          <ul>
+            <li><a href="#可以同时监视多个主">可以同时监视多个主</a></li>
+            <li><a href="#处理重新上线的旧的主">处理重新上线的旧的主</a></li>
+            <li><a href="#设置从服务器的优先级">设置从服务器的优先级</a></li>
+            <li><a href="#新主服务器的挑选规则">新主服务器的挑选规则</a></li>
+          </ul>
+        </li>
+        <li><a href="#哨兵网络">哨兵网络</a>
+          <ul>
+            <li><a href="#组建哨兵网络">组建哨兵网络</a></li>
+          </ul>
+        </li>
+        <li><a href="#哨兵管理命令">哨兵管理命令</a>
+          <ul>
+            <li><a href="#获取所有被监视的主服务器的信息">获取所有被监视的主服务器的信息</a></li>
+            <li><a href="#获取指定被监视主服务器的信息">获取指定被监视主服务器的信息</a></li>
+            <li><a href="#获取被监视主服务器的从服务器的信息">获取被监视主服务器的从服务器的信息</a></li>
+            <li><a href="#获取其他哨兵的信息">获取其他哨兵的信息</a></li>
+            <li><a href="#获取给定主的-ip-和端口">获取给定主的 IP 和端口</a></li>
+            <li><a href="#重置主服务器的状态">重置主服务器的状态</a></li>
+            <li><a href="#强制执行故障转移">强制执行故障转移</a></li>
+            <li><a href="#检查可用哨兵的数量">检查可用哨兵的数量</a></li>
+            <li><a href="#强制写入配置文件">强制写入配置文件</a></li>
+          </ul>
+        </li>
+        <li><a href="#在线配置哨兵">在线配置哨兵</a>
+          <ul>
+            <li><a href="#监视给定主服务器">监视给定主服务器</a></li>
+            <li><a href="#取消对给定主服务器的监视">取消对给定主服务器的监视</a></li>
+            <li><a href="#修改哨兵配置项的值">修改哨兵配置项的值</a></li>
+            <li><a href="#使用在线配置命令的注意事项">使用在线配置命令的注意事项</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用redis-py管理哨兵">使用redis-py管理哨兵</a></li>
+      </ul>
+    </li>
+    <li><a href="#集群">集群</a>
+      <ul>
+        <li><a href="#基本特性">基本特性</a>
+          <ul>
+            <li><a href="#分片与重分片">分片与重分片</a></li>
+            <li><a href="#高性能">高性能</a></li>
+          </ul>
+        </li>
+        <li><a href="#搭建集群">搭建集群</a>
+          <ul>
+            <li><a href="#快速搭建集群">快速搭建集群</a></li>
+            <li><a href="#手动搭建集群">手动搭建集群</a></li>
+          </ul>
+        </li>
+        <li><a href="#散列标签">散列标签</a></li>
+        <li><a href="#从节点的读命令执行权限">从节点的读命令执行权限</a></li>
+        <li><a href="#集群管理工具">集群管理工具</a>
+          <ul>
+            <li><a href="#redis-cli客户端工具">redis-cli客户端工具</a></li>
+            <li><a href="#集群管理命令">集群管理命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#槽管理命令">槽管理命令</a>
+          <ul>
+            <li><a href="#查看槽与节点之间的关联信息">查看槽与节点之间的关联信息</a></li>
+            <li><a href="#把槽指派给节点">把槽指派给节点</a></li>
+            <li><a href="#撤销对节点的槽指派">撤销对节点的槽指派</a></li>
+            <li><a href="#撤销对节点的所有槽的指派">撤销对节点的所有槽的指派</a></li>
+            <li><a href="#查看键所属的槽">查看键所属的槽</a></li>
+            <li><a href="#查看槽包含的键数量">查看槽包含的键数量</a></li>
+            <li><a href="#获取槽包含的键">获取槽包含的键</a></li>
+            <li><a href="#改变槽的状态">改变槽的状态</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#安装方法">安装方法</a>
+      <ul>
+        <li><a href="#在linux上安装">在Linux上安装</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/34836750/" target="_blank" rel="noopener noreffer ">Redis 使用手册</a></li>
+<li><a href="https://redis.io/docs/" target="_blank" rel="noopener noreffer ">Redis 官方文档</a></li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="前言">前言</h1>
+<p>关于 Redis 的基本信息，比如它提供了什么功能，它能做什么，它的有点是什么，有哪些公司使用它等等。</p>
+<br/>
+<br/>
+<h2 id="简介">简介</h2>
+<p>Redis 是一个开源的内存数据数据结构存储器，经常用作数据库、缓存以及消息代理等。</p>
+<p>Redis 的几个特点：</p>
+<ul>
+<li>结构丰富：字符串、散列、列表、集合、有序集合、位图、流、地理坐标等一系列丰富的数据结构。用户还可以通过事务、Lua 脚本、模块等特性，扩展已有数据结构的功能。</li>
+<li>功能完备：自动过期、流水线、事务、数据持久化等。单机和多机使用。</li>
+<li>速度飞快：它将所有数据存储在内存中。</li>
+<li>用户友好：Redis API 遵循 UNIX 一次只做一件事，并把它做好的设计哲学。</li>
+<li>支持广泛</li>
+</ul>
+<br/>
+<br/>
+<h2 id="执行命令">执行命令</h2>
+<p>Redis 为每种数据结构和功能特性都提供了相应的命令，掌握如何使用这些命令很重要。</p>
+<p>Redis 的 <code>PING</code> 命令用于测试客户端和服务器之间的连接是否正常。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">redis-cli PING
+PONG
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="配置服务器">配置服务器</h2>
+<p>两种方式：</p>
+<ul>
+<li>通过命令行和参数来启动</li>
+<li>通过配置文件来启动</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="字符串">字符串</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="散列">散列</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="集合">集合</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="有序集合">有序集合</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="hyperloglog">HyperLogLog</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="位图">位图</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="地理坐标">地理坐标</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="流">流</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="数据库">数据库</h1>
+<p>Redis 为数据库提供了非常丰富的操作命令，通过这些命令，用户可以：</p>
+<ul>
+<li>指定自己想要使用的数据库。</li>
+<li>一次性获取数据库包含的所有键，迭代地获取数据库包含的所有键，或随机地获取数据库中的某个键。</li>
+<li>根据给定键的值进行排序。</li>
+<li>检查给定的一个或多个键，看它们是否存在于数据库当中。</li>
+<li>查看给定键的类型。</li>
+<li>对给定键进行重命名。</li>
+<li>移除指定的键，或将它从一个数据库移动到另一个数据库。</li>
+<li>清空数据库所包含的所有键。</li>
+<li>交换给定的两个数据库。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="切换到指定的数据库">切换到指定的数据库</h2>
+<p>默认清空下，Redis 在启动时会创建 16（0-15） 个数据库。在不同的库中使用相同的键是可以的。</p>
+<p>当用户使用客户端与 Redis 服务器进行连接时，一般默认都会使用 0 号数据库。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 切换库
+# 复杂度 O(1)
+SELECT &lt;db&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="获取所有与给定匹配符相匹配的键">获取所有与给定匹配符相匹配的键</h2>
+<p><code>KEYS</code> 命令接受一个全局匹配符作为参数，返回当前库中所有相匹配的键。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 获取所有键，不建议这么用
+# 当键数量比较大时，可能会导致服务器被阻塞
+KEYS *
+
+# 获取特定前缀的键
+KEYS test*
+KEYS user::*
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><code>KEYS</code> 命令允许使用多种不同的全局匹配符作为 pattern 参数，下表是一些常见的全局匹配符。</p>
+<p>复杂度 <code>O(N)</code>，N 为库包含的键数量。</p>
+<table>
+<thead>
+<tr>
+<th>匹配符</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>匹配零个或多个任意字符</td>
+<td><code>user::*</code> 匹配前缀 <br> <code>*z</code>匹配后缀 <br> <code>*x:x*</code> 匹配中间</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>匹配任意的单个字符</td>
+<td><code>user::i?</code> 匹配 user::id</td>
+</tr>
+<tr>
+<td><code>[]</code></td>
+<td>匹配给定字符串中的单个字符</td>
+<td><code>user::i[abc]</code> 匹配 user::ia</td>
+</tr>
+<tr>
+<td><code>[开始-结束]</code></td>
+<td>匹配给定范围的单个字符</td>
+<td><code>user::i[a-d]</code> 匹配 user::id</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h2 id="以渐进方式迭代数据库中的键">以渐进方式迭代数据库中的键</h2>
+<p>因为 <code>KEYS</code> 命令需要检查库所包含的所有键，并一次性将符合条件的所有键全部返回给客户端。所以当库包含的键的数量比较大时，可能会导致服务器被阻塞。</p>
+<p>为了解决这个问题，Redis 从 2.8.0 版本开始提供了 <code>SCAN</code> 命令，该命令是一个迭代器，它每次调用的时候都会从库中获取一部分键，用户可以通过重复调用此命令来迭代库包含的所有键。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SCAN &lt;cursor&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>结果由两个元素组成：</p>
+<ul>
+<li>第一个元素是进行下一次迭代所需的游标。如果为 0，说明客户端已经对库完成了以此完整的迭代。</li>
+<li>第二个元素是一个列表，包含了本次迭代取得的库的键。如果没有获取到任何键，则是一个空列表。
+<ul>
+<li>可能会返回重复的键。去重需要自己在客户端中进行检测和过滤。</li>
+<li>返回的键的数量是不确定的，有时甚至会不返回任何键，但只要返回的游标不为 0，迭代就没有结束。</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h3 id="以此简单的迭代示例">以此简单的迭代示例</h3>
+<p>以 0 作为游标的示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 这个调用告知我们下次迭代应该使用 25 作为游标，并返回了11 个键的键名。
+redis&gt; SCAN 0
+1) &#34;25&#34; -- 进行下次迭代的游标
+2) 1) &#34;key::16&#34; -- 本次迭代获取到的键
+   2) &#34;key::2&#34;
+   3) &#34;key::6&#34;
+   4) &#34;key::8&#34;
+   5) &#34;key::13&#34;
+   6) &#34;key::22&#34;
+   7) &#34;key::10&#34;
+   8) &#34;key::24&#34;
+   9) &#34;key::23&#34;
+   10) &#34;key::21&#34;
+   11) &#34;key::5&#34;
+
+redis&gt; SCAN 25
+1) &#34;31&#34;
+2) 1) &#34;key::20&#34;
+   2) &#34;key::18&#34;
+   3) &#34;key::19&#34;
+   4) &#34;key::7&#34;
+   5) &#34;key::1&#34;
+   6) &#34;key::9&#34;
+   7) &#34;key::12&#34;
+   8) &#34;key::11&#34;
+   9) &#34;key::17&#34;
+   10) &#34;key::15&#34;
+   11) &#34;key::14&#34;
+   12) &#34;key::3&#34;
+
+redis&gt; SCAN 31
+1) &#34;0&#34;
+2) 1) &#34;key::0&#34;
+   2) &#34;key::4&#34;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="迭代命令的迭代保证">迭代命令的迭代保证</h3>
+<p>针对数据库的一次完整迭代以用户给定游标 0 调用 <code>SCAN</code> 命令开始，直到返回游标 0 结束。迭代命令提供了以下保证：</p>
+<ul>
+<li>从迭代开始到结束，一直存在于库中的键总会被返回。</li>
+<li>如果一个键在迭代的过程中被添加到库中，那么这个键是否会被返回是不确定的。</li>
+<li>如果一个键在迭代的过程中被移除了，那么此命令在它被移除之后将不再返回这个键，但这个键在被移除之前仍有可能被此命令返回。</li>
+<li>无论库如何变化，迭代总是有始有终的，不会出现循环迭代或其他无法终止的情况。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="游标的使用">游标的使用</h3>
+<p>在很多数据库中，使用游标都要显式地申请，并在迭代完成之后释放游标，否则就会造成内存泄漏。</p>
+<p>于此相反，<code>SCAN</code> 命令的游标不需要申请，也不需要释放，它们不占用任何资源，每个客户端都可以使用自己的游标独立地对库进行迭代。</p>
+<p>此外，用户可以随时在迭代的过程中停止迭代，或随时开始一次新的迭代，这不会浪费任何资源，也不会引发任何问题。</p>
+<br/>
+<br/>
+<h3 id="迭代与给定匹配符相匹配的键">迭代与给定匹配符相匹配的键</h3>
+<p>默认情况下，<code>SCAN</code> 命令会返回所有键（也就是 <code>KEYS *</code> 命令调用的一个迭代版本）。但是通过 <code>MATCH</code> 选项可以指定匹配的键。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SCAN &lt;cursor&gt; [MATCH pattern]
+
+redis&gt; SCAN 0 MATCH user::*
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="指定返回键的期望数量">指定返回键的期望数量</h3>
+<p>一般情况下，<code>SCAN</code> 命令返回的键数量是不确定的，但可以通过 <code>COUNT</code> 选项提供一个期望值，以此来说明希望得到多少键。</p>
+<p>需要注意，期望的键数量并不意味着精确的键数量。</p>
+<p>在用户没有显式地指定 <code>COUNT</code> 的情况下，<code>SCAN</code> 命令将使用 10 作为默认值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SCAN &lt;cursor&gt; [COUNT number]
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="数据结构迭代命令">数据结构迭代命令</h3>
+<p>与获取数据库键的 <code>KEYS</code> 命令一样，Redis 的各个数据结构也存在一些可能导致服务器阻塞的命令：</p>
+<ul>
+<li>散列的 <code>HKEYS</code>, <code>HVALS</code> 和 <code>HGETALL</code> 命令在处理包含键值对较多的散列时，可能会导致服务器阻塞。</li>
+<li>集合的 <code>SMEMBERS</code> 命令在处理包含元素较多的集合时，可能会导致服务器阻塞。</li>
+<li>有序集合的一些范围型获取命令（如 <code>ZRANGE</code>），也有阻塞服务器的可能。</li>
+</ul>
+<p>为了解决上述情况，Redis 为散列、集合和有序集合也提供了与 <code>SCAN</code> 命令类似的游标迭代命令。分别是：<code>HSCAN</code>、<code>SSCAN</code> 和 <code>ZSCAN</code> 命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 散列迭代命令
+# 当散列包含较多键值对的时候，应该尽量使用HSCAN代替HKEYS、HVALS和HGETALL，以免造成服务器阻塞。
+HSCAN &lt;hash&gt; &lt;cursor&gt; [MATCH] [COUNT]
+
+# 渐进式集合迭代命令
+# 当集合包含较多元素的时候，我们应该尽量使用SSCAN代替 SMEMBERS，以免造成服务器阻塞。
+SSCAN set cursor [MATCH pattern] [COUNT number]
+
+# 渐进式有序集合迭代命令
+# 当有序集合包含较多成员的时候，我们应该尽量使用ZSCAN去代替 ZRANGE以及其他可能会返回大量成员的范围型获取命令，以免造成服务器阻塞。
+ZSCAN sorted_set cursor [MATCH pattern] [COUNT number]
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="随机返回一个键">随机返回一个键</h2>
+<p><code>RANDOMKEY</code> 命令从数据库中随机返回一个键，当库为空时，将返回空值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+RANDOMKEY
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="对键的值进行排序">对键的值进行排序</h2>
+<p>通过执行 <code>SORT</code> 命令对列表元素、集合元素或有序集合成员进行排序。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 对指定键存储的元素执行数字值排序
+SORT &lt;key&gt;
+
+# 指定排序方式，默认升序
+[ASC|DESC]
+SORT lucky-numbers DESC
+
+# 字符串值排序，默认是数字排序
+[ALPHA]
+SORT fruits ALPHA
+
+# 只获取部分排序结果，offset 从 0 开始计算。
+[LIMIT offset count]
+SORT fruits ALPHA LIMIT 2 1
+
+# 获取外部键的值作为结果
+SORT key [[GET pattern] [GET pattern] ...]
+SORT fruits ALPHA GET *-price
+SORT fruits ALPHA GET *-info-&gt;inventory
+
+# 使用外部键的值作为排序权重
+SORT key [BY pattern]
+SORT fruits BY *-price
+
+# 保存排序结果
+SORT key [STORE destination]
+SORT fruits ALPHA STORE sorted-fruits
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="检查给定键是否存在">检查给定键是否存在</h2>
+<p>使用 <code>EXISTS</code> 命令，检查一个或多个键是否存在于当前库中。从 3.0.3 版本开始支持多个键，之前版本只支持单个键。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">EXISTS key [key ...]
+EXISTS k1 key2
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="获取数据库包含的键值对数量">获取数据库包含的键值对数量</h2>
+<p>使用 <code>DBSIZE</code> 命令获取当前库包含了多少个键值对。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(1)
+DBSIZE
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="查看键的类型">查看键的类型</h2>
+<p><code>TYPE</code> 命令允许查看给定键的类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+TYPE key
+</code></pre></td></tr></table>
+</div>
+</div><p>不同类型的键的返回结果</p>
+<table>
+<thead>
+<tr>
+<th>键类型</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符串值</td>
+<td>string</td>
+</tr>
+<tr>
+<td>散列键</td>
+<td>hash</td>
+</tr>
+<tr>
+<td>列表键</td>
+<td>list</td>
+</tr>
+<tr>
+<td>集合键</td>
+<td>set</td>
+</tr>
+<tr>
+<td>有序集合键</td>
+<td>zset</td>
+</tr>
+<tr>
+<td>HyperLogLog</td>
+<td>string</td>
+</tr>
+<tr>
+<td>位图</td>
+<td>string</td>
+</tr>
+<tr>
+<td>地理位置</td>
+<td>zset</td>
+</tr>
+<tr>
+<td>流</td>
+<td>stream</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h2 id="修改键名">修改键名</h2>
+<p>使用命令修改键的名称。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+
+# RENAME 会移除存在的新名称的键
+RENAME origin new
+
+# 只在新键名尚未被占用的情况下进行改名
+RENAMENX origin new
+</code></pre></td></tr></table>
+</div>
+</div><p>如果指定的新键名已经被占用，那么 <code>RENAME</code> 命令会先移除占用了新键名的那个键，然后再执行改名操作。</p>
+<p>但 <code>RENAMENX</code> 命令只会在新键名尚未被占用的情况下进行改名，如果用户指定的新键名已经被占用，那么命令将放弃执行改名操作。</p>
+<br/>
+<br/>
+<h2 id="将一个键移动到另一个库">将一个键移动到另一个库</h2>
+<p>将一个键从当前库移动至目标库。</p>
+<p>如果给定键不存在于当前库，或目标库存在同名的键，那么命令将不做动作，只返回 0 表示移动失败。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+MOVE key db
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="移除指定的键">移除指定的键</h2>
+<p>从当前正在使用的库中移除一个或多个键，以及这些键相关联的值。</p>
+<p>这个命令隐含着一个性能问题：<code>DEL</code> 命令会以同步方式执行移除操作，所以如果待移除的键非常庞大或数量众多，那么服务器可能会被阻塞。</p>
+<p>比如，移除一个包含上百万个元素的集合，移除一个包含数十万键值对的散列，或一次移除成千上万个键，都可能引起服务器阻塞。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N), N 为被移除键的数量
+DEL key [key ...]
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="以异步的方式移除指定的键">以异步的方式移除指定的键</h2>
+<p>为了解决上面的 <code>DEL</code> 命令的性能问题，Redis 从 4.0 版本开始新添加了一个 <code>UNLINK</code> 命令。</p>
+<p>此命令只会在库中移除对改键的引用（reference），而对键的实际移除操作则会交给后台线程执行，因此不会造成服务器阻塞。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N)
+UNLINK key [key ...]
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="清空当前数据库">清空当前数据库</h2>
+<p><code>FLUSHDB</code> 命令会遍历用户正在使用的库，移除其中包含的所有键值对。</p>
+<p>由于 <code>FLUSHDB</code> 命令也是一个同步移除命令，并且因为移除的是整个库而不是单个键，所以它常常会引发比 <code>DEL</code> 命令更为严重的服务器阻塞现象。</p>
+<p>为了解决这个问题，Redis 4.0 给此命令新增了一个 <code>async</code> 选项。此选项将操作放在后台线程中以异步方式进行，这样就不会阻塞服务器了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N), N 为被清空库包含的键值对数量。
+FLUSHDB
+
+FLUSHDB async
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="清空所有数据库">清空所有数据库</h2>
+<p><code>FLUSHALL</code> 命令可以清空 Redis 服务器包含的所有库。</p>
+<p>与 <code>FLUSHDB</code> 命令一样，以同步方式执行也可能会导致服务器阻塞，因此 Redis 4.0 同样添加了 <code>async</code> 选项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N), N 为被清空库包含的键值对数量。
+FLUSHALL
+
+FLUSHALL async
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="互换数据库">互换数据库</h2>
+<p>从 Redis 4.0 版本开始，<code>SWAPDB</code> 命令接受两个库号码，然后对指定的两个库进行互换。</p>
+<p>因为互换数据库这一操作可以通过调整指向数据库的指针来实现，这个过程不需要移动库中的任何键值对，所以复杂度为 <code>O(1)</code>，并且此命令不会导致服务器阻塞。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SWAPDB x y
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="自动过期">自动过期</h1>
+<p>Redis 提供了自动的键过期功能（key expiring）。通过此功能，用户可以让特定的键在指定的时间之后自动被移除。</p>
+<br/>
+<br/>
+<h2 id="设置和更新键的生存时间">设置和更新键的生存时间</h2>
+<p>通过 <code>EXPIRE</code>（秒级） 或 <code>PEXPIRE</code>（毫秒级） 命令为键设置一个生存时间（TTL）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(1)
+# Redis 1.0 版本可用
+EXPIRE key seconds
+
+# Redis 2.6 版本可用
+PEXPIRE key milliseconds
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>当对一个已经带有生存时间的键再次执行 <code>EXPIRE</code> 或 <code>PEXPIRE</code> 命令时，键原有的生存时间将会被移除，并设置新的生存时间。</p>
+<br/>
+<br/>
+<h2 id="set命令的ex选项和px选项">SET命令的EX选项和PX选项</h2>
+<p>在使用键过期功能时，组合使用 <code>SET</code> 命令和 <code>EXPIRE/PEXPIRE</code> 命令的做法是非常常见的。</p>
+<p>Redis 从 2.6.12 版本为 <code>SET</code> 命令提供了 <code>EX</code> 选项和 <code>PX</code> 选项，这和执行执行那两个命令的效果是一样的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(1)
+SET key value [EX seconds] [PX milliseconds]
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>使用带有 EX 选项或 PX 选项的 <code>SET</code> 命令除了可以减少命令的调用数量并提升程序的执行速度之外，更重要的是保证了操作的原子性，使得为键设置值和为键设置生存时间这两个操作可以一起执行。</p>
+<p>设置缓存和设置生存时间这两个操作，要么一起成功，要么一起失败，实现是安全的。</p>
+<br/>
+<br/>
+<h2 id="设置键的过期时间">设置键的过期时间</h2>
+<p><code>EXPIREAT</code> 命令（秒级精度的 UNIX 时间）和 <code>PEXPIREAT</code> 命令（毫秒级精度的 UNIX 时间），通过设置过期时间（expire time），让 Redis 在指定 UNIX 时间来临之后自动移除给定的键。</p>
+<p>同样，再次执行命令来更新键的过期时间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(1)
+
+# 从 Redis 1.2.0 版本可用
+EXPIREAT key seconds_timestamp
+
+# 从 Redis 2.6.0 版本可用
+PEXPIREAT key milliseconds_timestamp
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="获取键的剩余生存时间">获取键的剩余生存时间</h2>
+<p>使用 <code>TTL</code>（秒为单位） 或 <code>PTTL</code>（毫秒为单位） 命令查看键的剩余生存时间。</p>
+<p>如果给定的键没有设置生存时间和过期时间，那么将返回 -1。如果给定的键不存在，将返回 -2。</p>
+<p>在使用 TTL 命令时，有时会遇到命令返回 0 的情况。出现这种情况的原因在于它的精度是秒级，所以当给定键的剩余生存时间不足 1s 时，只能返回 0 作为结果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(1)
+TTL key
+
+PTTL key
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="流水线和事务">流水线和事务</h1>
+<p>在执行命令的时候，我们总是单独地执行每个命令，也就是说，先讲一个命令发送到服务器，等服务器执行完这个命令并将结果返回给客户端之后，再执行下一个命令，一次类推，直到所有命令都执行完为止。</p>
+<p>这种执行命令的方式虽然可行，但在性能方面却不是最优的，并且在执行时可能还会出现一些非常隐蔽的错误。为了解决这些问题，Redis 使用了流水线特性和事务特性，前者可以有效提升  Redis 的性能，后者则可以避免单独执行命令时可能会出现的一些错误。</p>
+<br/>
+<br/>
+<h2 id="流水线">流水线</h2>
+<p>一般情况下，用户每执行一个 Redis 命令，Redis 客户端和 Redis 服务器就需要执行以下步骤：</p>
+<ol>
+<li>客户端向服务器发送命令请求</li>
+<li>服务器接收命令请求，并执行用户指定的命令调用，然后产生相应的命令执行结果</li>
+<li>服务器向客户端返回命令的执行结果</li>
+<li>客户端接收命令的执行结果，并向用户进行展示</li>
+</ol>
+<p>与大多数网络程序一样，执行 Redis 命令所消耗的大部分时间都用在了发送命令请求和接收命令结果上：Redis 处理一个请求通常只需要很短的时间，但客户端将命令发送给服务器以及服务器向客户端返回命令结果的过程却需要花费不少时间。通常情况下，程序需要执行的 Redis 命令越多，它需要进行网络通信操作也会越多，程序的执行速度也会因此变慢。</p>
+<p>为了解决此问题，可以使用 Redis 提供的流水线特性。这个特性允许客户端把任意多条 Redis 命令请求打包在一起，然后一次性将它们全部发送给服务器。而服务器则会在流水线包含的所有命令请求都处理完毕之后，一次性将它们的执行结果全部返回给客户端。</p>
+<p>通过使用流水线特性，可以将执行多个命令所需的网络通信次数从原来的 N 次降低为 1 次，这可以大幅地减少程序在网络通信方面耗费的时间，使得程序的执行效率得到显著的提升。</p>
+<p>虽然 Redis 服务器提供了流水线特性，但还需要客户端支持才能使用。</p>
+<p>虽然 Redis 服务器并不会限制客户端在流水线中包含的命令数量，但是却会为客户端的输入缓冲区设置默认值为 1GB 的体积上限。但客户端发送的数据量超过这一限制时，Redis 服务器将强制关闭该客户端。</p>
+<br/>
+<br/>
+<h2 id="事务">事务</h2>
+<p>虽然 Redis 允许一次向列表推入多个元素，但是列表每次只能弹出一个元素。Redis 并没有提供能够一次弹出多个列表元素的命令。</p>
+<p>为了实现一个正确且安全的弹出多个元素的目的，我们需要一种能够让服务器将多个命令打包起来一并执行的技术——这正是事务的特性。</p>
+<ul>
+<li>事务可以将多个命令打包成一个命令来执行，当事务成功执行时，事务中包含的所有命令都会被执行。</li>
+<li>相反，如果事务没有成功执行，那么它包含的所有命令都不会被执行。</li>
+<li>因此，事务是原子的。通过使用事务，用户可以保证自己想要执行的多个命令要么全部被执行，要么一个都不执行。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="开启事务">开启事务</h3>
+<p>通过执行 <code>MULTI</code> 命令来开启一个新的事务。</p>
+<p>进入事务模式后，用户输入的所有命令不会立即执行，而是按顺序放入一个事务队列中，等待事务执行时再统一执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(1)
+# 从 Redis 1.2.0 版本可用
+MULTI
+</code></pre></td></tr></table>
+</div>
+</div><p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">redis&gt; MULTI
+OK
+
+redis&gt; SET title &#34;Hand in Hand&#34;
+QUEUED
+
+redis&gt; SADD fruits &#34;apple&#34; &#34;banana&#34; &#34;cherry&#34;
+QUEUED
+
+redis&gt; RPUSH numbers 123 456 789
+QUEUED
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="执行事务">执行事务</h3>
+<p>通过执行 <code>EXEC</code> 命令来执行事务。</p>
+<p>当事务成功执行时，将返回一个列表作为结果，这个列表会按照命令的入队顺序一次执行包含各个命令的执行结果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">EXEC
+</code></pre></td></tr></table>
+</div>
+</div><p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 事务包含的所有命令的复杂度之和
+# 从 Redis 1.2.0 版本可用
+redis&gt; MULTI -- 1) 开启事务
+OK
+
+redis&gt; SET title &#34;Hand in Hand&#34; -- 2) 命令入队
+QUEUED
+
+redis&gt; SADD fruits &#34;apple&#34; &#34;banana&#34; &#34;cherry&#34;
+QUEUED
+
+redis&gt; RPUSH numbers 123 456 789
+QUEUED
+
+redis&gt; EXEC -- 3)执行事务
+1) OK -- SET命令的执行结果
+2) (integer) 3 -- SADD命令的执行结果
+3) (integer) 3 -- RPUSH命令的执行结果
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="放弃事务">放弃事务</h3>
+<p>执行 <code>DISCARD</code> 命令放弃已开启的事务。</p>
+<p>此命令会清空事务队列中已有的所有命令，并让客户端退出事务模式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为十五队列包含的命令数量
+# 从 Redis 2.0.0 版本可用
+DISCARD
+</code></pre></td></tr></table>
+</div>
+</div><p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">redis&gt; MULTI
+OK
+
+redis&gt; SET page_counter 10086
+QUEUED
+
+redis&gt; SET download_counter 12345
+QUEUED
+
+redis&gt; DISCARD
+OK
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="事务的安全性">事务的安全性</h3>
+<p>在对数据库的事务特性进行介绍时，人们一般会对数据库对 ACID 性质的支持程序去判断数据库的事务是否安全。</p>
+<p>具体来说，Redis 的事务总是具有 ACID 中的 ACI 属性：</p>
+<ul>
+<li>原子性（Atomic）：如果事务成功，那么事务中所包含的所有命令都会执行；反之，都不会执行。</li>
+<li>一致性（Consistent）：Redis 服务器会对事务及其包含的命令进行检查，确保无论事务是否成功执行，事务本身都不会对数据库造成破坏。</li>
+<li>隔离性（Isolate）：每个 Redis 客户端都拥有自己独立的事务队列，并且每个 Redis 事务都是独立执行的，不同事务之间不会互相干扰。</li>
+<li>耐久性（Durable）：当事务执行完毕后，它的结果将被存储在硬盘中。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="事务对服务器的影响">事务对服务器的影响</h3>
+<p>因为事务在执行时会独占服务器，所以用户应该避免在事务中执行过多命令，更不要将一些需要进行大量计算的命令放入事务中，以免造成服务器阻塞。</p>
+<br/>
+<br/>
+<h3 id="流水线和事务的组合">流水线和事务的组合</h3>
+<p>流水线与事务虽然在概念上相似，但是在作用上却并不相同。流水线的作用是将多个命令打包，然后一并发送至服务器；而事务的作用是将多个命令打包，然后让服务器一并执行它们。</p>
+<p>因为 Redis 的事务在 <code>EXEC</code> 命令前并不会产生实际效果，所以很多 Redis 客户端都会使用流水线去包裹事务命令，并将入队的命令缓存在本地，等到用户输入 <code>EXEC</code> 命令之后，再将所有事务通过流水线一并发送到服务器，这样客户端在执行事务时就可以达到“打包发送，打包执行”的最优效果。</p>
+<br/>
+<br/>
+<h2 id="带有乐观锁的事务">带有乐观锁的事务</h2>
+<p>我们需要一种机制，它可以保证如果锁键的值在 XXX 命令之后发生了变化，那么 YYY 命令将不会被执行。在 Redis 中，这种机制被称为乐观锁。</p>
+<br/>
+<br/>
+<h3 id="对键进行监视">对键进行监视</h3>
+<p>通过执行 <code>WATCH</code> 命令，要求服务器对一个或多个键进行监视。如果在客户端尝试执行事务之前，这些键的值发生了变化，那么服务器将拒绝执行客户端发送的事务，并向它返回一个空值。</p>
+<p>于此相反，如果所有被监视的键都没有发生任何变化，那么服务器将会如常地执行客户端发送的事务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为被监视键的数量
+# 从 Redis 2.2.0 版本可用
+WATCH key [key ...]
+</code></pre></td></tr></table>
+</div>
+</div><p>通过同时使用 <code>WATCH</code> 命令和事务，可以构建出一种针对被监视键的乐观锁机制，确保事务只会在被监视键没有发生任何变化的情况下执行，从而保证了事务对被监视键的所有修改都是安全、正确和有效的。</p>
+<p>一个因为乐观锁机制而导致事务执行失败的示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">redis&gt; WATCH user_id_counter
+OK
+
+redis&gt; GET user_id_counter -- 获取当前最新的用户ID
+&#34;256&#34;
+
+redis&gt; MULTI
+OK
+
+redis&gt; SET user::256::email &#34;peter@spamer.com&#34; -- 尝试使用这个ID来存储用户信息
+QUEUED
+
+redis&gt; SET user::256::password &#34;topsecret&#34;
+QUEUED
+
+redis&gt; INCR user_id_counter -- 创建新的用户ID
+QUEUED
+
+redis&gt; EXEC
+(nil) -- user_id_counter键已被修改
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="取消对键的监视">取消对键的监视</h3>
+<p>通过执行 <code>UNWATCH</code> 命令，取消对键的监视。</p>
+<p>除了显式地执行 <code>UNWATCH</code> 命令之外，使用 <code>EXEC</code> 命令执行事务和使用 <code>DISCARD</code> 命令取消事务，同样会导致客户端撤销对所有键的监视，因为这两个命令在执行后都会隐式地调用 <code>UNWATCH</code> 命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为被取消监视的键数量
+# 从 Redis 2.2.0 版本可用
+UNWATCH
+</code></pre></td></tr></table>
+</div>
+</div><p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">redis&gt; WATCH &#34;lock_key&#34; &#34;user_id_counter&#34; &#34;msg&#34;
+OK
+
+redis&gt; UNWATCH -- 取消对以上3个键的监视
+OK
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="lua脚本">Lua脚本</h1>
+<p>从 Redis 2.6.0 版本开始支持 Lua 脚本，它可以让用户对 Redis 服务器内置的 Lua 解释器中执行指定的 Lua 脚本。被执行的 Lua 脚本可以直接调用 Redis 命令，并使用 Lua 语言及其内置的函数库处理命令结果。</p>
+<p>Lua 脚本特性的出现给 Redis 带来了很大的变化，其中最重要就是使得用户可以按需对 Redis 服务器的功能进行扩展。在此之前，只能通过修改源代码来扩展新功能。</p>
+<p>Lua 脚本带来的第二个变化与它的执行机制有关：Redis 服务器以原子方式执行 Lua 脚本，在执行完整个 Lua 脚本及其包含的 Redis 命令之前，Redis 服务器不会执行其他客户端发送的命令或脚本，因此被执行的 Lua 脚本天生就具有原子性。</p>
+<p>Lua 脚本的另一个好处是它能够在保证原子性的同时，一次在脚本中执行多个 Redis 命令，可以有效地提升升序的执行效率。虽然流水线加上事务也可以，但 Lua 脚本缓存特性能够更为有效地减少带宽占用。</p>
+<p>Redis 在 Lua 环境中内置了一些非常有用的包，通过这些包，用户可以直接在服务器端对数据进行处理，然后把它们存储到数据库中，这可以有效地减少不必要的网络传输。</p>
+<p>举个例子。用户可以通过 Lua 环境内置的 cjson 包，在服务器端直接将执行命令所得的结果序列化为 JSON 数据，并将其存储到数据库中。这比“先将命令执行结果返回给客户端，接着由客户端将结果序列化为 JSON，最后再通过写入命令将序列化后的 JSON 数据存储到数据库中”的做法更简单方便。</p>
+<p>本章内容需要了解一定的 Lua 语言知识。</p>
+<br/>
+<br/>
+<h2 id="执行lua脚本">执行Lua脚本</h2>
+<p>使用 <code>EVAL</code> 命令来执行给定的 Lua 脚本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">EVAL
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="持久化">持久化</h1>
+<p>Redis 把所有数据都存在内存中，而传统数据库通常只会把数据的索引存储在内存中，并将实际的数据存储在硬盘中。</p>
+<p>但内存数据断电后就会丢失。为了解决此问题，Redis 提供了数据持久化功能。此功能把内存中存储的数据以文件形式存储到硬盘上，而服务器根据这些文件在系统停机之后实施数据恢复，让服务器重新回到停机之前的状态。</p>
+<p>为了满足不同的持久化需求，Redis 提供了 RDB 持久化、AOF 持久化和 RDB-AOF 混合持久化等方式。当然用户也可以关闭持久化功能。</p>
+<br/>
+<br/>
+<h2 id="rdb持久化">RDB持久化</h2>
+<p>RDB持久化是 Redis 默认使用的持久化功能，它创建出一个经过压缩过的二进制文件（文件以 <code>.rdb</code> 结尾，表示 Redis DataBase），其中包含了服务器在各个数据库中存储的键值对数据等信息。</p>
+<br/>
+<br/>
+<h3 id="阻塞服务器并创建rdb文件">阻塞服务器并创建RDB文件</h3>
+<p>执行 <code>SAVE</code> 命令，要求 Redis 服务器以同步方式创建一个记录了服务器当前所有数据库的 RDB 文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为 Redis 服务器所有数据库包含的键值对总数量
+# 从 Redis 1.0.0 版本可用
+redis&gt; SAVE
+OK
+</code></pre></td></tr></table>
+</div>
+</div><p>接收到 <code>SAVE</code> 命令的 Redis 服务器将遍历数据库包含的所有库，并将各个库包含的键值对全部记录到 RDB 文件中。在 SAVE 命令执行期间，Redis 服务器将阻塞，直到 RDB 文件创建完毕为止。如果已经存在 RDB 文件，那么服务器将使用新文件替换旧文件。</p>
+<br/>
+<br/>
+<h3 id="非阻塞方式创建rdb文件">非阻塞方式创建RDB文件</h3>
+<p>因为 <code>SAVE</code> 命令在执行期间会阻塞服务器，在此期间服务器无法为其他客户端提供服务。为了解决这个问题，Redis 提供了 <code>BGSAVE</code> 异步命令。BGSAVE 命令不会直接使用 Redis 服务器进程创建 RDB 文件，而是使用子进程创建 RDB 文件。</p>
+<p>当 Redis 服务器接收到 <code>BGSAVE</code> 命令，将执行以下操作：</p>
+<ul>
+<li>创建一个子进程。</li>
+<li>子进程执行 BGSAVE 命令，创建新的 RDB 文件。</li>
+<li>文件创建完毕后，子进程退出并通知 Redis 服务器进程。</li>
+<li>Redis 服务器使用新文件替换已有旧文件。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为 Redis 服务器所有数据库包含的键值对总数量
+# 从 Redis 1.0.0 版本可用
+redis&gt; BGSAVE
+Background saving started
+</code></pre></td></tr></table>
+</div>
+</div><p>因为 BGSAVE 是异步执行，所以 Redis 服务器在 BGSAVE 命令执行期间仍可以继续处理其他客户端的请求。需要注意，虽然 BGSAVE 命令不会像 SAVE 命令一样一直阻塞 Redis 服务器，但由于需要创建子进程，所以父进程占用的内存数量越大，创建子进程这一操作耗费的时间也会越长。因此 BGSAVE 命令仍可能会由于创建子进程而短暂地阻塞服务器。</p>
+<br/>
+<br/>
+<h3 id="通过配置项自动创建rdb文件">通过配置项自动创建RDB文件</h3>
+<p>通过设置 save 配置项，让 Redis 服务器在满足指定条件时自动执行 BGSAVE 命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># seconds 指定触发持久化操作所需的时长
+# changes 指定触发持久化操作所需的修改次数
+# 如服务器在 seconds 秒内，对其包含的各个库总共执行了至少 changes 次修改，那么服务器将自动执行一次 BGSAVE 命令。
+save &lt;seconds&gt; &lt;changes&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>可以同时配置多个 save 选项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 默认配置
+save 60 10000
+save 300 100
+save 3600 1
+</code></pre></td></tr></table>
+</div>
+</div><p>注意，为了避免同时使用多个触发条件而导致服务器过于频繁地执行 BGSAVE 命令，Redis 服务器在每次成功创建 RDB 文件后，负责自动触发 BGSAVE 命令的时间计数器以及修改次数计数器都会被清理并重新开始计数。</p>
+<br/>
+<br/>
+<h3 id="rdb文件结构">RDB文件结构</h3>
+<p>RDB 文件的总体结构顺序：</p>
+<ul>
+<li>RDB 文件标识符</li>
+<li>版本号</li>
+<li>设备附加信息</li>
+<li>数据库数据</li>
+<li>Lua 脚本缓存</li>
+<li>EOF</li>
+<li>CRC64 校验和</li>
+</ul>
+<br/>
+<p>RDB 文件标识符：标识符内容为 &ldquo;REDIS&rdquo; 这五个字符。Redis 服务器在尝试载入 RDB 文件的时候，可以通过此标识符快速地判断该文件是否为真正的 RDB 文件。</p>
+<p>版本号：是一串字符串格式的数字。新版 Redis 服务器总是能够向下兼容旧版 Redis 服务器生成的 RDB 文件。</p>
+<p>设备附加信息：记录了生成 RDB 文件的 Redis 服务器及其所在平台的信息。比如服务器的版本号、宿主机架构、创建文件的时间戳、服务器占用的内存数量等。</p>
+<p>数据库数据：记录了 Redis 服务器存储的多个库的数据（按库号码从小到大进行排序）。</p>
+<p>Lua 脚本缓存：保存所有已被缓存的 Lua 脚本。</p>
+<p>EOF：用于标识 RDB 正文内容的结尾，它的实际值为二进制 <code>0xFF</code>。当 Redis 服务器读取到 EOF 时，它直到 RDB 文件的正文部分已经读取完毕。</p>
+<p>CRC64 校验和：Redis 服务器在读入 RDB 文件时会通过这个校验和快速地检查 RDB 文件是否出错或者损坏的情况出现。</p>
+<br/>
+<br/>
+<h3 id="载入rdb文件">载入RDB文件</h3>
+<p>首先，Redis 启动时，它会在工作目录中查找是否有 RDB 文件出现，如果有就打开它，然后读取文件的内容并执行以下载入操作：</p>
+<ol>
+<li>检查文件开头的标识符是否为 Redis，不是则报错并终止载入。</li>
+<li>检查文件的 RDB 版本号，以此来判断 Redis 服务器能否读取这一个版本的文件。</li>
+<li>根据文件中记录的设备附加信息，执行相应的操作和设置。</li>
+<li>检查文件数据库数据是否为空，不为空就执行以下子操作。<br>
+4.1 根据文件记录的库号码，切换至正确的库。<br>
+4.2 根据文件记录的键值对总数量以及带有过期时间的键值对数量，设置数据库底层数据结构。<br>
+4.3 一个接一个地载入文件记录的所有键值对数据，并在数据库中重建这些键值对。<br></li>
+<li>如果服务器启用了复制功能，那么将之前缓存的 Lua 脚本重载到缓存中。</li>
+<li>遇到 EOF 标识，确认 RDB 文件已全部读取完毕。</li>
+<li>载入文件末尾的校验和，把它与载入数据期间计算出的校验和进行对比，以此来判断被载入的数据是否完好无损。</li>
+<li>文件载入完毕，服务器开始接受客户端请求。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/5-7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/5-7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/5-7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/5-7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/5-7.png"
+        title="RDB 文件的数据载入流程" /></p>
+<br/>
+<br/>
+<h3 id="数据丢失">数据丢失</h3>
+<p>RDB 文件记录的是服务器在开始创建文件那一刻，服务器中包含的键值对数据，这种数据通常被称为时间点快照（point-in-time snapshot）。时间点快照的一个特点是，系统在停机时将丢失最后一次成功实施持久化时间点之后的所有数据。对于一个只使用 RDB 持久化的 Redis 服务器来说，服务器停机时丢失的数据量取决于最后一次成功执行的时间点快照。</p>
+<br/>
+<br/>
+<h2 id="aof持久化">AOF持久化</h2>
+<p>AOF 提供的是增量式的持久化，它的核心原理在于：服务器每次执行完写命令之后，都会以协议文本的方式将被执行的命令追加到 AOF 文件的末尾。这样，服务器在停机之后，只要重新执行 AOF 文件中保存的 Redis 命令，就可以将数据库恢复至停机之前的状态。</p>
+<p>在实际的 AOF 文件中，命令都是以 Redis 网络协议的方式保存的。</p>
+<br/>
+<br/>
+<h3 id="启用aof持久化功能">启用AOF持久化功能</h3>
+<p>通过 <code>appendonly</code> 选项来启用，打开后，Redis 服务器在默认情况下将创建一个名为 <code>appendonly.aof</code> 的文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">appendonly yes
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="设置aof文件的冲洗频率">设置AOF文件的冲洗频率</h3>
+<p>为了提高程序的写入性能，现代操作系统通常会把针对硬盘的多次写操作优化为一次写操作。具体做法是，当程序调用 <code>WRITE</code> 系统调用对文件进行写入时，系统并不会直接把数据写入硬盘，而是会先将数据写入位于内存的缓冲区，等到指定的时限到达或满足某些写入条件时，系统才会执行 <code>FLUSH</code> 系统调用，将缓冲区的数据冲洗到硬盘。</p>
+<p>这种机制虽然提高了程序的性能，但也给程序的写入操作带来了不确定性，特别是对于 AOF 这样持久化功能来说，AOF 文件的冲洗机制将直接影响 AOF 持久化的安全性。</p>
+<p>为了消除上述机制带来的不确定性，Redis 提供了 <code>appendfsync</code> 选项，来控制系统冲洗 AOF 文件的频率。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">appendfsync everysec
+
+</code></pre></td></tr></table>
+</div>
+</div><p>此配置项有三个值：</p>
+<ul>
+<li><code>always</code>：没执行一个命令，就对 AOF 文件执行一次冲洗操作。对安全性的追求牺牲了服务器的性能。</li>
+<li><code>everysec</code>：每 1s，就对 AOF 文件执行一次冲洗。默认值。</li>
+<li><code>no</code>：不主动对 AOF 文件执行冲洗操作，有操作系统决定。给可能丢失的数据量带来了不确定性。</li>
+</ul>
+<p>除非有明确需求，否则用户不应该随意修改此配置的值。</p>
+<br/>
+<br/>
+<h3 id="aof重写">AOF重写</h3>
+<p>随着服务器不断运行，被执行的命令将变得越来越多，而负责记录这些命令的 AOF 文件也会变得越来越大。与此同时，如果服务器曾经对相同的键执行过多次修改操作，那么 AOF 文件中还会出现多个冗余命令。</p>
+<p>示例，冗余的文件命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SELECT 0
+SET msg &#34;hello world!&#34;
+SET msg &#34;good morning!&#34;
+SET msg &#34;happy birthday!&#34;
+SADD fruits &#34;apple&#34;
+SADD fruits &#34;banana&#34;
+SADD fruits &#34;cherry&#34;
+SADD fruits &#34;dragon fruit&#34;
+SREM fruits &#34;dragon fruit&#34;
+SADD fruits &#34;durian&#34;
+RPUSH job-queue 10086
+RPUSH job-queue 12345
+RPUSH job-queue 256512
+</code></pre></td></tr></table>
+</div>
+</div><p>文件中命令对三个键进行了多次修改，但最终修改效果可以简化为以下四条命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SELECT 0
+SET msg&#34;happy birthday！&#34;
+SADD fruits&#34;apple&#34;&#34;banana&#34;&#34;cherry&#34;&#34;durian&#34;
+RPUSH job-queue 1008612345256512
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>冗余命令的存在不仅增加了 AOF 文件的体积，并且因为 Redis 服务器在停机之后需要通过重新执行 AOF 文件中保存的命令还恢复数据，所以 AOF 文件中冗余的命令越多，恢复数据耗费的时间也越多。</p>
+<p>为了减少冗余命令，让 AOF 文件保持苗条，并提供数据恢复操作的执行速度，Redis 提供了 AOF 重写功能，该功能能够生成一个全新的 AOF 文件，并且文件中只包含恢复当前数据库所需的尽可能少的命令。</p>
+<p>通过执行 <code>BGREWRITEAOF</code> 命令或设置重写操作配置项来触发 AOF 重写操作。</p>
+<br/>
+<p>通过显式执行 <code>BGREWRITEAOF</code> 命令触发 AOF 重写操作。它是一个异步命令，Redis 服务器在收到该命令之后会创建一个子进程，由它扫描整个数据库并生成新的 AOF 文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为 Redis 服务器所有数据库包含的键值对总数量。
+# 从 Redis 1.0.0 版本可用。
+BGREWRITEAOF
+Background append only file rewriting started
+</code></pre></td></tr></table>
+</div>
+</div><p>有两点需要注意：</p>
+<ul>
+<li>如果用户发送 BGREWRITEAOF 命令时，服务器正在创建 RDB 文件，那么服务器将把 AOF 重写操作延后到 RDB 文件创建完毕之后再植行，从而避免两个写硬盘操作同时执行导致机器性能下降。</li>
+<li>如果服务器再执行重写操作的过程中，又收到了新的 BGREWRITEAOF 命令请求，那么服务器将为新的命令返回重写操作正在进行中的错误信息。</li>
+</ul>
+<br/>
+<p>通过配置重写选项，让 Redis 自动触发重写操作。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 设置自动 AOF 文件重写所需的最小 AOF 文件体积，默认值 64mb。也就是说，小于 64MB 将不出自动执行重写。
+auto-aof-rewrite-min-size 64mb
+# 设置自动 AOF 文件重写所需的文件体积增大比例，默认值 100。如果当前 AOF 文件的体积比最后一次 AOF 文件重写之后的体积增大了 100%，那么将自动执行重写。
+auto-aof-rewrite-percentage 100
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="aof持久化的优缺点">AOF持久化的优缺点</h3>
+<p>AOF 持久化的缺点：</p>
+<ul>
+<li>AOF 文件是协议文本，所以体积要大的多，并且生成时间更长。</li>
+<li>AOF 持久化需要执行文件中保存的命令来恢复数据库，所以恢复速度慢得多。</li>
+<li>AOF 重写都需要创建子进程，所以在数据库体积较大的情况下，进行 AOF 文件重写将占用大量资源，并导致服务器被短暂地阻塞。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="rdb-aof混合持久化">RDB-AOF混合持久化</h2>
+<p>RDB 持久化和 AOF 持久化都有各自的优缺点：</p>
+<ul>
+<li>RDB 持久化可以生成紧凑的 RDB 文件，并且使用 RDB 文件进行数据恢复的速度也非常快，但 RDB 的全量持久化可能会让服务器在停机时丢失大量数据。</li>
+<li>AOF 持久化可以将丢失数据的时间窗口限制在 1s 内，但 AOF 文件会比 RDB 文件大得多，并且数据恢复过程也会相对较慢。</li>
+</ul>
+<p>从 Redis 4.0 版本开始引入了 RDB-AOF 混合持久化模式，此模式基于 AOF 构建而来。如果用户启动了 AOF 持久化，并配置 <code>aof-use-rdb-preamble</code> 配置项。那么 Redis 服务器再执行 AOF 重写操作时，就会像执行 BGSAVE 命令那样，根据数据库当前的状态生成出相应的 RDB 数据，并将这些数据写入新建的 AOF 文件中。至于那些在 AOF 重写开始之后执行的 Redis 命令，则会继续以协议文本的方式追加到新 AOF 文件的末尾，及已有的 RDB 数据的后面。</p>
+<p>换句话说，在开启了 RDB-AOF 混合持久化功能之后，服务器生成的 AOF 文件将由两部分组成，其中位于 AOF 文件开头的是 RDB 格式的数据， 而跟在 RDB 数据后面的则是 AOF 格式的数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">aof-use-rdb-preamble yes
+</code></pre></td></tr></table>
+</div>
+</div><p>Redis 目前默认是没有打开 RDB-AOF 混合持久化功能的。但 Redis 作者声称，RDB-AOF 混合持久化模式将在未来取代传统的 RDB 持久化。</p>
+<br/>
+<br/>
+<h2 id="同时使用rdb持久化和aof持久化">同时使用RDB持久化和AOF持久化</h2>
+<p>在 RDB-AOF 混合持久化功能出现之前，不少追求安全性的使用者会同时使用 RDB 持久化和 AOF 持久化。但有了 RDB-AOF 之后，同时使用两种持久化已经不再必要。</p>
+<p>同时使用这两种持久化，需要注意以下问题：</p>
+<ul>
+<li>同时使用两种持久化功能需要消耗大量系统资源，请确保硬件足够。</li>
+<li>Redis 服务器在启动时，会优先使用 AOF 文件进行恢复数据。只有在没有检测到 AOF 文件时，才会考虑寻找并使用 RDB 文件进行数据恢复。</li>
+<li>如果在生成 RDB 文件时发送 BGREWRITEAOF 命令，重写操作将推迟到 RDB 文件创建后再执行，避免两种持久化同时执行并抢占系统资源。</li>
+<li>同样，如果正在执行 BGWRITEAOF 命令时执行 BGSAVE，则命令也会推迟到重写操作之后再执行。</li>
+</ul>
+<p>总的来说，在数据持久化问题上，Redis 4.0 之后版本的使用者应该优先使用 RDB-AOF 混合持久化。而之前的 Redis 版本中，如果用户不知道自己应该使用哪种持久化，那么可以优先选用 AOF 持久化，并将 RDB 持久化作为辅助的数据备份手段。</p>
+<br/>
+<br/>
+<h2 id="无持久化">无持久化</h2>
+<p>即便用户没有显式地开启 RDB 持久化和 AOF 持久化，Redis 服务器也会使用默认的 RDB 持久化配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">save 60 10000
+save 300 100
+save 3600 1
+</code></pre></td></tr></table>
+</div>
+</div><p>如果用户想要彻底关闭持久化，需要修改 save 配置项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 禁用持久化
+save &#34;&#34;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="关闭redis服务器">关闭Redis服务器</h2>
+<p>通过执行 <code>SHUTDOWN</code> 命令来关闭 Redis 服务器。</p>
+<p>默认情况下，当 Redis 服务器收到 SHUTDOWN 命令时，它将执行以下动作：</p>
+<ul>
+<li>停止处理客户端发送的命令请求。</li>
+<li>根据服务器的持久化配置，决定是否执行数据保存操作。</li>
+<li>服务器进程退出。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为需要持久化的键值对数量
+# 从 Redis 1.0.0 版本可用
+SHUTDOWN
+
+# 用户也可以显示地指示是否执行持久化
+SHUTDOWN [save|nosave]
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="发布与订阅">发布与订阅</h1>
+<p>Redis 的发布与订阅功能可以让客户端通过广播方式，将消息（message）同时发送给可能存在的多个客户端，并且发送消息的客户端不需要知道接收消息的客户端的具体信息。换句话说，发布消息的客户端与接收消息的客户端之间没有直接联系。</p>
+<p>在 Redis 中，客户端可以通过订阅特定的频道（channel）来接收发送至该频道的消息，我们把这些订阅频道的客户端称位订阅者（subscriber）。一个频道可以有任意多个订阅者，而一个订阅者也可以同时订阅多个频道。除此之外，客户端还可以通过向频道发送消息的方式，将消息发送给频道的所有订阅者，我们把这些发送消息的客户端称位发送者（publisher）。</p>
+<p>除了订阅频道之外，客户端还可以通过订阅模式（pattern）来接收消息：每当发布者向某个频道发送消息的时候，不仅频道的订阅者会收到消息，与频道匹配的所有模式的订阅者也会收到消息。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-3.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-3.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-3.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-3.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-3.png"
+        title="两个频道和一个模式" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-4.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-4.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-4.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-4.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/16-4.png"
+        title="消息被发送至频道订阅者以及匹配模式的订阅者" /></p>
+<br/>
+<br/>
+<h2 id="向频道发送消息">向频道发送消息</h2>
+<p>通过执行 <code>PUBLISH</code> 命令，将消息发送到给定频道。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N+M) N 为给定频道的订阅者数量，M 为服务器目前被订阅的模式总数量
+# 从 Redis 2.0.0 版本可用
+PUBLISH channel message
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="订阅频道">订阅频道</h2>
+<p>通过执行 <code>SUBSCRIBE</code> 命令，让客户端订阅给定的一个或多个频道。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为用户输入的频道数量
+# 从 Redis 2.0.0 版本可用
+SUBSCRIBE channel [channel channel ...]
+</code></pre></td></tr></table>
+</div>
+</div><p>SUBSCRIBE 命令在订阅频道后向客户端返回一条订阅消息：</p>
+<ul>
+<li>消息的第一个元素是 &ldquo;subscribe&rdquo;，表示这条消息由 SUBSCRIBE 命令引发的订阅消息而不是普通客户端发送的频道消息。</li>
+<li>消息的第二个元素记录了被订阅频道的名字。</li>
+<li>消息的最后一个元素是数字 1，表示订阅了一个频道。</li>
+</ul>
+<br/>
+<p>当客户端成为频道的订阅者之后，就会接收到来自被订阅频道的消息，我们把这些消息成为频道消息。频道消息由三个元素组成：</p>
+<ul>
+<li>消息的第一个元素是 &ldquo;message&rdquo;，表示该消息是一条频道消息而非订阅消息。</li>
+<li>消息的第二个元素为消息的来源频道。</li>
+<li>消息的地三个元素为消息的正文内容。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="退订频道">退订频道</h2>
+<p>使用 <code>UNSUBSCRIBE</code> 命令退订指定的频道。如果不指定频道，则默认退订所有已订阅的频道。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为服务器目前拥有的订阅者总数量
+# 从 Redis 2.0.0 版本可用
+UNSUBSCRIBE [channel channel ...]
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端在每次退订频道之后，都会收到服务器发来的退订消息，这条消息由三个元素组成。</p>
+<ul>
+<li>第一个元素是 &ldquo;unsbuscribe&rdquo;，表明该消息是一条由退订操作产生的消息。</li>
+<li>第二个元素是被退订频道的名字。</li>
+<li>地三个元素是客户端再植行退订操作之后，目前仍在订阅的频道数量。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="订阅模式">订阅模式</h2>
+<p>使用 <code>PSUBSCRIBE</code> 命令，让客户端订阅给定的一个或多个模式。</p>
+<p>传入 PSUBSCRIBE 命令的每个模式参数都可以是一个全局风格的匹配符，比如 &ldquo;new.*&rdquo; 模式匹配所有以 &ldquo;new&rdquo; 为前缀的频道。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为用户给定的模式数量
+# 从 Redis 2.0.0 版本可用
+PSUBSCRIBE pattern [pattern pattern ...]
+
+PSUBSCRIBE &#34;news.*&#34;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="退订模式">退订模式</h2>
+<p>使用 <code>PUNSUBSCRIBE</code> 命令退订模式。此命令允许用户退订多个模式，如果没有给定模式，默认将退订当前客户端已订阅的所有模式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N*M) N 为用户给定的模式数量，M 是服务器目前被订阅的模式总数量。 
+# 从 Redis 2.0.0 版本可用
+PUNSUBSCRIBE [pattern pattern pattern ...]
+
+PSUBSCRIBE &#34;news.*&#34;
+Reading messages... (press Ctrl-C to quit)
+1) &#34;psubscribe&#34;
+2) &#34;news.*&#34;
+3) (integer) 1
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="查看发布与订阅的相关信息">查看发布与订阅的相关信息</h2>
+<p>使用 <code>PUBSUB</code> 命令，用户可以查看与发布、订阅有关的各种信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 从 Redis 2.8.0 版本可用
+
+# 查看被订阅的频道
+# O(N) N 为服务器目前被订阅的频道总数量
+PUBSUB CHANNELS [pattern]
+
+# 查看频道的订阅者数量
+# O(N) N 为用户给定的频道数量
+PUBSUB NUMSUB [channel channel ...]
+
+# 查看被订阅模式的总数量
+# O(1)
+PUBSUB NUMPAT
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="模块">模块</h1>
+<p>Redis 为用户提供了流水线、事务和 Lua 脚本用于扩展 Redis 服务器的功能。但上述几种方法都有几个明显的缺陷：</p>
+<ul>
+<li>这些扩展方式要求新功能必须基于 Redis 现有的数据结构或功能来实现，但有时候用户想要的数据结构和功能是无法简单地基于 Redis 提供的数据结构来实现的，即使实现了效率也不高。</li>
+<li>目前提供的所有扩展方式在编程方面都过于复杂。</li>
+<li>无论是事务还是 Lua 脚本，在性能方面都有一些损耗。这些损耗对于普通用户来说不是什么问题，但对于那些对性能敏感的用户来说却并非如此。</li>
+</ul>
+<p>为了解决上述问题，并进一步提升 Redis 的可扩展性，Redis 4.0 版本添加了“模块”这个重要的新功能。</p>
+<p>Redis 的模块功能允许开发者通过 Redis 开放的一簇 API，将 Redis 用作网络服务和数据存储平台。通过 C 语言在 Redis 之上构建任意复杂的、全新的数据结构、功能和应用。对于开发者来说，模块功能为他们提供了一个可以按需扩展的定制 Redis 的功能。</p>
+<p>Redis 在官网网站（<a href="https://redis.io/resources/modules/">https://redis.io/resources/modules/</a>）上罗列了目前可用的模块，这些模块通常由 C 语言或其他能够与 C 语言进行交互的语言实现。用户只需要下载模块的源码，编译它们，并在 Redis 里面载入编译好的模块（动态链接库文件），然后就可以像普通 Redis 命令一样是他模块实现的功能了。</p>
+<br/>
+<br/>
+<h2 id="模块的管理">模块的管理</h2>
+<p>了解如何编译模块、载入模块和卸载模块。</p>
+<br/>
+<br/>
+<h3 id="编译模块">编译模块</h3>
+<p>为了方便用户尝试模块，Redis 在自身的源码中附带了几个测试用途的模块，位于源码的 <code>src/modules</code> 目录中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">ls /opt/redis/src/modules
+gendoc.rb  helloacl.c  helloblock.c  hellocluster.c  hellodict.c  hellohook.c  hellotimer.c  hellotype.c  helloworld.c  Makefile
+</code></pre></td></tr></table>
+</div>
+</div><p>以 <code>.c</code> 结尾的 C 程序文件就是模块的源码，而以 <code>.so</code> 结尾的就是已经编译完毕的模块，也就是常见的 C 共享文件。一般来说，这些测试模块都会随着 Redis 服务器一并被编译，但如果情况不是这样，用户也可以通过 <code>make</code> 命令来编译这些模块。</p>
+<br/>
+<br/>
+<h3 id="载入模块">载入模块</h3>
+<p>用户可以在 Redis 启动时，通过给定 <code>loadmodule</code> 选项或 <code>MODULE LOAD</code> 命令来指定想要载入的模块。一条命令只能载入一个模块，如需载入多个模块，请使用多个配置项或命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">loadmodule &lt;module_path&gt;
+
+loadmodule /opt/redis/src/modules/helloworld.so
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(1)
+MODULE LOAD module_path
+
+MODULE LOAD /opt/redis/src/modules/helloworld.so
+OK
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="列出已载入的模块">列出已载入的模块</h3>
+<p>执行 <code>MODULE LIST</code> 命令来查看服务器目前已载入的所有模块。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(N) N 为已载入的模块数量
+redis&gt; MODULE LIST
+1) 1) &#34;name&#34; --&#34;name&#34;字段的值记录了模块的名字
+   2) &#34;test&#34; --这个模块名为&#34;test&#34;
+   3) &#34;ver&#34; --&#34;ver&#34;字段的值记录了模块的版本号
+   4) (integer) 1 --这个模块的版本号为1
+2) 1) &#34;name&#34;
+   2) &#34;helloworld&#34; --这个模块名为&#34;helloworld&#34;
+   3) &#34;ver&#34;
+   4) (integer) 1 --这个模块的版本号为1
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="卸载模块">卸载模块</h3>
+<p>使用 <code>MODULE UNLOAD</code> 命令卸载模块，被卸载的模块将立即失效并不再可用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># O(1)
+MODULE UNLOAD module_name
+
+redis&gt; MODULE UNLOAD HELLOWORLD
+OK
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="rejson模块介绍">ReJSON模块介绍</h2>
+<p>JSON 作为一种常见的数据交换格式，在 Web 领域得到了广泛的应用。Redis 虽然可以存储文本和二进制文件，但它并没有提供对 JSON 数据的原生支持，无法直接通过命令操作存储在库中的 JSON 数据。用户只能在客户端程序进行处理。</p>
+<p>ReJSON 模块通过 Redis 的模块机制，在 Redis 之上实现了对 JSON 数据结构的原生支持，用户可以直接在 Redis 数据库中存储、更新和获取 JSON 数据，就像操作其他原生 Redis 数据类型一样。</p>
+<br/>
+<p>编译和载入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 克隆</span>
+git clone xxx-rejson.git
+<span class="nb">cd</span> rejson
+make
+
+<span class="c1"># 载入</span>
+redis&gt; MODULE LOAD /xxx/rejson/src/rejson.so
+OK
+</code></pre></td></tr></table>
+</div>
+</div><p>使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 创建JSON字符串</span>
+redis&gt; JSON.SET module_name . <span class="s1">&#39;&#34;ReJSON&#34;&#39;</span>
+OK
+
+<span class="c1"># 取值</span>
+redis&gt; JSON.GET module_name
+<span class="s2">&#34;\&#34;ReJSON\&#34;&#34;</span>
+
+<span class="c1"># 查看该字符串的长度</span>
+redis&gt; JSON.STRLEN module_name
+<span class="o">(</span>integer<span class="o">)</span> <span class="m">6</span>
+
+<span class="c1"># 查看该JSON键的类型</span>
+redis&gt; JSON.TYPE module_name
+string
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="架构模式">架构模式</h1>
+<br/>
+<br/>
+<h2 id="架构模式和架构图">架构模式和架构图</h2>
+<p>Redis 架构模式：</p>
+<ul>
+<li>单机模式
+<ul>
+<li>不保证可靠性</li>
+<li>由于 Redis 是单线程，单机性能受限于 CPU 的处理能力</li>
+</ul>
+</li>
+<li>主从模式
+<ul>
+<li>没有保证高可用</li>
+<li>需要人工接入切换，切换后主地址变了</li>
+<li>没有解决主节点的写压力</li>
+<li>主节点的写能力和存储能力收到单机的限制</li>
+<li>客户端连接主节点地址</li>
+</ul>
+</li>
+<li>哨兵模式
+<ul>
+<li>高可用的主从模式</li>
+<li>没有解决主节点的写压力</li>
+<li>动态扩容复杂</li>
+<li>客户端连接多个哨兵地址</li>
+</ul>
+</li>
+<li>集群模式
+<ul>
+<li>高可用、可扩展、分布式、容错等特性</li>
+<li>去中心化，每个节点都可以保存数据和整个集群状态，每个节点都可与其它节点连接</li>
+<li>数据异步复制，无法保证强一致性</li>
+<li>有 16384（<code>2^14</code>）个 slots，数据与哈希槽关联，哈希槽与节点关联</li>
+<li>客户端连接多个主地址</li>
+</ul>
+</li>
+</ul>
+<br/>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_single.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_single.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_single.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_single.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_single.png"
+        title="单机模式" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_master_slave.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_master_slave.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_master_slave.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_master_slave.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_master_slave.png"
+        title="主从模式" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_sentinel.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_sentinel.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_sentinel.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_sentinel.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_sentinel.png"
+        title="哨兵模式" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_cluster.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_cluster.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_cluster.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_cluster.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/redis_cluster.png"
+        title="集群模式" /></p>
+<br/>
+<br/>
+<h2 id="安装和部署">安装和部署</h2>
+<p>安装和部署 Redis 的一些注意事项：</p>
+<ul>
+<li>源码编译请注意 GCC 版本</li>
+<li>关闭透明大页</li>
+<li>最大客户端</li>
+<li>最大内存</li>
+<li>配置文件、监听、端口和目录等</li>
+<li>认证建议写入配置文件</li>
+<li>开机自启动</li>
+<li>bind ip 地址的顺序如果变更后，哨兵会识别到 127.0.0.1，所以需要看看哨兵的配置，是否有 127 地址，如果有则去掉并重启进程</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 透明大页面</span>
+<span class="nb">echo</span> <span class="s1">&#39;never&#39;</span> &gt; /sys/kernel/mm/transparent_hugepage/enabled
+<span class="nb">echo</span> <span class="s1">&#39;never&#39;</span> &gt; /sys/kernel/mm/transparent_hugepage/defrag
+
+<span class="c1"># 启动</span>
+/path/redis/src/redis-server /path/redis/conf/redis.conf
+/path/redis/src/redis-sentinel /path/redis/conf/sentinel.conf
+
+<span class="c1"># 集群</span>
+<span class="c1"># 它会自动给主添加从，从的配置文件中不需要配置主</span>
+/path/redis-xxx/src/redis-server /path/redis-xxx/master/redis-master.conf
+/path/redis-xxx/src/redis-server /path/redis-xxx/slave/redis-slave.conf
+redis-cli -a 密码 --cluster create --cluster-replicas<span class="o">=</span><span class="m">1</span> m1:port m2:port m3:port s1:port s2:port s3:port
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="主从复制">主从复制</h1>
+<br/>
+<br/>
+<h2 id="复制简介">复制简介</h2>
+<p>复制功能是 Redis 提供的多机功能中最基础的一个，这个功能是通过主从复制（master-slave replication）模式实现的。它允许用户为存储着目标数据库的服务器创建出多个拥有相同数据库副本的服务器。其中存储目标数据库的服务器被称为主服务器（master），而存储数据库副本的服务器则被称为从服务器（slave 或 replica）。</p>
+<p>也就是单主多从复制功能。</p>
+<p>在默认情况下，复制模式下的主既可以写也可以读，而从只能读。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-1.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-1.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-1.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-1.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-1.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-2.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-2.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-2.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-2.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-2.png" /></p>
+<br/>
+<p>对于开启了复制功能的主从服务器，主在每次执行写操作之后，都会与所有从进行数据同步，以此来将写操作产生的改动反映到各个从上。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-5.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-5.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-5.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-5.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-5.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/18-5.png" /></p>
+<br/>
+<p>Redis 的复制功能可以从性能、安全性和可用性三个方面提升整个 Redis 系统：</p>
+<ul>
+<li>在性能方面，复制功能可一个系统的读性能带来线性级别的提升。</li>
+<li>通过增加从服务器的数量，可以降低系统在遭受灾难故障时丢失数据的可能性。</li>
+<li>通过复制功能和哨兵功能，可以为整个系统提供高可用特性。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="将服务器设置为从服务器">将服务器设置为从服务器</h2>
+<p>用户可以执行复制命令，将接收这个命令的 Redis 服务器设置为另一个 Redis 服务器的从服务器。并在从上读取信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 5.0 之前
+SLAVEOF
+
+# 5.0 之后
+REPLICAOF
+
+REPLICAOF host port
+</code></pre></td></tr></table>
+</div>
+</div><p>示例，将本机的 redis 12345 实例 设置为 本地的 redis 6379 的从。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:12345&gt; REPLICAOF 127.0.0.1 6379
+
+127.0.0.1:6379&gt; SET msg &#34;hello&#34;
+127.0.0.1:6379&gt; GET msg
+&#34;hello&#34;
+
+127.0.0.1:12345&gt; GET msg
+&#34;hello&#34;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="通过配置项设置从服务器">通过配置项设置从服务器</h3>
+<p>除了使用命令，还可以使用配置项将 Redis 服务器设置为从服务器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># REPLICATION
+replicaof &lt;host&gt; &lt;port&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="取消复制">取消复制</h3>
+<p>在从节点上执行命令（<code>REPLICAOF no one</code>），从从节点停止复制，重新变回主。但从服务器仍然会保留之前复制的数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:12345&gt; REPLICAOF no one
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="复制的其它信息">复制的其它信息</h3>
+<p>复杂度：<code>REPLICAOF</code> 命令本身的复杂度为 <code>O(1)</code>，但它引起的异步复制操作的复杂度为 <code>O(N)</code>，其中 N 为包含的键值对总数量。</p>
+<p>版本要求：<code>REPLICAOF</code> 命令从 Redis 5.0.0 版本开始可用。<code>SLAVEOF</code> 命令从 1.0.0 版本开始可用，但从 5.0.0 版本开始逐渐废弃。</p>
+<br/>
+<br/>
+<h2 id="查看服务器的角色">查看服务器的角色</h2>
+<p>可以通过 <code>ROLE</code> 命令来查看服务器当前的角色。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ROLE
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>在主服务器执行 <code>ROLE</code> 命令，结果将返回一个由 3 个元素组成的数组。</p>
+<ul>
+<li>第一个元素是字符串 master，表示服务器角色。</li>
+<li>第二个元素是主服务的复制偏移量（replication offset），它是一个整数，记录了主服务器目前向复制数据流发送的数据数量。</li>
+<li>地三个元素是一个数组，记录了这个主服务器下的所有从服务器。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; ROLE
+1) &#34;master&#34; --这是一个主服务器
+2) (integer) 155 --它的复制偏移量为155
+3) 1) 1) &#34;127.0.0.1&#34; --第1个从服务器的IP地址为127.0.0.1
+      2) &#34;12345&#34; --这个从服务器的端口号为12345
+      3) &#34;155&#34; --它的复制偏移量为155
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>在从服务器执行 <code>ROLE</code> 命令，结果将返回一个由 5 个元素组成的数组。</p>
+<ul>
+<li>第一个元素是 slave，表示服务器角色。</li>
+<li>第二/三个元素记录了主服务器的 IP 地址和端口</li>
+<li>第四个元素是主从服务器的连接状态
+<ul>
+<li>none：主从尚未建立连接</li>
+<li>connect：主从正在握手</li>
+<li>connecting：主从成功建立了连接</li>
+<li>sync：主从正在进行数据同步</li>
+<li>connected：主从已经进入在线更新状态</li>
+<li>unknown：主从连接状态未知</li>
+</ul>
+</li>
+<li>第五个元素是从服务器当前的复制偏移量</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:12345&gt; ROLE
+1) &#34;slave&#34; --这是一个从服务器
+2) &#34;127.0.0.1&#34; --主服务器的IP地址
+3) (integer) 6379 --主服务器的端口号
+4) &#34;connected&#34; --主从服务器已经进入在线更新状态
+5) (integer) 1765 --这个从服务器的复制偏移量为1765
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>复杂度：<code>ROLE</code> 命令的复杂度为 <code>O(1)</code>。</p>
+<p>版本要求：<code>ROLE</code> 命令从 Redis 2.8.12 版本开始可用。</p>
+<br/>
+<br/>
+<h2 id="数据同步">数据同步</h2>
+<p>主从服务器需要通过数据同步机制来让两个服务器的数据库状态保持一致。</p>
+<p>本节将对 Redis 主从服务器的数据同步机制进行介绍，理解同步机制的运作原理。</p>
+<br/>
+<br/>
+<h3 id="完整同步">完整同步</h3>
+<p>当 Redis 服务器接收到 <code>REPLICAOF</code> 复制命令，开始对另一个服务器进行复制的时候，主从服务器会执行以下操作。</p>
+<ol>
+<li>主服务器执行 <code>BGSAVE</code> 命令，生成一个 RDB 文件，并使用缓冲区存储起 <code>BGSAVE</code> 命令之后执行的所有些命令。</li>
+<li>当 RDB 文件创建完毕，主服务器会通过套接字将 RDB 文件传送给从服务器。</li>
+<li>从服务器在接收完主服务器传送过来的 RDB 文件之后，就会载入这个 RDB 文件获取数据。</li>
+<li>当从服务器完成 RDB 文件载入操作，并开始上线接受命令请求时，主服务器会把之前存储在缓存区中的所有写命令发送给从服务器执行。</li>
+</ol>
+<p>执行完命令后，主从服务器的数据将完全相同。</p>
+<p>通过创建、传送并载入 RDB 文件来达成数据一致的步骤，我们称之为完整同步操作。每个从服务器在刚开始进行复制的时候，都需要与主服务器进行一次完整同步。</p>
+<p>Redis 会在进行数据同步时重用 RDB 文件。</p>
+<br/>
+<br/>
+<h3 id="在线更新">在线更新</h3>
+<p>为了让主从服务器的数据一致性可以保持下去，让它们一直拥有相同的数据，Redis 会对从服务器进行在线更新。</p>
+<ul>
+<li>每当主服务器执行完一个写命令之后，它就会将相同的写命令（相同效果的命令）发送给从服务器执行。</li>
+<li>从服务器只要接收并执行主服务器发来的写命令，就可以让自己的数据库重新与主服务器保持一致。</li>
+<li>主要从服务器一直与主服务器保持连接，在线更新操作就会不断进行。</li>
+</ul>
+<p>需要注意的是，在线更新是异步进行的。在主服务器执行完写命令之后，直到从服务器也执行完相同的写命令的这段时间里，主从服务器的数据库将出现短暂的不一致。因此要求强一致性的程序可能需要直接读取主而不是从。</p>
+<p>此外，因为主可能在执行完写命令并向从发送写命令的过程中因故障而下线，所以从在主下线后可能会丢失主已经执行的一部分写命令，导致数据不一致的状态。</p>
+<p>因为在线更新的异步本质，无法杜绝不一致。</p>
+<br/>
+<br/>
+<h3 id="部分同步">部分同步</h3>
+<p>当因故障下线的服务器重新上线时，主从的数据通常已经不在一致，因此它们必须重新进行同步，让两者的数据再次回到一致状态。</p>
+<p>在 Redis 2.8 版本以前，重同步是通过直接进行完整同步来实现，但这种方法非常浪费资源。</p>
+<p>从 Redis 2.8 版本开始，使用新的重同步功能：</p>
+<ul>
+<li>当一个 Redis 服务器成为另一个服务器的主时，它会把每个被执行的写命令都记录到一个特定长度的先进先出队列中。</li>
+<li>当断线的从服务器尝试重连主的时候，主将检查从断线期间，被执行的那些写命令是否仍然保存在队列里。如果是，那么主就会直接把从缺失的那些写命令发送给从执行。从通过执行这些写命令就可以重新与主保持一致。这样就避免了重新进行完整同步的麻烦。</li>
+<li>如果从缺失的那些写命令已经不存在与队列当中，那么主从将进行一次完整同步。</li>
+</ul>
+<p>Redis 为这个队列设置的默认大小为 1MB，用户也可以根据自己的需要修改。配置选项为 <code>repl-backlog-size</code>。</p>
+<br/>
+<br/>
+<h2 id="无须硬盘的复制">无须硬盘的复制</h2>
+<p>创建 RDB 文件引起的大量硬盘写入可能会影响服务器性能。</p>
+<p>为了解决这个问题，Redis 从 2.8.18 版本开始引入无须硬盘的复制特性（diskless replication）。启用了这个特性的主服务器在接收到复制命令时不会再在本地创建 RDB 文件，而是会派生出一个子进程，然后由子进程通过套接字直接将 RDB 文件写入从。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 启用无硬盘复制特性
+repl-diskless-sync yes
+</code></pre></td></tr></table>
+</div>
+</div><p>注意，无需硬盘的复制特性只是避免了在主上创建 RDB 文件，但仍需在从在上创建 RDB 文件。</p>
+<br/>
+<br/>
+<h2 id="降低数据不一致情况出现的概率">降低数据不一致情况出现的概率</h2>
+<p>为了尽可能降低数据不一致的出现概率，Redis 从 2.8 开始引入了两个配置项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">min-replicas-max-lag &lt;seconds&gt;
+min-replicas-to-write &lt;numbers&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>用户设置了这两个配置项后，主只会在从的数据大于等于 min-replicas-to-write 的值，并且从与主最后一次成功通信的间隔不超过 min-replicas-max-lag 的值时才会执行写命令。</p>
+<p>示例，假设我们想让主旨在拥有至少 3 个从，并且这些从与主最后一次成功通信的间隔不超过 10s 的情况下才执行写命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">min-replicas-max-lag 10
+min-replicas-to-write 3
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="可写的从服务器">可写的从服务器</h2>
+<p>从 Redis 2.6 开始，从在默认状态下只允许执行读命令。这样是为了保证主从之间的数据一致性。</p>
+<p>但在某些情况下，我们可能想要将一些不太重要或者临时性的数据存储在从中。可以通过配置项 <code>replica-read-only</code> 来打开从的写功能：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 启用从的写功能
+replica-read-only yes
+</code></pre></td></tr></table>
+</div>
+</div><p>使用可写从的注意事项：</p>
+<ul>
+<li>在主从都可写的情况下，程序必须将写命令发送到正确的服务器上，不能把需要在主执行的写命令发送给从执行。也不能把从执行的写命令发送给主，否则就会出现数据错误。</li>
+<li>从执行写命令得到的数据，可能会被主发送的写命令覆盖。基于这个原因，从上执行的写命令应该避免与主发生键冲突。</li>
+<li>当从与主进行完整同步时，从所包含的所有数据都将被清空。</li>
+<li>为了减少内存占用，降低键冲突发生的可能性，并确保主从的数据同步可以顺利进行，客户端写入从的数据应该在使用完毕后尽快删除（如给键设置过期时间）。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="使用从服务器处理复杂计算操作">使用从服务器处理复杂计算操作</h3>
+<p>Redis 的数据相关命令基本可以划分为两类：</p>
+<ul>
+<li>简单的读写操作：如 GET、SET、ZADD 命令等，这种命令只需要对数据库进行简单的读写，它们的执行速度一般都非常快。</li>
+<li>比较复杂的计算操作：如 SUNION、ZINTERSTORE、BITOP 命令等，这种命令需要对数据库中的元素进行聚合计算，并且随着元素数量的增加，计算耗费的时间也会增加，因此这种命令的执行速度一般都比较慢。</li>
+</ul>
+<p>从效率上看，在同一个 Redis 服务器上同时处理以上两种命令，那么执行复杂命令产生的阻塞时间将导致简单名单的延迟明显增加。</p>
+<p>为此，我们可以让主处理简单读写命令，从处理复杂计算命令。</p>
+<p>如果只使用一个从处理复杂计算命令不够快，可以继续增加从，直到从处理复杂计算命令的速度和延迟达到我们的要求为止。</p>
+<br/>
+<br/>
+<h2 id="脚本复制">脚本复制</h2>
+<p>Redis 传播 Lua 脚本的具体方法。Redis 服务器拥有两种不同的脚本复制模式：</p>
+<ul>
+<li>第一种是从 Redis 2.6 开始支持的脚本传播模式（whole script replication）</li>
+<li>另一种是从 Redis 3.2 开始支持的命令传播模式（script effect replication）</li>
+</ul>
+<br/>
+<br/>
+<h3 id="脚本传播模式">脚本传播模式</h3>
+<p>脚本传播是 Redis 复制脚本时默认使用的模式。</p>
+<p>处于脚本传播模式的主会将被执行的脚本及其参数（也就是 EVAL 命令）复制到 AOF 文件和从。因为带有副作用的函数在不同服务器上运行时可能会产生不同的结果，从而导致主从服务器不一致，所以在这一模式下执行的脚本必须是纯函数。换句话说，对于相同的数据集，相同的脚本以及参数必须产生相同的效果。</p>
+<p>为了保证脚本的纯函数性质，Redis 对处于脚本传播模式的 Lua 脚本设置了一下限制：</p>
+<ul>
+<li>脚本不能访问 Lua 的时间模块、内部状态或除给定参数之外的其他外部信息。</li>
+<li>在 Redis 的命令当中，存在着一部分带有随机性质的命令，这些命令对于相同的数据集以及相同的参数可能会返回不同的结果。脚本在执行此类随机命令之后，尝试继续执行写命令，那么 Redis 将拒绝执行该命令并返回一个错误。带有随机性质的 Redis 命令：SPOP、SPANDMEMBER、SCAN、SSCAN、ZSCAN、HSCAN、RANDOMKEY、LASTSAVE、PUBSUB、TIME。</li>
+<li>当用户在脚本中调用 SINTER、SUNION、SDIFF、SMEMBERS、HKEYS、HVALS、KEYS 这 7 个会以随机返回结果元素的命令时，为了消除其随机性质，Lua 环境在返回这些命令的结果之前会先对结果中包含的元素进行排序，以此来确保命令返回的元素总是有序的。</li>
+<li>Redis 会确保每个被执行的脚本都拥有相同的随机生成器种子，这意味着如果用户不主动修改这一种子，那么所有脚本在默认情况下产生的伪随机数都将是相同的。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 脚本传播模式的主执行示例命令
+EVAL &#34;redis.call(&#39;SET&#39;, KEYS[1], &#39;hello world&#39;);redis.call(&#39;SET&#39;, KEYS[2], 10086);redis.call(&#39;SADD&#39;, KEYS[3], &#39;appl
+e&#39;, &#39;banana&#39;, &#39;cherry&#39;)&#34; 3 &#39;msg&#39; &#39;number&#39; &#39;fruits&#39;
+
+# 主将向从发送完全相同的 EVAL 命令
+EVAL &#34;redis.call(&#39;SET&#39;, KEYS[1], &#39;hello world&#39;);redis.call(&#39;SET&#39;, KEYS[2], 10086);redis.call(&#39;SADD&#39;, KEYS[3], &#39;appl
+e&#39;, &#39;banana&#39;, &#39;cherry&#39;)&#34; 3 &#39;msg&#39; &#39;number&#39; &#39;fruits&#39;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="命令传播模式">命令传播模式</h3>
+<p>处于命令传播模式的主会将执行脚本产生的所有写命令用事务包裹起来，然后将事务复制到 AOF 文件和丛。因为命令传播模式复制的是写命令而不是脚本本身，所以即使脚本本身包含副作用，主给所有从复制的写命令仍然是相同的。因此处于命令传播模式的主能够执行带有副作用的非纯函数脚本。</p>
+<p>除了脚本可以不是纯函数外，命令传播模式对 Lua 环境还有以下放松：</p>
+<ul>
+<li>用户可以在执行 RANDOMKEY、SRANDMEMBER 等带有随机性质的命令之后继续执行写命令。</li>
+<li>脚本的伪随机数生成器在每次调用之前，都会随机地设置种子。换句话说，被执行的每个脚本在默认情况下产生的伪随机数都是不一样的。</li>
+</ul>
+<p>为了开启命令传播模式，用户在使用脚本执行任何写操作之前，需要现在脚本中调用 <code>redis.replicate_commands()</code> 函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 主执行以下示例命令
+EVAL &#34;redis.replicate_commands();redis.call(&#39;SET&#39;, KEYS[1], &#39;hello world&#39;);redis.call(&#39;SET&#39;, KEYS[2], 10086);redis.
+call(&#39;SADD&#39;, KEYS[3], &#39;apple&#39;, &#39;banana&#39;, &#39;cherry&#39;)&#34; 3 &#39;msg&#39; &#39;number&#39; &#39;fruits&#39;
+
+# 主向从复制以下命令
+MULTI
+SET &#34;msg&#34; &#34;hello world&#34;
+SET &#34;number&#34; &#34;10086&#34;
+SADD &#34;fruits&#34; &#34;apple&#34; &#34;banana&#34; &#34;cherry&#34;
+EXEC
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="选择性命令传播">选择性命令传播</h3>
+<p>Redis 允许用户在脚本中选择性地打开或者关闭命令传播功能。可以通过在脚本中调用 <code>redis.set_repl()</code> 函数并向它传入值来完成。</p>
+<ul>
+<li><code>.redis.REPL_ALL</code>：默认值，将命令传播至 AOF 文件以及所有从。</li>
+<li><code>.redis.REPL_AOF</code>：只将写命令传播到 AOF 文件。</li>
+<li><code>.redis.REPL_SLAVE</code>：只将写命令传播到所有从。</li>
+<li><code>.redis.REPL_NONE</code>：不传播写命令。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="模式的选择">模式的选择</h3>
+<p>一般来说，用户可以根据以下情况来判断应该使用哪种复制模式：</p>
+<ul>
+<li>如果脚本的体积不大，执行的计算也不多，但却会产生大量命令调用，那么使用脚本传输模式可以有效地节约网络资源。</li>
+<li>如果脚本的体积很大，执行的计算非常多，但是只会产生少量的命令调用，那么使用命令传播模式可以重用已有的计算结果来节约计算资源和网络资源。</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="哨兵模式">哨兵模式</h1>
+<p>因为 Redis 支持主从复制特性，所以我们可以对下线的 Redis 主服务器实施故障转移。</p>
+<p>举个例子。假设我们有一个主（<code>127.0.0.1:6379</code>），两个从（127.0.0.1:6380, 127.0.0.1:6381）。如果某一时刻，主 6379 因为故障而下线。我们可以向 6380 发送 <code>REPLICAOF no one</code> 将其转换为主，然后向从 6381 发送 <code>REPLICAOF 127.0.0.1:6380</code>，让它去复制新的主 6380。</p>
+<p>监视多台 Redis 服务器，并在有需要的时候对下线的主服务器实施故障转移，这并不是一件容易的事。为了给 Redis 提供自动化的故障转移功能，提高主从的可用性，Redis 提供了 Sentinel（哨兵）工具。哨兵通过心跳检测的方式监视多个主以及它们的从，并在某个主下线时自动对其实施故障转移。</p>
+<p>简单来说，如果哨兵监视 主 6379 和从 6380 和 6381，那么在 6379 因为故障而下线时，哨兵就会把从的其中一个转换为主，并让其它从去复制新的主，这个过程完全不需要人工介入。</p>
+<br/>
+<br/>
+<h2 id="启动哨兵">启动哨兵</h2>
+<p>示例命令:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">redis-sentinel /etc/redis-sentinel.conf
+<span class="c1"># 或</span>
+redis-server /etc/redis-sentinel.conf --sentinel
+</code></pre></td></tr></table>
+</div>
+</div><p>最基础的哨兵配置文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># sentinel monitor &lt;master-name&gt; &lt;ip&gt; &lt;port&gt; &lt;quorum&gt;
+# quorum 用于判定主下线所需的哨兵数量
+setinel monitor redis01 127.0.0.1 6379 1
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-2.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-2.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-2.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-2.png"
+        title="哨兵" /></p>
+<br/>
+<p>哨兵首先监视我们指定的主 6379，又自动发现并监视了它的两个从 6380 和 6381。</p>
+<p>因为哨兵开始监视主后，就会去获取被监视主的从名单，并根据名单对从实施监视，整个过程是完全自动的，用户只需要输入待监视的主的地址。</p>
+<p>除此之外，哨兵还会对每个被监视的主从实施心跳检测，并记录各个服务器的在线状态、响应速度等信息。当哨兵发现被监视的主进入下线状态时，它就会开始对下线的主实施故障转移。</p>
+<p>举个例子，如果我们故意杀死主 6379，那么哨兵将检测到 6379 已下线，并从 6380 和 6381 这两个从之间选出一个新的主，然后重新构建一个主从连接。</p>
+<br/>
+<br/>
+<h3 id="可以同时监视多个主">可以同时监视多个主</h3>
+<p>一个哨兵可以监视任意数量的主，而不仅仅是一个主。但为了避免混淆，一般是一个环境配置一套 Redis 和 Redis Sentinel。</p>
+<p>如果想要使用哨兵去监视多个主，只需要在配置文件中指定多个 <code>sentinel monitor</code> 选项即可，并为每个被监视的主服务器设置不同的名字。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sentinel monitor redis01 127.0.0.1 6379 1
+sentinel monitor redis02 192.168.0.10 6379 1
+sentinel monitor redis03 192.168.1.10 6379 1
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="处理重新上线的旧的主">处理重新上线的旧的主</h3>
+<p>哨兵在对下线的主实施故障转移之后，仍然会继续对它进行心跳检测。当这个服务器重新上线时，哨兵会把它转换为当前主的从。</p>
+<br/>
+<br/>
+<h3 id="设置从服务器的优先级">设置从服务器的优先级</h3>
+<p>用户可以通过 <code>replica-priority</code>（5.0 之前的版本是 <code>slave-priority</code>） 配置项来设置各个从服务器的优先级。优先级较高的从在哨兵选择主的时候会被优先选择。</p>
+<p>这个值默认是 100，值越小，从的优先级就越高。优先级为 0 的从永远不会被选为主。用户可以通过设置此配置项将不适合用作主的从排除在新主的候选名单之外。</p>
+<p>通过这个配置项，可以给性能较高的从服务器设置较高的优先级来尽可能地保证新主的性能。因为主在下线并重新上线之后也会变成从，所以用户也应该为主设置相应的优先级。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 5.0
+replica-priority 100
+
+# 5.0-
+slave-priority 100
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="新主服务器的挑选规则">新主服务器的挑选规则</h3>
+<p>当哨兵需要在多个从中选择一个作为新的主时，首先会根据以下规则从候选名单中剔除不符合条件的从：</p>
+<ol>
+<li>否决所有已经下线以及长时间没有回复心跳检测的疑似已下线的从。</li>
+<li>否决所有长时间没有与主通信，数据状态过时的从。</li>
+<li>否决所有优先级为 0 的从。</li>
+</ol>
+<p>然后根据以下规则，在剩余的从中选出新的主：</p>
+<ol>
+<li>优先级最高的从获胜。</li>
+<li>如果优先级最高的从有多个，那么复制偏移量最大的那个获胜。</li>
+<li>如果符合上述条件的从有多个，那么选出它们当中运行 ID（服务器启动时自动生成的随机数）最小的那一个。</li>
+</ol>
+<br/>
+<br/>
+<h2 id="哨兵网络">哨兵网络</h2>
+<p>前面的示例只使用了单个哨兵，但在实际使用中，可以使用多个哨兵组建一个分布式的哨兵网络，网络中的各个哨兵可以通过互通消息来更加准确地判断服务器的状态。在一般情况下，只要哨兵网络中有半数以上的哨兵在线，故障转移就可以继续进行。</p>
+<p>当哨兵网络中的其中一个哨兵认为某个主已经下线时，它会将这个主标记为主观下线（Subjectively Down, SDOWN），然后会询问网络中的其他哨兵，是否也认为该服务器已下线。当同意主已下线的哨兵数量达到 <code>sentinel monitor</code> 配置项中 <code>quorum</code> 参数所指定的数量时，哨兵就会将相应的主标记为客观下线（Objectively Down, ODOWN），然后开始对其进行故障转移。</p>
+<p>因为哨兵网络使用客观下线机制来判断一个主是否真的已经下线了，所以为了让这种机制能够有效地运作，用户需要将 <code>quorum</code> 参数的值设置为哨兵数量的半数以上，从而形成一个少数服从多数的投票机制。</p>
+<p>举个栗子，在一个拥有 3 个哨兵的网络中，<code>quorum</code> 参数的值至少需要设置成 2。在一个拥有 5 个哨兵的网络中，<code>quorum</code> 参数的值至少需要设置成 3。</p>
+<br/>
+<br/>
+<h3 id="组建哨兵网络">组建哨兵网络</h3>
+<p>组建哨兵网络很简单，与启动单个哨兵的方法一样。用户只需要启动多个哨兵（并使用 <code>sentinel monitor</code> 监视相同的主），那些监视相同主的哨兵会自动发现对方，并组成哨兵网络。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-3.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-3.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-3.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-3.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/19-3.png"
+        title="哨兵网络" /></p>
+<br/>
+<br/>
+<h2 id="哨兵管理命令">哨兵管理命令</h2>
+<p>一些常用的哨兵管理命令，连接到 Redis Sentinel 的命令。</p>
+<p>命令从 Redis 2.8.0 版本可用。</p>
+<br/>
+<br/>
+<h3 id="获取所有被监视的主服务器的信息">获取所有被监视的主服务器的信息</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)，N 为主的数量
+SENTINEL masters
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="获取指定被监视主服务器的信息">获取指定被监视主服务器的信息</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+SENTINEL master &lt;master-name&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="获取被监视主服务器的从服务器的信息">获取被监视主服务器的从服务器的信息</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)，N 为从的数量
+SENTINEL slaves &lt;master-name&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="获取其他哨兵的信息">获取其他哨兵的信息</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)，N 为正在监视主的哨兵数量
+SENTINEL sentinels &lt;master-name&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="获取给定主的-ip-和端口">获取给定主的 IP 和端口</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 如果哨兵进行了故障转移操作，那么将返回新的主
+# 复杂度 O(1)
+SENTINEL get-master-addr-by-name &lt;master-name&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="重置主服务器的状态">重置主服务器的状态</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)，N 为被重置的主的数量
+SENTINEL reset &lt;pattern&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="强制执行故障转移">强制执行故障转移</h3>
+<p>用户可以强制对指定的主实施故障转移，就好像它已经下线了一样。</p>
+<p>接收到这一命令的哨兵会直接对主执行故障转移操作，而不会像平时那样，先在哨兵网络中进行投票，然后再根据投票结果决定是否执行故障转移操作。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+SENTINEL failover &lt;master-name&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="检查可用哨兵的数量">检查可用哨兵的数量</h3>
+<p>检查哨兵网络中当前可用的哨兵数量是否达到了判断主客观下线并实施故障转移所需的数量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+SENTINEL ckquorum &lt;master-name&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="强制写入配置文件">强制写入配置文件</h3>
+<p>让哨兵将它的配置文件重新写入硬盘。</p>
+<p>因为哨兵在被监视服务器的状态发生变化时就会自动重写配置文件，所以这个命令的作用就是在配置文件基于某些原因或错误而丢失时，立即生成一个新的配置文件。此外，当哨兵的配置项发生变化时，哨兵内部也会使用这个命令创建新的配置文件来替换原有的配置文件。</p>
+<p>比如我手动删掉哨兵配置文件，然后执行此命令，这样哨兵会重新生成一个新的配置文件。</p>
+<p>需要注意的是，只有接收到此命令的哨兵才会重写配置文件，哨兵网络中的其他哨兵并不会受到这个命令的影响。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+SENTINEL flushconfig
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="在线配置哨兵">在线配置哨兵</h2>
+<p>在 Redis 2.8.4 版本之前，哨兵只能通过载入配置文件来修改配置项。手动修改配置文件并重启的做法不仅麻烦、容易出错，而且在运行过程中停止哨兵还可能导致主失去有效的监控。</p>
+<p>Redis 从 2.8.4 版本开始为 <code>SENTINEL</code> 命令添加了一组子命令，这些子命令可以在线地修改哨兵对于被监视主服务器的配置项，并把修改之后的配置项保存到配置文件中。整个过程不需要停止哨兵，也不需要手动修改配置，非常方便。</p>
+<br/>
+<br/>
+<h3 id="监视给定主服务器">监视给定主服务器</h3>
+<p>让哨兵开始监视一个新的主服务器。此命令就是 <code>sentinel monitor</code> 配置项的命令版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+SENTINEL monitor &lt;master-name&gt; &lt;ip&gt; &lt;port&gt; &lt;quorum&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="取消对给定主服务器的监视">取消对给定主服务器的监视</h3>
+<p>接收到此命令的哨兵会停止对给定主的监视，并删除哨兵内部以配置文件中与给定主有关的所有信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+SENTINEL remove &lt;master-name&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="修改哨兵配置项的值">修改哨兵配置项的值</h3>
+<p>在线修改哨兵配置文件中与主相关的配置选项值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(1)
+SENTINEL set &lt;master-name&gt; &lt;option&gt; &lt;value&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="使用在线配置命令的注意事项">使用在线配置命令的注意事项</h3>
+<p>在线配置命令只会对接收到命令的单个哨兵生效，并不会对同一个哨兵网络中的其他哨兵产生影响。</p>
+<p>哨兵网络中的各个哨兵可以拥有不同的 <code>quorum</code> 值。</p>
+<br/>
+<br/>
+<h2 id="使用redis-py管理哨兵">使用redis-py管理哨兵</h2>
+<br/>
+<hr>
+<br/>
+<h1 id="集群">集群</h1>
+<p>Redis Cluster 是 Redis 3.0 版本开始引入的功能，它给用户带来了在线扩展 Redis 系统读写性能的能力。而 Redis 更是在集群原有功能的基础上，进一步添加了更多新功能，使得整个集群系统更简单、易用和高效。</p>
+<br/>
+<br/>
+<h2 id="基本特性">基本特性</h2>
+<p>Redis 集群与单机版 Redis 服务器一样，也提供了主从复制功能。在 Redis 集群中，各个 Redis 服务器被称为节点（node），其中主节点（master node）负责处理客户端发送的读写命令请求，而从节点（replica/slave node）则负责对主节点进行复制。</p>
+<p>除了复制功能外，Redis 集群还提供了类似于单机版 Redis Sentinel 的功能，以此来为集群提供高可用特性。简单来说，集群中的各个节点将相互监视各自的运行状况，并在某个主节点下线时，通过提升该节点的从节点为新主节点来继续提供服务。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-1.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-1.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-1.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-1.png"
+        title="集群及其节点" /></p>
+<br/>
+<br/>
+<h3 id="分片与重分片">分片与重分片</h3>
+<p>与单机版 Redis 将整个数据库放在同一台服务器上的做法不同，Redis 集群通过将数据库分散存储到多个节点上来平衡各个节点的负载压力。</p>
+<p>Redis 集群会将整个数据库空间划分为 16384 个槽（slot）来实现数据分片（sharding），而集群中的各个主节点则会分别处理其中的一部分槽。当用户尝试将一个键存储到集群中时，客户端会先计算处键所属的槽，接着在记录集群节点槽分布的映射表中找出处理该槽的节点，最好再将键存储到相应的节点中。</p>
+<p>当用户想要向集群添加新节点时，只需要向 Redis 集群发送几条简单的命令，集群就会将相应的槽以及槽中存储的数据迁移到新节点。与此类似，当用户想要从集群中移除已存在的节点时，被移除的节点也会将自己负责处理的槽以及槽中数据转交给集群中其他节点负责。最重要的是，无论是向集群添加还是移除节点，整个重分片（reshard）过程都可以在线进行，集群无需停机。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-2.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-2.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-2.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-2.png"
+        title="集群的分片实现" /></p>
+<br/>
+<br/>
+<h3 id="高性能">高性能</h3>
+<p>Redis 集群采用无代理模式，客户端发送的所有命令都会直接交由节点执行，并且对于经过优化的集群客户端来说，客户端发送的命令在绝大部分情况下都不需要实施转向，因此集群中执行命令的性能与单机执行命令的性能非常接近。</p>
+<p>从理论上来说，集群每增加一倍数量的主节点，集群对于命令请求的处理性能就会提高一倍。</p>
+<br/>
+<br/>
+<h2 id="搭建集群">搭建集群</h2>
+<p>搭建一个 Redis 集群有两种方法：</p>
+<ul>
+<li>使用源码附带的集群自动搭建</li>
+<li>使用配置文件手动搭建</li>
+</ul>
+<br/>
+<br/>
+<h3 id="快速搭建集群">快速搭建集群</h3>
+<p>Redis 在它的源码中附带了自动搭建程序 <code>create-cluster</code>，可以帮助快速构建起一个完整可用的集群以供用户测试。</p>
+<p>示例，快速创建 6 个本机端口号为 30001-30006 的节点。它会根据现有的节点制定出一个相应的角色和槽分配计划，然
+后询问你的意见。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">./create-cluster start
+
+./create-cluster create
+
+./create-cluster stop
+
+./create-cluster clean
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-3.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-3.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-3.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-3.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-3.png"
+        title="自动搭建的集群" /></p>
+<br/>
+<br/>
+<h3 id="手动搭建集群">手动搭建集群</h3>
+<p>生产环境中使用相应的配置文件来启动 Redis 集群，并使用集群管理命令对集群进行配置和管理。</p>
+<p>为了保证集群的各项功能可以正常运转，一个集群至少需要 3 个主节点和 3 个从节点。</p>
+<p>下面示例创建一个 5 主 5 从的 Redis 集群。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 创建各个节点的目录</span>
+mkdir my-cluster <span class="o">&amp;&amp;</span> <span class="nb">cd</span> my-cluster
+mkdir node<span class="o">{</span>1..10<span class="o">}</span>
+
+<span class="c1"># 配置每个节点的配置</span>
+cluster-enabled yes
+port 3000<span class="o">[</span>1-10<span class="o">]</span>
+
+<span class="c1"># 启动</span>
+redis-server redis.conf
+
+<span class="c1"># 虽然我们已经启动了 10 个集群节点，但由于这些集群并未互联互通，所以它们都只在各自的集群之内。</span>
+<span class="c1"># 接下来我们需要连接这 10 个节点并为它们分配槽。</span>
+redis-cli --cluster create 127.0.0.1:30001 127.0.0.1:30002 127.0.0.1:30003 127.0.0.1:30004 127.0.0.1:30005 127.0.0.1:30006 127.
+0.0.1:30007 127.0.0.1:30008 127.0.0.1:30009 127.0.0.1:30010 --cluster-replicas <span class="m">1</span>
+<span class="c1"># create 子命令将制定节点角色和槽分配计划</span>
+<span class="c1"># 比如把 3000[1-5] 设置为主，并把 16384 个槽平均分配给这 5 个节点。30006-30010 则指派给主的从</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-5.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-5.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-5.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-5.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-5.png"
+        title="手动搭建的集群" /></p>
+<br/>
+<br/>
+<h2 id="散列标签">散列标签</h2>
+<p>默认情况下，Redis 将根据用户输入的整个键计算出改建所属的槽，然后将键存储到相应的槽中。但在某些情况下，出于性能方面的考虑，或为了在同一个节点上对多个相关联的键执行批量操作，我们会想将一些原本不属于同一个槽的键放到相同的槽里面。</p>
+<p>为了满足这一需求，Redis 为用户提供了散列标签（hash tag）功能，该功能会找出键中第一个被大括号 <code>{}</code> 包围并且非空的字符串子串（substring），然后根据子串计算出该键所属的槽。这样，即使两个键不属于同一个槽，但只要它们拥有相同的被包围子串，那么程序计算出的散列值就是一样的，因此 Redis 集群就会把它们存储到同一个操作。</p>
+<p>比如，我们有一批用户数据，它们全部以 <code>user::</code> 为前缀，其中键 <code>user::10086</code> 和 <code>user::10087</code> 原本应该分别术语两个不同的槽。但如果我们对这两个键使用散列标签功能，那么这两个键将被分配至同一个槽。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:30002&gt; CLUSTER KEYSLOT {user}::10086
+(integer) 5474
+
+127.0.0.1:30002&gt; CLUSTER KEYSLOT {user}::10087
+(integer) 5474
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="从节点的读命令执行权限">从节点的读命令执行权限</h2>
+<p>集群的从节点在默认情况下只会对主节点进行复制，不会处理客户端发送的任何命令请求。每当从节点接收到命令请求的时候，它只会向客户端发送转向消息，引导客户端向某个主节点重新发送命令请求。</p>
+<p>举个栗子，对于主节点 30001 和它的从节点 30005 来说，如果我们向从节点发送以下命令，那么从节点会把客户端转向至主节点，然后在执行命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:30005&gt; GET num
+-&gt; Redirected to slot [2765] located at 127.0.0.1:30001
+&#34;10086&#34;
+127.0.0.1:30001&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>Redis 向用户提供了 <code>READONLY</code> 和 <code>READWRITE</code> 两个命令，它们可以临时打开或关闭客户端在从节点上执行读命令的权限。</p>
+<p>命令只对执行了该命令的客户端有效，并不影响正在访问相同从节点的其他客户端。</p>
+<p>两个命令的复杂度都是 <code>O(1)</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># READONLY：打开读命令执行权限
+127.0.0.1:30005&gt; READONLY
+OK
+127.0.0.1:30005&gt; GET num
+&#34;10086&#34;
+
+# READWRITE：关闭读命令执行权限
+127.0.0.1:30005&gt; READWRITE
+OK
+127.0.0.1:30005&gt; GET num
+-&gt; Redirected to slot [2765] located at 127.0.0.1:30001
+&#34;10086&#34;
+127.0.0.1:30001&gt;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="集群管理工具">集群管理工具</h2>
+<p>Redis 官方提供了两种工具来管理集群，一种是 <code>redis-cli</code> 客户端，另一种是内置的命令。</p>
+<br/>
+<br/>
+<h3 id="redis-cli客户端工具">redis-cli客户端工具</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">redis-cli --cluster --help
+
+<span class="c1"># 以下都是子命令</span>
+
+<span class="c1"># 查看集群信息</span>
+redis-cli --cluster info &lt;ip&gt;:&lt;port&gt;
+
+<span class="c1"># 检查集群的配置是否正确，以及全部槽是否已经全部指派给了主节点。</span>
+redis-cli --cluster check &lt;ip&gt;:&lt;port&gt;
+
+<span class="c1"># 修复槽错误，当集群在重分片、负载均衡或槽迁移的过程中出现错误，可以让操作涉及的槽重新回到正常状态。</span>
+redis-cli --cluster fix &lt;ip&gt;:&lt;port&gt;
+
+<span class="c1"># 重分片，用户可以将指定数量的槽从原节点迁移至目标节点，被迁移的槽将交由后者负责，并且槽中已有的数据也会陆续从原节点转移到目标节点。</span>
+redis-cli --cluster reshard &lt;ip&gt;:&lt;port&gt;
+
+<span class="c1"># 负载均衡，允许用户在有需要时重新分片各个节点负责的槽数量</span>
+redis-cli --cluster rebalance &lt;ip&gt;:&lt;port&gt;
+
+<span class="c1"># 添加节点，将给定的新节点添加到已有的集群</span>
+redis-cli --cluster add-node &lt;new_host&gt;:&lt;port&gt; &lt;existing_host&gt;:&lt;port&gt;
+<span class="c1"># 默认情况下, 添加的新节点将作为主节点存在</span>
+--cluster-slave --cluster-master-id &lt;id&gt;
+
+<span class="c1"># 移除节点</span>
+redis-cli --cluster del-node &lt;ip&gt;:&lt;port&gt; &lt;node_id&gt;
+
+<span class="c1"># 执行命令，在集群上的所有节点上执行给定的命令</span>
+redis-cli --cluster call host:port <span class="nb">command</span> arg...
+
+<span class="c1"># 设置超时时间</span>
+set-timeout &lt;host&gt;:&lt;port&gt; &lt;milliseconds&gt;
+
+<span class="c1"># 导入数据，将给定单机 Redis 服务器的数据导入集群中。</span>
+import &lt;node-host&gt;:&lt;port&gt; <span class="c1"># 集群入口节点的IP地址和端口号</span>
+--cluster-from &lt;server-host&gt;:&lt;port&gt; <span class="c1"># 单机服务器的IP地址和端口号</span>
+--cluster-copy <span class="c1"># 使用复制导入</span>
+--cluster-replace <span class="c1"># 覆盖同名键</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="集群管理命令">集群管理命令</h3>
+<p>Redis 还提供了一组以 <code>CLUSTER</code> 开头的集群命令。</p>
+<p>需要注意的是，<code>redis-cli --cluster</code> 实际上就是由 <code>CLUSTER</code> 命令实现的，两者的命令是对应的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 以下命令都在 redis 客户端里执行
+# 如 127.0.0.1:30001&gt; 里
+
+# 将给定节点添加到当前集群
+# 复杂度 O(1)
+CLUSTER MEET ip port
+
+# 查看集群内所有节点的相关信息
+# 复杂度 O(N)，N 为集群包含的节点数量
+CLUSTER NODES
+
+# 查看当前节点的运行 ID
+# 复杂度 O(1)
+CLUSTER MYID
+
+# 查看集群信息
+# 复杂度 O(1)
+CLUSTER INFO
+
+# 从集群中移除节点
+# 复杂度 O(1)
+CLUSTER FORGET node-id
+# 等价于 redis-cli --cluster call 127.0.0.1:30001 CLUSTER FORGET node-id
+
+# 将节点变为从节点
+# 集群只允许对主节点进行复制
+# 命令本身的复杂度是 O(1)，但它引起的异步复制操作的复杂度为 O(N)，其中 N 为主节点数据库所包含的键值对总数量。
+CLUSTER REPLICATE master-id
+
+# 查看给定节点的所有从节点
+# REPLICAS 是 5.0 版本后的，之前的是 SLAVES
+# 复杂度 O(N)
+CLUSTER REPLICAS node-id
+
+
+# 强制执行故障转移
+# 复杂度 O(1)
+CLUSTER FAILOVER
+# FORCE 和 TAKEOVER 选项来改变故障转移的行为
+# 在给定了FORCE选项时，从节点将在不尝试与主节点进行握手的情况下，直接实施故障转移。这种做法可以让用户在主节点已经下线的情况下立即开始故障转移。
+# 需要注意的是，即使用户给定了FORCE选项，从节点对主节点的故障转移操作仍然要经过集群中大多数主节点的同意才能够真正执行。但如果用户给定了TAKEOVER选项，那么从节点将在不问集群中其他节点意见的情况下，直接对主节点实施故障转移。
+
+# 重置节点
+# 接受SOFT和HARD两个可选项作为参数，默认是 SOFT 选项
+# 此命令只能在数据库为空的节点上执行，否则将返回错误
+# 复杂度 O(N)
+CLUSTER RESET
+# 此命令将对节点执行以下操作：
+# 遗忘该节点已知的其他所有节点
+# 撤销指派给该节点的所有槽，并清空节点内部的槽-节点映射表
+# 如果执行该命令的节点是一个从节点，那么将它转换成一个主节点
+# 如果执行的是硬重置，那么为节点创建一个新的运行ID
+# 如果执行的是硬重置，那么将节点的纪元和配置纪元都设置为0
+# 通过集群节点配置文件的方式，将新的配置持久化到硬盘上
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-6.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-6.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-6.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-6.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-6.png"
+        title="集群组成的过程" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/20-7.png"
+        title="两个集群合并为一个集群的过程" /></p>
+<br/>
+<br/>
+<h2 id="槽管理命令">槽管理命令</h2>
+<br/>
+<br/>
+<h3 id="查看槽与节点之间的关联信息">查看槽与节点之间的关联信息</h3>
+<p>获知各个槽与集群节点之间的关联信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)
+CLUSTER SLOTS
+</code></pre></td></tr></table>
+</div>
+</div><p>命令会返回一个嵌套数组，数组中的每个项记录了一个槽范围（slot range）及其处理者的相关信息：</p>
+<ul>
+<li>槽范围的起始槽和结束槽</li>
+<li>负责处理这些槽的主节点信息</li>
+<li>零个或多个主节点属下从节点的信息</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 示例
+127.0.0.1:30001&gt; CLUSTER SLOTS
+1) 1) (integer) 0 --起始槽
+2) (integer) 5460 --结束槽
+3) 1) &#34;127.0.0.1&#34; --主节点信息
+2) (integer) 30001
+3) &#34;9e2ee45f2a78b0d5ab65cbc0c97d40262b47159f&#34;
+4) 1) &#34;127.0.0.1&#34; --从节点信息
+2) (integer) 30005
+3) &#34;f584b888fcc0e7648bd838cb3b0e2d1915ac0ad7&#34;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="把槽指派给节点">把槽指派给节点</h3>
+<p>将一个或任意多个槽指派给当前节点处理。</p>
+<p>需要注意的是，只能对未被指派的槽执行，如果槽已经被指定，将返回错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)
+CLUSTER ADDSLOTS slot [slot ...]
+</code></pre></td></tr></table>
+</div>
+</div><p>示例，将尚未被指派的 0-5 指派给节点 30001 负责：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:30001&gt; CLUSTER ADDSLOTS 0 1 2 3 4 5
+OK
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="撤销对节点的槽指派">撤销对节点的槽指派</h3>
+<p>撤销对节点的槽指派。</p>
+<p>需要注意的是，撤销一个未指派的槽将引发错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)
+CLUSTER DELSLOTS slot [slot ...]
+</code></pre></td></tr></table>
+</div>
+</div><p>示例，撤销对该节点的槽 0-5 的指派：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:30001&gt; CLUSTER DELSLOTS 0 1 2 3 4 5
+OK
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="撤销对节点的所有槽的指派">撤销对节点的所有槽的指派</h3>
+<p>通过在一个节点上执行此命令，可以撤销对该节点的所有槽指派，让它不再负责处理任何槽。</p>
+<p>需要注意，用户在执行此命令前，必须确保节点的数据库为空，否则节点将拒绝执行命令并返回错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)
+CLUSTER FLUSHSLOTS
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="查看键所属的槽">查看键所属的槽</h3>
+<p>通过对给定键执行此命令，可以知道改键所属的槽。</p>
+<p>最后，正如前面所说，带有相同散列标签的键将被分配到相同的槽。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)
+CLUSTER KEYSLOT key
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="查看槽包含的键数量">查看槽包含的键数量</h3>
+<p>查看给定槽包含的键数量。</p>
+<p>请注意，如果这个槽不是这个节点负责处理，那么将返回 0。所以请求正确的节点上执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度 O(N)
+CLUSTER COUNTKEYSINSLOT slot
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="获取槽包含的键">获取槽包含的键</h3>
+<p>获取指定槽包含的键。</p>
+<p>请注意，只能获取当前节点包含的键。所以请在正确的节点上执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># slot 指定槽，count 指定允许返回的最大键数量
+# 复杂度 O(log(N) + M)，N 为键数量，M 
+CLUSTER GETKEYSINSLOT slot count
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="改变槽的状态">改变槽的状态</h3>
+<p>改变给定槽在节点中的状态，从而实现节点之间的槽迁移以及集群重分片。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复杂度都是 O(1)
+
+# 导入槽，让节点的指定槽进入导入中状态，处于该状态的槽允许从源节点中导入槽数据
+CLUSTER SETSLOT slot IMPORTING source-node-id
+
+# 迁移槽，让节点的指定操进入迁移中状态，处于该状态的槽允许向目标节点转移槽数据
+CLUSTER SETSLOT slot MIGRATING destination-node-id
+
+# 将槽指派给节点，在将槽数据从源节点迁移到目标节点后，用户可以在集群的任一节点执行此命令，正式将槽指派给目标节点负责
+# 目标节点在接收到这一信息之后将移除给定槽的导入中状态，而源节点在接收到这一信息后将移除给定槽的迁移中状态
+CLUSTER SETSLOT slot NODE node-id
+
+# 移除槽的导入/迁移状态
+# STABLE 子命令的唯一作用，就是在槽迁移出错或者重分片出错时，手动移除相应节点的槽状态
+CLUSTER SETSLOT slot STABLE
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="安装方法">安装方法</h1>
+<p>可以访问 <a href="try.redis.io" rel="">TryRedis</a> 网站查看教程。</p>
+<br/>
+<br/>
+<h2 id="在linux上安装">在Linux上安装</h2>
+<p>通过源码编译安装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 安装依赖工具</span>
+yum/apt install gcc make git
+
+<span class="c1"># 克隆项目</span>
+git clone https://github.com/antirez/redis.git
+
+<span class="c1"># 编译并测试</span>
+<span class="nb">cd</span> redis
+make
+make <span class="nb">test</span>
+
+<span class="c1"># 启动</span>
+./src/redis-server
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-10-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/redis-guide/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/redis-guide/" data-title="Redis使用手册" data-hashtags="Database,NoSQL,Redis"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/redis-guide/" data-title="Redis使用手册"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/redis-guide/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/redis-guide/" data-title="Redis使用手册"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/redis-guide/" data-title="Redis使用手册"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/database/">database</a>,&nbsp;<a href="/tags/nosql/">NoSQL</a>,&nbsp;<a href="/tags/redis/">Redis</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/computer-science/" class="prev" rel="prev" title="计算机科学导论"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>计算机科学导论</a>
+            <a href="/lua/" class="next" rel="next" title="Lua语言">Lua语言<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

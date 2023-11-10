@@ -1,7 +1,6 @@
 # Zabbix
 
 
-
 参考：
 
 - [Zabbix官方网站](https://www.zabbix.com/)
@@ -17,10 +16,10 @@
 
 
 <br/>
-<br/>
-<!--more-->
 
 ---
+
+<!--more-->
 
 <br/>
 

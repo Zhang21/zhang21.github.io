@@ -1,7 +1,6 @@
 # Consul
 
 
-
 参考：
 
 - <https://www.consul.io/intro/index.html>
@@ -10,23 +9,18 @@
 
 环境：
 
-- CentOS7x86_64
+- RHEL7x86_64
 - Consul v1.2.0
 
-
-<br>
 <br/>
-
-<!--more-->
 
 ---
 
+<!--more-->
+
 <br/>
 
-
-
 # 简介
-
 
 介绍consul是什么，它可以解决哪些问题，以及如何开始使用它。
 

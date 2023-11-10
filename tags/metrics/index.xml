@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Metrics - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/metrics/</link>
+        <description>Metrics - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 11 Sep 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/metrics/" rel="self" type="application/rss+xml" /><item>
+    <title>Prometheus</title>
+    <link>https://zhang21.cn/prometheus/</link>
+    <pubDate>Tue, 11 Sep 2018 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/prometheus/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://prometheus.io/docs" target="_blank" rel="noopener noreffer ">Prometheus文档</a></li>
+<li><a href="https://github.com/prometheus/" target="_blank" rel="noopener noreffer ">GitHub</a></li>
+<li><a href="https://github.com/feiyu563/PrometheusAlert" target="_blank" rel="noopener noreffer ">PrometheusAlert</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>RHEL7x86_64</li>
+<li>Prometheus v2.14</li>
+</ul>
+<br>
+<hr>]]></description>
+</item>
+</channel>
+</rss>

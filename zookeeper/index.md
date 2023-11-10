@@ -1,13 +1,11 @@
 # ZooKeeper
 
 
-
 参考:
 
 - 维基百科
-- ZooKeeper: <https://zookeeper.apache.org/>
-- Docs: <https://zookeeper.apache.org/doc/>
-
+- [ZooKeeper](https://zookeeper.apache.org/)
+- [文档](https://zookeeper.apache.org/doc/)
 
 环境:
 
@@ -15,15 +13,6 @@
 - ZooKeeper v3.5
 
 
-
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
@@ -31,17 +20,6 @@
 <!--more-->
 
 <br/>
-<br/>
-
-
-
-
-
-
-
-
-
-
 
 
 

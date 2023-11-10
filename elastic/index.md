@@ -1,17 +1,10 @@
 # Elatic Stack
 
 
-
-
 参考：
 
-- Elastic指南: <https://www.elastic.co/guide/index.html>
-- Elasticsearch文档: <https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html>
-- Logstash文档: <https://www.elastic.co/guide/en/logstash/current/index.html>
-- Kibana文档: <https://www.elastic.co/guide/en/kibana/current/index.html>
-- Filebeat文档: <https://www.elastic.co/guide/en/beats/filebeat/index.html>
-- Metricbeat文档: <https://www.elastic.co/guide/en/beats/metricbeat/current/index.html>
-- Lucence查询语法: <https://wizardforcel.gitbooks.io/mastering-elasticsearch/content/chapter-1/114_README.html>
+- [Elastic指南](https://www.elastic.co/guide/index.html)
+- [Lucence查询语法](https://wizardforcel.gitbooks.io/mastering-elasticsearch/content/chapter-1/114_README.html)
 
 环境：
 
@@ -21,18 +14,13 @@
 - Logstash v6.2.3
 - Beats v6.2.3
 
-
-
-<br>
 <br/>
-
-<!--more-->
 
 ---
 
+<!--more-->
+
 <br>
-
-
 
 # 综述
 

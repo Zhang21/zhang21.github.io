@@ -1,54 +1,26 @@
 # Ansible
 
 
-
-
-
-
 参考:
 
 - Ansible docs: <https://docs.ansible.com>
 
-
-
 <br>
 
-
-
 环境:
-
-
 
 - RHELx86_64
 - Ansible v2.9
 
-
-
-
-
-
-
-
-
 <br/>
 <br/>
-
 
 ---
 
 <!--more-->
 
-
 <br/>
 <br/>
-
-
-
-
-
-
-
-
 
 # 介绍
 

@@ -6,16 +6,13 @@
 - [argo-cd官方文档](https://argo-cd.readthedocs.io/en/stable/)
 
 
-
-
 <br/>
 
 ---
 
+<!--more-->
+
 <br/>
-
-
-
 
 # 概述
 

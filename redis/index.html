@@ -7,19 +7,21 @@
         <title>Redis - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Redis" />
 <meta property="og:description" content="参考:
 
-《Redis官方文档》: http://www.redis.cn/documentation.html
-《Redis命令大全》: http://www.redis.cn/commands.html
+Redis官方文档
+Redis命令大全
 
 
 环境:
 
-CentOS7x86_64
-Redis 3.2
+rhel7x86_64
+Redis v3.2
+
+
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhang21.cn/redis/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2018-02-05T17:20:28&#43;00:00" />
-<meta property="article:modified_time" content="2018-02-05T17:20:28&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+<meta property="article:published_time" content="2018-02-05T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2018-02-05T00:00:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
@@ -27,14 +29,16 @@ Redis 3.2
 <meta name="twitter:title" content="Redis"/>
 <meta name="twitter:description" content="参考:
 
-《Redis官方文档》: http://www.redis.cn/documentation.html
-《Redis命令大全》: http://www.redis.cn/commands.html
+Redis官方文档
+Redis命令大全
 
 
 环境:
 
-CentOS7x86_64
-Redis 3.2
+rhel7x86_64
+Redis v3.2
+
+
 "/>
 <meta name="application-name" content="风继续吹">
 <meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -55,8 +59,8 @@ Redis 3.2
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "redis","wordcount":  9229 ,
-        "url": "https:\/\/zhang21.cn\/redis\/","datePublished": "2018-02-05T17:20:28+00:00","dateModified": "2018-02-05T17:20:28+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Database, Redis","wordcount":  9221 ,
+        "url": "https:\/\/zhang21.cn\/redis\/","datePublished": "2018-02-05T00:00:00+00:00","dateModified": "2018-02-05T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
                 "@type": "Person",
@@ -72,7 +76,7 @@ Redis 3.2
             <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -114,7 +118,7 @@ Redis 3.2
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -128,8 +132,8 @@ Redis 3.2
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Redis</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>database</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-02-05">2018-02-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 9229 字&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-02-05">2018-02-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 9221 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 19 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -196,18 +200,18 @@ Redis 3.2
 </nav></div>
             </div><div class="content" id="content"><p>参考:</p>
 <ul>
-<li>《Redis官方文档》: <a href="http://www.redis.cn/documentation.html">http://www.redis.cn/documentation.html</a></li>
-<li>《Redis命令大全》: <a href="http://www.redis.cn/commands.html">http://www.redis.cn/commands.html</a></li>
+<li><a href="http://www.redis.cn/documentation.html" target="_blank" rel="noopener noreffer ">Redis官方文档</a></li>
+<li><a href="http://www.redis.cn/commands.html" target="_blank" rel="noopener noreffer ">Redis命令大全</a></li>
 </ul>
 <br>
 <p>环境:</p>
 <ul>
-<li>CentOS7x86_64</li>
-<li>Redis 3.2</li>
+<li>rhel7x86_64</li>
+<li>Redis v3.2</li>
 </ul>
 <br/>
 <hr>
-<br>
+<br/>
 <h1 id="简介">简介</h1>
 <br>
 <h2 id="redis是什么">Redis是什么</h2>
@@ -1373,13 +1377,13 @@ databases 16
                             <a class="link-to-markdown" href="/redis/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/redis/" data-title="Redis" data-hashtags="redis"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/redis/" data-title="Redis"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/redis/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/redis/" data-title="Redis"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/redis/" data-title="Redis"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/redis/" data-title="Redis" data-hashtags="Database,Redis"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/redis/" data-title="Redis"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/redis/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/redis/" data-title="Redis"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/redis/" data-title="Redis"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/redis/">redis</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/database/">database</a>,&nbsp;<a href="/tags/redis/">Redis</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>

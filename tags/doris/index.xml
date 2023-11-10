@@ -10,7 +10,13 @@
     <pubDate>Tue, 20 Sep 2022 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/doris/</guid>
-    <description><![CDATA[参考: Doris文档 Dorish官方仓库 介绍 Apache Doris能够较好的满足报表分析、即席查询、统一数仓构建、数据湖联邦查询加速等使用场景，用户可]]></description>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://doris.apache.org/docs/summary/basic-summary/" target="_blank" rel="noopener noreffer ">Doris文档</a></li>
+<li><a href="https://github.com/apache/doris/" target="_blank" rel="noopener noreffer ">Dorish官方仓库</a></li>
+</ul>
+<br/>
+<hr>]]></description>
 </item>
 </channel>
 </rss>

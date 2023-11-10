@@ -2,26 +2,16 @@
 
 
 参考:
+
 - [MongoDB权威指南](https://book.douban.com/subject/35688800/)
 
 <br/>
 
-环境:
-
-- centos7
-- mongodb4.2+
-
-
-<br/>
-<br/>
+---
 
 <!--more-->
 
 <br/>
-<br/>
-
-
-
 
 # 简介
 
@@ -1068,7 +1058,7 @@ mongod --replSet mdbDefGuide --dbpath /test/mongodb/rs3 --port 37017 --smallfile
 
 副本集配置有几个重要组成部分。配置项`_id`是在命令行中传递的副本集名称，请确保此名称完全一致。副本集成员组成的数组，每个成员都需要`_id`和`host`这两个字段。
 
-```
+```js
 rsconf = {
   _id: "mdbDefGuide",
   members: [
@@ -1098,16 +1088,14 @@ rs.status()
 > rs是一个含有复制辅助函数的全局变量。这些函数大部分是数据库命令的封装。<br>
 > 如`rs.initiate(config)`命令等同于`db.adminCommand({"replSetInitiate": config})`。最好能同时熟悉辅助函数和底层命令，因为使用命令形式代替辅助函数可能会更简单。
 
-
 <br/>
 <br/>
-
 
 ## 观察副本集
 
 连接到mongod，你应该会发现提示符发生变化: 
 
-```
+```mongo
 mdbDefGuide:PRIMARY>
 # 或
 mdbDefGuide:SECONDARY>
@@ -1119,34 +1107,34 @@ mdbDefGuide:SECONDARY>
 
 **从节点不接受写操作**。从节点只能通过复制功能写入数据，不接受客户端的写请求。
 
-因此，如果尝试在从节点上查询，则会弹出一条表明它不是主节点的错误消息。想要在从节点上进行查询操作，可以设置**在从节点中读取是没有问题的**标志。注意，slaveOk是在**连接(secondaryConn)**上设置，而不是在数据库(secodaryDB)上。
+因此，如果尝试在从节点上查询，则会弹出一条表明它不是主节点的错误消息。想要在从节点上进行查询操作，可以设置 **在从节点中读取是没有问题的** 标志。注意，`slaveOk` 是在 **连接(secondaryConn)** 上设置，而不是在数据库(secodaryDB)上。
 
-如果主节点停止运行，那么其中一个从节点将自动被选举为主节点。
-
-```
+```mongo
 secondaryConn.setSlaveOk()
+
 rs.slaveOk()
+
 rs.secondaryOk()
 ```
 
 <br/>
 
+如果主节点停止运行，那么其中一个从节点将自动被选举为主节点。
+
 需要注意的几个关键概念：
 
 - 客户端在单台服务器上执行的请求都可以发送到主节点执行（读操作、写操作、执行命令、创建索引等）。
 - 客户端不能在从节点上执行写操作。
-- 默认情况下，客户端不能再从节点上读取数据，但可以启用从节点读取数据的功能。
-
+- 默认情况下，客户端不能在从节点上读取数据，但可以启用从节点读取数据的功能。
 
 <br/>
 <br/>
-
 
 ## 更改副本集配置
 
 可以随时更改副本集配置：添加、修改或删除成员。
 
-```
+```mongo
 rs.add("localhost:27017")
 
 rs.remove("localhost:27017")
@@ -1161,10 +1149,8 @@ rs.reconfig(config)
 
 对于复杂的操作，比如更改成员配置或者一次性添加/删除多个成员，`rs.reconfig()`通常比`rs.add()`和`rs.remove()`更有用。可以使用这个命令来进行所需的任何合法的配置更改：只需要简单地创建代表所需配置的配置文档，然后将其传递给`rs.reconfig()`。
 
-
 <br/>
 <br/>
-
 
 ## 如何设计副本集
 
@@ -1216,26 +1202,22 @@ MongoDB在3.2版本中引入了第一版复制协议，基于斯坦福大学开�
 
 就所有能连接到的成员，被选为主节点的成员必须拥有最新的复制数据。严格地说，所有的操作都必须比任何一个成员的操作都要高，因此所有的操作都必须比任何一个成员的操作都要晚。
 
-
 <br/>
 <br/>
-
 
 ## 成员配置选项
 
 你可能希望让某个成员拥有优先选举成为主节点的权力，或者将某个成员设置为对客户端不可见以便阻止将请求发送给它。
 
-
 <br/>
-
 
 ### 优先级
 
-优先级用于表示一个成员渴望成为主节点的程度。它的取值范围是0到100，默认是1。将**priority**设置为0有特殊的含义：优先级为0的成员永远不可能成为主节点。这样的成员称为**被动(passive)**成员。
+优先级用于表示一个成员渴望成为主节点的程度。它的取值范围是0到100，默认是1。将**priority**设置为0有特殊的含义：优先级为0的成员永远不可能成为主节点。这样的成员称为 **被动(passive)** 成员。
 
 拥有最高优先级的成员总是会被选举为主节点（只要他能连接到副本集中的大多数成员，并且拥有最新的数据）。
 
-```
+```mongo
 # 添加一个优先级为1.5的成员
 rs.add({"host": "server-4:27017", "priority": 1.5})
 ```
@@ -1244,10 +1226,8 @@ rs.add({"host": "server-4:27017", "priority": 1.5})
 
 优先级(priority)的绝对值只与它是否大于或小于副本集中的其他优先级相关，优先级为100、1和1的一组成员，与优先级为2、1和1的另一组成员的行为方式相同。
 
-
 <br/>
 <br/>
-
 
 ### 隐藏成员
 
@@ -1255,37 +1235,35 @@ rs.add({"host": "server-4:27017", "priority": 1.5})
 
 只有优先级为0的成员才能被隐藏，不能隐藏主节点。将hidden设置为true即可隐藏节点，要将隐藏成员设置非隐藏，只需将配置中的hidden设为false，或删除此选项。
 
-```
+```mongo
 var config = rs.confg()
-config.members[3].hidden = true
 config.members[3].priority = 0
+config.members[3].hidden = true
 
 rs.reconfig(config)
 ```
 
-使用`rs.status()`和`rs.config()`能够看到隐藏成员，隐藏成员只对`isMaster`不可见。当客户端连接到副本集时，会调用`isMaster`来查看副本集中的成员。因此，隐藏成员永远不会收到客户端的读请求。
-
+使用 `rs.status()` 和 `rs.config()` 能够看到隐藏成员，隐藏成员只对 `isMaster` 不可见。当客户端连接到副本集时，会调用 `isMaster` 来查看副本集中的成员。因此，隐藏成员永远不会收到客户端的读请求。
 
 <br/>
 <br/>
-
 
 ### 选举仲裁者
 
 对于大多数需求来说，两节点的副本集具有明显的缺点。然而，许多小型部署不希望保存三份数据副本集，觉得两份副本集就足够了，而保存第三份副本集会付出不必要的管理、操作和财务成本。
 
-MongoDB支持一种特殊类型的成员，称为**仲裁者(arbiter)**，其唯一作用就是参与选举。仲裁者并不保存数据，也不会为客户端提供服务。它只是为了帮助具有两个成员的副本集满足**大多数**这个条件。通常来说，最好使用没有仲裁者的部署。
+MongoDB支持一种特殊类型的成员，称为 **仲裁者(arbiter)**，其唯一作用就是参与选举。仲裁者并不保存数据，也不会为客户端提供服务。它只是为了帮助具有两个成员的副本集满足 **大多数**这个条件。通常来说，最好使用没有仲裁者的部署。
 
-由于仲裁者并不需要履行传统mongod服务器端的责任，因此可以将其作为轻量级进程运行在配置比较差的服务器上。如果可能，应将找那个踩着与其他成员分开，放在单独的**故障域(failure domain)**，以便它以一个外部视角来看待副本集中的成员。
+由于仲裁者并不需要履行传统mongod服务器端的责任，因此可以将其作为轻量级进程运行在配置比较差的服务器上。如果可能，应将找那个踩着与其他成员分开，放在单独的 **故障域(failure domain)**，以便它以一个外部视角来看待副本集中的成员。
 
-```
-# 添加仲裁者
-# 有两种方式
+```mongo
+// 添加仲裁者
+// 有两种方式
 rs.addArb("server-5:27017")
 rs.add({"_id": 4, "host": "server-5:27017", "arbiterOnly": true})
 ```
 
-成员一旦以仲裁者的身份被添加到副本集中，它就永远只能是仲裁者。无法将仲裁者重新配置为非仲裁者，反之易燃。
+成员一旦以仲裁者的身份被添加到副本集中，它就永远只能是仲裁者。无法将仲裁者重新配置为非仲裁者，反之亦然。
 
 <br/>
 
@@ -1296,7 +1274,7 @@ rs.add({"_id": 4, "host": "server-5:27017", "arbiterOnly": true})
 
 <br/>
 
-> 在具有主-从-仲裁(PSA)架构的三成员副本集或具有PSA分片的分片集群中，如果两个数据节点的任何一个停止运行并启用了`majority`的**读关注(read concern)**，则必然存在缓存压力增加的问题。理想情况下，应该将仲裁者替换为数据成员。或者为了防止存储缓存压力，可以在部署或分片中的每个mongod实例上禁用majority的读关注。
+> 在具有主-从-仲裁(PSA)架构的三成员副本集或具有PSA分片的分片集群中，如果两个数据节点的任何一个停止运行并启用了 `majority` 的 **读关注(read concern)**，则必然存在缓存压力增加的问题。理想情况下，应该将仲裁者替换为数据成员。或者为了防止存储缓存压力，可以在部署或分片中的每个mongod实例上禁用majority的读关注。
 
 <br/>
 
@@ -1305,28 +1283,20 @@ rs.add({"_id": 4, "host": "server-5:27017", "arbiterOnly": true})
 - 读关注(read concern)
 - 写关注(write concern)
 
-
 <br/>
 <br/>
 
-
-### 创建索引
+### 副本集创建索引
 
 有时从节点不需要具有与主节点上相同的索引，甚至可以没有索引。如果仅使用从节点备份数据或脱机批量处理作业，则可以在成员配置中指定`"buildIndexed": false`，此选项可防止从节点创建任何索引。
 
 与隐藏成员一样，此选项要求成员的优先级为0。
-
-
-
 
 <br/>
 
 ---
 
 <br/>
-
-
-
 
 # 副本集的组成
 
@@ -1337,13 +1307,11 @@ rs.add({"_id": 4, "host": "server-5:27017", "arbiterOnly": true})
 - 选举是如何进行的
 - 可能出现的服务器端和网络故障场景
 
-
 <br/>
-
 
 ## 同步
 
-**复制**是指在多台服务器上保持相同的数据副本。MongoDB实现此功能的方式是保存**操作日志(oplog)**，其中包含了主节点执行的每一次写操作。oplog是存在于主节点local数据库中的一个固定集合。从节点通过查询此集合以获取需要复制的操作。
+**复制** 是指在多台服务器上保持相同的数据副本。MongoDB实现此功能的方式是保存 **操作日志(oplog)**，其中包含了主节点执行的每一次写操作。oplog是存在于主节点local数据库中的一个固定集合。从节点通过查询此集合以获取需要复制的操作。
 
 每个从节点都维护着自己的oplog，用来记录它从主节点复制的每个操作。这使得每个成员都可以被用作其他成员的**同步源**。从节点从同步源中获取操作，将其应用到自己的数据集上，然后再写入oplog中。如果应用某个操作失败（只有再基础数据已损坏或数据与主节点不一致时才会发生此情况），则从节点会停止从当前数据源复制数据。
 
@@ -1351,7 +1319,7 @@ rs.add({"_id": 4, "host": "server-5:27017", "arbiterOnly": true})
 
 由于oplog的大小是固定的，因此它只能容纳一定数量的操作。在大多数情况下，默认的oplog大小就足够了。但你也可以修改oplog的大小。
 
-在mongod进程创建oplog之前，可以使用`oplogSizeMB`选项指定其大小。然而，在第一次启动副本集成员后，只能使用`更改oplog大小`这个流程来更改oplog。
+在mongod进程创建oplog之前，可以使用 `oplogSizeMB` 选项指定其大小。然而，在第一次启动副本集成员后，只能使用 `更改oplog大小` 这个流程来更改oplog。
 
 <br/>
 
@@ -1683,6 +1651,8 @@ db.shutdownServer()
 
 # 以单机而不是副本启动
 /path/bin/mongod --port 新端口 --dbpath /var/lib/db
+# 可以需要添加一些额外的参数，才能正常启动，例如
+# --bind_ip=127.0.0.1 --port=xxx --dbpath=xxx  --storageEngine=wiredTiger --directoryperdb --logpath=/var/log/mongod.log --fork
 ```
 
 当完成了对服务器的维护后，可以使用原始的副本集选项重启启动它。重启之后，它会自动与副本集的其它成员进行同步。复制它在离开期间错过的所有操作。
@@ -3206,22 +3176,18 @@ MongoDB提供的内置角色：
 - MongoDB如何使用读关注保证集群级别的持久性
 - 如何在副本集中设置事务的持久性级别
 
-
 <br/>
-
 
 ## 使用日志机制的成员级别持久性
 
-为了在服务器发生故障时提供持久性，MongoDB使用了一种称为**日志(journal)**的**预写式(WAL)机制**。WAL是数据库系统中一种常用的持久性技术，其基本原理是，在将对数据库所作的更改应用到数据库本身之前，将对这些更改的一种表示写道持久介质（如磁盘）上。
+为了在服务器发生故障时提供持久性，MongoDB使用了一种称为 **日志(journal)** 的 **预写式(WAL)机制**。WAL是数据库系统中一种常用的持久性技术，其基本原理是，在将对数据库所作的更改应用到数据库本身之前，将对这些更改的一种表示写道持久介质（如磁盘）上。
 
 从MongoDB4.0开始，当应用程序对副本集执行写操作时，MongoDB会使用与oplog相同的格式创建日志条目。oplog中的语句是对写操作影响的每个文档所做的实际更改的表示。因此，oplog语句很容易应用于副本集的其他成员，而无须考虑版本、硬件或副本集成员之间的其他差异。此外，每个oplog语句都是幂等的，这意味着它可以被应用任意次数，而对数据库的更改结果总是相同的。
 
-像大多数数据库一样，MongoDB同时维护了日志和数据库文件的内存试图。默认情况下，它每50毫秒会将日志条目刷新到磁盘上，每60秒会将数据库文件刷新到磁盘上。刷新数据文件的60秒间隔称为**检查点(checkpoint)**。日志用于为上一个检查点以来写入的数据提供持久性。关于持久性的问题，如果服务器突然停了了，那么在其重新启动时，可以使用日志重放在关闭前没有刷新到磁盘的所有写操作。
-
+像大多数数据库一样，MongoDB同时维护了日志和数据库文件的内存试图。默认情况下，它每50毫秒会将日志条目刷新到磁盘上，每60秒会将数据库文件刷新到磁盘上。刷新数据文件的60秒间隔称为 **检查点(checkpoint)**。日志用于为上一个检查点以来写入的数据提供持久性。关于持久性的问题，如果服务器突然停了了，那么在其重新启动时，可以使用日志重放在关闭前没有刷新到磁盘的所有写操作。
 
 <br/>
 <br/>
-
 
 ## 使用写关注的集群级别持久性
 
@@ -3231,7 +3197,7 @@ MongoDB提供的内置角色：
 
 mongodb查询语言支持为所有插入和更新方法指定写关注。假设有一个电子商务应用程序，希望确保所有的订单都是持久的。
 
-```
+```mongo
 try {
   db.test.insertOne(
     {sku: "t111", item: "test ha", quantity: 3},
@@ -3248,7 +3214,7 @@ try {
 
 还可以在写关注中使用j选项(journal)来要求对写操作的日志写入情况进行确认。
 
-```
+```mongo
 try {
   db.test.insertOne(
     {sku: "t111", item: "test ha", quantity: 3},
@@ -3277,37 +3243,27 @@ try {
 
 读关注决定了正在读取的数据的一致性和隔离性。默认的readConcern是local，它所返回的数据不保证已经被写入了大多数承载数据的副本集成员。这可能导致数据在将来的某个时刻被回滚。majority读关注只返回被大多数副本集成员确认的持久数据。
 
-
-
 <br/>
 <br/>
-
-
 
 ## 使用写关注的事务持久性
 
-
 <br/>
 <br/>
-
 
 ## 检查数据损坏
 
 validate命令可用于检查集合是否损坏。查看数据结果中的valid字段是否为true，否则它会给出所发现数据损坏细节。
 
-```
+```mongo
 db.test.validate({full: true})
 ```
-
-
 
 <br/>
 
 ---
 
 <br/>
-
-
 
 # 生产环境的配置
 
@@ -3647,33 +3603,27 @@ db.fsyncUnlock();
 
 在分片集群上执行任何备份或恢复操作之前都需要先关闭均衡器。
 
-
-
-
 <br/>
 
 ---
 
 <br/>
 
-
-
-
 # 部署MongoDB
 
 生产环境部署的相关建议：
 
-- 建议SSD
-- 磁盘阵列建议RAID10
+- 建议使用 SSD
+- 磁盘阵列建议 RAID-10
 - 不要使用网络磁盘
-- MongoDB对CPU的负载不高。如果在速度和核数间选择，应该选择速度。
-- 64位Linux操作系统的稳定版本
+- MongoDB 对 CPU 的负载不高。如果在速度和核数间选择，应该选择速度。
+- 64 位 Linux 操作系统的稳定版本
 - 内存根据实际情况配置
 - 时钟同步
-- 建议关闭SWAP交换空间
-- 建议使用XFS文件系统
+- 建议关闭 SWAP 交换空间
+- 建议使用 XFS 文件系统
 - 内存过度分配(memory overcommit)
-- 关闭NUMA
+- 关闭 NUMA
 - 禁用区域回收
 - 禁用透明大内存页(THP)，透明大内存页会导致更多的磁盘IO。
 - 修改限制，文件打开数、进程允许创建的线程数，通常都应该设置为无限制。
@@ -3681,6 +3631,11 @@ db.fsyncUnlock();
 - 注意缺页错误率
 - 注意TCP丢包
 - 注意OOM killer
+- 配置 oplog 大小以适合你的用例
+- 确保副本集成员包含奇数个投票成员
+- 不要强制关闭(`-9/SIGKILL`)，而要温柔的关闭
+  - `kill -2` 或 `kill`
+  - `db.shutdownServer()`
 
 <br/>
 
@@ -3694,39 +3649,498 @@ echo 2 > /proc/sys/vm/overcommit_memory
 
 # 禁用区域回收
 sysctl -w vm.zone_reclaim_mode=0
+
+# 文件打开数
+ulimit -n 1000000
+# 程序数
+ulimit -u 500000
+# 推荐的 ulimit 设置
+# -f （文件大小）： unlimited
+# -t （CPU时间）： unlimited
+# -v（虚拟内存）：unlimited [1]
+# -l （锁定的内存大小）： unlimited
+# -n （打开的文件）： 64000
+# -m（内存大小）：unlimited [1] [2]
+# -u （进程/线程）： 64000
+
+# 禁用透明大页
+echo "never" > /sys/kernel/mm/transparent_hugepage/enabled
+# 禁用透明大页碎片整理
+echo "never" > /sys/kernel/mm/transparent_hugepage/defrag
 ```
 
+<br/>
+
+---
+
+<br/>
+
+# MongoDB日志分析
+
+参考文档:
+
+- [MongoDB日志浅析](https://developer.aliyun.com/article/716765)
+- [MongoDB中有几种日志](https://generalthink.github.io/2019/06/27/logs-in-mongodb/)
+- [MongoDB慢日志字段解析](https://cloud.tencent.com/developer/article/1711795)
+- [MongoDB CPU 使用率高排查手册](https://www.volcengine.com/docs/6447/174018)
+
+<br/>
+<br/>
+
+MongoDB 主要包括四种日志，这些日志记录着不同的信息。
+
+- 系统日志
+- Journal 日志
+- Oplog 日志
+- 慢查询日志
+
+<br/>
+<br/>
+
+## 系统日志
+
+系统日志记录了 MongoDB 的启动和停止的操作，以及服务运行过程中发生的任何异常的信息。
+
+```yml
+# 系统日志
+systemLog:
+  path: /var/log/mongodb/mongod.log
+```
+
+<br/>
+<br/>
+
+## Journal日志
+
+以下介绍主要基于 WiredTiger 存储引擎，它是 MongoDB 3.2 版本之后推荐的默认存储引擎。
+
+Journaling(日记) 日志功能是 MongoDB 里非常重要的一个功能，它保证了数据库服务器在意外关机等情况下数据的完整性。Journal 日志就是预写的 redo 日志，它为 MongoDB 增加了额外的可靠性保障。除了故障恢复之外，它还可以提高写入的性能，批量提交。在这个过程中，所有的写入都可以一次提交，是单事务的（也就是全部成功或全部失败）。
+
+不开启此功能，写入存储引擎的数据，并不会立即持久化存储，而是每一分钟做一次全量的 checkpoint，将所有数据持久化。
+
+开启此功能，MongoDB 会在进行写入时建立一条 Journal 日志（其中包括此次写入操作具体更高的磁盘地址和字符）。因此一旦服务器突然停机，可在启动时对日记进行重放，从而重新执行那些停机之前没能够刷新到磁盘的写入操作。
+
+MongoDB 配置 WiredTiger 引擎使用内存缓冲区来保存 journal 记录，WiredTiger 根据以下间隔或条件将缓冲的 journal 记录同步到磁盘。
+
+- 由于 MongoDB 使用的 journal 文件大小限制为 100MB，因此 WiredTiger 大约每 100MB 数据创建一个新的 journal 日志文件。
+- 从 MongoDB 3.2 版本开始，每隔 50ms 将缓冲的 journal 数据同步到磁盘。
+- 如果写入操作设置了 `j: true`，则 WiredTiger 会强制同步 journal 日志文件。
+
+上面的介绍，意味着 MongoDB 会批量地提交更改，即每次写入不会立即刷新到磁盘。不过在默认设置下，如果系统发生奔溃，不可能丢失超过 50ms 的写入数据。
 
 
+向 MongoDB 中写入数据是先写入内存，然后每隔 60s 刷新到磁盘。也就是数据文件默认 60s 刷新到磁盘一次。因此 journal 日志只需要记录约 60s 的写入数据。Journal 日志系统预先分配了若干个空文件，这些文件存放在 `/dbpath/journal/_j.数字` 。数据库正常关闭后，这些文件会被清楚。
+
+如果发生系统崩溃或使用 `kill -9` 命令强制终止数据库的运行，则 mongod 会在启动时重放 journal 日志文件，同时会显示大量的校验信息。
+
+需要注意的是，如果客户端的写入速度超过了日志的刷新速度，mongod 则会限制写入操作，直到 journal 日志完成磁盘的写入。这是 mongod 会限制写入的唯一情况。
+
+<br/>
+<br/>
+
+## 固定集合
+
+在介绍 oplog 日志和慢查询日志时，需要先介绍固定集合(Capped Collection)。
+
+MongoDB 中的普通集合是动态创建的，而且可以自动增长以容纳更多的数据。
+
+MongoDB 中还有另一种不通类型的集合，叫做固定集合。固定集合需要事先创建好，并且它的大小是固定的。固定集合的行为与循环队列一样。如果没有空间了，最老的文档会被删除以释放新的空间，新插入的文档会占据这块空间。
+
+固定集合创建之后就不能改变，无法将固定集合转换为非固定集合，但是可以将常规集合转换为固定集合。
+
+```js
+// 创建固定集合
+// 大小为 100000 字节的固定大小集合，文档数量为 100
+db.createCollection("collectionName",{"capped":true, "size":100000, "max":100});
+
+// 将常规集合转换为固定集合
+db.runCommand({"convertToCapped": "test", "size" : 10000});
+```
+
+固定集合可以进行一种特殊的排序，称为自然排序(natural sort)，自然排序返回结果集中文档的顺序就是文档在磁盘中的顺序。自然顺序就行文档在固定集合中的插入顺序。
+
+<br/>
+<br/>
+
+## OPlog主从日志
+
+MongoDB Replica Sets(副本集) 用于在多台服务器之间备份数据。它的复制功能是使用 oplog 实现的，操作日志包含了每一次写操作。oplog 是主节点的 local 数据库中的一个固定集合。备份节点通过查询这个集合就可以直到需要进行复制的操作。
+
+一个 mongod 实例中的所有数据库都是用同一个 oplog，也就是所有数据库的操作日志都会记录到 oplog 中。
+
+每个备份节点都维护者自己的 oplog，记录着每一次从主节点复制数据的操作。这样，每个成员都可以作为同步源给其他成员使用。
+
+备份节点从当前使用的同步源中获取需要执行的操作，然后在自己的数据集上执行这些操作，最后再将这些操作写入自己的 oplog。如果遇到某个操作失败的情况（如当前同步源的数据损坏或数据不一致时），那么备份节点就会停止从当前的同步源复制数据。
+
+oplog 中按顺序保存着所有执行过的写操作，副本集中每个成员都维护着一份自己的 oplog，每个成员的 oplog 都应该跟主节点的 oplog 完全一致（可能会有一些延迟）。
+
+如果某个备份节点由于某些原因挂了，但它重新启动后，就会自动从 oplog 中最后一个操作开始同步。由于复制操作的过程是复制数据再写入 oplog，所以备份节点可能会在已经同步过的数据上再次执行复制操作。MongoDB 在设计之初就考虑到了这种情况：将 oplog 中的同一操作执行多次，与只执行一次的效果是一样的。
+
+由于 oplog 是固定集合，它只能保持特定数量的操作日志。MongoDB 默认将其大小设置为可用磁盘空间的 5%（默认最小 1G，最大 50G）。可以在配置文件中首次配置 `oplogSizeMB` 设置为我们需要的值。
+
+通常，oplog 使用空间的增长速度与系统处理写请求的速率几乎相同：如果主节点上每分钟处理了 1KB 的写入请求，那么 oplog 很可能也会在一分钟内写入 1KB 条操作日志。
+
+如果单次请求能够影响到多个文档（比如删除/更新多个文档），oplog 中就会出现多条操作日志。如果单个操作会影响多个文档，那么每个受影响的文档都会对应 oplog 的一条日志。
+
+<br/>
+
+```js
+# 查看 oplog
+user local;
+db.oplog.rs.find().sort({"ts": -1});
+{
+    "ts": Timestamp(1625660877, 2),
+    "t": NumberLong(2),
+    "h": NumberLong("5521980394145765083"),
+    "v": 2,
+    "op": "i",
+    "ns": "test.users",
+    "ui": UUID("edabbd93-76eb-42be-b54a-cdc29eb1f267"),
+    "wall": ISODate("2021-07-07T12:27:57.689Z"),
+    "o": {
+        "_id": ObjectId("60e59dcd46db1fb4605f8b18"),
+        "name": "1"
+    }
+}
+```
+
+```yml
+# oplog 日志个字段详解
+ts: 8 字节的时间戳，由4字节unix timestamp + 4字节自增计数表示。这个值很重要，在选举(如主宕机时)新主时，会选择 ts 最大的那个从作为新主
+t: election term。对应raft协议里面的term，每次发生节点down掉，新节点加入，主从切换，term都会自增。
+h: 操作的全局唯一id的hash结果
+v: oplog 的版本字段
+op: 具体操作类型, i 插入，d 删除，u 更新，c 是DDL操作(数据库命令)，n 是空消息
+ns: 命名空间，即库和集合
+ui: 客户端会话 id
+wall: 毫秒粒度的 utc 执行时间
+o: 具体的操作内容
+```
+
+<br/>
+<br/>
+
+## 慢查询日志
+
+MongoDB 中使用系统分析器(profiler) 来查找耗时过长的操作。分析器将记录的慢日志写入 `system.profile` 固定集合中，但相应的整体性能也会有所下降。
 
 
+```js
+// 默认情况下，分析器处于关闭状态，不会进行任何记录。
+// 0=off 1=slow 2=all
+// 第一个参数指定级别，第二个参数自定义耗时过长的标准，单位毫秒
+db.setProfilingLevel(level,<slowms>)
+```
+
+即使默认没有启用分析器，我们也可以在 mongod 实例的系统日志中看到查询日志。
+
+<br/>
+
+一条示例日志:
+
+```log
+"Thu Apr  2 07:51:50.985 I COMMAND  [conn541] command animal.MongoUser_58 command: find { find: \"MongoUser_58\", filter: { $and: [ { lld: { $gte: 18351 } }, { fc: { $lt: 120 } }, { _id: { $nin: [ 1244093274 ] } }, { $or: [ { rc: { $exists: false } }, { rc: { $lte: 1835400100 } } ] }, { lv: { $gte: 69 } }, { lv: { $lte: 99 } }, { cc: { $in: [ 440512, 440513, 440514, 440500, 440515, 440511, 440523, 440507 ] } } ] }, limit: 30 } planSummary: IXSCAN { lv: -1 } keysExamined:20856 docsExamined:20856 cursorExhausted:1 keyUpdates:0 writeConflicts:0 numYields:6801 nreturned:0 reslen:110 locks:{ Global: { acquireCount: { r: 13604 } }, Database: { acquireCount: { r: 6802 } }, Collection: { acquireCount: { r: 6802 } } } protocol:op_command 8938329ms"
+```
+
+```json
+{
+    "timestamp": "Thu Apr  2 07:51:50.985"  // 日期和时间, ISO8601格式
+    "severityLevel": "I"  // 日志级别 I代表info的意思，其他的还有F,E,W,D等
+    "components": "COMMAND"  //组件类别，不同组件打印出的日志带不同的标签，便于日志分类
+    "namespace": "animal.MongoUser_58"  //查询的命名空间，即<databse.collection>
+    "operation": "find" //操作类别，可能是[find,insert,update,remove,getmore,command]
+    "command": { find: "MongoUser_58", filter: { $and: [ { lld: { $gte: 18351 } }, { fc: { $lt: 120 } }, { _id: { $nin: [1244093274 ] } }, { $or: [ { rc: { $exists: false } }, { rc: { $lte: 1835400100 } } ] }, { lv: { $gte: 69 } }, { lv: { $lte: 99 } }, { cc: { $in: [ 440512, 440513, 440514, 440500, 440515, 440511, 440523, 440507 ] } } ] }, limit: 30 } //具体的操作命令细节
+    "planSummary": "IXSCAN { lv: -1 }", // 命令执行计划的简要说明，当前使用了 lv 这个字段的索引。如果是全表扫描，则是COLLSCAN
+    "keysExamined": 20856, // 该项表明为了找出最终结果MongoDB搜索了索引中的多少个key
+    "docsExamined": 20856, // 该项表明为了找出最终结果MongoDB搜索了多少个文档
+    "cursorExhausted": 1, // 该项表明本次查询中游标耗尽的次数
+    "keyUpdates":0,  // 该项表名有多少个index key在该操作中被更改，更改索引键也会有少量的性能消耗，因为数据库不单单要删除旧Key，还要插入新的Key到B-Tree索引中
+    "writeConflicts":0, // 写冲突发生的数量，例如update一个正在被别的update操作的文档
+    "numYields":6801, // 为了让别的操作完成而屈服的次数，一般发生在需要访问的数据尚未被完全读取到内存中，MongoDB会优先完成在内存中的操作
+    "nreturned":0, // 该操作最终返回文档的数量
+    "reslen":110, // 结果返回的大小，单位为bytes，该值如果过大，则需考虑limit()等方式减少输出结果
+    "locks": { // 在操作中产生的锁，锁的种类有多种，如下
+        Global: { acquireCount: { r: 13604 } },   //具体每一种锁请求锁的次数
+        Database: { acquireCount: { r: 6802 } }, 
+        Collection: { acquireCount: { r: 6802 } } 
+    },
+    "protocol": "op_command", //  消息的协议
+    "millis" : 69132, // 从 MongoDB 操作开始到结束耗费的时间，单位为ms
+}
+```
+
+<br/>
+
+某些字段的一些值：
+
+- severityLevels(严重级别)
+- components(组件)
+  - ACCESS：访问控制相关，比如认证
+  - COMMAND：数据库命令，CRUD 等
+  - CONTROL：控制行为，比如初始化等
+  - FTDC：诊断数据收集机制相关，比如服务器统计信息和状态信息
+  - GEO：与解析地理空间形状相关
+  - INDEX：索引操作相关，比如创建索引
+  - NETWORK：网络相关，比如链接的建立和断开
+  - QUERY: 查询相关，比如查询计划
+  - REPL：副本集相关，包括初始化同步、副本集节点心跳、主从同步、回滚等
+    - ELECTION：副本集选举相关
+    - INITSYNC：初始化同步相关
+    - REPL_HB：副本集内节点心跳相关
+    - ROLLBACK：回滚状态相关
+  - SHARDING：分片行为相关，比如 mongos 的启动
+  - STORAGE：存储相关
+  - RECOVERY：恢复状态相关
+  - JOURNAL：journal相关
+  - TXN：多文档事务相关
+  - 其他
+- operation(操作类别)
+  - find
+  - insert
+  - delete
+  - replace
+  - update
+  - drop
+  - renmae
+  - dropDatabse
+- writeConflicts(写冲突次数)：写是要加写锁的，如果写冲突次数很多，比如多个操作同时更新同一个文档，可能会导致该操作耗时较长，主要就消耗在写操作这里。
+- planSummary(执行计划)
+  - COLLSCAN：全表扫描，考虑添加相应的索引或优化查询语句
+  - IXSCAN：索引扫描，正常情况下一般是它
+  - IDHACK：使用默认的 `_id` 索引
+  - FETCH：根据索引去检索某一个文档
+  - SHARD_METGE：将各个分片的返回数据进行聚合
+  - SHARDING_FILTER：通过 mongos 对分片数据进行查询
+- yield(屈服)：就是让出锁的意思
+- locks(锁)
+  - global(全局维度)
+  - Database(库维度)
+  - Collection(集合维度)
+
+<br/>
+<br/>
+
+## CPU使用率高排查
+
+若存在查询语句不够优化（如未设置合理的索引）、并发请求量大、计算任务过重时，可能会使 CPU 满载，从而导致数据读写变慢、超时增加等问题。
+
+<br/>
+<br/>
+
+### 查看正在运行的语句
+
+执行 `db.currentOp()` 命令查看数据库正在运行的语句。
+
+在返回结果中，需要重点关注以下字段:
+
+- client：发起请求的客户端。
+- opid：当前操作的标识符，可通过 `db.killOp(opid)` 命令来终止操作。
+- secs_running：当前操作的持续时间，单位秒。如果操作持续时间较长，建议您查看请求是否合理。
+- microsecs_running：单位毫秒。
+- ns：命名空间
+- op：当前操作的类型。
+- locks：与锁相关的信息。
+
+<br/>
+<br/>
+
+### 查看慢日志
+
+下表列举了慢日志中部分关键字以及导致慢查询的原因，并提供了一些处理建议。
+
+| 导致慢查询出现的原因 | 关键字<img width=250/> | 处理建议 |
+| - | - | - |
+| 执行了全表扫描 | `COLLSCAN` <br/> `docsExamined` | 如果慢日志中的请求出现了 `COLLSCAN` 关键字，表示这些请求执行了全表扫描，全表扫描会非常占用大量 CPU 资源。如果这些请求比较频繁，您可以对查询的字段建立索引来优化。 <br/> 您可以通过 `docsExamined` 字段值，帮助确认当前查询请求扫描了多少文档，该值越大，表示当前请求所占用的 CPU 越多。 |
+| 索引使用不合理 | `IXSCAN` <br> `keysExamined` | 如果慢日志中出现了`IXSCAN` 关键字，表示该请求使用了索引。 <br> 您可以进一步查看 `keysExamined` 字段值，帮助确认当前请求扫描了多少条索引。该值越大，表示 CPU 占用越多。 <br/> 索引建立的是否合理，对查询的请求开销和执行速度影响很大。索引不是越多越好，索引过多会影响写入、更新的性能。如果您的应用偏向于写操作，索引可能会影响性能。建议您根据业务特点建立合理的索引。|
+| 存在大量数据数据排序 | `SORT` <br> `hasSortStage` | 如果在慢日志中出现了`SORT` 关键字，您可以考虑通过索引来优化排序。<br/> 当查询请求中的 `hasSortStage` 字段为 `true` 时，表示当前请求中存在排序。 <br> 如果排序无法通过索引满足，MongoDB 会在查询结果中进行排序，而排序操作会消耗大量 CPU 资源，这种情况下，您可以对需要经常排序的字段建立索引，来优化查询，减少 CPU 资源的占用。|
+
+<br/>
+<br/>
+
+### 分析执行计划
+
+MongoDB 提供了 `explain()` 命令来查看指定查询的查询计划统计信息，例如所用的索引、查询语句能否被索引覆盖、所扫描的索引项数量、所读取的文档数量、所返回的文档数量、执行查询所需的时间等信息。
+
+您可以通过查询计划中的上述信息帮助建立合适的索引，来优化查询从而减少 CPU 资源消耗。
+
+<br/>
+<br/>
+
+### 使用与业务负载相匹配的实例配置
+
+根据数据库正在运行的语句、慢请求以及执行计划的分析结果，对数据库请求使用了合理索引后， 如果 CPU 使用率高的问题仍然存在，那么您还需要评估 MongoDB 实例的当前配置是否能够满足业务需求。
 
 
+<br/>
 
+---
 
+<br/>
 
+# mtools工具
 
+参考:
 
+- [mtools](https://github.com/rueckstiess/mtools)
+- [mtools docs](https://rueckstiess.github.io/mtools/)
 
+<br/>
 
+mtools 是一个辅助脚本的工具集，用于解析、过滤和可视化 MongoDB 日志文件，也可以在本地机器上快速地建立 MongoDB 测试环境，以及在 MongoDB 实例之间传输数据库的工具。
 
+mtools 工具集包含以下工具：
 
+- mlogfilter：按时间切分日志文件，合并日志文件，过滤慢查询，查找全表扫描，缩短日志行，按其他属性过滤，转换为 JSON 格式。
+- mloginfo：返回有关日志文件的信息，如开始和结束时间、版本、二进制，特殊部分如重启、连接、试图等。
+- mplotqueries：可视化日志文件。
+- mlaunch：用于快速启动本地测试环境，包括复制集和分片。
+- mtransfer：一个实验性的脚本，通过复制 WiredTiger 数据文件在 MongoDB 实例之间转移数据库。
 
+<br/>
+<br/>
 
+## 安装mtools
 
+mtools 工具集使用 Python 编写，它只对 MongoDB 服务器的有效版本进行测试。
 
+```bash
+pip3 install mtools
+```
 
+<br/>
+<br/>
 
+## mlaunch工具
 
+mlaunch 工具在本地快速启动和监控 MongoDB 环境。它支持单节点、副本集和分片集群的各种配置。
 
+<br/>
+<br/>
 
+## mlogfilter工具
 
+mlogfilter 是一个用于减少 MongoDB 日志文件的信息量的脚本，它将 MongoDB 日志文件作为输入，加上一些过滤参数，解析包含的日志行，并根据过滤参数输出匹配的行。
 
+```sh
+# 用法
+mlogfilter mongod.log
 
+# 或通过 pipe
+tail -f mongod.log | mlogfilter [parameters]
+```
 
+一些有用的参数
 
+```bash
+# 把长行缩短为指定字符，默认为200
+--shorten [LENGTH]
 
+# 人类可读
+--human
 
+# 排除所有匹配过滤器的行
+--exclude
 
+# json 格式输出，可与 mongoimport 命令结合使用，将日志文件存储到 MongoDB 数据库中。
+--json
+# mlogfilter mongod.log --slow --json | mongoimport -d test -c mycoll
 
+# 时间戳格式 iso8601-utc, iso8601-local
+--timestamp-format FORMAT
+
+# 指定命名空间, <database>.<collection>
+--namespace admin.\$cmd
+
+# 指定操作, query, insert, update, delete, command, getmore
+--operation OP
+
+# 按线程名称过滤
+--thread conn1234
+
+# 按模式过滤
+--pattern '{"_id": 1, "host": 1, "ns": 1}'
+
+# 按大于/小于 执行时间过滤
+--slow MS
+--fast MS
+
+# 按未使用索引的全表扫描过滤
+--scan
+
+# 按关键字过滤
+--word assert warning error
+
+# 按时间片过滤
+--from FROM [FROM ...], --to TO [TO ...]
+```
+
+<br/>
+<br/>
+
+## mongoinfo工具
+
+mongoinfo 报告日志文件的默认信息。
+
+```sh
+# 用法
+mloginfo mongod.log
+
+     source: mongod.log
+       host: enter.local:27019
+      start: 2017 Dec 14 05:56:48.578
+        end: 2017 Dec 14 05:57:55.965
+date format: iso8601-local
+     length: 190
+     binary: mongod
+    version: 3.4.9
+    storage: wiredTiger
+```
+
+一些有用的参数：
+
+```sh
+# 收集每个查询模式的统计信息
+--queries
+# 根据查询排序
+# 有效的排序项: ns, pattern, count, min, max, mean, 95% and sum.
+--queries --sort count
+
+# 查看重启信息
+--restarts
+
+# 根据消息类型将所有行分组
+--distinct
+
+# 打开和关闭的连接数信息
+--connections
+
+# 副本集状态变化信息
+--rsstate
+
+# 事务信息
+--transactions
+
+# 游标信息
+--cursors
+
+# 有关慢事务的存储信息
+--storagestats
+
+# 分片信息
+--sharding
+```
+
+<br/>
+<br/>
+
+## mplotqueries工具
+
+mplotqueries 是一个可视化 MongoDB 日志文件的工具。
+
+<br/>
+<br/>
+
+## mtransfer工具
+
+mtransfer 工具允许 WiredTiger 数据库从一个 MongoDB 实例导出并导入到另一个实例中。
 

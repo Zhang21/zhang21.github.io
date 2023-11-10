@@ -1,34 +1,24 @@
 # Prometheus
 
 
-
 参考：
 
-- Prometheus文档： <https://prometheus.io/docs>
-- GitHub: <https://github.com/prometheus/>
-- PrometheusAlert: <https://github.com/feiyu563/PrometheusAlert>
+- [Prometheus文档](https://prometheus.io/docs)
+- [GitHub](https://github.com/prometheus/)
+- [PrometheusAlert](https://github.com/feiyu563/PrometheusAlert)
 
 环境：
 
-- CentOS7x86_64
+- RHEL7x86_64
 - Prometheus v2.14
 
 <br>
 
-<!--more-->
-
-![Prometheus](/images/Prometheus/prometheus.jpg)
-
-
-<br/>
-<br/>
-
 ---
 
-<br/>
-<br/>
+<!--more-->
 
-
+<br/>
 
 
 # 介绍

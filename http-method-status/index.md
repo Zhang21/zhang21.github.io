@@ -1,24 +1,28 @@
 # HTTP请求方法和状态码
 
 
+<br/>
 
-# 常见HTTP请求方法
-
-
-HTTP协议的请求方法有：`GET, POST, HEAD PUT DELETE, OPTIONS, TRACE, CONNECT`
+---
 
 <!--more-->
 
-Method | Description
-- | -
-GET | 向Server请求文件
-POST | 向Server发送数据并让Server进行处理
-PUT | 向Server发送数据并存储在Server端
-HEAD | 检查一个对象是否存在
-DELETE | 从Server上删除一个文件
-CONNECT | 对通道提供支持
-TRACE | 跟踪到Server的路径
-OPTION | 查询Server的性能
+<br/>
+
+# 常见HTTP请求方法
+
+HTTP协议的请求方法有：`GET, POST, HEAD PUT DELETE, OPTIONS, TRACE, CONNECT`
+
+| Method | Description
+| - | -
+| GET | 向Server请求文件
+| POST | 向Server发送数据并让Server进行处理
+| PUT | 向Server发送数据并存储在Server端
+| HEAD | 检查一个对象是否存在
+| DELETE | 从Server上删除一个文件
+| CONNECT | 对通道提供支持
+| TRACE | 跟踪到Server的路径
+| OPTION | 查询Server的性能
 
 
 

@@ -10,7 +10,12 @@
     <pubDate>Fri, 12 Aug 2022 14:33:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/argo-cd/</guid>
-    <description><![CDATA[参考: argo-cd官方文档 概述 argo-cd是什么 argo-cd是一个用于k8s的声明式、gitops持续交付(continuous del]]></description>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://argo-cd.readthedocs.io/en/stable/" target="_blank" rel="noopener noreffer ">argo-cd官方文档</a></li>
+</ul>
+<br/>
+<hr>]]></description>
 </item>
 <item>
     <title>Flagger</title>

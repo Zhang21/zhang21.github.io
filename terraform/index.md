@@ -1,22 +1,18 @@
 # Terraform
 
 
-
 参考:
 
 - [Terraform](https://www.terraform.io/)
 - [什么是基础架构即代码](https://www.redhat.com/zh/topics/automation/what-is-infrastructure-as-code-iac)
 
-
-
 <br/>
-<br/>
+
+---
 
 <!--more-->
 
 <br/>
-<br/>
-
 
 # 基础架构即代码
 
@@ -26,22 +22,15 @@
 
 版本控制是IaC的一个重要组成部分，就像其他任何软件源代码文件一样，配置文件也应该在源代码控制之下。
 
-
-
-
 <br/>
 
 ---
 
 <br/>
 
-
-
-# Terraform介绍
-
+# 介绍
 
 <br/>
-
 
 ## Terraform是什么
 
@@ -61,10 +50,8 @@ Terraform的工作流由三个阶段组成：
 
 ![工作流](/images/Terraform/write-plan-apply.png)
 
-
 <br/>
 <br/>
-
 
 ## 用例
 
@@ -78,34 +65,26 @@ Terraform的工作流由三个阶段组成：
 - 并行环境
 - 软件演示
 
-
 <br/>
 <br/>
-
 
 ## 快速开始
 
-
 <br/>
-
 
 ### AWS示例
 
-
 <br/>
-
 
 #### 导入aws相关认证
 
-```
+```bash
 export AWS_ACCESS_KEY_ID="<YOUR_AWS_ACCESS_KEY_ID>"
 export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRET_ACCESS_KEY>"
 export AWS_DEFAULT_REGION="<YOUR_AWS_DEFAULT_REGION>"
 ```
 
-
 <br/>
-
 
 #### 编写配置
 
@@ -154,7 +133,6 @@ resource "aws_instance" "app_server" {
 
 <br/>
 
-
 #### 初始化目录
 
 ```bash
@@ -163,9 +141,7 @@ terraform init
 
 <br/>
 
-
 #### 格式化和验证配置
-
 
 ```bash
 terraform fmt
@@ -173,9 +149,7 @@ terraform fmt
 terraform validate
 ```
 
-
 <br/>
-
 
 #### 查看变更和创建基础设施
 
@@ -188,7 +162,6 @@ terraform apply
 <br/>
 <br/>
 
-
 #### 查看状态
 
 ```bash
@@ -197,9 +170,7 @@ terraform show
 terraform state list
 ```
 
-
 <br/>
-
 
 #### 定义变量
 
@@ -229,9 +200,7 @@ resource "aws_instance" "app_server" {
 
 也可以在命令上上使用`-var "instance_name=YetAnotherName"`来设置变量。
 
-
 <br/>
-
 
 #### 在输出中查询数据
 
@@ -260,21 +229,19 @@ instance_id = "i-0bf954919ed765de1"
 instance_public_ip = "54.186.202.254"
 ```
 
-
 <br/>
 
 ---
 
 <br/>
 
-
-# Terraform语言
+# 语言
 
 Terraform使用HCL(Hashicorp Configuration Language)。
 
 Terraform语言的语法由一些基础元素组成:
 
-```
+```tf
 resource "aws_vpc" "main" {
   cidr_block = var.base_cidr_block
 }
@@ -340,14 +307,184 @@ resource "aws_subnet" "az" {
 }
 ```
 
+<br/>
+<br/>
 
+# 栗子
 
+列举一些tf操作常见cloud provider的示例。
 
+<br/>
+<br/>
 
+## 操作阿里云
 
+参考:
 
+- [terraform-provider-alicloud](https://registry.terraform.io/providers/aliyun/alicloud/)
+- [tf-alicloud-examples](https://github.com/aliyun/terraform-provider-alicloud/tree/master/examples)
 
+<br/>
+<br/>
 
+### 阿里云资源组
+
+创建阿里云资源组的示例
+
+```tf
+# 资源组
+resource "alicloud_resource_manager_resource_group" "main" {
+  resource_group_name = "test"
+  display_name = "test"
+}
+```
+
+<br/>
+<br/>
+
+### 阿里云VPC
+
+创建阿里云VPC的示例。
+
+```tf
+# main.tf
+provider "alicloud" { 
+}
+
+# vpc
+resource "alicloud_vpc" "main" {
+  vpc_name = "test-vpc01"
+  cidr_block = "172.16.0.0/16"
+
+  description = "测试vpc"
+  tags = {
+    k1 = "v1"
+  }
+}
+
+# vswitch
+resource "alicloud_vswitch" "main" {
+  vpc_id = alicloud_vpc.main.id
+  cidr_block = "172.16.0.0/16"
+  zone_id = "cn-hangzhou-b"
+  vswitch_name = "test-vsw"
+
+  description = "测试vswitch"
+  tags = {
+    k1 = "v1"
+    k2 = "v2"
+  }
+}
+```
+
+<br/>
+<br/>
+
+### 阿里云NAT GATEWAY
+
+创建阿里云NAT GATEWAY的示例
+
+```tf
+# NAT网关
+resource "alicloud_nat_gateway" "main" {
+  depends_on = [alicloud_vswitch.main]
+  vpc_id = alicloud_vpc.main.id
+  vswitch_id = alicoud_vswitch.main.id
+  nat_gateway_name = "test-nat"
+
+  payment_type = "PayAsYouGo"
+  nat_type = "Enhanced"
+  deletion_protection = "false"
+  description = "测试NAT网关"
+  tags = {
+    k1 = "v1"
+  }
+}
+```
+
+<br/>
+<br/>
+
+### 阿里云安全组
+
+创建阿里云安全组的示例
+
+```tf
+# 安全组
+resource "alicloud_security_group" "group" {
+  name = "test-sg"
+
+  vpc_id = alicloud_vpc.main.id
+  description = "测试安全组"
+  tags = {
+    k1 = "v1"
+  }
+}
+
+# 安全组规则
+resource "alicloud_security_group_rule" "deny-all" {
+  security_group_id = alicloud_security_group.group.id
+  type = "ingress"
+  ip_protocol = "all"
+  nic_type = "internet"
+  policy = "drop"
+  port_range = "1/65535"
+  cidr_ip = "0.0.0.0/0"
+  priority = 100
+  description = "deny all"
+}
+# 安全组规则
+resource "alicloud_security_group_rule" "http-80" {
+  security_group_id = alicloud_security_group.group.id
+  type = "ingress"
+  ip_protocol = "tcp"
+  nic_type = "internet"
+  policy = "accept"
+  port_range = "80/80"
+  cidr_ip = "0.0.0.0/0"
+  priority = 1
+  description = "accept 80/tcp"
+}
+```
+
+<br/>
+<br/>
+
+### 阿里云ECS
+
+创建阿里云ECS的示例
+
+```tf
+resource "alicloud_instance" "instance" {
+  security_groups = alicloud_security_group.group.*.id
+  vswitch_id = alicloud_vswitch.main.id
+  resource_group_id = alicloud_resource_manager_resource_group.main.id
+
+  instance_name = "test01"
+  hostname = "test01"
+  instance_type = "ecs.n4.larger"
+  image_id = ""
+  system_disk_name = "test01-root"
+  system_disk_category = "cloud_efficiency"
+  system_disk_size = 40
+
+  data_disks {
+    name = "data"
+    size = 100
+    category    = "cloud_efficiency"
+    description = "data"
+  }
+  data_disks {
+    name = "data1"
+    size = 100
+    category    = "cloud_efficiency"
+    description = "data1"
+  }
+}
+```
+
+<br/>
+<br/>
 
 
 

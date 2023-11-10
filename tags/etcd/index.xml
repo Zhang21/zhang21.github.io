@@ -5,7 +5,7 @@
         <description>etcd - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
             <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 10 Dec 2021 10:49:26 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/etcd/" rel="self" type="application/rss+xml" /><item>
-    <title>etcd</title>
+    <title>Etcd</title>
     <link>https://zhang21.cn/etcd/</link>
     <pubDate>Fri, 10 Dec 2021 10:49:26 &#43;0000</pubDate>
     <author>Zhang21</author>
@@ -21,7 +21,7 @@
 <li>etcd v3.5</li>
 </ul>
 <br/>
-<br/>]]></description>
+<hr>]]></description>
 </item>
 </channel>
 </rss>

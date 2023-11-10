@@ -4,27 +4,42 @@
         <link>https://zhang21.cn/categories/programming/</link>
         <description>programming - 分类 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 22 Jul 2020 19:02:32 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/programming/" rel="self" type="application/rss+xml" /><item>
-    <title>Go</title>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/programming/" rel="self" type="application/rss+xml" /><item>
+    <title>React</title>
+    <link>https://zhang21.cn/react/</link>
+    <pubDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/react/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li>React docs: <a href="https://zh-hans.reactjs.org/docs/getting-started.html">https://zh-hans.reactjs.org/docs/getting-started.html</a></li>
+<li>React github: <a href="https://github.com/facebook/react/">https://github.com/facebook/react/</a></li>
+</ul>
+<br>
+<p>版本:</p>
+<ul>
+<li>React: v17.0</li>
+</ul>
+<br>
+<hr>]]></description>
+</item>
+<item>
+    <title>Golang</title>
     <link>https://zhang21.cn/go/</link>
     <pubDate>Wed, 22 Jul 2020 19:02:32 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/go/</guid>
     <description><![CDATA[<p>参考:</p>
 <ul>
-<li>github: <a href="https://github.com/golang/go">https://github.com/golang/go</a></li>
-<li>Docs: <a href="https://golang.org/doc/">https://golang.org/doc/</a></li>
-<li>awesome-go: <a href="https://github.com/avelino/awesome-go">https://github.com/avelino/awesome-go</a></li>
-<li>goreleaser: <a href="https://github.com/goreleaser/goreleaser/">https://github.com/goreleaser/goreleaser/</a></li>
-<li>go-demo: <a href="https://github.com/pibigstar/go-demo">https://github.com/pibigstar/go-demo</a></li>
+<li><a href="https://github.com/golang/go" target="_blank" rel="noopener noreffer ">go github</a></li>
+<li><a href="https://golang.org/doc/" target="_blank" rel="noopener noreffer ">go docs</a></li>
+<li><a href="https://github.com/avelino/awesome-go" target="_blank" rel="noopener noreffer ">awesome-go</a></li>
+<li><a href="https://github.com/goreleaser/goreleaser/" target="_blank" rel="noopener noreffer ">goreleaser</a></li>
+<li><a href="https://github.com/pibigstar/go-demo" target="_blank" rel="noopener noreffer ">go-demo</a></li>
+<li><a href="https://github.com/uber-go/guide/tree/master" target="_blank" rel="noopener noreffer ">Uber Go Style Guide</a></li>
+<li><a href="https://juejin.cn/post/6908938380114034701" target="_blank" rel="noopener noreffer ">如何高效编写Go单元测试</a></li>
 </ul>
-<br>
-<p>版本:</p>
-<ul>
-<li>go v1.14</li>
-</ul>
-<br>
-<br>
+<br/>
 <hr>]]></description>
 </item>
 <item>
@@ -45,6 +60,74 @@
 <li>ELRH7x86_64</li>
 </ul>
 <br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>Tornado</title>
+    <link>https://zhang21.cn/tornado/</link>
+    <pubDate>Mon, 14 Oct 2019 16:19:21 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/tornado/</guid>
+    <description><![CDATA[<p>环境:</p>
+<ul>
+<li>Tornado: v5.1</li>
+<li>Python: v3.6</li>
+</ul>
+<br>
+<p>参考:</p>
+<ul>
+<li>Docs: <a href="https://www.tornadoweb.org/en/branch5.1/">https://www.tornadoweb.org/en/branch5.1/</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>HTML和CSS</title>
+    <link>https://zhang21.cn/htmlcss/</link>
+    <pubDate>Fri, 11 Oct 2019 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/htmlcss/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li>Head First HTML and CSS</li>
+<li><a href="https://www.w3school.com.cn/" target="_blank" rel="noopener noreffer ">w3cSchool</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>Django</title>
+    <link>https://zhang21.cn/django/</link>
+    <pubDate>Wed, 25 Sep 2019 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/django/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li>docs: <a href="https://docs.djangoproject.com/zh-hans/2.1/topics/">https://docs.djangoproject.com/zh-hans/2.1/topics/</a></li>
+</ul>
+<br>
+<p>版本:</p>
+<ul>
+<li>Django Version: v2.1</li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>Bootstrap</title>
+    <link>https://zhang21.cn/bootstrap/</link>
+    <pubDate>Tue, 18 Sep 2018 11:11:12 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/bootstrap/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li>Bootstrap中文文档: <a href="https://v3.bootcss.com/">https://v3.bootcss.com/</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>CentOS7x86_64</li>
+<li>Bootstrap v3</li>
+</ul>
 <br/>
 <hr>]]></description>
 </item>
@@ -79,6 +162,21 @@
 <hr>]]></description>
 </item>
 <item>
+    <title>数据结构</title>
+    <link>https://zhang21.cn/datastructrue/</link>
+    <pubDate>Mon, 11 Dec 2017 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/datastructrue/</guid>
+    <description><![CDATA[<h1 id="数据结构">数据结构</h1>
+<p>在计算机科学中，<strong>数据结构(data structure)</strong> 是计算机中存储、组织数据的方式。
+大多数数据结构都有数列、记录、可辨识联合、引用等基本类型构成。</p>
+<p>数据结构意味着结构和封装，一个数据结构可被视为两个函数之间的接口，或是由数据类型联合组成的存储内容的访问方法和封装。
+数据结构可通过程序语言所提供的数据类型、引用及其它操作加以实现。不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计。
+一个涉及良好的数据结构，应该尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。</p>
+<p>正确选择数据结构可以提高算法的效率，在计算机程序设计里，选择适当的数据结构是一项重要工作。</p>
+<br/>]]></description>
+</item>
+<item>
     <title>Yaml</title>
     <link>https://zhang21.cn/yaml/</link>
     <pubDate>Sat, 02 Sep 2017 17:16:38 &#43;0000</pubDate>
@@ -91,22 +189,6 @@
 <li>YAML语法检测: <a href="http://www.yamllint.com">http://www.yamllint.com</a></li>
 </ul>
 <br/>
-<br/>]]></description>
-</item>
-<item>
-    <title>Markdown</title>
-    <link>https://zhang21.cn/markdown/</link>
-    <pubDate>Fri, 01 Sep 2017 18:16:38 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/markdown/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener noreffer ">Markdown-wiki</a></li>
-<li><a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener noreffer ">Markdown官网</a></li>
-<li><a href="https://markdown-zh.readthedocs.io/en/latest/" target="_blank" rel="noopener noreffer ">Markdown中文文档</a></li>
-<li><a href="http://itmyhome.com/markdown/article/extension/strikethrougn.html" target="_blank" rel="noopener noreffer ">Markdown语法</a></li>
-<li><a href="https://github.com/guodongxiaren/README" target="_blank" rel="noopener noreffer ">果冻虾仁</a></li>
-</ul>
 <br/>]]></description>
 </item>
 </channel>

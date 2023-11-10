@@ -4,23 +4,102 @@
         <link>https://zhang21.cn/</link>
         <description>个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 13 Feb 2023 11:36:55 &#43;0800</lastBuildDate>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 29 Oct 2023 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://zhang21.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>韦小绿笔记</title>
-    <link>https://zhang21.cn/mw-vocabulary-builder/</link>
-    <pubDate>Mon, 13 Feb 2023 11:36:55 &#43;0800</pubDate>
+    <title>Lua语言</title>
+    <link>https://zhang21.cn/lua/</link>
+    <pubDate>Sun, 29 Oct 2023 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
-    <guid>https://zhang21.cn/mw-vocabulary-builder/</guid>
-    <description><![CDATA[韦小绿 Merriam-Webster&rsquo;s Vocabulary Builder]]></description>
+    <guid>https://zhang21.cn/lua/</guid>
+    <description><![CDATA[参考： Lua 官方文档 Lua v5.4 介绍 Lua 是一种强大、高效、轻量级的可嵌入脚本语言。它支持面向过程编程、面向对象编程、函数式编程、数据驱动编程和数据描述。 Lua]]></description>
 </item>
 <item>
-    <title>英语在用笔记</title>
-    <link>https://zhang21.cn/english-in-use/</link>
-    <pubDate>Mon, 13 Feb 2023 11:32:52 &#43;0800</pubDate>
+    <title>Redis使用手册</title>
+    <link>https://zhang21.cn/redis-guide/</link>
+    <pubDate>Wed, 04 Oct 2023 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
-    <guid>https://zhang21.cn/english-in-use/</guid>
-    <description><![CDATA[]]></description>
+    <guid>https://zhang21.cn/redis-guide/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/34836750/" target="_blank" rel="noopener noreffer ">Redis 使用手册</a></li>
+<li><a href="https://redis.io/docs/" target="_blank" rel="noopener noreffer ">Redis 官方文档</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>计算机科学导论</title>
+    <link>https://zhang21.cn/computer-science/</link>
+    <pubDate>Sun, 03 Sep 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/computer-science/</guid>
+    <description><![CDATA[参考： 计算机科学导论 绪论 本章的目标： 图灵模型 冯诺依曼模型 计算机的三大部分—：硬件、数据和软件 图灵模型 图灵在 1963 年最先提出了一个通用计算设备的设]]></description>
+</item>
+<item>
+    <title>英语s音后清爆破辅音的发音问题</title>
+    <link>https://zhang21.cn/s-pbtdkg/</link>
+    <pubDate>Sun, 09 Jul 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/s-pbtdkg/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://www.hjenglish.com/yinbiao/guojiyinbiao/" target="_blank" rel="noopener noreffer ">48 个国际音标</a></li>
+<li><a href="https://www.zhihu.com/question/21726805" target="_blank" rel="noopener noreffer ">英文里 s 后面的清辅音是所谓「浊化」了吗？规律如何？为什么？</a></li>
+<li><a href="https://www.hjenglish.com/new/p629050/" target="_blank" rel="noopener noreffer ">美式英语发音规则，学美音入门必看（下）</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>RHEL7-安全手册</title>
+    <link>https://zhang21.cn/rhel7-security-guide/</link>
+    <pubDate>Sun, 18 Jun 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/rhel7-security-guide/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html/security_guide/index" target="_blank" rel="noopener noreffer ">RHEL7-安全手册</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>Cloud-init</title>
+    <link>https://zhang21.cn/cloud-init/</link>
+    <pubDate>Sun, 04 Jun 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/cloud-init/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://cloudinit.readthedocs.io/en/latest/" target="_blank" rel="noopener noreffer ">Cloud-init文档</a></li>
+</ul>
+<br/>]]></description>
+</item>
+<item>
+    <title>CentOS7升级Glibc到2.28</title>
+    <link>https://zhang21.cn/glibc-update/</link>
+    <pubDate>Mon, 22 May 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/glibc-update/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://roy.wang/centos7-upgrade-glibc/" target="_blank" rel="noopener noreffer ">CentOS7 升级 Glibc 2.17 到2.28</a></li>
+<li><a href="https://blog.csdn.net/esdhhh/article/details/121196317?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-121196317-blog-107057646.235%5Ev36%5Epc_relevant_default_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1" target="_blank" rel="noopener noreffer ">centos7 glibc2.17升级到glibc2.28</a></li>
+<li><a href="https://www.cnblogs.com/jasondayee/p/13403245.html" target="_blank" rel="noopener noreffer ">https://www.cnblogs.com/jasondayee/p/13403245.html</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>指南</title>
+    <link>https://zhang21.cn/guide/</link>
+    <pubDate>Sun, 29 Jan 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/guide/</guid>
+    <description><![CDATA[<p>收录的各个技术栈可以参考的一些学习资料。</p>
+<br/>
+<hr>]]></description>
 </item>
 <item>
     <title>Doris</title>
@@ -28,7 +107,13 @@
     <pubDate>Tue, 20 Sep 2022 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/doris/</guid>
-    <description><![CDATA[参考: Doris文档 Dorish官方仓库 介绍 Apache Doris能够较好的满足报表分析、即席查询、统一数仓构建、数据湖联邦查询加速等使用场景，用户可]]></description>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://doris.apache.org/docs/summary/basic-summary/" target="_blank" rel="noopener noreffer ">Doris文档</a></li>
+<li><a href="https://github.com/apache/doris/" target="_blank" rel="noopener noreffer ">Dorish官方仓库</a></li>
+</ul>
+<br/>
+<hr>]]></description>
 </item>
 <item>
     <title>Argo-CD文档</title>
@@ -36,86 +121,12 @@
     <pubDate>Fri, 12 Aug 2022 14:33:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/argo-cd/</guid>
-    <description><![CDATA[参考: argo-cd官方文档 概述 argo-cd是什么 argo-cd是一个用于k8s的声明式、gitops持续交付(continuous del]]></description>
-</item>
-<item>
-    <title>RKE</title>
-    <link>https://zhang21.cn/rke/</link>
-    <pubDate>Fri, 20 May 2022 10:37:34 &#43;0800</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/rke/</guid>
-    <description><![CDATA[参考: RKE文档 版本: rke1 介绍 Rancher Kubernetes Engine，简称 RKE，是一个经过 CNCF 认证的 Kubernetes 安装程序。 要求 RKE对操作系统、软件、端口、SSH和硬件等的要]]></description>
-</item>
-<item>
-    <title>Jenkins</title>
-    <link>https://zhang21.cn/jenkins/</link>
-    <pubDate>Mon, 09 May 2022 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/jenkins/</guid>
     <description><![CDATA[<p>参考:</p>
 <ul>
-<li><a href="https://www.jenkins.io/zh/doc/" target="_blank" rel="noopener noreffer ">jenkins文档</a></li>
-</ul>
-<br/>]]></description>
-</item>
-<item>
-    <title>Hexo迁移到Hugo</title>
-    <link>https://zhang21.cn/hexo-hugo/</link>
-    <pubDate>Sat, 07 May 2022 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/hexo-hugo/</guid>
-    <description><![CDATA[<br/>]]></description>
-</item>
-<item>
-    <title>Terraform</title>
-    <link>https://zhang21.cn/terraform/</link>
-    <pubDate>Thu, 05 May 2022 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/terraform/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://www.terraform.io/" target="_blank" rel="noopener noreffer ">Terraform</a></li>
-<li><a href="https://www.redhat.com/zh/topics/automation/what-is-infrastructure-as-code-iac" target="_blank" rel="noopener noreffer ">什么是基础架构即代码</a></li>
+<li><a href="https://argo-cd.readthedocs.io/en/stable/" target="_blank" rel="noopener noreffer ">argo-cd官方文档</a></li>
 </ul>
 <br/>
-<br/>]]></description>
-</item>
-<item>
-    <title>MongoDB权威指南</title>
-    <link>https://zhang21.cn/mongodb-definitive-guide/</link>
-    <pubDate>Fri, 29 Apr 2022 10:49:26 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/mongodb-definitive-guide/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://book.douban.com/subject/35688800/" target="_blank" rel="noopener noreffer ">MongoDB权威指南</a></li>
-</ul>
-<br/>
-<p>环境:</p>
-<ul>
-<li>centos7</li>
-<li>mongodb4.2+</li>
-</ul>
-<br/>
-<br/>]]></description>
-</item>
-<item>
-    <title>kafka</title>
-    <link>https://zhang21.cn/kafka/</link>
-    <pubDate>Tue, 08 Mar 2022 15:19:26 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/kafka/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>docs: <a href="https://kafka.apache.org/documentation">https://kafka.apache.org/documentation</a></li>
-</ul>
-<br/>
-<p>版本:</p>
-<ul>
-<li>kafka: v3.0</li>
-</ul>
-<br/>
-<br/>]]></description>
+<hr>]]></description>
 </item>
 </channel>
 </rss>

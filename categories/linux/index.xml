@@ -78,6 +78,19 @@
 <br/>]]></description>
 </item>
 <item>
+    <title>网站运维</title>
+    <link>https://zhang21.cn/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/</link>
+    <pubDate>Mon, 05 Mar 2018 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li>Web Operations: Keeping the Data on Time</li>
+</ul>
+<br>
+<hr>]]></description>
+</item>
+<item>
     <title>正则表达式</title>
     <link>https://zhang21.cn/regularexpression/</link>
     <pubDate>Thu, 08 Feb 2018 11:33:16 &#43;0000</pubDate>
@@ -131,44 +144,13 @@
 </ul>]]></description>
 </item>
 <item>
-    <title>Filesystem Hierarchy Standard</title>
-    <link>https://zhang21.cn/fhs/</link>
-    <pubDate>Mon, 27 Nov 2017 16:42:33 &#43;0000</pubDate>
+    <title>HTTP请求方法和状态码</title>
+    <link>https://zhang21.cn/http-method-status/</link>
+    <pubDate>Fri, 01 Dec 2017 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
-    <guid>https://zhang21.cn/fhs/</guid>
-    <description><![CDATA[<h1 id="fhs介绍">FHS介绍</h1>
-<p>FHS(Filesystem Hierarchy Standard)，文件系统层次化标准：<a href="http://www.pathname.com/fhs">http://www.pathname.com/fhs</a></p>
-<br>
-<p>FHS主要目的是希望让用户了解安装文件通常放置的目录。所以希望软件开发商、系统制定者以及维护系统的用户，都能够遵循FHS的标准。</p>
-<p><strong>FHS-compliant system：</strong></p>
-<ul>
-<li>
-<pre><code>          |	可分享的(shareable)			   |	不可分享的(unshareable)
-</code></pre>
-</li>
-<li>
-<pre><code>          |	-				   			  |	-
-</code></pre>
-</li>
-</ul>
-<p>不变的(static)	  |	/usr <br> /opt		 			|	/etc <br> /boot
-可变的(variable) |	/var/mail <br> /var/spool/news	|	/var/run <br> /var/lock</p>]]></description>
-</item>
-<item>
-    <title>Git</title>
-    <link>https://zhang21.cn/git/</link>
-    <pubDate>Tue, 07 Nov 2017 17:45:42 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/git/</guid>
-    <description><![CDATA[<p>参考：</p>
-<ul>
-<li><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener noreffer ">git-scm文档</a></li>
-<li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener noreffer ">廖雪峰Git教程</a></li>
-<li><a href="https://www.kancloud.cn/kancloud/progit/70239" target="_blank" rel="noopener noreffer ">Git内部原理</a></li>
-<li><a href="http://blog.jobbole.com/26209/" target="_blank" rel="noopener noreffer ">Git内部原理-伯乐在线</a></li>
-</ul>
-<br>
-<br/>]]></description>
+    <guid>https://zhang21.cn/http-method-status/</guid>
+    <description><![CDATA[<br/>
+<hr>]]></description>
 </item>
 </channel>
 </rss>

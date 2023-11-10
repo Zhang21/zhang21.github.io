@@ -10,7 +10,17 @@
     <pubDate>Fri, 20 May 2022 10:37:34 &#43;0800</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/rke/</guid>
-    <description><![CDATA[参考: RKE文档 版本: rke1 介绍 Rancher Kubernetes Engine，简称 RKE，是一个经过 CNCF 认证的 Kubernetes 安装程序。 要求 RKE对操作系统、软件、端口、SSH和硬件等的要]]></description>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://docs.rancher.cn/docs/rke/" target="_blank" rel="noopener noreffer ">RKE文档</a></li>
+</ul>
+<br/>
+<p>版本:</p>
+<ul>
+<li>rke1</li>
+</ul>
+<br/>
+<hr>]]></description>
 </item>
 </channel>
 </rss>

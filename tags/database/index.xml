@@ -4,13 +4,33 @@
         <link>https://zhang21.cn/tags/database/</link>
         <description>database - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 20 Sep 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/database/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 04 Oct 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/database/" rel="self" type="application/rss+xml" /><item>
+    <title>Redis使用手册</title>
+    <link>https://zhang21.cn/redis-guide/</link>
+    <pubDate>Wed, 04 Oct 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/redis-guide/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/34836750/" target="_blank" rel="noopener noreffer ">Redis 使用手册</a></li>
+<li><a href="https://redis.io/docs/" target="_blank" rel="noopener noreffer ">Redis 官方文档</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
     <title>Doris</title>
     <link>https://zhang21.cn/doris/</link>
     <pubDate>Tue, 20 Sep 2022 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/doris/</guid>
-    <description><![CDATA[参考: Doris文档 Dorish官方仓库 介绍 Apache Doris能够较好的满足报表分析、即席查询、统一数仓构建、数据湖联邦查询加速等使用场景，用户可]]></description>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://doris.apache.org/docs/summary/basic-summary/" target="_blank" rel="noopener noreffer ">Doris文档</a></li>
+<li><a href="https://github.com/apache/doris/" target="_blank" rel="noopener noreffer ">Dorish官方仓库</a></li>
+</ul>
+<br/>
+<hr>]]></description>
 </item>
 <item>
     <title>MongoDB权威指南</title>
@@ -23,16 +43,10 @@
 <li><a href="https://book.douban.com/subject/35688800/" target="_blank" rel="noopener noreffer ">MongoDB权威指南</a></li>
 </ul>
 <br/>
-<p>环境:</p>
-<ul>
-<li>centos7</li>
-<li>mongodb4.2+</li>
-</ul>
-<br/>
-<br/>]]></description>
+<hr>]]></description>
 </item>
 <item>
-    <title>etcd</title>
+    <title>Etcd</title>
     <link>https://zhang21.cn/etcd/</link>
     <pubDate>Fri, 10 Dec 2021 10:49:26 &#43;0000</pubDate>
     <author>Zhang21</author>
@@ -48,40 +62,70 @@
 <li>etcd v3.5</li>
 </ul>
 <br/>
-<br/>]]></description>
+<hr>]]></description>
 </item>
 <item>
-    <title>网站运维</title>
-    <link>https://zhang21.cn/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/</link>
-    <pubDate>Mon, 05 Mar 2018 22:34:49 &#43;0000</pubDate>
+    <title>Redis</title>
+    <link>https://zhang21.cn/redis/</link>
+    <pubDate>Mon, 05 Feb 2018 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
-    <guid>https://zhang21.cn/%E7%BD%91%E7%AB%99%E8%BF%90%E7%BB%B4/</guid>
-    <description><![CDATA[<p>参考：</p>
+    <guid>https://zhang21.cn/redis/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
-<li>《网站运维：保持数据实时的秘籍》(Web Operations: Keeping the Data on Time)</li>
+<li><a href="http://www.redis.cn/documentation.html" target="_blank" rel="noopener noreffer ">Redis官方文档</a></li>
+<li><a href="http://www.redis.cn/commands.html" target="_blank" rel="noopener noreffer ">Redis命令大全</a></li>
 </ul>
 <br>
-<br/>]]></description>
+<p>环境:</p>
+<ul>
+<li>rhel7x86_64</li>
+<li>Redis v3.2</li>
+</ul>
+<br/>
+<hr>]]></description>
 </item>
 <item>
     <title>MySQL</title>
     <link>https://zhang21.cn/mysql/</link>
-    <pubDate>Tue, 16 Jan 2018 10:47:12 &#43;0000</pubDate>
+    <pubDate>Tue, 16 Jan 2018 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/mysql/</guid>
     <description><![CDATA[<p>参考：</p>
 <ul>
-<li>MySQL5.7参考文档： <a href="https://dev.mysql.com/doc/refman/5.7/en/">https://dev.mysql.com/doc/refman/5.7/en/</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/" target="_blank" rel="noopener noreffer ">MySQL5.7文档</a></li>
 <li>MySQL必知必会</li>
 </ul>
 <br/>
 <p>环境：</p>
 <ul>
-<li>CentOS7.x86_64</li>
+<li>RHEL7x86_64</li>
 <li>MySQL5.7</li>
 </ul>
 <br/>
-<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>MongoDB</title>
+    <link>https://zhang21.cn/mongodb/</link>
+    <pubDate>Mon, 11 Dec 2017 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/mongodb/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://docs.mongodb.com/" target="_blank" rel="noopener noreffer ">MongoDB官方文档</a></li>
+<li><a href="http://www.mongoing.com/docs" target="_blank" rel="noopener noreffer ">MongoDB中文文档</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/MongoDB">https://zh.wikipedia.org/wiki/MongoDB</a></li>
+<li><a href="http://www.ywnds.com/?p=5635">http://www.ywnds.com/?p=5635</a></li>
+<li><a href="https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/">https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/</a></li>
+<li><a href="http://www.03sec.com/3176.shtml">http://www.03sec.com/3176.shtml</a></li>
+<li><a href="http://www.ywnds.com/?p=6502">http://www.ywnds.com/?p=6502</a></li>
+<li><a href="http://wiki.jikexueyuan.com/project/the-little-mongodb-book/">http://wiki.jikexueyuan.com/project/the-little-mongodb-book/</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>RHEL7x86_64；</li>
+<li>MongoDB3.4；</li>
+</ul>
 <hr>]]></description>
 </item>
 </channel>

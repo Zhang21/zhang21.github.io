@@ -1,23 +1,17 @@
 # 经济学原理
 
 
-
-
 参考：
 
-- 《经济学原理-微观/宏观》 曼昆： <https://book.douban.com/subject/26435630/>
-
-
-
+- [经济学原理-曼昆](https://book.douban.com/subject/26435630/)
 
 <br/>
-<br/>
+
+---
 
 <!--more-->
 
-***
-
-<br>
+<br/>
 
 
 # 学习指南图

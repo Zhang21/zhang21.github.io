@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Cloud-init - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Cloud-init" />
+<meta property="og:description" content="参考:
+
+Cloud-init文档
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/cloud-init/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-04T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-06-04T00:00:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Cloud-init"/>
+<meta name="twitter:description" content="参考:
+
+Cloud-init文档
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/cloud-init/" /><link rel="prev" href="https://zhang21.cn/glibc-update/" /><link rel="next" href="https://zhang21.cn/rhel7-security-guide/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Cloud-init",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/cloud-init\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "IAAS, cloud-init","wordcount":  6119 ,
+        "url": "https:\/\/zhang21.cn\/cloud-init\/","datePublished": "2023-06-04T00:00:00+00:00","dateModified": "2023-06-04T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cloud-init</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>devops</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-04">2023-06-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6119 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#教程">教程</a>
+      <ul>
+        <li><a href="#使用qemu的核心教程">使用QEMU的核心教程</a>
+          <ul>
+            <li><a href="#定义我们的用户数据">定义我们的用户数据</a></li>
+            <li><a href="#定义我们的元数据">定义我们的元数据</a></li>
+            <li><a href="#定义我们的供应商数据">定义我们的供应商数据</a></li>
+            <li><a href="#启动一个webserver">启动一个webserver</a></li>
+            <li><a href="#用我们的用户数据启动虚拟机">用我们的用户数据启动虚拟机</a></li>
+            <li><a href="#验证是否正常运行">验证是否正常运行</a></li>
+            <li><a href="#检查cloud-init的状态">检查cloud-init的状态</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用lxd的教程">使用LXD的教程</a>
+          <ul>
+            <li><a href="#定义用户数据">定义用户数据</a></li>
+            <li><a href="#使用用户数据启动一个lxd容器">使用用户数据启动一个LXD容器</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#使用指南">使用指南</a>
+      <ul>
+        <li><a href="#在本地测试cloud-init">在本地测试cloud-init</a></li>
+        <li><a href="#改变模块的运行频率">改变模块的运行频率</a></li>
+        <li><a href="#如何禁用cloud-init">如何禁用cloud-init</a></li>
+      </ul>
+    </li>
+    <li><a href="#解释">解释</a>
+      <ul>
+        <li><a href="#配置源">配置源</a>
+          <ul>
+            <li><a href="#基础配置">基础配置</a></li>
+            <li><a href="#供应商和用户数据">供应商和用户数据</a></li>
+            <li><a href="#网络配置">网络配置</a></li>
+            <li><a href="#特定配置">特定配置</a></li>
+          </ul>
+        </li>
+        <li><a href="#启动阶段">启动阶段</a>
+          <ul>
+            <li><a href="#生成器阶段">生成器阶段</a></li>
+            <li><a href="#本地阶段">本地阶段</a></li>
+            <li><a href="#网络阶段">网络阶段</a></li>
+            <li><a href="#配置阶段">配置阶段</a></li>
+            <li><a href="#最终阶段">最终阶段</a></li>
+            <li><a href="#首次启动确定">首次启动确定</a></li>
+            <li><a href="#手动清理缓存">手动清理缓存</a></li>
+          </ul>
+        </li>
+        <li><a href="#用户数据格式">用户数据格式</a>
+          <ul>
+            <li><a href="#cloud-config数据">cloud-config数据</a></li>
+            <li><a href="#用户数据脚本">用户数据脚本</a></li>
+            <li><a href="#内核命令行数据">内核命令行数据</a></li>
+            <li><a href="#gzip压缩内容">Gzip压缩内容</a></li>
+            <li><a href="#mime多部份档案">MIME多部份档案</a></li>
+            <li><a href="#包括文件">包括文件</a></li>
+            <li><a href="#cloud-boothook">cloud-boothook</a></li>
+            <li><a href="#part-handler">Part-handler</a></li>
+            <li><a href="#禁用用户数据">禁用用户数据</a></li>
+          </ul>
+        </li>
+        <li><a href="#事件和更新">事件和更新</a>
+          <ul>
+            <li><a href="#事件">事件</a></li>
+            <li><a href="#数据源事件支持">数据源事件支持</a></li>
+            <li><a href="#配置事件更新">配置事件更新</a></li>
+            <li><a href="#热插拔">热插拔</a></li>
+          </ul>
+        </li>
+        <li><a href="#实例元数据">实例元数据</a>
+          <ul>
+            <li><a href="#什么是实例数据">什么是实例数据</a></li>
+            <li><a href="#使用实例数据">使用实例数据</a></li>
+            <li><a href="#实例数据参考">实例数据参考</a></li>
+            <li><a href="#内核命令行配置数据">内核命令行配置数据</a></li>
+          </ul>
+        </li>
+        <li><a href="#供应商数据">供应商数据</a></li>
+        <li><a href="#安全性">安全性</a></li>
+        <li><a href="#性能">性能</a></li>
+        <li><a href="#内核命令行">内核命令行</a>
+          <ul>
+            <li><a href="#数据源发现覆盖">数据源发现覆盖</a></li>
+            <li><a href="#内核cloud-config-url配置">内核cloud-config-url配置</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考:</p>
+<ul>
+<li><a href="https://cloudinit.readthedocs.io/en/latest/" target="_blank" rel="noopener noreffer ">Cloud-init文档</a></li>
+</ul>
+<br/>
+<br/>
+<h1 id="教程">教程</h1>
+<p>Cloud-init 是是一个 Linux 软件包，负责处理实例的早期初始化。可使用它来安装程序包和写入文件，或者配置用户和安全性。</p>
+<br/>
+<br/>
+<h2 id="使用qemu的核心教程">使用QEMU的核心教程</h2>
+<p>本教程中，我们将在虚拟机中启动一个 Ubuntu 云镜像，并使用 cloud-init 来预先配置系统。</p>
+<p>QEMU 是一个跨平台的仿真器，能够运行高性能的虚拟机。</p>
+<p>安装:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ubuntu</span>
+apt-get install qemu
+
+<span class="c1"># rhel</span>
+yum install qemu-kvm
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="定义我们的用户数据">定义我们的用户数据</h3>
+<p>云计算镜像通常都是预安装了 cloud-init，并被配置为在首次启动时运行。</p>
+<p>现在需要创建我们的用户数据文件。这个示例用户数据配置了默认用户的密码，并将改密码设置为永不过期。</p>
+<p>示例 user-data 文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#cloud-config</span><span class="w">
+</span><span class="w"></span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">password</span><span class="w">
+</span><span class="w"></span><span class="nt">chpasswd</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">expire</span><span class="p">:</span><span class="w"> </span><span class="kc">False</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>第一行 <code>#cloud-config</code> 告诉 cloud-init 配置中的用户数据是什么类型。Cloud-config 是一种基于 YAML 的配置类型，告诉 cloud-init 如何配置虚拟机实例。</p>
+<p>第二行 <code>password: password</code>，根据用户和组模块来设置用户的密码。</p>
+<p>第三和第四行执行 cloud-init 不要在第一次登录时重置密码。</p>
+<br/>
+<br/>
+<h3 id="定义我们的元数据">定义我们的元数据</h3>
+<p>创建 meta-data 元数据文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">instance-id</span><span class="p">:</span><span class="w"> </span><span class="l">someid/somehostname</span><span class="w">
+</span><span class="w"></span><span class="nt">local-hostname</span><span class="p">:</span><span class="w"> </span><span class="l">jammy</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="定义我们的供应商数据">定义我们的供应商数据</h3>
+<p>创建 vendor-data 空文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">touch tmp/vendor-data
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="启动一个webserver">启动一个webserver</h3>
+<p>实例元数据服务（IMDS, Instance Metadata Service）是由大多数云提供商提供的一种服务，作为向虚拟机实例提供信息的一种手段。</p>
+<p>本教程中，使用 QEMU 和一个简单的 Python webserver 来模拟这个工作流程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> temp
+python3 -m http.server --directory .
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="用我们的用户数据启动虚拟机">用我们的用户数据启动虚拟机</h3>
+<p>下载云镜像:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>使用下面的命令启动我们的虚拟机:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">qemu-system-x86_64                                              <span class="se">\
+</span><span class="se"></span>    -net nic                                                    <span class="se">\
+</span><span class="se"></span>    -net user                                                   <span class="se">\
+</span><span class="se"></span>    -machine <span class="nv">accel</span><span class="o">=</span>kvm:tcg                                      <span class="se">\
+</span><span class="se"></span>    -cpu host                                                   <span class="se">\
+</span><span class="se"></span>    -m <span class="m">512</span>                                                      <span class="se">\
+</span><span class="se"></span>    -nographic                                                  <span class="se">\
+</span><span class="se"></span>    -hda jammy-server-cloudimg-amd64.img                        <span class="se">\
+</span><span class="se"></span>    -smbios <span class="nv">type</span><span class="o">=</span>1,serial<span class="o">=</span><span class="nv">ds</span><span class="o">=</span><span class="s1">&#39;nocloud-net;s=http://10.0.2.2:8000/&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>地址是上面启动的 webserver 的地址。</p>
+<br/>
+<br/>
+<h3 id="验证是否正常运行">验证是否正常运行</h3>
+<p>启动虚拟机后，我们应该可以使用默认的用户（<code>ubuntu</code>） 和定义的密码来连接到实例。</p>
+<br/>
+<br/>
+<h3 id="检查cloud-init的状态">检查cloud-init的状态</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cloud-init status --wait
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="使用lxd的教程">使用LXD的教程</h2>
+<p>LXD 是基于容器的，因此允许我们快速测试和迭代我们的用户数据定义。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 安装</span>
+sudo snap install lxd
+
+<span class="c1"># 初始化</span>
+lxd init --minimal
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<h3 id="定义用户数据">定义用户数据</h3>
+<p><code>/tmp/my-user-data</code> 数据，使用 runcmd 模块定义命令来执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#cloud-config</span><span class="w">
+</span><span class="w"></span><span class="nt">runcmd</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="l">echo &#39;Hello, World!&#39; &gt; /var/tmp/hello-world.txt</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="使用用户数据启动一个lxd容器">使用用户数据启动一个LXD容器</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动</span>
+lxc launch ubuntu:focal my-test --config<span class="o">=</span>user.user-data<span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>cat /tmp/my-user-data<span class="k">)</span><span class="s2">&#34;</span>
+
+<span class="c1"># 验证</span>
+lxc shell my-test
+cloud-init status --wait
+
+<span class="c1"># 验证用户数据</span>
+cloud-init status --wait
+
+<span class="c1"># 停止和移除lxd容器</span>
+lxd stop my-test
+lxd rm my-test
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="使用指南">使用指南</h1>
+<p>使用 cloud-init 完成一些常见的操作和任务。</p>
+<br/>
+<br/>
+<h2 id="在本地测试cloud-init">在本地测试cloud-init</h2>
+<p>How to test cloud-init locally before deploying</p>
+<p>在将云计算部署到云端时，你可能想在本地测试 cloud-init。幸运的是，有虚机和容器工具来做这个测试：</p>
+<ul>
+<li>Multipass: 一个跨平台工具，用于在Linux、Windows和MacOS上启动Ubuntu虚拟机。</li>
+<li>LXD: 为使用 Linux 系统容器提供了一个简化的用户体验。</li>
+<li>QEMU</li>
+</ul>
+<br/>
+<br/>
+<h2 id="改变模块的运行频率">改变模块的运行频率</h2>
+<p>How to change a module’s run frequency</p>
+<p>你可能想改变模块运行的默认频率，例如，使模块在每次启动时都运行。</p>
+<p>你可以修改 <code>/etc/cloud/cloud.cfg</code> 配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">     </span><span class="nt">cloud_final_modules</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span><span class="c"># list shortened for brevity</span><span class="w">
+</span><span class="w">      </span>- <span class="p">[</span><span class="l">phone_home, always]</span><span class="w">
+</span><span class="w">      </span>- <span class="l">final_message</span><span class="w">
+</span><span class="w">      </span>- <span class="l">power_state_change</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="如何禁用cloud-init">如何禁用cloud-init</h2>
+<p>人们可能希望禁用 cloud-init 以确保它在随后的启动中不做任何事情。</p>
+<p>有两种方法来禁用它：</p>
+<ul>
+<li>创建禁用的空文件</li>
+<li>修改内核命令行</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建禁用空文件</span>
+touch /etc/cloud/cloud-init.disabled
+
+<span class="c1"># 修改内核命令行</span>
+<span class="nb">echo</span> <span class="s1">&#39;GRUB_CMDLINE_LINUX=cloud-init.disabled&#39;</span> &gt;&gt; /etc/default/grub
+grub-mkconfig -o /boot/efi/EFI/ubuntu/grub.cfg
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="解释">解释</h1>
+<p>解释性和概念性指南是为了让您更好地了解 cloud-init 是如何工作的。</p>
+<br/>
+<br/>
+<h2 id="配置源">配置源</h2>
+<p>Configuration sources</p>
+<p>cloud-init 构建了一个单一的配置，然后在整个生命周期中被引用。该配置由多个来源建立，如果一个键在多个来源中被定义，则优先级较高的来源会覆盖优先级较低的来源。</p>
+<br/>
+<br/>
+<h3 id="基础配置">基础配置</h3>
+<p>从最低优先级到最高，以下四个配置源构成了基本配置：</p>
+<ul>
+<li>硬编码的配置：存在于 cloud-init 源的配置，不能被修改。</li>
+<li>配置目录：
+<ul>
+<li><code>/etc/cloud/cloud.cfg</code></li>
+<li><code>/etc/cloud/cloud.cfg.d</code></li>
+</ul>
+</li>
+<li>运行时配置：<code>/run/cloud-init/cloud.cfg</code></li>
+<li>内核命令行：在内核命令行中，在 <code>cc:</code> 和 <code>end_cc</code> 之间发现的任何东西都将被解释为云配置用户数据。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="供应商和用户数据">供应商和用户数据</h3>
+<p>Vendor and user data</p>
+<p>这些数据都是从数据源中获取，并在实例启动时定义。</p>
+<br/>
+<br/>
+<h3 id="网络配置">网络配置</h3>
+<p>Network configuration</p>
+<p>网络配置独立于其他 cloud-init 配置而发生。</p>
+<br/>
+<br/>
+<h3 id="特定配置">特定配置</h3>
+<p>Specifying configuration</p>
+<p>终端用户定义的配置、发行商定义的配置和云提供商定义的配置。</p>
+<br/>
+<br/>
+<h2 id="启动阶段">启动阶段</h2>
+<p>Boot stages</p>
+<p>cloud-init 启动有五个阶段：</p>
+<ul>
+<li>生成器阶段（Generator）</li>
+<li>本地阶段（Local）</li>
+<li>网络阶段（Network）</li>
+<li>配置阶段（Config）</li>
+<li>最终阶段（Final）</li>
+</ul>
+<br/>
+<br/>
+<h3 id="生成器阶段">生成器阶段</h3>
+<p>在 systemd 下启动时，将运行一个生成器，确定 <code>cloud-init.target</code> 是否应包含在启动目标中。ds-identify 在此阶段运行。</p>
+<br/>
+<br/>
+<h3 id="本地阶段">本地阶段</h3>
+<p><code>cloud-init-local.service</code> 服务。</p>
+<p>本地阶段的目的是：</p>
+<ul>
+<li>找到本地数据源</li>
+<li>并在系统中应用网络配置</li>
+</ul>
+<br/>
+<br/>
+<h3 id="网络阶段">网络阶段</h3>
+<p><code>cloud-init.service</code> 服务。</p>
+<p>这个阶段要求所有配置的网络都是在线的，因为它将完全处理发现的任何用户数据。这意味着：</p>
+<ul>
+<li>检索任何 <code>#include</code> 或 <code>#include-once</code>，包括 http</li>
+<li>解压任何压缩的内容</li>
+<li>运行任何发现的部分处理程序（part-handler）</li>
+</ul>
+<p>这个阶段运行 <code>disk_setup</code> 和 <code>mounts</code> 模块，这些模块可以对磁盘进行分区和格式化，并配置挂载点（如 <code>/etc/fstab</code>）。这些模块不能提前运行，因为它们可能从只能通过网络获得的资源中接收配置输入。</p>
+<br/>
+<br/>
+<h3 id="配置阶段">配置阶段</h3>
+<p><code>cloud-config.service</code> 阶段。</p>
+<p>这个阶段仅运行配置模块。对启动的其他阶段没有实际影响的模块在这里运行，包括 <code>runcmd</code>。</p>
+<br/>
+<br/>
+<h3 id="最终阶段">最终阶段</h3>
+<p><code>cloud-final.service</code> 服务。</p>
+<p>这个阶段在启动时尽可能晚地执行。任何用户习惯于在登录系统后运行的脚本都应该在这里正确运行。包括：</p>
+<ul>
+<li>包安装</li>
+<li>配置管理插件（Ansible， Chef等）</li>
+<li>用户定义的脚本</li>
+</ul>
+<br/>
+<br/>
+<h3 id="首次启动确定">首次启动确定</h3>
+<p>First boot determination</p>
+<p>cloud-init 必须去顶当前的启动是否为新实例的第一次启动，这样它就可以应用适当的配置。在实例的第一次启动时，它应该运行所有的“每实例（per-instance）”配置，而在随后的启动中，它应该只运行“每启动（per-boot）”配置。本节描述了 cloud-init 如何执行这一决定，以及为什么它是必要的。</p>
+<p>当它运行时，cloud-init 会存储其内部状态的缓存，以便在各阶段和启动时使用。</p>
+<p>如果缓存存在，那么 cloud-init 曾经在这个系统上运行过。有两种情况：</p>
+<ul>
+<li>最常见的情况是，实例已经被重启，这是后续的启动。</li>
+<li>或者，文件系统被连接到一个新的实例上，而这是该实例的第一次启动。最明显的情况是，当一个实例从一个已启动的实例捕获的镜像中启动时，这种情况回发生。</li>
+</ul>
+<p>默认情况下，cloud-init 试图通过检查缓存中的实例 ID 与它在运行时确定的实例 ID，来确定它在哪个情况下运行。如果它们不匹配，那么这是一个实例的第一次启动；否则，这是一次后续启动。cloud-init 将这种行为称为检查。</p>
+<p>这种行为对于从启动的实例中捕获的图像来说是必需的，因此是通用的云镜像的默认配置。然而在某些情况下，它可能会导致问题。对于这些情况，cloud-init 支持修改其行为，以无条件信任系统中存在的 实例 ID。这意味着当缓存存在时，cloud-init 将永远不会检测到一个新的实例，由此可见，导致 cloud-init 检测到一个新的实例的唯一方法是手动删除 cloud-init 的缓存，这种行为被称为信任。</p>
+<p>要配置使用这些行为中的哪一种，cloud-init 暴露了 <code>manul_cache_clean</code> 配置项。当为 <code>false</code> （默认值）时，如果实例 ID 不匹配，cloud-init 将检查并清除缓存。当为 <code>true</code> 时，cloud-init 将信任现有的缓存（因此并不清理）。</p>
+<br/>
+<br/>
+<h3 id="手动清理缓存">手动清理缓存</h3>
+<p>Manual cache cleaning</p>
+<p>cloud-init 提供了一个用于手动清理缓存的命令：<code>cloud-init clean</code>。</p>
+<br/>
+<br/>
+<h2 id="用户数据格式">用户数据格式</h2>
+<p>User data formats</p>
+<br/>
+<h3 id="cloud-config数据">cloud-config数据</h3>
+<p>Cloud config data</p>
+<p>使用 cloud-config 的语法，文件必须是有效的 YAML 语法。用户可以以人性化的格式指定某些事情。这些事情包括：</p>
+<ul>
+<li>首次启动时运行 <code>apt upgrade</code></li>
+<li>使用不同的 <code>apt</code> 镜像</li>
+<li>添加不同的 <code>apt</code> 源</li>
+<li>导入特定的 SSH 密钥</li>
+<li>其他事情</li>
+</ul>
+<p>以 <code>#cloud-config</code> 开始，或当使用 MIME 时的 <code>Content-Type: text/cloud-config</code>。</p>
+<p>cloud-init v18.4 支持使用 Jinja 模板来渲染实例的元数据变量。</p>
+<br/>
+<br/>
+<h3 id="用户数据脚本">用户数据脚本</h3>
+<p>User data script</p>
+<p>可以执行用户定义的 shell script。</p>
+<p>以 <code>#!</code> 开头，或在 MIME 中使用 <code>Content-Type: text/x-shellscript</code>。</p>
+<p>用户数据脚本可以选择使用 Jinja 模板渲染云实例元数据变量。</p>
+<p>一个示例用户脚本，并运行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span><span class="nb">echo</span> <span class="s2">&#34;Hello World.  The time is now </span><span class="k">$(</span>date -R<span class="k">)</span><span class="s2">!&#34;</span> <span class="p">|</span> tee /root/output.txt
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">euca-run-instances --key mykey --user-data-file myscript.sh ami-a07d95c9
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="内核命令行数据">内核命令行数据</h3>
+<p>Kernel command line</p>
+<p>用户可以通过内核命令行参数传递用户数据。</p>
+<br/>
+<br/>
+<h3 id="gzip压缩内容">Gzip压缩内容</h3>
+<p>Gzip compressed content</p>
+<p>发现被 gzip 压缩的内容将被解压缩。然后，未压缩的数据将被当作未压缩的数据使用。这通常是有用的，因为用户数据被限制在 16,384 字节。</p>
+<br/>
+<br/>
+<h3 id="mime多部份档案">MIME多部份档案</h3>
+<p>MIME multi-part archive</p>
+<p>使用 MIME 多部份文件，用户可以指定一个以上的数据类型。</p>
+<p>查看支持的类型:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cloud-init devel make-mime --list-types
+
+<span class="c1"># 输出</span>
+cloud-boothook
+cloud-config
+cloud-config-archive
+cloud-config-jsonp
+jinja2
+part-handler
+x-include-once-url
+x-include-url
+x-shellscript
+x-shellscript-per-boot
+x-shellscript-per-instance
+x-shellscript-per-once
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="包括文件">包括文件</h3>
+<p>include file</p>
+<p>该文件包含一个 URL 的列表，每行一个。</p>
+<p>以 <code>#include</code> 开头，或在 MIME 的 <code>Content-Type: text/x-include-url</code>。</p>
+<br/>
+<br/>
+<h3 id="cloud-boothook">cloud-boothook</h3>
+<p>启动钩子，它存储在 <code>/var/lib/cloud</code> 下的一个文件中并立即执行。这是最早的钩子。注意，没有提供只运行一次的机制，boothook 必须自己来处理这个问题。</p>
+<p>以 <code>#cloud-boothook</code> 开头，或在 MIME 的 <code>Content-Type: text/cloud-boothook</code>。</p>
+<br/>
+<br/>
+<h3 id="part-handler">Part-handler</h3>
+<p>它包含自定义代码，用于支持多部份用户数据中的新的 mime-types，或覆盖现有的支持邮件类型的处理程序。它将被写入 <code>/var/lib/cloud/data</code> 中的一个文件，基于其文件名。</p>
+<p>这必须是包含一个 <code>list_types</code> 函数和一个 <code>handle_part</code> 函数的 Python 代码。一旦该部分被读取，<code>list_types</code> 方法将被调用。它必须返回这个 part-handler 处理的 mime-types 的列表。由于 MIME 部分是按顺序处理，一个 part-handler 的部分必须在它预期的同一用户数据中处理的任何具有 mime-types 的部分之前。</p>
+<p><code>handle_part</code> 函数必须像这样被定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">handle_part</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ctype</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+  <span class="c1"># data = the cloudinit object</span>
+  <span class="c1"># ctype = &#34;__begin__&#34;, &#34;__end__&#34;, or the mime-type of the part that is being handled.</span>
+  <span class="c1"># filename = the filename of the part (or a generated filename if none is present in mime data)</span>
+  <span class="c1"># payload = the parts&#39; content</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>cloud-init 将在处理任何部件之前调用这个 <code>handler_part</code> 函数，每收到一个部件调用一次，在处理完所有部件之后调用一次。<code>__begin__</code> 和 <code>__end__</code> 发送器允许部件处理程序在接收任何部件之前或之后进行初始化或拆分。</p>
+<p>以 <code>#part-handler</code> 开头，或在 MIME 中的 <code>Content-Type: text/part-handler</code>。</p>
+<br/>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-py" data-lang="py"><span class="c1">#part-handler</span>
+
+<span class="k">def</span> <span class="nf">list_types</span><span class="p">():</span>
+    <span class="c1"># return a list of mime-types that are handled by this module</span>
+    <span class="k">return</span><span class="p">([</span><span class="s2">&#34;text/plain&#34;</span><span class="p">,</span> <span class="s2">&#34;text/go-cubs-go&#34;</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">handle_part</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ctype</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+    <span class="c1"># data: the cloudinit object</span>
+    <span class="c1"># ctype: &#39;__begin__&#39;, &#39;__end__&#39;, or the specific mime-type of the part</span>
+    <span class="c1"># filename: the filename for the part, or dynamically generated part if</span>
+    <span class="c1">#           no filename is given attribute is present</span>
+    <span class="c1"># payload: the content of the part (empty for begin or end)</span>
+    <span class="k">if</span> <span class="n">ctype</span> <span class="o">==</span> <span class="s2">&#34;__begin__&#34;</span><span class="p">:</span>
+       <span class="k">print</span><span class="p">(</span><span class="s2">&#34;my handler is beginning&#34;</span><span class="p">)</span>
+       <span class="k">return</span>
+    <span class="k">if</span> <span class="n">ctype</span> <span class="o">==</span> <span class="s2">&#34;__end__&#34;</span><span class="p">:</span>
+       <span class="k">print</span><span class="p">(</span><span class="s2">&#34;my handler is ending&#34;</span><span class="p">)</span>
+       <span class="k">return</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;==== received ctype={ctype} filename={filename} ====&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;==== end ctype={ctype} filename={filename}&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="禁用用户数据">禁用用户数据</h3>
+<p>Disabling user data</p>
+<p>cloud-init 可以配置来忽略任意用户数据。在配置文件中设置 <code>allow_userdata: false</code> 将禁用 cloud-init 处理用户数据。</p>
+<br/>
+<br/>
+<h2 id="事件和更新">事件和更新</h2>
+<p>Events and updates</p>
+<br/>
+<h3 id="事件">事件</h3>
+<p>Events</p>
+<p>cloud-init 将在几种事件类型中获取并应用云和用户数据的配置。对 cloud-init 而言，两个最常见的事件是：实例首次启动和此后的任何启动。除了启动事件外，cloud-init 还对用户和供应商添加的设备的时间感兴趣。cloud-init 当前支持以下事件类型：</p>
+<ul>
+<li><code>BOOT_NEW_INSTANCE</code>：新实例的首次启动。</li>
+<li><code>BOOT</code>：此后的任何启动。</li>
+<li><code>BOOT_LEGACY</code>：在每次启动时应用网络配置两次。</li>
+<li><code>HOTPLUG</code>：动态添加一个系统设备。</li>
+</ul>
+<p>未来可能包括的事件：</p>
+<ul>
+<li><code>METADATA_CHANGE</code>：实例的元数据发生改变。</li>
+<li><code>USER_REQUEST</code>：指示请求更新。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="数据源事件支持">数据源事件支持</h3>
+<p>Datasource event support</p>
+<p>所有数据源默认支持 <code>BOOT_NEW_INSTANCE</code> 事件。每个数据源都会声明它能够处理的这些事件的集合。</p>
+<br/>
+<br/>
+<h3 id="配置事件更新">配置事件更新</h3>
+<p>Configuring event updates</p>
+<p>更新配置可以通过用户数据来指定，可以用来启用或禁用对特定事件的处理。只要数据源支持这些事件，这种配置就会被遵守。然而，配置总是在第一次启动时被应用，不管指定的用户数据如何。</p>
+<p>更新策略配置定义了哪些事件允许被处理。</p>
+<ul>
+<li><code>scope</code>：事件策略的范围的名称</li>
+<li><code>when</code>：一个特定范围处理的事件列表</li>
+</ul>
+<br/>
+<br/>
+<h3 id="热插拔">热插拔</h3>
+<p>Hotplug</p>
+<p>当热插拔事件被数据源支持并在用户数据中配置后，cloud-init 将响应系统中网络接口的添加或移除。除了获取和更新系统元数据外，cloud-init 还将调出/调入新添加的接口。</p>
+<br/>
+<br/>
+<h2 id="实例元数据">实例元数据</h2>
+<p>Instance metadata</p>
+<br/>
+<h3 id="什么是实例数据">什么是实例数据</h3>
+<p>What is instance-data</p>
+<p>每个云提供商向启动的云实例提供唯一的配置元数据（metadate）。cloud-init 会抓取这些元素据，然后缓存并将这些信息作为标准化和版本化的 JSON 对象公开，即实例数据（instance-data）。实例数据可以被查询，或随后被 cloud-init 在模板化配置和脚本中使用。</p>
+<p>一个启动的 EC2 实例上的实例数据的小子集：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;v1&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;cloud_name&#34;</span><span class="p">:</span> <span class="s2">&#34;aws&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;distro&#34;</span><span class="p">:</span> <span class="s2">&#34;ubuntu&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;distro_release&#34;</span><span class="p">:</span> <span class="s2">&#34;jammy&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;distro_version&#34;</span><span class="p">:</span> <span class="s2">&#34;22.04&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;instance_id&#34;</span><span class="p">:</span> <span class="s2">&#34;i-06b5687b4d7b8595d&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;machine&#34;</span><span class="p">:</span> <span class="s2">&#34;x86_64&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;platform&#34;</span><span class="p">:</span> <span class="s2">&#34;ec2&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;python_version&#34;</span><span class="p">:</span> <span class="s2">&#34;3.10.4&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;region&#34;</span><span class="p">:</span> <span class="s2">&#34;us-east-2&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;variant&#34;</span><span class="p">:</span> <span class="s2">&#34;ubuntu&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以使用 cloud-init query 工具在机器上探索 instance-data 变量。</p>
+<br/>
+<br/>
+<h3 id="使用实例数据">使用实例数据</h3>
+<p>Using instance-data</p>
+<p>实例数据可以用于：</p>
+<ul>
+<li>用户脚本数据</li>
+<li>cloud-config 数据</li>
+<li>基本配置</li>
+<li>cloud-int 命令行接口</li>
+</ul>
+<p>使用 <code>## template: jinja</code> 开头，cloud-init 将使用 jinja 模板来渲染配置文件。任何实例数据变量都将作为 jinja  模板变量浮现。</p>
+<p>敏感数据（如密码）可能包含在实例数据中，cloud-init 将这些敏感数据分离出来，使其只能由 root 用户读取。</p>
+<br/>
+<p>示例：使用云配置的实例数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jinja" data-lang="jinja"><span class="x">## template: jinja
+</span><span class="x">#cloud-config
+</span><span class="x">runcmd:
+</span><span class="x">    - echo &#39;EC2 public hostname allocated to instance: </span><span class="cp">{{</span>
+      <span class="nv">ds.meta_data.public_hostname</span> <span class="cp">}}</span><span class="x">&#39; &gt; /tmp/instance_metadata
+</span><span class="x">    - echo &#39;EC2 availability zone: </span><span class="cp">{{</span> <span class="nv">v1.availability_zone</span> <span class="cp">}}</span><span class="x">&#39; &gt;&gt;
+</span><span class="x">      /tmp/instance_metadata
+</span><span class="x">    - curl -X POST -d &#39;{&#34;hostname&#34;: &#34;</span><span class="cp">{{</span><span class="nv">ds.meta_data.public_hostname</span> <span class="cp">}}</span><span class="x">&#34;,
+</span><span class="x">      &#34;availability-zone&#34;: &#34;</span><span class="cp">{{</span> <span class="nv">v1.availability_zone</span> <span class="cp">}}</span><span class="x">&#34;}&#39;
+</span><span class="x">      https://example.com
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>示例：使用用户脚本的实例数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jinja" data-lang="jinja"><span class="x">## template: jinja
+</span><span class="x">#!/bin/bash
+</span><span class="x"></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">v1.region</span> <span class="o">==</span> <span class="s1">&#39;us-east-2&#39;</span> -<span class="cp">%}</span><span class="x">
+</span><span class="x">echo &#39;Installing custom proxies for </span><span class="cp">{{</span> <span class="nv">v1.region</span> <span class="cp">}}</span><span class="x">&#39;
+</span><span class="x">sudo apt-get install my-xtra-fast-stack
+</span><span class="x"></span><span class="cp">{%</span>- <span class="k">endif</span> <span class="cp">%}</span><span class="x">
+</span><span class="x">...
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>示例：实例数据的命令行发现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jinja" data-lang="jinja"><span class="x"># List all instance-data keys and values as root user
+</span><span class="x">sudo cloud-init query --all
+</span><span class="x">{...}
+</span><span class="x">
+</span><span class="x"># List all top-level instance-data keys available
+</span><span class="x">cloud-init query --list-keys
+</span><span class="x">
+</span><span class="x"># Introspect nested keys on an object
+</span><span class="x">cloud-init query -f &#34;</span><span class="cp">{{</span><span class="nv">ds.keys</span><span class="o">()</span><span class="cp">}}</span><span class="x">&#34;
+</span><span class="x">dict_keys([&#39;meta_data&#39;, &#39;_doc&#39;])
+</span><span class="x">
+</span><span class="x"># Failure to reference valid dot-delimited key path on a known top-level key
+</span><span class="x">cloud-init query v1.not_here
+</span><span class="x">ERROR: instance-data &#39;v1&#39; has no &#39;not_here&#39;
+</span><span class="x">
+</span><span class="x"># Test expected value using valid instance-data key path
+</span><span class="x">cloud-init query -f &#34;My AMI: </span><span class="cp">{{</span><span class="nv">ds.meta_data.ami_id</span><span class="cp">}}</span><span class="x">&#34;
+</span><span class="x">My AMI: ami-0fecc35d3c8ba8d60
+</span><span class="x">
+</span><span class="x"># The --format command renders jinja templates, this can also be used
+</span><span class="x"># to develop and test jinja template constructs
+</span><span class="x">cat &gt; test-templating.yaml &lt;&lt;EOF
+</span><span class="x">  </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">val</span> <span class="k">in</span> <span class="nv">ds.meta_data.keys</span><span class="o">()</span> <span class="cp">%}</span><span class="x">
+</span><span class="x">  - </span><span class="cp">{{</span> <span class="nv">val</span> <span class="cp">}}</span><span class="x">
+</span><span class="x">  </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x">
+</span><span class="x">  EOF
+</span><span class="x">cloud-init query --format=&#34;$( cat test-templating.yaml )&#34;
+</span><span class="x">- instance_id
+</span><span class="x">- dsmode
+</span><span class="x">- local_hostname
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="实例数据参考">实例数据参考</h3>
+<p>存储路径：</p>
+<ul>
+<li><code>/run/cloud-init/instance-data.json</code>：含有标准化密钥的可读 JSON，敏感密钥被编辑。</li>
+<li><code>/run/cloud-init/instance-data-sensitive.json</code>：root 可读的未经编辑的 JSON blob。</li>
+</ul>
+<br/>
+<p><code>instance-data.json</code> 顶级键：</p>
+<ul>
+<li><code>base64_encoded_keys</code></li>
+<li><code>sensitive_keys</code></li>
+<li><code>merged_cfg</code></li>
+<li><code>ds</code></li>
+<li><code>sys_info</code></li>
+<li><code>v1</code>
+<ul>
+<li><code>v1._beta_keys</code></li>
+<li><code>v1.cloud_name</code></li>
+<li><code>v1.distro</code>, <code>v1.distro_version</code>, <code>v1.distro_release</code></li>
+<li><code>v1.instance_id</code></li>
+<li><code>v1.kernel_release</code></li>
+<li><code>v1.local_hostname</code></li>
+<li><code>v1.machine</code></li>
+<li><code>v1.platform</code></li>
+<li><code>v1.subplatform</code></li>
+<li><code>v1.public_ssh_keys</code></li>
+<li><code>v1.python_version</code></li>
+<li><code>v1.region</code></li>
+<li><code>v1.availability_zone</code></li>
+</ul>
+</li>
+</ul>
+<br/>
+<p>一个示例输出：</p>
+<br/>
+<br/>
+<h3 id="内核命令行配置数据">内核命令行配置数据</h3>
+<p>通过内核命令行提供配置数据，在某种程度上是最后一种手段。因为这种方法只支持以 <code>#cloud-config</code> 开头的云配置，而许多数据源不支持在不修改引导程序的情况下注入内核命令行参数。</p>
+<br/>
+<br/>
+<h2 id="供应商数据">供应商数据</h2>
+<p>Vendor data</p>
+<p>供应商数据是由启动实例的实体（如云提供商）提供的数据，这个数据可以用来定制镜像，以适应它所运行的特定环境。</p>
+<ul>
+<li>用户对供应商数据有最终控制权。</li>
+<li>默认情况下，旨在首次启动时运行。</li>
+<li>用户可以禁用，但如果示例运行需要使用供应商数据，那就不应该禁用。</li>
+<li>用户提供的云配置被合并到供应商数据之上。</li>
+</ul>
+<br/>
+<p>提供云配置数据的用户可以使用 <code>#cloud-config-jsonp</code> 方法更精细地控制数据。</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#cloud-config-jsonp</span><span class="w">
+</span><span class="w"></span><span class="p">[</span>{<span class="w"> </span><span class="nt">&#34;op&#34;: &#34;add&#34;, &#34;path&#34;: &#34;/runcmd&#34;, &#34;value&#34;: </span><span class="p">[</span><span class="s2">&#34;my&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;command&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;here&#34;</span><span class="p">]</span>}<span class="p">]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>cloud-init 将下载并缓存它发现的任何供应商数据到文件系统。它的处理与用户数据完全相同，它也可以提供多部份的输入，并以与用户数据相同的方式对这些部分进行操作。</p>
+<p>两者的不同之处：</p>
+<ul>
+<li>供应商数据定义的脚本与用户数据定义的脚本存储在不同的为止</li>
+<li>用户可以通过云配置设置禁用部件处理程序。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#cloud-config</span><span class="w">
+</span><span class="w"></span><span class="nt">vendordata</span><span class="p">:</span><span class="w"> </span>{<span class="nt">excluded</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;text/part-handler&#39;</span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="安全性">安全性</h2>
+<p>Security</p>
+<br/>
+<br/>
+<h2 id="性能">性能</h2>
+<p>Performance</p>
+<p><code>analyze</code> 子命令可以帮助分析性能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cloud-init analyze blame
+cloud-init analyze show
+cloud-init analyze dump
+cloud-init analyze boot
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="内核命令行">内核命令行</h2>
+<p>Kernel command line</p>
+<p>通过内核命令行提供配置数据在某种程度上是一种最后的手段，此方法只支持以 <code>#cloud-config</code> 开头的 cloud config，而许多数据源不支持在不修改引导程序的情况下注入内核命令行参数。</p>
+<br/>
+<br/>
+<h3 id="数据源发现覆盖">数据源发现覆盖</h3>
+<p>Datasource discovery override</p>
+<p>在启动过程中，cloud-init 必须确定它在哪个数据源上运行（OpenStack、AWS、Azure、GCP等）。这个步骤可以通过指定数据源来选择性覆盖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">root=/dev/sda ro ds=openstack
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="内核cloud-config-url配置">内核cloud-config-url配置</h3>
+<p>为了让一个短暂的，或其他原始的镜像接受一些配置，cloud-init 可以读取一个由内核命令行指示的 URL，并像其数据以前存在一样运行。</p>
+<p>这允许配置一个元数据服务，或其他数据。</p>
+<p>当本地阶段运行时，它将检查 <code>cloud-config-url</code> 是否以 <code>key/value</code> 方式出现在命令行中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cfg" data-lang="cfg"><span class="na">root</span><span class="o">=</span><span class="s">/dev/sda ro cloud-config-url=http://foo.bar.zee/abcde</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>cloud-init 将读取指定 URL 的内容。如果内容以 <code>#cloud-config</code> 开头，它将把这些数据存储到本地文件系统的静态文件名 <code>/etc/cloud/cloud.cfg.d/91_kernel_cmdline_url.cfg</code> 中，并从这一点触发将其视为配置的一部分。如果此文件已存在，cloud-init 不会覆盖该文件，并且 cloud-config-url 参数将被完全忽略。</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#cloud-config</span><span class="w">
+</span><span class="w"></span><span class="nt">datasource</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">MAAS</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">metadata_url</span><span class="p">:</span><span class="w"> </span><span class="l">http://mass-host.localdomain/source</span><span class="w">
+</span><span class="w">    </span><span class="nt">consumer_key</span><span class="p">:</span><span class="w"> </span><span class="l">Xh234sdkljf</span><span class="w">
+</span><span class="w">    </span><span class="nt">token_key</span><span class="p">:</span><span class="w"> </span><span class="l">kjfhgb3n</span><span class="w">
+</span><span class="w">    </span><span class="nt">token_secret</span><span class="p">:</span><span class="w"> </span><span class="l">24uysdfx1w4</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h1 id="参考资料">参考资料</h1>
+<p>Reference</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-06-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/cloud-init/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/cloud-init/" data-title="Cloud-init" data-hashtags="IAAS,cloud-init"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/cloud-init/" data-title="Cloud-init"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/cloud-init/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/cloud-init/" data-title="Cloud-init"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/cloud-init/" data-title="Cloud-init"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/iaas/">IAAS</a>,&nbsp;<a href="/tags/cloud-init/">cloud-init</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/glibc-update/" class="prev" rel="prev" title="CentOS7升级Glibc到2.28"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>CentOS7升级Glibc到2.28</a>
+            <a href="/rhel7-security-guide/" class="next" rel="next" title="RHEL7-安全手册">RHEL7-安全手册<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

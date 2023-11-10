@@ -1,26 +1,42 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>redis - 标签 - 风继续吹</title>
+        <title>Redis - 标签 - 风继续吹</title>
         <link>https://zhang21.cn/tags/redis/</link>
-        <description>redis - 标签 - 风继续吹</description>
+        <description>Redis - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 05 Feb 2018 17:20:28 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/redis/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 04 Oct 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/redis/" rel="self" type="application/rss+xml" /><item>
+    <title>Redis使用手册</title>
+    <link>https://zhang21.cn/redis-guide/</link>
+    <pubDate>Wed, 04 Oct 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/redis-guide/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/34836750/" target="_blank" rel="noopener noreffer ">Redis 使用手册</a></li>
+<li><a href="https://redis.io/docs/" target="_blank" rel="noopener noreffer ">Redis 官方文档</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
     <title>Redis</title>
     <link>https://zhang21.cn/redis/</link>
-    <pubDate>Mon, 05 Feb 2018 17:20:28 &#43;0000</pubDate>
+    <pubDate>Mon, 05 Feb 2018 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/redis/</guid>
     <description><![CDATA[<p>参考:</p>
 <ul>
-<li>《Redis官方文档》: <a href="http://www.redis.cn/documentation.html">http://www.redis.cn/documentation.html</a></li>
-<li>《Redis命令大全》: <a href="http://www.redis.cn/commands.html">http://www.redis.cn/commands.html</a></li>
+<li><a href="http://www.redis.cn/documentation.html" target="_blank" rel="noopener noreffer ">Redis官方文档</a></li>
+<li><a href="http://www.redis.cn/commands.html" target="_blank" rel="noopener noreffer ">Redis命令大全</a></li>
 </ul>
 <br>
 <p>环境:</p>
 <ul>
-<li>CentOS7x86_64</li>
-<li>Redis 3.2</li>
-</ul>]]></description>
+<li>rhel7x86_64</li>
+<li>Redis v3.2</li>
+</ul>
+<br/>
+<hr>]]></description>
 </item>
 </channel>
 </rss>

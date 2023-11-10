@@ -1,20 +1,17 @@
 # 网站运维
 
 
-
 参考：
 
-- 《网站运维：保持数据实时的秘籍》(Web Operations: Keeping the Data on Time)
-
+- Web Operations: Keeping the Data on Time
 
 <br>
-<br/>
+
+---
 
 <!--more-->
 
 <br>
-
-
 
 # 作为职业的运维
 

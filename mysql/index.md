@@ -1,27 +1,18 @@
 # MySQL
 
 
-
 参考：
 
-- MySQL5.7参考文档： <https://dev.mysql.com/doc/refman/5.7/en/>
+- [MySQL5.7文档](https://dev.mysql.com/doc/refman/5.7/en/)
 - MySQL必知必会
 
 <br/>
 
 环境：
 
-- CentOS7.x86_64
+- RHEL7x86_64
 - MySQL5.7
 
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
@@ -29,12 +20,6 @@
 <!--more-->
 
 <br/>
-<br/>
-
-
-
-
-
 
 
 

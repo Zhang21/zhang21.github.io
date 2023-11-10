@@ -1,0 +1,2754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>计算机科学导论 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="计算机科学导论" />
+<meta property="og:description" content="参考： 计算机科学导论 绪论 本章的目标： 图灵模型 冯诺依曼模型 计算机的三大部分—：硬件、数据和软件 图灵模型 图灵在 1963 年最先提出了一个通用计算设备的设" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/computer-science/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-09-03T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-09-03T00:00:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="计算机科学导论"/>
+<meta name="twitter:description" content="参考： 计算机科学导论 绪论 本章的目标： 图灵模型 冯诺依曼模型 计算机的三大部分—：硬件、数据和软件 图灵模型 图灵在 1963 年最先提出了一个通用计算设备的设"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/computer-science/" /><link rel="prev" href="https://zhang21.cn/s-pbtdkg/" /><link rel="next" href="https://zhang21.cn/redis-guide/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "计算机科学导论",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/computer-science\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "cs","wordcount":  29498 ,
+        "url": "https:\/\/zhang21.cn\/computer-science\/","datePublished": "2023-09-03T00:00:00+00:00","dateModified": "2023-09-03T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">计算机科学导论</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/cs/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>cs</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-09-03">2023-09-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 29498 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 59 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#绪论">绪论</a>
+      <ul>
+        <li><a href="#图灵模型">图灵模型</a>
+          <ul>
+            <li><a href="#数据处理器">数据处理器</a></li>
+            <li><a href="#可编程数据处理器">可编程数据处理器</a></li>
+            <li><a href="#通用图灵机">通用图灵机</a></li>
+          </ul>
+        </li>
+        <li><a href="#冯诺依曼模型">冯诺依曼模型</a>
+          <ul>
+            <li><a href="#四个子系统">四个子系统</a></li>
+            <li><a href="#存储程序概念">存储程序概念</a></li>
+            <li><a href="#指令的顺序执行">指令的顺序执行</a></li>
+          </ul>
+        </li>
+        <li><a href="#计算机组成部分">计算机组成部分</a>
+          <ul>
+            <li><a href="#计算机硬件">计算机硬件</a></li>
+            <li><a href="#计算机数据">计算机数据</a></li>
+            <li><a href="#计算机软件">计算机软件</a></li>
+          </ul>
+        </li>
+        <li><a href="#计算机历史">计算机历史</a></li>
+        <li><a href="#计算机科学作为一门学科">计算机科学作为一门学科</a></li>
+        <li><a href="#课程纲要">课程纲要</a></li>
+      </ul>
+    </li>
+    <li><a href="#数字系统">数字系统</a>
+      <ul>
+        <li><a href="#位置化数字系统">位置化数字系统</a>
+          <ul>
+            <li><a href="#十进制系统">十进制系统</a></li>
+            <li><a href="#二进制系统">二进制系统</a></li>
+            <li><a href="#十六进制系统">十六进制系统</a></li>
+            <li><a href="#八进制系统">八进制系统</a></li>
+            <li><a href="#位置化系统的转换">位置化系统的转换</a></li>
+          </ul>
+        </li>
+        <li><a href="#非位置化数字系统">非位置化数字系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据存储">数据存储</a>
+      <ul>
+        <li><a href="#数据类型">数据类型</a>
+          <ul>
+            <li><a href="#计算机内部的数据">计算机内部的数据</a></li>
+            <li><a href="#数据压缩">数据压缩</a></li>
+            <li><a href="#错误检测和纠正">错误检测和纠正</a></li>
+          </ul>
+        </li>
+        <li><a href="#存储数字">存储数字</a>
+          <ul>
+            <li><a href="#存储整数">存储整数</a>
+              <ul>
+                <li><a href="#无符号表示法">无符号表示法</a></li>
+                <li><a href="#符号加绝对值表示法">符号加绝对值表示法</a></li>
+                <li><a href="#二进制补码表示法">二进制补码表示法</a></li>
+              </ul>
+            </li>
+            <li><a href="#实数">实数</a>
+              <ul>
+                <li><a href="#浮点表示法">浮点表示法</a></li>
+                <li><a href="#规范化">规范化</a></li>
+                <li><a href="#符号指数和尾数">符号、指数和尾数</a></li>
+                <li><a href="#余码系统">余码系统</a></li>
+                <li><a href="#ieee-标准">IEEE 标准</a></li>
+                <li><a href="#上溢和下溢">上溢和下溢</a></li>
+                <li><a href="#存储零">存储零</a></li>
+                <li><a href="#截断错误">截断错误</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#存储文本">存储文本</a>
+          <ul>
+            <li><a href="#ascii编码">ASCII编码</a></li>
+            <li><a href="#unicode">Unicode</a></li>
+          </ul>
+        </li>
+        <li><a href="#存储音频">存储音频</a>
+          <ul>
+            <li><a href="#音频采样">音频采样</a></li>
+            <li><a href="#音频量化">音频量化</a></li>
+            <li><a href="#音频编码">音频编码</a></li>
+            <li><a href="#声音编码标准">声音编码标准</a></li>
+          </ul>
+        </li>
+        <li><a href="#存储图像">存储图像</a>
+          <ul>
+            <li><a href="#光栅图">光栅图</a></li>
+            <li><a href="#矢量图">矢量图</a></li>
+          </ul>
+        </li>
+        <li><a href="#存储视频">存储视频</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据运算">数据运算</a>
+      <ul>
+        <li><a href="#逻辑运算">逻辑运算</a>
+          <ul>
+            <li><a href="#位层次上的逻辑运算">位层次上的逻辑运算</a></li>
+          </ul>
+        </li>
+        <li><a href="#移位运算">移位运算</a>
+          <ul>
+            <li><a href="#逻辑移位运算">逻辑移位运算</a></li>
+          </ul>
+        </li>
+        <li><a href="#算术运算">算术运算</a>
+          <ul>
+            <li><a href="#整数的算术运算">整数的算术运算</a></li>
+            <li><a href="#实数的算术运算">实数的算术运算</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#计算机组成">计算机组成</a>
+      <ul>
+        <li><a href="#中央处理器">中央处理器</a>
+          <ul>
+            <li><a href="#算数逻辑单元">算数逻辑单元</a></li>
+            <li><a href="#寄存器">寄存器</a></li>
+            <li><a href="#控制单元">控制单元</a></li>
+          </ul>
+        </li>
+        <li><a href="#主存储器">主存储器</a>
+          <ul>
+            <li><a href="#地址空间">地址空间</a></li>
+            <li><a href="#存储器的类型">存储器的类型</a></li>
+            <li><a href="#存储器的层次结构">存储器的层次结构</a></li>
+            <li><a href="#高速缓冲存储器">高速缓冲存储器</a></li>
+          </ul>
+        </li>
+        <li><a href="#输入输出子系统">输入输出子系统</a>
+          <ul>
+            <li><a href="#非存储设备">非存储设备</a></li>
+            <li><a href="#存储设备">存储设备</a>
+              <ul>
+                <li><a href="#磁介质存储设备">磁介质存储设备</a></li>
+                <li><a href="#光存储设备">光存储设备</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#子系统的互联">子系统的互联</a>
+          <ul>
+            <li><a href="#cpu和存储器的连接">CPU和存储器的连接</a></li>
+            <li><a href="#输入输出设备的连接">输入输出设备的连接</a></li>
+            <li><a href="#输入输出设备的寻址">输入输出设备的寻址</a>
+              <ul>
+                <li><a href="#io独立寻址">IO独立寻址</a></li>
+                <li><a href="#io存储器映射寻址">IO存储器映射寻址</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#程序执行">程序执行</a>
+          <ul>
+            <li><a href="#机器周期">机器周期</a></li>
+            <li><a href="#输入输出操作">输入输出操作</a></li>
+          </ul>
+        </li>
+        <li><a href="#不同的体系结构">不同的体系结构</a>
+          <ul>
+            <li><a href="#复杂指令集计算机">复杂指令集计算机</a></li>
+            <li><a href="#精简指令集计算机">精简指令集计算机</a></li>
+            <li><a href="#流水线技术">流水线技术</a></li>
+            <li><a href="#并行处理">并行处理</a>
+              <ul>
+                <li><a href="#单指令流单数据流组织">单指令流单数据流组织</a></li>
+                <li><a href="#单指令流多数据流组织">单指令流多数据流组织</a></li>
+                <li><a href="#多指令流单数据流组织">多指令流单数据流组织</a></li>
+                <li><a href="#多指令流多数据流组织">多指令流多数据流组织</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#简单计算机">简单计算机</a>
+          <ul>
+            <li><a href="#cpu">CPU</a></li>
+            <li><a href="#主存">主存</a></li>
+            <li><a href="#输入输出子系统-1">输入/输出子系统</a></li>
+            <li><a href="#指令集">指令集</a></li>
+            <li><a href="#处理指令">处理指令</a></li>
+            <li><a href="#存储程序和数据">存储程序和数据</a></li>
+            <li><a href="#指令周期">指令周期</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#计算机网络和因特网">计算机网络和因特网</a>
+      <ul>
+        <li><a href="#计算机网络引言">计算机网络引言</a>
+          <ul>
+            <li><a href="#网络">网络</a></li>
+            <li><a href="#因特网">因特网</a></li>
+            <li><a href="#硬件和软件">硬件和软件</a></li>
+            <li><a href="#协议分层">协议分层</a></li>
+            <li><a href="#tcpip协议簇">TCP/IP协议簇</a></li>
+          </ul>
+        </li>
+        <li><a href="#应用层">应用层</a>
+          <ul>
+            <li><a href="#提供服务">提供服务</a></li>
+            <li><a href="#应用层模式">应用层模式</a></li>
+            <li><a href="#标准客户机-服务器应用">标准客户机-服务器应用</a></li>
+            <li><a href="#文件传输协议">文件传输协议</a></li>
+            <li><a href="#电子邮件">电子邮件</a></li>
+            <li><a href="#telnet">TELNET</a></li>
+            <li><a href="#ssh">SSH</a></li>
+            <li><a href="#域名系统">域名系统</a></li>
+            <li><a href="#端到端模式">端到端模式</a></li>
+          </ul>
+        </li>
+        <li><a href="#传输层">传输层</a>
+          <ul>
+            <li><a href="#传输层服务">传输层服务</a></li>
+            <li><a href="#传输层协议">传输层协议</a>
+              <ul>
+                <li><a href="#用户数据报协议">用户数据报协议</a></li>
+                <li><a href="#传输控制协议">传输控制协议</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#网络层">网络层</a>
+          <ul>
+            <li><a href="#网络层提供的服务">网络层提供的服务</a></li>
+            <li><a href="#网络层协议">网络层协议</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据链路层">数据链路层</a>
+          <ul>
+            <li><a href="#节点和链接">节点和链接</a></li>
+            <li><a href="#局域网">局域网</a>
+              <ul>
+                <li><a href="#有线局域网">有线局域网</a></li>
+                <li><a href="#无线局域网">无线局域网</a></li>
+              </ul>
+            </li>
+            <li><a href="#广域网">广域网</a></li>
+          </ul>
+        </li>
+        <li><a href="#物理层">物理层</a>
+          <ul>
+            <li><a href="#数据和信号">数据和信号</a></li>
+            <li><a href="#数字化传输">数字化传输</a></li>
+            <li><a href="#模拟传输">模拟传输</a></li>
+          </ul>
+        </li>
+        <li><a href="#传输介质">传输介质</a>
+          <ul>
+            <li><a href="#导向介质">导向介质</a></li>
+            <li><a href="#非导向介质">非导向介质</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#操作系统">操作系统</a>
+      <ul>
+        <li><a href="#操作系统引言">操作系统引言</a></li>
+        <li><a href="#操作系统演化">操作系统演化</a>
+          <ul>
+            <li><a href="#批处理系统">批处理系统</a></li>
+            <li><a href="#分时系统">分时系统</a></li>
+            <li><a href="#个人系统">个人系统</a></li>
+            <li><a href="#并行系统">并行系统</a></li>
+            <li><a href="#分布式系统">分布式系统</a></li>
+            <li><a href="#实时系统">实时系统</a></li>
+          </ul>
+        </li>
+        <li><a href="#组成部分">组成部分</a>
+          <ul>
+            <li><a href="#用户界面">用户界面</a></li>
+            <li><a href="#内存管理器">内存管理器</a>
+              <ul>
+                <li><a href="#单道程序">单道程序</a></li>
+                <li><a href="#多道程序">多道程序</a></li>
+                <li><a href="#虚拟内存">虚拟内存</a></li>
+              </ul>
+            </li>
+            <li><a href="#进程管理器">进程管理器</a></li>
+            <li><a href="#文件管理器">文件管理器</a></li>
+          </ul>
+        </li>
+        <li><a href="#主流操作系统">主流操作系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#算法">算法</a>
+      <ul>
+        <li><a href="#算法的概念">算法的概念</a></li>
+        <li><a href="#算法的三种结构">算法的三种结构</a></li>
+        <li><a href="#算法的表示">算法的表示</a>
+          <ul>
+            <li><a href="#统一建模语言">统一建模语言</a></li>
+            <li><a href="#伪代码">伪代码</a></li>
+          </ul>
+        </li>
+        <li><a href="#更正式的定义">更正式的定义</a></li>
+        <li><a href="#基本算法">基本算法</a>
+          <ul>
+            <li><a href="#求和算法">求和算法</a></li>
+            <li><a href="#乘积算法">乘积算法</a></li>
+            <li><a href="#最大值和最小值的算法">最大值和最小值的算法</a></li>
+            <li><a href="#排序算法">排序算法</a>
+              <ul>
+                <li><a href="#选择排序">选择排序</a></li>
+                <li><a href="#冒泡排序">冒泡排序</a></li>
+                <li><a href="#插入排序">插入排序</a></li>
+                <li><a href="#其他排序算法">其他排序算法</a></li>
+              </ul>
+            </li>
+            <li><a href="#查找算法">查找算法</a>
+              <ul>
+                <li><a href="#顺序查找">顺序查找</a></li>
+                <li><a href="#折半查找">折半查找</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#子算法">子算法</a>
+          <ul>
+            <li><a href="#结构图">结构图</a></li>
+          </ul>
+        </li>
+        <li><a href="#递归">递归</a>
+          <ul>
+            <li><a href="#迭代的定义">迭代的定义</a></li>
+            <li><a href="#递归的定义">递归的定义</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#程序设计语言">程序设计语言</a>
+      <ul>
+        <li><a href="#程序设计语言的演化">程序设计语言的演化</a>
+          <ul>
+            <li><a href="#机器语言">机器语言</a></li>
+            <li><a href="#汇编语言">汇编语言</a></li>
+            <li><a href="#高级语言">高级语言</a></li>
+          </ul>
+        </li>
+        <li><a href="#翻译">翻译</a>
+          <ul>
+            <li><a href="#编译">编译</a></li>
+            <li><a href="#解释">解释</a></li>
+            <li><a href="#翻译过程">翻译过程</a></li>
+          </ul>
+        </li>
+        <li><a href="#编程模式">编程模式</a>
+          <ul>
+            <li><a href="#过程式模式">过程式模式</a></li>
+            <li><a href="#面向对象模式">面向对象模式</a></li>
+            <li><a href="#函数式模式">函数式模式</a></li>
+            <li><a href="#声明式模式">声明式模式</a></li>
+          </ul>
+        </li>
+        <li><a href="#共同概念">共同概念</a></li>
+      </ul>
+    </li>
+    <li><a href="#软件工程">软件工程</a>
+      <ul>
+        <li><a href="#软件生命周期">软件生命周期</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/35084853/" target="_blank" rel="noopener noreffer ">计算机科学导论</a></li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="绪论">绪论</h1>
+<p>本章的目标：</p>
+<ul>
+<li>图灵模型</li>
+<li>冯诺依曼模型</li>
+<li>计算机的三大部分—：硬件、数据和软件</li>
+</ul>
+<br/>
+<br/>
+<h2 id="图灵模型">图灵模型</h2>
+<p>图灵在 1963 年最先提出了一个通用计算设备的设想——所有的计算都可以在一种特殊的机器上执行，这就是现在所说的图灵机。</p>
+<br/>
+<br/>
+<h3 id="数据处理器">数据处理器</h3>
+<p>把计算机定义成一个数据处理器，它接受输入数据、处理数据并产生输出数据的黑盒。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">graph LR
+输入数据 --&gt; 计算机 --&gt; 输出数据
+</code></pre></td></tr></table>
+</div>
+</div><p>这种模型可以表示为一种设计用来完成特定任务的专用计算机。尽管如此，计算机作为一个当今使用的术语，是一种通用的机器，它可以完成各种不同的工作。这表明我们需要将该模型改编为图灵模型来反映当今计算机的现实。</p>
+<br/>
+<br/>
+<h3 id="可编程数据处理器">可编程数据处理器</h3>
+<p>图灵模型是一个适用于计算机的更好的模型。程序是用来告诉计算机如何对数据进行处理的指令集。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">              程序
+                |
+输入数据 --&gt; 计算机 --&gt; 输出数据
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="通用图灵机">通用图灵机</h3>
+<p>通用图灵机是对现状的首次描述，只要提供了合适的程序，该机器就能做任何运算。</p>
+<br/>
+<br/>
+<h2 id="冯诺依曼模型">冯诺依曼模型</h2>
+<p>基于通用图灵机建造的计算机都是在存储器中存储数据。冯诺依曼指出，鉴于程序和数据在逻辑上是相同的，因此程序也能存储在计算机的存储器中。</p>
+<br/>
+<br/>
+<h3 id="四个子系统">四个子系统</h3>
+<p>冯诺依曼模型建造的计算机分为四个子系统：</p>
+<ul>
+<li><strong>存储器</strong>：存储数据和程序。</li>
+<li><strong>算术逻辑单元</strong>：进行计算和逻辑运算。</li>
+<li><strong>控制单元</strong>：对存储器、算术逻辑单元、输入/输出子系统进行控制操作。</li>
+<li><strong>输入输出</strong>：接受数据和程序，输出处理结果。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/Von_Neumann_architecture.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/Von_Neumann_architecture.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/Von_Neumann_architecture.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/Von_Neumann_architecture.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/Von_Neumann_architecture.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/Von_Neumann_architecture.png" /></p>
+<br/>
+<br/>
+<h3 id="存储程序概念">存储程序概念</h3>
+<p>冯诺依曼模型要求程序必须存储在存储器中。这和早期只有数据才能存储在存储器中的计算机结构完全不同。完成某一任务的程序是通过操作一系列的开关或改变其配线来实现的。</p>
+<p>现代计算机的存储器用来存储程序及其相应数据。这意味着数据和程序应该具有相同的格式，存储在存储器中。实际上它们都是以位模式（二进制 0 和 1）存储在存储器中。</p>
+<br/>
+<br/>
+<h3 id="指令的顺序执行">指令的顺序执行</h3>
+<p>冯诺依曼模型中的一段程序由一组数量有限的指令组成。按照这个模型，控制单元从存储器中提取一条指令，解释指令，接着执行指令。</p>
+<p>指令是一条条顺序执行。当然，一条指令可能会请求控制单元以便跳转到前面或后面的指令去执行，但这并不意味着指令没有按照顺序来执行。</p>
+<p>指令的执行顺序是基于冯诺依曼模型的计算机的初始条件。当今的计算机以最高效的顺序来执行程序。</p>
+<br/>
+<br/>
+<h2 id="计算机组成部分">计算机组成部分</h2>
+<p>可以认为计算机由三大部分组成：计算机硬件、数据和计算机软件。</p>
+<br/>
+<br/>
+<h3 id="计算机硬件">计算机硬件</h3>
+<p>当今的计算机硬件基于冯诺依曼模型，且包含四部分，尽管可以由不同类型的存储器，不同类型的输入/输出子系统。</p>
+<br/>
+<br/>
+<h3 id="计算机数据">计算机数据</h3>
+<p>冯诺依曼模型清楚地将计算机定义为数据处理机。</p>
+<br/>
+<br/>
+<h3 id="计算机软件">计算机软件</h3>
+<p>图灵或冯诺依曼模型的主要特征是程序的概念。编程在早期的计算机中体现为一系列开关的打开或闭合以及配线的改变。</p>
+<ol>
+<li>程序必须是存储的</li>
+<li>指令的序列：这个模型要求程序必须是有序的指令集，每一条指令操作一个或多个数据项。因此，一条指令可以改变它前面指令的作用。</li>
+<li>算法</li>
+<li>语言</li>
+<li>软件工程</li>
+<li>操作系统</li>
+</ol>
+<p>为什么程序必须由不同的指令集组成？答案是重用性。图灵模型和冯诺依曼模型通过仔细地定义计算机可以使用的不同指令集，使编程变得相对简单。程序员通过组合这些不同的指令来创建任意数量的程序。每个程序可以是不同指令的不同组合。</p>
+<p>在计算机时代的早期，只有一种称为 <strong>机器语言</strong> 的计算机语言。程序员依靠写指令的方式（使用位模式）来解决问题。但随着程序越来越大，采用这种模式来编写很长的程序变得很单调乏味。计算机科学家研究出利用符号来代表位模式，就像人们在日常生活中用符号（单词）来代替一些常用的指令一样。这样，计算机语言的概念诞生了。</p>
+<p>软件工程是指结构化程序的设计和编写。</p>
+<p>计算机操作系统最初是为程序访问计算机部件提供方便的一种管理程序。今天，操作系统所完成的工作远不止于此。</p>
+<br/>
+<br/>
+<h2 id="计算机历史">计算机历史</h2>
+<p>计算机历史的三个阶段：</p>
+<ul>
+<li>机械计算机器（1930 年以前）</li>
+<li>电子计算机的诞生（1930-1950 年）
+<ul>
+<li>早期的电子计算机</li>
+<li>基于冯诺依曼模型的计算机</li>
+</ul>
+</li>
+<li>计算机的诞生（1950 年至今）
+<ul>
+<li>第一代计算机（1950-1959）：使用正空管</li>
+<li>第二代计算机（1959-1965）：使用晶体管</li>
+<li>第三代计算机（1965-1975）：使用集成电路（晶体管、导线和其他部件做在一块单芯片上）</li>
+<li>第四代计算机（1975-1985）：微计算机</li>
+<li>第五代计算机（1985-）：掌上计算机和台式计算机、存储媒体、多媒体的应用和虚拟现实。</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h2 id="计算机科学作为一门学科">计算机科学作为一门学科</h2>
+<p>计算机科学现在被划分为几个领域，可以归纳为两大类：</p>
+<ul>
+<li>系统领域：如计算机体系结构、计算机网络、安全问题、操作系统、算法、程序设计语言以及软件工程。</li>
+<li>应用领域：如数据库和人工智能等。</li>
+</ul>
+<p>本书对这些领域采用广度优先的方式介绍。</p>
+<br/>
+<br/>
+<h2 id="课程纲要">课程纲要</h2>
+<p>本书分为六大部分：</p>
+<ul>
+<li>数据的表示与运算
+<ul>
+<li>数字系统</li>
+<li>不同的数据如何存储在计算机中</li>
+<li>基本的位运算</li>
+</ul>
+</li>
+<li>计算机硬件
+<ul>
+<li>计算机硬件的通用概念，不同的计算机的组成</li>
+<li>不同的单个计算机是如何连接成计算机网络以及互联网的</li>
+</ul>
+</li>
+<li>计算机软件
+<ul>
+<li>操作系统</li>
+<li>问题求解如何归纳成为该问题编写算法</li>
+<li>程序设计语言</li>
+<li>软件开发的工程方法</li>
+</ul>
+</li>
+<li>数据组织与抽象
+<ul>
+<li>数据结构</li>
+<li>抽象数据类型</li>
+<li>不同文件结构如何用于不同的目的</li>
+<li>数据库</li>
+</ul>
+</li>
+<li>高级话题
+<ul>
+<li>数据压缩</li>
+<li>安全问题</li>
+<li>计算理论</li>
+<li>人工智能</li>
+</ul>
+</li>
+<li>社交媒体和社会话题</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="数字系统">数字系统</h1>
+<p><strong>数字系统</strong>（数码系统）定义了如何用独特的符号来表示一个数字。如 2A（16进制）和 52（8进制）都是指 42（10进制），但它们的表示截然不同。</p>
+<p>一些数字系统已经在过去广为使用，并可与分为两类：位置化系统和非位置化系统。</p>
+<br/>
+<br/>
+<h2 id="位置化数字系统">位置化数字系统</h2>
+<p>在位置化数字系统中，数字中符号所占据的位置决定了其表示的值。</p>
+<p>$$n=±S_(K-1)*b^(K-1)+S_1*b^1+&hellip;+S_(-L)*b^(-L)$$</p>
+<p>其中，S 是一套符号集，b 是基数。</p>
+<br/>
+<br/>
+<h3 id="十进制系统">十进制系统</h3>
+<p>在该系统中，底 <code>b = 10</code> 并且我们用 10 个符号来表示一个数。符号集是 <code>S = {0,1,2,3,4,5,6,7,8,9}</code>。我们使用 <code>±</code> 正负符号表示数字的正负，但这些符号并不存储在计算机中——计算机存储正负号的方式不同。</p>
+<p>整数部分和实数部分（带有小数的部分）。</p>
+<br/>
+<br/>
+<h3 id="二进制系统">二进制系统</h3>
+<br/>
+<br/>
+<h3 id="十六进制系统">十六进制系统</h3>
+<br/>
+<br/>
+<h3 id="八进制系统">八进制系统</h3>
+<br/>
+<br/>
+<h3 id="位置化系统的转换">位置化系统的转换</h3>
+<p>各种位置化系统之间的转换。</p>
+<br/>
+<br/>
+<h2 id="非位置化数字系统">非位置化数字系统</h2>
+<p>非位置化系统并不用在计算机中，这里给出简单的介绍，以便和位置化数字系统进行比较。非位置化数字系统仍然使用有限的数字符号，每个符号有一个值。但是符号所占用的位置通常与其值无关——每个符号的值是固定的。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="数据存储">数据存储</h1>
+<p>讨论不同的数据类型以及它们是如何存储在计算机中的。</p>
+<br/>
+<br/>
+<h2 id="数据类型">数据类型</h2>
+<p>数据的不同形式：</p>
+<ul>
+<li>数字</li>
+<li>文本</li>
+<li>音频</li>
+<li>图像</li>
+<li>视频</li>
+</ul>
+<p>计算机行业使用术语“多媒体”来定义包含数字、文本、图像、音频和视频的信息。</p>
+<br/>
+<br/>
+<h3 id="计算机内部的数据">计算机内部的数据</h3>
+<p>所有计算机外部的数据类型的数据都采用统一的数据表示法转换后存储计算机中，当数据从计算机输出时再还原回来。这种通用格式称为 <strong>位模式</strong>。</p>
+<p><strong>位</strong> （bit, binary digit）是存储在计算机中的最小单位，它是 0 或 1。</p>
+<p><strong>位模式</strong> 为了表示数据的不同类型，应该使用位模式，它是一个序列，有时也被称为位流。通常长度为 8 的位模式称为 1 字节。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/bitmodel.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/bitmodel.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/bitmodel.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/bitmodel.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/bitmodel.png"
+        title="位模式" /></p>
+<br/>
+<br/>
+<h3 id="数据压缩">数据压缩</h3>
+<p>为了占用较少的内存空间，数据在存储到计算机之前通常会被压缩。</p>
+<br/>
+<br/>
+<h3 id="错误检测和纠正">错误检测和纠正</h3>
+<p>传输与存储数据时的错误检测和纠正。</p>
+<br/>
+<br/>
+<h2 id="存储数字">存储数字</h2>
+<p>在存储到计算机内存中之前，数字会被转换到二进制系统。但这里有两个问题需要解决：</p>
+<ul>
+<li>如何存储数字的符号</li>
+<li>如何显示十进制小数点：计算机使用定点和浮点。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="存储整数">存储整数</h3>
+<p>整数可以被当作小数点位置固定的数字：小数点固定在最右边。</p>
+<p><strong>整数通常使用定点表示法存储在内存中。</strong></p>
+<br/>
+<br/>
+<h4 id="无符号表示法">无符号表示法</h4>
+<p><strong>无符号表示法</strong>，无符号整数的范围介于 0 到无穷大。但计算机不可能表示这个范围的所有整数，通常计算机都定义了一个常量，称为最大无符号整数（$2^n-1$）。</p>
+<p>存储无符号整数：</p>
+<ol>
+<li>将整数变成二进制</li>
+<li>如果二进制位数不足 n 位，则在二进制数的左边补 0，使它总位数为 n 位。</li>
+</ol>
+<p>例如 十进制 7 的二进制是 <code>111</code>，1 字节 8 位数是 <code>00000111</code>。十进制 258 的二进制是 <code>100000010</code>，补充成完整的位数是 <code>0000000100000010</code>。</p>
+<p>无符号整数的应用：</p>
+<ul>
+<li>计数</li>
+<li>寻址：计算机地址都是从 0 开始到整个存储器的总字节数的正整数。</li>
+<li>存储其他数据模型</li>
+</ul>
+<br/>
+<br/>
+<h4 id="符号加绝对值表示法">符号加绝对值表示法</h4>
+<p><strong>符号加绝对值表示法</strong>，该格式用于在计算机中存储部分实数。</p>
+<p>在符号加绝对值表示法中，最左边用于定义整数的符号。0 表示正整数，1 表示负整数。</p>
+<p>如 <code>+28</code> 表示为 <code>00011100</code>，<code>-28</code> 表示为 <code>10011100</code>。</p>
+<p>在符号加绝对值表示放中，有两个0：<code>+0</code> 和 <code>-0</code>。</p>
+<br/>
+<br/>
+<h4 id="二进制补码表示法">二进制补码表示法</h4>
+<p><strong>二进制补码表示法</strong> 来存储位于 n 位存储单元中的有符号整数。</p>
+<p>在二进制补码表示法中，最左位决定符号。如果它是 0，改整数为正；如果是 1，该整数为负。</p>
+<p>二进制补码表示法仅有一个 0。</p>
+<br/>
+<p>介绍两种运算：</p>
+<ul>
+<li>反码：简单反转各个位，即把 0 变为 1，把 1 变为 0。</li>
+<li>补码：首先，从右往左复制位，直到有 1 被复制；接着，反转其余的位。</li>
+</ul>
+<p>进行两次反码/补码运算，就可以得到原先的整数。</p>
+<br/>
+<p>二进制补码表示法存储的整数也会溢出。</p>
+<br/>
+<br/>
+<h3 id="实数">实数</h3>
+<p>实数是带有整数和小数的数字。</p>
+<p>带有很大的整数部分或很小的小数部分的实数不应该用定点表示法存储。</p>
+<br/>
+<br/>
+<h4 id="浮点表示法">浮点表示法</h4>
+<p>用于维持正确度或精度的解决方法是使用浮点表示法。该表示法允许小数点浮动：可以在小数点的左右有不同数量的数码。这种方法极大地增加了可存储的实数范围：带有很大的整数部分或很小的小数部分的实数可以存储在内存中。</p>
+<p>一个数字的浮点表示法由三部分组成：符号、位移量和定点数。</p>
+<p>$实际数字   -&gt; + 7 425 000000000 000 000 000.00$</p>
+<p>$科学计数法 -&gt; + 7.425 x 10^21$</p>
+<br/>
+<br/>
+<h4 id="规范化">规范化</h4>
+<p>为了使表示法的固定部分统一，科学计数法（用于十进制）和浮点表示法（用于二进制）都在小数点左边使用了唯一的非零数码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">十进制 -&gt; ± d.xxxxxx 注意：d是1-9，x是0-9
+二进制 -&gt; ± 1.yyyyyy 注意：y是0或1
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="符号指数和尾数">符号、指数和尾数</h4>
+<p>在二进制数规范化之后，我们只存储了一个数的三部分信息：符号、指数和尾数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">+1000111.0101
+符号  指数      尾数
++     2的6次方  1.0001110101
+1     6         0001110101
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="余码系统">余码系统</h4>
+<p>尾数可以作为无符号整数存储。指数是有符号的数。在余码系统中，正和负的整数都可以作为无符号数存储。</p>
+<br/>
+<br/>
+<h4 id="ieee-标准">IEEE 标准</h4>
+<p>电气和电子工程师协会（IEEE）定义了集中存储浮点数的标准。讨论两种最常用的：</p>
+<ul>
+<li>单精度：采用公共 32 位来存储一个浮点表示法的实数。符号占用1位（0为正，1为负），指数占用8位（使用偏移量127），尾数使用23位（无符号数）。该标准有时称为余127码。</li>
+<li>双精度：采用总共 64 位来存储一个浮点表示法的实数。符号占用1位（0为正，1为负），指数占用11位（使用偏移量1023），尾数使用52位。该标准有时称为余1023码（Excess_1023）。</li>
+</ul>
+<p>IEEE 标准浮点数的存储，一个实数可以存储为 IEEE 标准浮点数格式：</p>
+<ul>
+<li>存储符号</li>
+<li>将数字转换为二进制</li>
+<li>规范化</li>
+<li>找到位移量和定点数的值</li>
+<li>连接符号、位移量和定点数</li>
+</ul>
+<p>将 IEEE 标准浮点数的数字还原。</p>
+<br/>
+<br/>
+<h4 id="上溢和下溢">上溢和下溢</h4>
+<p>对于浮点数，有上溢和下溢两种情况。试图存储绝对值很小的数会导致下溢，而试图存储绝对值很大的数会导致上溢。</p>
+<br/>
+<br/>
+<h4 id="存储零">存储零</h4>
+<p>实数设置为零的时候是 0.0，无法用以上讨论的步骤存储。为了处理这个特例，约定在这种情况下符号、指数和尾数都设为零。</p>
+<br/>
+<br/>
+<h4 id="截断错误">截断错误</h4>
+<p>原始数字与还原后数字的差异称为截断错误。在使用很小或很大数字的地方，如宇航业的计算中，这种类型的错误是很严重的。在这种情况下，需要更大的内存和其他的表示法。为此，IEEE 定义了更大尾数的其他表示法。</p>
+<br/>
+<br/>
+<h2 id="存储文本">存储文本</h2>
+<p>在任何语言中，文本的片段是用来表示该语言中某个意思的一系列的符号。</p>
+<p>我们可以使用位模式来标时任何一个符号。</p>
+<p>在一种语言中，位模式到底需要多少位来表示一个符号。如使用英文大写字母 ，则只需要26个符号。相应地，这种语言的位模式也至少需要表示 26个符号。</p>
+<p>不同的位模式集合被设计用于表示文本符号。其中每一个集合称之为代码。表示符号的过程被称为编码。</p>
+<br/>
+<br/>
+<h3 id="ascii编码">ASCII编码</h3>
+<p>美国国家标准协会（ANSI） 开发了一个称为美国信息交换标准码（ASCII）的代码。它使用 7位表示每个符号（128种不同的符号）。如今，ASCII 是 Unicode 的一部分。</p>
+<br/>
+<br/>
+<h3 id="unicode">Unicode</h3>
+<p>硬件和软件制造商联合起来共同设计了一种名为 Unicode 的代码，它使用 32 位。代码的不同部分被分配用于表示来自世界上不同语言的符号。其中还有些部分用于表示图形和特殊符号。</p>
+<br/>
+<br/>
+<h2 id="存储音频">存储音频</h2>
+<p>音频表示声音或音乐。文本由可数的实体组成，文本时数字数据的一个例子。音频是不可数的。音频是随时间变化的实体，我们只能在每一时刻度量声音的密度。当我们讨论用计算机内存存储声音时，我们的意思是存储一个音频信号的密度，例如每隔一段时间来自麦克风的信号。</p>
+<p>音频是模拟数据的例子。即使我们能够在一段时间度量所有的值，也不能把它们全部存储在计算机内存中，因为可能需要无限数量的内存。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-15-audio.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-15-audio.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-15-audio.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-15-audio.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-15-audio.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-15-audio.png" /></p>
+<br/>
+<br/>
+<h3 id="音频采样">音频采样</h3>
+<p>采样意味着我们在模拟信号上选择数量有限的点来度量它们的值并记录下来。</p>
+<p>如果信号平滑，则需要很少的样本。如果信号变化剧烈，则需要更多的样本。每秒 40000 个样本的采样率对重现音频信号来说足够好了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-16-audio.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-16-audio.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-16-audio.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-16-audio.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-16-audio.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/3-16-audio.png" /></p>
+<br/>
+<br/>
+<h3 id="音频量化">音频量化</h3>
+<p>从每个样本测量来的值是真实的数字。这意味着我们可能要为每一秒的样本存储 40000 个真实的值。但是，为每个样本使用一个无符号的数（位模式）会更简便。量化是指将样本的值截取为最接近的整数值的一种过程。如 17.2 截取为 17。</p>
+<br/>
+<br/>
+<h3 id="音频编码">音频编码</h3>
+<p>量化的样本值需要被编码成位模式。一些系统使用无符号整数来表示样本，另一些使用有符号的整数来做。</p>
+<ul>
+<li>每样本位：对于每个样本系统需要决定分配多少位。如8、16、24 甚至 32 位。每样本位的数量有时称为位深度。</li>
+<li>位率：如果我们称位深度的数量为 B，每秒样本数为 S，我们需要为每秒的音频存储 SxB 位，该乘积称为位率 R。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="声音编码标准">声音编码标准</h3>
+<p>当今音频编码的主流标准是 MP3（MPEG Layer 3）。它采用每秒 44100 个样本以及每样本 16 位。再去掉那些人耳无法识别的信息的压缩方法进行压缩。这是一种有损压缩法。</p>
+<br/>
+<br/>
+<h2 id="存储图像">存储图像</h2>
+<p>存储在计算机中的图像使用两种不同的技术：光栅图和矢量图。</p>
+<br/>
+<br/>
+<h3 id="光栅图">光栅图</h3>
+<p>存储模拟图像（如照片）时，就会用到光栅图（位图）。一张图片由模拟数据组成，类似于音频信息。不同的数据密度（色彩）随空间变化。这意味着数据需要采样（扫描）。样本称为像素。</p>
+<p><strong>解析度</strong> ，在图像处理中的扫描率称为解析度。如果解析度足够高，人眼不会看出再重现图像中的不连续。</p>
+<p><strong>色彩深度</strong>，用于表现像素的位的数量，由不同的编码技术来处理。</p>
+<p><strong>真彩色</strong>，用于像素编码的技术，使用 24 位来编码一个像素。每个三原色（RGB）都表示位 8 位。8 位模式可以表示 0-255 之间的一个数，所以每种色彩都由 0-255 之间的三位数字表示。注意，真彩色模式可以编码 2^24 种颜色。</p>
+<p><strong>索引色</strong>，许多应用程序并不需要真彩色如此大的颜色范围。索引色模式仅使用其中的一部分。在该模式中，每个应用程序从大的色彩集中选择一些颜色并对其建立索引。</p>
+<p>例如，真彩色需要 24 位来存储一个像素，索引色模式通常使用 256 个索引，也就是 8 位来存储同样的像素。</p>
+<p><strong>图像编码标准</strong>，JPEG（联合图像专家组）使用真彩色模式，但压缩图像来减少位的数量。GIF（图形交换格式）使用索引色模式。</p>
+<br/>
+<br/>
+<h3 id="矢量图">矢量图</h3>
+<p>光栅图有两个缺点：文件体积太大和重新调整图像有麻烦。放大光栅图像意味着扩大像素，所以放大后的图像看上去很粗糙。</p>
+<p>矢量图图像编码方法并不存储每个像素的位模式。一个图像被分解成几何图形的组合，每个几何形状由数学公式表达。矢量图是由定义如何绘制这些形状的一系列命令构成的。</p>
+<p>当要显示或打印图像时，将图像的尺寸作为输入传入系统。系统重新设计图像的大小并用相同的公式画出图像。这次情况下，每绘制一次图像，公式将重新估算一次。因此，矢量图也称为几何模型或面向对象图形。</p>
+<p>矢量图不适合存储照片图像的细微精妙。光栅图提供了更好更生动的图片。矢量图适合应用程序采用主要的几何元素来创建图像。</p>
+<br/>
+<br/>
+<h2 id="存储视频">存储视频</h2>
+<p>视频是图像（称为帧）在时间上的表示。一部视频就是一系列的帧一张接一张地播放而形成运动的图像。视频通常是被压缩存储的。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="数据运算">数据运算</h1>
+<p>数据上的运算可以分为三大类：算术运算、移位运算和逻辑运算。</p>
+<br/>
+<br/>
+<h2 id="逻辑运算">逻辑运算</h2>
+<p>逻辑运算是指那些应用于模式中的一个二进制位，或在亮哥模式中相应的两个二进制位的相同基本运算。</p>
+<br/>
+<br/>
+<h3 id="位层次上的逻辑运算">位层次上的逻辑运算</h3>
+<p>可以应用布尔代数中定义的运算去操纵二进制位。介绍四种二进制位的位层次上的运算：</p>
+<ul>
+<li>非（NOT）</li>
+<li>与（AND）</li>
+<li>或（OR）</li>
+<li>异或（XOR，发音为 exclusive-or），如果输入都是 1，则输出为 0。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="移位运算">移位运算</h2>
+<p>移位运算移动模式中的位，改变位的位置。分为两大类：逻辑移位运算和算术移位运算。</p>
+<br/>
+<br/>
+<h3 id="逻辑移位运算">逻辑移位运算</h3>
+<p>逻辑移位运算应用于不带符号位的数的模式。原因是这些移位运算可能会改变数的符号，此符号是由模式中最左边定义的。两类：</p>
+<ul>
+<li>逻辑移位
+<ul>
+<li>逻辑左移位：把每一位想向左移动一个位置，最左位丢失，最右位填0。</li>
+<li>逻辑右移位：把每一位向右移动一个位置，最右位丢失，最左位填0。</li>
+</ul>
+</li>
+<li>循环移位：回环，最左位回环称为最右位，反之。</li>
+<li>算术移位运算：用二进制补码格式表示的带符号位的整数。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="算术运算">算术运算</h2>
+<p>算术运算包括加减乘除，适用于整数和浮点数。</p>
+<br/>
+<br/>
+<h3 id="整数的算术运算">整数的算术运算</h3>
+<p>虽然整数的乘除能使用重复的加减来实现，但程序是低效的，有更高效的程序（如 Booth 程序）。这里只讨论加减法。</p>
+<p><strong>二进制补码中的加减法</strong>，整数通常是以二进制补码形式存储的。二进制补码表示法的一个优点和缺点是加法和减法间没有区别。当遇到减法时，计算机只简单地把它转变为加法，但要为第二个数求二进制的补。</p>
+<p>当我们进行计算机中数字上的算数运算时，要记住每个数字和结果应该在分配的二进制位的定义范围之内。</p>
+<p><strong>符号加绝对值整数的加减法</strong>，这种方式看起来非常复杂。</p>
+<br/>
+<br/>
+<h3 id="实数的算术运算">实数的算术运算</h3>
+<p>实数的乘法除法涉及用符号加绝对值表示的整数的乘法除法。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="计算机组成">计算机组成</h1>
+<p>计算机的组成部件可以分为三大子系统：</p>
+<ul>
+<li>中央处理器（CPU）</li>
+<li>存储器</li>
+<li>输入/输出子系统</li>
+</ul>
+<br/>
+<br/>
+<h2 id="中央处理器">中央处理器</h2>
+<p>中央处理器（CPU）用于数据的运算，在大多数体系结构中，他有三个组成部分：</p>
+<ul>
+<li>算数逻辑单元（ALU）</li>
+<li>控制单元</li>
+<li>寄存器组</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-2-cpu.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-2-cpu.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-2-cpu.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-2-cpu.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-2-cpu.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-2-cpu.png" /></p>
+<br/>
+<br/>
+<h3 id="算数逻辑单元">算数逻辑单元</h3>
+<p>算术逻辑单元（ALU）对数据进行逻辑、移位和算数运算（前面介绍了这几种运算）。</p>
+<br/>
+<br/>
+<h3 id="寄存器">寄存器</h3>
+<p>寄存器是用来存放临时数据的高速独立的存储单元。CPU 的运算离不开大量寄存器的使用。</p>
+<br/>
+<br/>
+<p><strong>数据寄存器</strong> 由于越来越多的复杂运算改由硬件设备实现，所以计算机在 CPU 中使用了几十个寄存器来提高运算速度，并需要一些寄存器来保存这些运算的中间结果。</p>
+<p><strong>指令寄存器</strong> 计算机存储的不仅是数据，还有存储在内存中相应的程序。CPU 的主要职责是：从内存中逐条地取出指令，并将取出的指令存储在指令寄存器中，解释并执行指令。</p>
+<p><strong>程序计数器</strong> 程序计数器中保存着当前正常执行的指令。当前的指令执行完后，计数器将自动加 1，指向下一条指令的内存地址。</p>
+<br/>
+<br/>
+<h3 id="控制单元">控制单元</h3>
+<p>控制单元控制各个子系统的操作。控制是通过从控制单元但其他子系统的信号来进行。</p>
+<br/>
+<br/>
+<h2 id="主存储器">主存储器</h2>
+<p>主存储器是存储单元的集合，每一个存储单元都有唯一的标识，称为<em>地址</em>。数据以称为字（可以是 8/16/32/64 位）的位组的形式在内存中传入和传出。8 位称为 1 字节。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-3-memory.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-3-memory.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-3-memory.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-3-memory.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-3-memory.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-3-memory.png" /></p>
+<br/>
+<br/>
+<h3 id="地址空间">地址空间</h3>
+<p>在存储器中存取每个字都需要有相应的标识符。尽管程序员使用命名的方式来区分字，但在硬件层面上，每个字都是通过地址来标识的。所有在存储器中标识的独立的地址单元的总数称为<em>地址空间</em>。</p>
+<p>例如，一个 64 KB，字长为 1 字节的内存的地址空间的范围是： <code>0-65535</code>。</p>
+<table>
+<thead>
+<tr>
+<th>单位</th>
+<th>字节数</th>
+<th>近似值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KB</td>
+<td>2^10 字节</td>
+<td>10^3 字节</td>
+</tr>
+<tr>
+<td>MB</td>
+<td>2^20</td>
+<td>10^6</td>
+</tr>
+<tr>
+<td>KM</td>
+<td>2^30</td>
+<td>10^9</td>
+</tr>
+<tr>
+<td>GB</td>
+<td>2^40</td>
+<td>10^12</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<p><strong>作为位模式的地址</strong> 由于计算机都是以位模式进行运算，因此地址本身也用位模式表示。如果一个内存是 64K（2^16），字长为 1 字节。那么就需要 16 位的位模式来确定地址。</p>
+<p>通常，如果一个计算机有 N 个字的存储空间，那就需要有 $log_2^N$ 位的无符号整数来确定一个存储单元。</p>
+<p>内存地址使用无符号二进制整数定义。</p>
+<br/>
+<br/>
+<h3 id="存储器的类型">存储器的类型</h3>
+<p>主要有两种类型的存储器：</p>
+<ul>
+<li>随机存取存储器（RAM）：在随机存取设备中，可以使用存储单元地址来随机存取一个数据项，而不需要存取位于它前面的所有数据项。用户可以读写 RAM，但当系统断电后数据将丢失。
+<ul>
+<li>SRAM（静态）：用传统的触发器门电路来保存数据。这些门保持状态（0或1），也就是说当通电的时候数据始终存在。它速度快，但价格昂贵。</li>
+<li>DRAM（动态）：使用电容器器。如果电容器充电，则这是状态为 1；如果放电则状态为 0。因为电容器会随着时间而漏掉一部分电，所以内存单元需要周期性地刷新。比较慢，但价格便宜。</li>
+</ul>
+</li>
+<li>只读存储器（ROM）：用户只能读不能写，它的优点是非易失性。如用来存储运行的 BIOS 程序。
+<ul>
+<li>PROM（可编程只读存储器）：计算机使用者可以用它存储一些特定的程序。</li>
+<li>EPROM（可擦除可编程只读存储器）：用户可以对它进行编程，但是得用一种可以发出紫外光的特殊仪器对其擦写。</li>
+<li>EEPROM（电可擦除可编程只读存储器）：对它的编程和擦除使用电子脉冲。</li>
+</ul>
+</li>
+</ul>
+<br/>  
+<br/>  
+<h3 id="存储器的层次结构">存储器的层次结构</h3>
+<p>速度快的存储器都不便宜。解决办法是采用存储器的层次结构。</p>
+<ul>
+<li>对速度要求很严苛时可以使用少量高速存储器。如 CPU 中的寄存器。</li>
+<li>用适量的中速存储器来存储经常需要访问的数据。如高速缓冲存储器。</li>
+<li>用大量的低速存储器存储那些不经常访问的数据。如主存。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-4-memory-architecture.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-4-memory-architecture.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-4-memory-architecture.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-4-memory-architecture.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-4-memory-architecture.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-4-memory-architecture.png" /></p>
+<br/>
+<br/>
+<h3 id="高速缓冲存储器">高速缓冲存储器</h3>
+<p>高速缓冲存储器通常容量较小，且常置于 CPU 和主存之间。</p>
+<p>高速缓冲存储器在任何时候都含有主存中一部分内容的副本。当 CPU 要存取主存中的一个字的时候，将按以下步骤进行：</p>
+<ol>
+<li>CPU 将首先检查高速缓冲存储器。</li>
+<li>如果要存取的字存在，CPU 则将它复制；如果不存在，CPU 将从主存中复制一份需要读取的字开始的数据块。该数据块将覆盖高速缓冲存储器中的内容。</li>
+<li>CPU 存取高速缓冲存储器并复制该字。</li>
+</ol>
+<p>这种方式将提高运算的速度。</p>
+<p>为什么高速缓冲存储器尽管存储容量小效率却很高。这是由于 80-20 规则。据观察，通常计算机花费 80% 的时间来读取 20% 的数据。换句话说，相同的数据往往被存取多次。告诉缓冲存储器，凭借其告诉，可以存储这 20% 的数据而使存取至少快 80%。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-5-cache.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-5-cache.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-5-cache.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-5-cache.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-5-cache.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-5-cache.png" /></p>
+<br/>
+<br/>
+<h2 id="输入输出子系统">输入输出子系统</h2>
+<p>输入输出子系统可以使计算机与外界通信，并在断电的情况下存储程序和数据。输入输出设备可以分为两大类：非存储设备和存储设备。</p>
+<br/>
+<br/>
+<h3 id="非存储设备">非存储设备</h3>
+<p>非存储设备使得 CPU/内存 可以与外界通信，但它们不能存储信息。</p>
+<p>如键盘、显示器和打印机等。</p>
+<br/>
+<br/>
+<h3 id="存储设备">存储设备</h3>
+<p>存储设备可以存储大量的信息以备后用，它们比主存编译很多，存储的信息也不容易丢失。有时称它们为辅助存储设备，通常分为磁介质和光介质两种。</p>
+<br/>
+<h4 id="磁介质存储设备">磁介质存储设备</h4>
+<p>磁介质存储设备使用磁性来存储位数据。如果一点有磁性则表示 1，没有磁性则表示 0。</p>
+<p><strong>磁盘</strong> 磁盘由一张张的磁片叠加而成，这些磁片由薄磁膜封装起来。信息是通过盘上每一个磁盘的读/写磁头读写磁介质来进行读取和存储的。</p>
+<ul>
+<li>表面结构：为了将数据存储在磁盘的表面，每个盘面都被划分成磁道，每个磁道又分成若干个扇区。</li>
+<li>数据存取：磁盘是一个随机存取设备。但是，某一时间可以读取的最小的存储区域只能是一个扇区。数据块可以存储在一个或多个扇区上。</li>
+<li>性能：最重要的三个因素
+<ul>
+<li>角速度：定义了磁盘的选择速度</li>
+<li>寻道时间：定义了读/写磁头寻找数据所在的磁道的时间</li>
+<li>传送时间：定义了将数据从磁盘移到 CPU/内存 所需要的时间</li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-6-disk.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-6-disk.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-6-disk.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-6-disk.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-6-disk.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-6-disk.png" /></p>
+<br/>
+<p><strong>磁带</strong> 磁带大小不一。最普通的一种是用厚磁膜封装的半英寸塑料磁带。</p>
+<ul>
+<li>表面结构：磁带的宽度可以分为九个磁道；磁道上的每个点可以存储 1 位的信息。垂直切面的 9 个点可以存储 8 位信息和 1 位错误检测。</li>
+<li>数据存取：磁带是顺序存取设备。要想读取指定的快就需要按照顺序通过前面所有的块（如快进或快退）。</li>
+<li>性能：比磁盘满，但它非常便宜。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-7-tape.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-7-tape.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-7-tape.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-7-tape.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-7-tape.png"
+        title="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-7-tape.png" /></p>
+<br/>
+<br/>
+<h4 id="光存储设备">光存储设备</h4>
+<p>光存储设备是一种新技术，它使用激光技术来存储和读取数据。使用这种技术的设备有只读光盘（CD-ROM）、可刻录光盘（CD-R）、可重写光盘（CD-RW）、数字多功能关盘（DVD）。</p>
+<br/>
+<br/>
+<h2 id="子系统的互联">子系统的互联</h2>
+<p>内部连接扮演着很重要的角色，因为信息需要在这三个子系统中交换。</p>
+<br/>
+<br/>
+<h3 id="cpu和存储器的连接">CPU和存储器的连接</h3>
+<p>CPU 和总线之间通常由称为<strong>总线</strong>（bus）的三组线路连接在一起。分别是：</p>
+<ul>
+<li><strong>数据总线</strong>：由多根线组成，每一根线上每次传送 1 位的数据。线的数量取决于计算机的字的大小。例如，计算机的字是 32 位（4 字节），那么需要有 32 根线的数据总线，以便同一时刻能够同时传送 32 位的字。</li>
+<li><strong>地址总线</strong>：允许访问存储器中的某个字，线的数量取决于存储空间的大小。如果存储器的容量为 $2^n$ 个字，那么地址总线一次传送 n 位的地址数据，因此它需要 n 根线。</li>
+<li><strong>控制总线</strong>：负责在 CPU 和内存之间传送消息。例如，必须有一个代码从 CPU 发往内存，用于指定进行的是读操作还是写操作。线数取决于所需要的控制命令的总数。如果计算机有 $2^m$ 条控制命令，那么控制总线就需要 m 根。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-12-bus.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-12-bus.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-12-bus.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-12-bus.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-12-bus.png"
+        title="总线" /></p>
+<br/>
+<br/>
+<h3 id="输入输出设备的连接">输入输出设备的连接</h3>
+<p>输入输出设备不能够直接与连接 CPU 和内存的总线相连。因为输入输出设备的本质与 CPU 和内存的本质不同，输入输出设备都是些机电、磁性或光学设备，而 CPU 和内存是电子设备。与 CPU 和 内存相比，输入输出设备的操作速度要慢得多。因此必须要有中介来处理这种差异。</p>
+<p>输入输出设备是通过一种被称为输入输出控制器或接口的器件连接到总线上。每个输入输出设备都有一个特定的控制器。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-13-io-device.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-13-io-device.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-13-io-device.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-13-io-device.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-13-io-device.png"
+        title="总线" /></p>
+<br/>
+<p><strong>控制器</strong> 或者说接口，清除了输入输出设备与 CPU 及内存在本质上的障碍。控制器可以是串行或并行的设备。串行控制器只有一根数据线连接到设备上，而并行控制器则有数根数据线连接到设备上，使得一次能同时传送多个位。最常用的如 SCCI（小型计算机系统接口）、火线、USB（通用串行总线） 和 HDMI（高清晰度多媒体接口）。</p>
+<br/>
+<br/>
+<h3 id="输入输出设备的寻址">输入输出设备的寻址</h3>
+<p>通常 CPU 使用相同的总线在主存和输入输出设备之间读写数据。唯一的不同是指令。</p>
+<p>如果指令涉及主存中的字，那么数据会在主存和 CPU 之间传送。如果指令涉及输入输出设备，那么数据会在输入输出设备和 CPU 之间传送。有两种方法对输入输出设备进行寻址，即 IO 独立寻址和 IO 存储器映射寻址。</p>
+<br/>
+<br/>
+<h4 id="io独立寻址">IO独立寻址</h4>
+<p>在 IO 独立寻址中，用来读写内存的指令与用来读写输出输出设备的指令是完全不同的。有专门的指令完成对输入输出设备的测试、控制以及读写操作。每个输入输出设备有自己的地址。</p>
+<p>例如，CPU 可以使用读命令 <code>Read 101</code> 从内存中读取字 <code>101</code>。也可以使用输入命令 <code>Input 101</code> 从地址端口为 <code>101</code> 的输入输出设备中读取数据。这里不会发生混淆，因为 <code>Read</code> 指令是规定从内存中读取数据，而 <code>Input</code> 指令则是规定从输入输出设备中读取数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-17-IO.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-17-IO.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-17-IO.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-17-IO.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-17-IO.png"
+        title="IO独立寻址" /></p>
+<br/>
+<br/>
+<h4 id="io存储器映射寻址">IO存储器映射寻址</h4>
+<p>在 IO 存储器寻址中，CPU 将输入输出控制器中的每一个寄存器都看作内存中的某个存储字。换言之，CPU 没有单独的指令来表示是从内存或是输入输出设备传送数据。</p>
+<p>例如，在指令集中只有一条 <code>Read</code> 指令，如果地址指定的是内存中的某个单元，则从内存中读取数据。如果地址指定的是输入输出设备中的某个寄存器，那么就从寄存器中读取数据。</p>
+<p>存储器映射的输入输出的配置优点在于有一个较小的指令集，所有对内存的操作指令都同样适用于输入输出设备。其缺点是输入输出控制器占用了一部分内存地址。例如，如果有 5 个输入输出控制器，每个控制器有 4 个寄存器，则占用 20 个地址。相应的内存的大小就减少了 20 个字。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-18-IO.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-18-IO.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-18-IO.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-18-IO.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-18-IO.png"
+        title="IO存储器映射寻址" /></p>
+<br/>
+<br/>
+<h2 id="程序执行">程序执行</h2>
+<p>当今，通用计算机使用称为程序的一系列指令来处理数据。计算机通过执行程序，将输入数据转换成输出数据。程序和数据都放在内存中。</p>
+<br/>
+<br/>
+<h3 id="机器周期">机器周期</h3>
+<p>CPU 利用重复的机器周期来执行程序中的指令，一步一条，从开始到结束。一个简化的周期包括三步：</p>
+<ul>
+<li><strong>取指令</strong>：控制单元命令系统将下一条将要执行的执行复制到 CPU 指令寄存器。被复制的指令地址保存在程序计数器中。复制完成后，程序计数器自动加 1 指向内存中的下一条指令。</li>
+<li><strong>译码</strong>：指令译码的结果是产生一系列系统可以执行的二进制代码。</li>
+<li><strong>执行</strong>：控制单元发送任务命令到 CPU 的某个部件，执行相应的动作。如从内存中读数据，或者是将两个输入寄存器的内容相加并将结果保存在输出寄存器。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-19-machine-cycle.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-19-machine-cycle.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-19-machine-cycle.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-19-machine-cycle.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-19-machine-cycle.png"
+        title="机器周期" /></p>
+<br/>
+<br/>
+<h3 id="输入输出操作">输入输出操作</h3>
+<p>计算机需要通过命令把数据从 IO 设备传输到 CPU 和内存。因为输入输出设备的速度比 CPU 慢得多，因此 CPU 的操作在某种程度上必须和输入输出设备同步。有三种方法被设计用于同步：</p>
+<ul>
+<li>程序控制输入输出</li>
+<li>中断控制输入输出</li>
+<li>直接存储器存取</li>
+</ul>
+<br/>
+<p>在程序控制输入输出中，采用最简单的一种同步：CPU 等待 IO 设备。</p>
+<p>CPU 和 IO 设备之间的数据传输是通过程序中的指令实现的。当 CPU 遇到一条 IO 指令时，它就会停止工作知道数据传输完毕。CPU 不时地查询 IO 设备的状态：如果设备做好了传输准备，那么数据将被传送到 CPU；如果设备没有做好准备，那么 CPU 将继续查询 IO 设备的状态直到 IO 设备准备好为止。</p>
+<p>这种方法最大的问题就是，当每一个单元数据被传输时，CPU 都要浪费时间去查询 IO 的状态。要注意的是，数据在输入操作后被传送到内存，在输出操作前则是从内存中取出。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-20.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-20.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-20.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-20.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-20.png"
+        title="程序控制输入输出" /></p>
+<br/>
+<p>在中断控制输入输出中，首先 CPU 告知 IO 设备即将开始传输，但是 CPU 并不需要不停地查询 IO 设备的状态。当 IO 设备准备好时，它通知（中断）CPU。在这个过程中，CPU 还可以做其他工作，没有阻塞。</p>
+<p>在这种方法中，CPU 时间没有被浪费。这种方法也在 IO 设备和 CPU 之间传输数据。数据在输入操作后被传送到内存，在输出操作前则是从内存中取出。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-21.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-21.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-21.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-21.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-21.png"
+        title="中断控制输入输出" /></p>
+<br/>
+<p>直接存储器存取（DMA），用于在高速 IO 设备间传输大量的数据，例如磁盘、内存（不需要通过 CPU 的数据传输）。这种方法需要一个 DMA 控制器来承担 CPU 的一些功能。DMA 控制器中有寄存器，可以在内存传输前后保存数据块。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-22.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-22.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-22.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-22.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-22.png"
+        title="直接存储器存储" /></p>
+<br/>
+<br/>
+<h2 id="不同的体系结构">不同的体系结构</h2>
+<p>讨论一些常见的体系结构和组织。</p>
+<br/>
+<br/>
+<h3 id="复杂指令集计算机">复杂指令集计算机</h3>
+<p>复杂指令集计算机（CISC, complex instruction set computer），CISC 体系结构的设计策略是使用大量的指令，包括复杂指令。和其他设计相比，在 CISC 中进行程序设计要比在其他设计中容易很多，因为每一项简单或复杂的任务都有一条对应的指令。程序员不需要写一大堆指令去完成一项复杂的任务。</p>
+<p>指令集的复杂性使得 CPU 和控制单元的电路非常复杂。CISC 的设计者提出了减少这种复杂性的解决方案：程序在两个层面上运行。CPU 不直接执行机器语言指令。CPU 只执行被称为微操作的简单操作。复杂指令被转化为一系列简单操作然后由 CPU 执行。这种执行机制需要一个被称为微内存的特殊内存，它负责保存指令集中的每个复杂指令的一系列操作。使用微操作的程序设计被称为微程序设计。</p>
+<p>这种体系结构的支持者认为这使得在机器层上的程序更简洁。CISC 体系结构的一个栗子便是因特尔公司所开发的奔腾系列处理器。</p>
+<br/>
+<br/>
+<h3 id="精简指令集计算机">精简指令集计算机</h3>
+<p>精简指令集计算机（RISC, reduce instruction set computer），RISC 体系结构的设计策略是使用少量的指令完成最少的简单操作。在 RISC 中进行程序设计比在其他设计中更难、更费时，因为复杂指令都用简单指令来模拟。</p>
+<br/>
+<br/>
+<h3 id="流水线技术">流水线技术</h3>
+<p>在早期的计算机中，每个指令的三个阶段（取指令、译码和执行）需要串行完成。换言之，指令 n 需要在指令 n+1 开始它的阶段之前完成它的所有阶段。现代计算机使用称为流水线的技术来改善吞吐量（在单位时间内完成的指令总数）。这个理念是如果控制单元能同时执行两个或三个阶段，那么下一条指令就可以在前一条指令完成前开始。换言之，当计算机在执行第一条指令的编译码阶段时，它还能执行第二条指令的取指令阶段。</p>
+<p>当然，流水线并不像这么简单。当遇到转移指令时，就会出现一些问题。在这种情况下，在管道中的指令应该被丢弃。但是，最新的 CPU 设计已经克服了大部分缺点，有些新的 CPU 设计甚至能同时进行多个取指令周期。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-24-pipeline.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-24-pipeline.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-24-pipeline.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-24-pipeline.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-24-pipeline.png"
+        title="流水线技术" /></p>
+<br/>
+<br/>
+<h3 id="并行处理">并行处理</h3>
+<p>随着技术的进步，可以拥有多个控制单元、多个算术单元和多个内存单元的计算机。这个思想称为并行处理。像流水线一样，并行处理能改善吞吐量。</p>
+<p>并行处理涉及多种技术。并行处理的总体试图由 Flynn 提出的分类法给出。此分类法把计算机的组织分成四类：</p>
+<ul>
+<li>单指令流单数据流（SISD）</li>
+<li>单指令流多数据流（SIMD）</li>
+<li>多指令流单数据流（MISD）</li>
+<li>多指令流多数据流（MIMD）</li>
+</ul>
+<br/>
+<h4 id="单指令流单数据流组织">单指令流单数据流组织</h4>
+<p>单指令流单数据流组织表示计算机有一个控制单元、一个算术逻辑单元和一个内存单元。指令被顺序执行，每条指令可以存取数据流中的一个或多个数据项。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-26-SISD.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-26-SISD.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-26-SISD.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-26-SISD.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-26-SISD.png"
+        title="单指令流单数据流" /></p>
+<br/>
+<br/>
+<h4 id="单指令流多数据流组织">单指令流多数据流组织</h4>
+<p>单指令流多数据流组织表示计算机有一个控制单元、多个处理单元和一个内存单元。所有处理器单元从控制单元接收相同的指令，但在不同的数据项上操作。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-27-SIMD.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-27-SIMD.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-27-SIMD.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-27-SIMD.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-27-SIMD.png"
+        title="单指令流多数据流" /></p>
+<br/>
+<br/>
+<h4 id="多指令流单数据流组织">多指令流单数据流组织</h4>
+<p>多指令流单数据流体系结构是属于多个指令流的多个指令作用于相同的数据项的体系结构。但它从来就未被实现。</p>
+<br/>
+<br/>
+<h4 id="多指令流多数据流组织">多指令流多数据流组织</h4>
+<p>多指令流多数据流体系结构是属于多个指令流的多个指令作用于多个数据流（每条指令作用于一个数据项）。在这种体系结构中，可以同时执行多个任务。这个体系结构可以使用单个的共享内存或多个共享内存区。</p>
+<p>5-29-MIMD
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-29-MIMD.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-29-MIMD.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-29-MIMD.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-29-MIMD.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-29-MIMD.png"
+        title="多指令流多数据流" /></p>
+<br/>
+<br/>
+<h2 id="简单计算机">简单计算机</h2>
+<p>为了解释计算机的体系结构，还有他们的指令处理，我们引入一台简单（非真实）计算机。简单计算机有三个组成部分：CPU、存储器和输入输出子系统。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-30.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-30.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-30.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-30.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-30.png"
+        title="简单计算机" /></p>
+<br/>
+<br/>
+<h3 id="cpu">CPU</h3>
+<p>CPU 本身被分成三部分：数据寄存器、算数逻辑单元和控制单元。</p>
+<p>上图有 16 个 16 位的数据寄存器。</p>
+<p>控制单元具有电路，控制 ALU 的操作、对内存的存取和对 IO 子系统的存取。它有两个专用的寄存器：</p>
+<ul>
+<li>程序计数器（PC）：保存下一条将被执行的指令的踪迹。内容指向含有下一条程序执行的主存的存储单元的地址。在每个计算机周期后，程序计数器将加 1，指向下一条程序指令。</li>
+<li>指令寄存器（IR）：含有 16 位值，它是当前周期译码的指令。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="主存">主存</h3>
+<p>主存有 256(2^8) 个 16 位的存储单元。主存中既有数据，又有程序指令。前 64 个存储单元被专用于程序指令。其余存储单元被用来存储数据。</p>
+<br/>
+<br/>
+<h3 id="输入输出子系统-1">输入/输出子系统</h3>
+<p>输入输出子系统是内存地址方式的一部分。这些设备有内存映射地址。</p>
+<br/>
+<br/>
+<h3 id="指令集">指令集</h3>
+<p>简单计算机具有 16 条指令集合的能力。每条指令由两部分组成：</p>
+<ul>
+<li>操作码（opcode）：指明了操作数上执行的操作的类型。</li>
+<li>操作数（operand）</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-31.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-31.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-31.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-31.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/5-31.png"
+        title="指令集" /></p>
+<br/>
+<br/>
+<h3 id="处理指令">处理指令</h3>
+<p>简单计算机使用周期：取指令、译码和执行。</p>
+<p>在取指令阶段，其地址由程序计数器决定的指令从内存中得到，被装入指令寄存器中。然后程序计数器加 1，指向下一条指令。</p>
+<p>在译码阶段，指令寄存器中的指令被破译，所需的操作数从寄存器或内存中取到。</p>
+<p>在执行阶段，指令被执行，结果被放入合适的内存单元或寄存器中。一旦第三个阶段结束，控制单元又开始新的周期。</p>
+<br/>
+<p>一个简单的相加的栗子如下。</p>
+<p>为了用简单计算机解决这个问题，有必要把前面两个整存放在寄存器中。操作的结果存放在第三个寄存器中。</p>
+<p>ALU 只能操作那些存储在 CPU 数据寄存器中的数据。</p>
+<p>但是，大多数计算机在 CPU 中只有有限的寄存器。如果数据项的数量很大，并且它们在程序执行过程中应该保留在计算机中，比较好的方法是把它们存储在内存中，临时地把它们调入寄存器中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">C=A+B
+
+1, 把内存 M40 的内容装入寄存器 R0 (R0 &lt;- M40)
+2, 把内存 M41 的内容装入寄存器 R1 (R1 &lt;- M41)
+3, 相加 R0 和 R1 的内容，结果放入 R2 (R2 &lt;- R0 + R1)
+4, 把 R2 的内容存入 M42 中 (M42 &lt;- R2)
+5, 停机
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="存储程序和数据">存储程序和数据</h3>
+<p>为了遵循冯诺依曼模型，需要把程序和数据存储在内存中。</p>
+<br/>
+<br/>
+<h3 id="指令周期">指令周期</h3>
+<p>计算机每条指令使用一个指令周期。如果有5条指令的小程序，那么需要5个指令周期。每个周期通常由三个步骤组成：取指令、译码、执行。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="计算机网络和因特网">计算机网络和因特网</h1>
+<p>本章节的一些内容：</p>
+<ul>
+<li>局域网（LAN）和广域网（WAN）</li>
+<li>因特网和互联网</li>
+<li>作为因特网网络模型的 TCP/IP 协议簇</li>
+<li>定义 TCP/IP 协议簇中的各层以及它们的关系</li>
+<li>应用层的应用</li>
+<li>传输层协议提供的服务</li>
+<li>网络层协议提供的服务</li>
+<li>数据链路层使用的不同协议</li>
+<li>物理层的责任</li>
+<li>计算机网络中使用的不同传输媒介</li>
+</ul>
+<br/>
+<br/>
+<h2 id="计算机网络引言">计算机网络引言</h2>
+<p>定义一个网络，然后通过网络来建造小型的互联网络，最终展示因特网的结构。</p>
+<br/>
+<br/>
+<h3 id="网络">网络</h3>
+<p>网络是一系列可用于通信的设备（端系统）相互连接构成的。当我们在家里通过路由器连接两台计算机时，虽然规模很小，但已经建造了一个网络。</p>
+<p>局域网（LAN）通常是与单个办公室、建筑等主机相连的私有网络。在一个局域网中的每一台主机都有作为这台主机在局域网中唯一定义的一个标识符和一个地址。一台主机向另一台主机发送的数据包中包括源主机和目标主机的地址。</p>
+<p>广域网（WAN）的地理跨度更大。局域网将主机相连，广域网则将交换机、路由器之类的连接设备相连。通常，局域网为机构私有，广域网则由通信公司创建并运营。</p>
+<p>当两个或多个网络互相连接时，它们构成一个互联网络（internet）。</p>
+<br/>
+<br/>
+<h3 id="因特网">因特网</h3>
+<p>最值得注意的互联网时因特网（Internet），它由成千上万个互连的网络组成。</p>
+<p>骨干网和供应商网络也被称为因特网服务供应商（ISP），骨干网通常被称为国际因特网服务供应商，供应商网络则被称为国内或地域性因特网服务供应商。</p>
+<br/>
+<br/>
+<h3 id="硬件和软件">硬件和软件</h3>
+<p>如果仅仅将这些设备连接到一起，什么都不会发生。为了产生通信，既需要硬件也需要软件。</p>
+<br/>
+<br/>
+<h3 id="协议分层">协议分层</h3>
+<p>协议定义了发送器、接收器以及所有中间设备必须遵守以保证有效地通信的规则。当通信变得复杂时，可能需要将任务分配到不同的协议层中，在这种情况下，每一个协议层都需要一个协议。</p>
+<p>在协议分层中需要遵守的原则：</p>
+<ul>
+<li>如果想要达到双向通信，就需要保证每一个协议层都可以进行两个对立且方向相反的工作。</li>
+<li>在两个站点中每一层的两个对象必须完全相同。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="tcpip协议簇">TCP/IP协议簇</h3>
+<p>传输控制协议/网际协议（TCP/IP）是如今因特网中使用的协议集，TCP/IP 协议簇是一个分层协议，它由提供特定功能的交互式模块组成。分层这个术语说明了每一个高层协议都是基于一个或多个低层协议提供的服务。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-7.png"
+        title="TCP/IP协议簇" /></p>
+<br/>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-8.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-8.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-8.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-8.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-8.png"
+        title="网络网通信" /></p>
+<p>源主机需要在应用层中创建消息并将其通过协议层向下发送，这样这条消息才能物理地发送至目标主机。目标主机需要在物理层接收通信并通过其他协议将其发送至应用层。</p>
+<p>路由器只涉及三个层，由于路由器仅用来路由，所以在路由器中没有传输层和应用层。</p>
+<p>链接层交换机只涉及两个协议层，数据链路层和物理层。</p>
+<br/>
+<p>地址和数据包名称。在应用层，我们通过使用名称（如 xxx.com）来定义提供服务的站点。在传输层，地址被称为端口号，端口号的作用是在源地址和目标地址之间定义应用程序。网络层地址是独一无二的。链路层地址有时称为 MAC 地址。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-9.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-9.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-9.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-9.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-9.png"
+        title="地址和数据包" /></p>
+<br/>
+<br/>
+<h2 id="应用层">应用层</h2>
+<p>应用层向用户提供服务。通信由逻辑连接提供，也就是说，假设两个应用层通过它们之间假想的直接连接发送和接收消息。</p>
+<br/>
+<br/>
+<h3 id="提供服务">提供服务</h3>
+<p>应用层是协议簇中最高层。这一层的协议不像其他协议提供服务，它们只接收传输层的协议提供的服务。这意味着该层的协议可以轻易取出。只要新的协议可以使用传输层中任意一个协议提供的服务，这个协议就可以添加到应用层上。</p>
+<p>由于应用层是唯一向因特网用户提供服务的层，应用层的灵活性使得新的协议可以很容易地添加到网络上。</p>
+<br/>
+<br/>
+<h3 id="应用层模式">应用层模式</h3>
+<p>在网络的生命周期中，应用程序发展出了两种模式：</p>
+<ul>
+<li>客户机-服务器模式（C-S）：服务端提供服务，客户端请求服务。如万维网（WWW）和它的超文本传输协议（HTTP）、文件传输协议（FTP）、安全外壳协议（SSH）、邮件服务等等。</li>
+<li>端到端模式（P2P）：端与端之间共享。如网络电话。它的主要挑战是安全性，在分散的服务之间创造安全的通信更为困难。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="标准客户机-服务器应用">标准客户机-服务器应用</h3>
+<p>万维网（WWW 或 Web）和超文本传输协议（HTTP）</p>
+<p>Web 是信息的存储库，这个存储库中叫做网页的文档分布在全世界并且相关的文档都链接在一起。Web 的普及和发展与以上提到的俩个术语相关：分布式和链接。网页之间的连接是通过一个叫做超文本的概念实现的。</p>
+<p>今天的 WWW 是一个分布式客户机-服务器服务。提供的服务分布在许多地方，称为站点。每个站点存储的一个或多个文档称为网页。网页之间包含其他网页的链接。</p>
+<p>Web 客户端（浏览器）。浏览器通常由三部分构成：控制器（接收输入）、客户端协议和解释器（如 HTML 和 JavaScript）。</p>
+<p>Web 服务器。服务器存储网页，响应客户端请求。</p>
+<p>统一资源定位符（URL）。作为文件，网页需要唯一的标识符来将它和其他网页区分开来。定义一个网页需要四个标识符：协议、主机、端口和路径。</p>
+<p>超文本传输协议是一个用来定义如何编写客户机-服务器程序以便从网络中检索网页的协议。</p>
+<br/>
+<br/>
+<h3 id="文件传输协议">文件传输协议</h3>
+<p>文件传输协议（FTP）是 TCP/IP 提供的标准协议，用于从一台计算机复制文件到另一台计算机。</p>
+<p>客户端由三部分组成：用户接口、客户端控制进程和客户端数据传输进程。服务器由两部分组成：服务器控制进程和服务器传输进程。控制连接建立在控制进程间，数据连接建立在数据传输进程间。</p>
+<p>命令和数据分开使得 FTP 效率更高。</p>
+<br/>
+<br/>
+<h3 id="电子邮件">电子邮件</h3>
+<p>电子邮件被认为是一个单向事务。</p>
+<br/>
+<br/>
+<h3 id="telnet">TELNET</h3>
+<p>TELNET（终端网络 TErminal NETwork），是早期的远程登录协议。它有安全问题，它以明文形式发送数据。</p>
+<br/>
+<br/>
+<h3 id="ssh">SSH</h3>
+<p>安全外壳（SSH）是加密数据来代替 TELNET 而设计。</p>
+<br/>
+<br/>
+<h3 id="域名系统">域名系统</h3>
+<p>域名系统（DNS）将主机名映射到 IP 地址上的六个步骤：</p>
+<ol>
+<li>用户将主机名传递给文件传输客户端</li>
+<li>文件传输客户端将主机名传递给域名系统客户端</li>
+<li>每台计算机在启动之后得知一台域名系统服务器的地址。域名系统发送消息和查询给域名系统服务器，查询利用已知的域名系统服务器的 IP 地址命名文件传输服务器。</li>
+<li>域名系统服务器给出需要的文件传输服务器的 IP 地址</li>
+<li>域名系统客户端将 IP 地址传输给文件传输服务器</li>
+<li>文件传输客户端现在使用得到的 IP 地址 访问文件传输服务器</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-12.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-12.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-12.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-12.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-12.png"
+        title="DNS" /></p>
+<br/>
+<br/>
+<h3 id="端到端模式">端到端模式</h3>
+<p>端到端网络如 BT下载（BitTorrent）。</p>
+<p>准备好共享资源的网络用户称为同位体（peer）并逐渐构成网络。随着更多同位体加入和下载文件，这个文件的更多副本就会提供到组中。</p>
+<p>由于同位体列表可能增长也可能收缩，因此问题是该模式应当如何跟踪忠实的同位体和文件位置。为了回答这个问题，需要把端到端模式分成两类：</p>
+<ul>
+<li>集中的：也被称为混合 P2P 网络。它存在一个主服务器。</li>
+<li>分散的：不依赖于集中网络，同位体形成一个物理网络之上的逻辑网络，称为重叠网络。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="传输层">传输层</h2>
+<p>传输层位于应用层和网络层之间，它从网络层接收服务并且为应用层提供服务。传输层作为一个客户程序和服务器程序之间的联络，是一个进程间连接。它是一个在网络中从一点向另一点进行数据传输的端与端之间的逻辑媒介。</p>
+<br/>
+<br/>
+<h3 id="传输层服务">传输层服务</h3>
+<p>传输层可以提供的服务：</p>
+<ul>
+<li>进程间通信</li>
+<li>地址和端口号：在 TCP/IP 协议中，端口号是 0-65535（16 位）之间的整数。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="传输层协议">传输层协议</h3>
+<p>讨论两种：UDP（用户数据报协议）和TCP（传输控制协议）。</p>
+<br/>
+<h4 id="用户数据报协议">用户数据报协议</h4>
+<p>UDP 是不可靠的无连接传输协议。它除了提供进程间通信外（而不是主机间通信），没有向网络层服务添加任何东西。它是一个极简单同时开销最少的协议，但并不可靠。</p>
+<p>UDP 数据包叫做用户数据报，有一个固定大小为 8 字节的头部。然而，由于用户数据报是存储在总长度为 65 535 字节的 IP 数据报中，所以其整体长度会比较短。</p>
+<br/>
+<br/>
+<h4 id="传输控制协议">传输控制协议</h4>
+<p>TCP 是一个面向连接的可靠协议。它明确定义了连接设施、数据传输和连接拆卸段以提供面向连接的服务。这里面向连接的服务指的是在（来自应用层）同一消息中的所有数据包之间有连接。TCP 使用序列号来定义段的顺序。序列号与每一段的字节数有关。如果一段丢失了，接收者会持有另外的段知道发送者重置丢失的那段。</p>
+<p>TCP 将一些组合成一个叫做段的数据包。它在每一段之前加上一个头（目的是方便控制），并且将这些段发送至网络层进行传输。这些段都封装在 IP 数据报里。</p>
+<br/>
+<br/>
+<h2 id="网络层">网络层</h2>
+<p>TCP/IP 协议簇中的网络层负责源到目的地（主机到主机）的消息发送。</p>
+<br/>
+<br/>
+<h3 id="网络层提供的服务">网络层提供的服务</h3>
+<p>1，打包</p>
+<p>网络层的第一个责任就是定义打包：在源主机的网络层数据包封装有效负荷，并且从来自目的主机网络层的数据包解除有效负荷的封装。</p>
+<p>1.1 源网络层协议从传输层协议接收数据包，添加包含源地址和目的地址以及其他网络层协议所需信息的头。</p>
+<p>1.2 网络层协议在逻辑上将该数据包传递至目的地处的网络层协议。</p>
+<p>1.3 目标主机接收网络层数据包，解除有效负荷的封装并将其传输至上一层协议。</p>
+<p>如果在源主机或路径中的路由器处时数据包为碎片状，网络层有责任等待直到所有碎片达到，对它们重新组合并发送至上一层协议。</p>
+<p>传输层的有效负荷可以封装在几个网络层数据包中。</p>
+<br/>
+<p>2，数据包传递</p>
+<p>网络层的数据包传递时无连接且不可靠的。</p>
+<p>在网络层传递的数据是不可靠的，这意味着这些数据包可能损毁、丢失或者重复。换句话说，网络层提供的是尽力而为的传输，它不能保证数据包如我们所期望的那样到达目的地。</p>
+<p>在网络层做数据检查成本很高，因此我们通过传输层协议中的 TCP 来保证消息没有损坏。如果在传输层的一个有效负荷损毁了，TCP 会丢弃这个数据包并要求重新发送。</p>
+<p>网络层的无连接，不是说发送者和接收者之间没有物理连接，而是说网络层对每个数据包的处理是单独的。例如一个传输层数据包分成了 4个网络层数据包，按顺序发出（1, 2, 3, 4），但收到它们的顺序是乱的（2, 4, 3, 1）。目的地的传输成负责等待和接收所有数据包，再将它们组合在一起并传送至应用层。</p>
+<br/>
+<p>3，路由</p>
+<p>网络层负责将数据包从它的源传送到目的地。物理网络是网络（LAN 和 WAN）和连接这些网络的路由器的集合，这意味着有很多线路。网络层的职责就是找到一条最优线路，它需要一些特定的策略来定义最优路线。</p>
+<br/>
+<br/>
+<h3 id="网络层协议">网络层协议</h3>
+<p>虽然在网络层有很多协议，但主要的协议叫做网际协议（IP）。其他协议都是辅助协议，帮助 IP 完成它的职责。有两类网络协议：IPv4 和 IPv6。</p>
+<br/>
+<p>第四版网际协议。</p>
+<p>在 TCP/IP 协议簇中 IPv4 层中用来标记每个设备和互联网之间的连接的标识符叫做网络地址或 IP 地址。IPv4 地址是一种 32 位的地址。</p>
+<p>IP 使用的数据包叫做数据报。数据报是一种长度不一的数据包，这种数据包包括两部分：头部和有效负荷。头部长度是 20-60 字节，它包含路由和传递时必要的信息。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-29.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-29.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-29.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-29.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-29.png"
+        title="IPv4 数据报" /></p>
+<br/>
+<p>第六版网际协议。</p>
+<p>IPv4 的一些地址耗尽之类的缺点促进了 IPv6 的出现，是一个在扩大 IPv4 的地址空间的同时重新设计 IP 数据包的格式并修改一些辅助性协议的计划。有趣的是，IPv5 是一个从未实现过的计划。</p>
+<p>为了防止地址耗尽，IPv6 使用 128 位来定义地址，显示为二进制或十六进制冒号的格式。IPv6 中的地址事实上定义了三个等级：站点、子网和主机的连接。IPv6 头部的长度是 40 字节，然而在这个版本中，一些扩展有时也被认为是有效负荷的一部分。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-31.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-31.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-31.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-31.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-31.png"
+        title="IPv6" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-32.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-32.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-32.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-32.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-32.png"
+        title="IPv6" /></p>
+<br/>
+<br/>
+<h2 id="数据链路层">数据链路层</h2>
+<p>TCP/IP 协议簇中没有定义数据链路层的任何协议。这一层是网络中连接起来可以构成因特网的区域。</p>
+<p>在源和目的处只包括一个数据链路层，但在每个路由器处都有两个数据链路层。</p>
+<br/>
+<br/>
+<h3 id="节点和链接">节点和链接</h3>
+<p>虽然应用层、传输层和网络层的通信都是端到端的，但数据链路层的通信是节点对节点的。传统上会将两个端主机和路由器看作节点，</p>
+<br/>
+<br/>
+<h3 id="局域网">局域网</h3>
+<p>局域网可以是有线或无线网络。</p>
+<br/>
+<h4 id="有线局域网">有线局域网</h4>
+<p>只有一种有线 LAN 幸存了下来——以太网。它的发展经历了四代：标准以太网（10 mbps）、快速以太网（100 mbps）、千兆以太网（1 Gpbs）和万兆以太网（10 Gpbs）。数据速率，也就是每秒传输的位数。</p>
+<p>在以太网中，这些位不是一个接着一个发送的，魅族数据都被打包起来，并称为帧（frame）。帧中不仅包括从发送者到目标的数据，还带有一些诸如源 MAC 地址（48位）、目的 MAC 地址（48位）、数据类型、实际数据的信息和其他一些作为守卫来帮助检查传输中数据完整性的控制位。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-35.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-35.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-35.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-35.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-35.png"
+        title="以太网帧" /></p>
+<br/>
+<br/>
+<h4 id="无线局域网">无线局域网</h4>
+<p>无线通信是发展最快的技术之一。在无线 LAN 中，传输媒介是空气，信号通常在空气中传播。在这个领域现在有两种技术：无线以太网和蓝牙。</p>
+<br/>
+<p>无线以太网（WiFi, wireless fidelity）</p>
+<p>电气和电子工程师协会（IEEE）为无线 LAN 定义规格。无线 LAN 有时又称为无线以太网。然而，WiFi 其实是一个由 WiFi 联盟认证的无线 LAN。这个标准定义了两种服务：基本服务集（BSS）和扩展服务集（ESS）。扩展服务集使用了额外设备（接入点 AP）作为连接其他 LAN 或 WAN 的交换机。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-36.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-36.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-36.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-36.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-36.png"
+        title="BSS 和 ESS" /></p>
+<br/>
+<p>蓝牙是一种无线 LAN 技术，用于连接不同的功能的设备。蓝牙是一个临时网络，也就意味着这个网络是自发的。</p>
+<br/>
+<br/>
+<h3 id="广域网">广域网</h3>
+<p>广域网也可以分为有线和无线。</p>
+<p>有线 WAN:</p>
+<ul>
+<li>点对点：拨号上网、调制解调器、数字用户线路、有线电视网络</li>
+<li>交换式：骨干网</li>
+</ul>
+<br/>
+<p>无线 WAN:</p>
+<ul>
+<li>全球互联接入（WiMax），通过基站。</li>
+<li>手机网络，移动电话或蜂窝电话。</li>
+<li>卫星网络</li>
+</ul>
+<br/>
+<br/>
+<h2 id="物理层">物理层</h2>
+<p>物理层的角色是将从数据链路层接收的比特（位）转换成用于传输的电磁信号。当比特被转换为信号后，信号将被传送至传输媒介。</p>
+<br/>
+<br/>
+<h3 id="数据和信号">数据和信号</h3>
+<p>在物理层的通信是节点对节点的，但是节点交换的是电磁信号。比特不能直接发送到传输媒介，需要在传输之前先转换成信号。</p>
+<p>模拟数据和数字数据。模拟数据指连续的信息。数字数据呈现的是离散的值。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-42.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-42.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-42.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-42.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-42.png"
+        title="模拟信号和数字信号" /></p>
+<br/>
+<br/>
+<h3 id="数字化传输">数字化传输</h3>
+<p>计算机网络是为了将信息从一点发送到零一点而设计。这个信息需要转换成数字信号或模拟信号来进行传输。</p>
+<p>如果数据是数据化的，需要用数数转换技术，即一种将数字数据转换成数字信号的方法。如果数据是模拟的，需要使用转换技术，即一种将模拟数据转换成数字信号的方法。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-43.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-43.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-43.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-43.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-43.png"
+        title="数数转换" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-44.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-44.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-44.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-44.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-44.png"
+        title="数模转换" /></p>
+<br/>
+<br/>
+<h3 id="模拟传输">模拟传输</h3>
+<p>虽然数字化传输是令人满意的，但它需要一个专用通道。模拟传输是没有专用通道的唯一选择。</p>
+<p>数模转换是基于数字数据的信息改变模拟信号的某个特征的过程。模模转换是基于模拟数据的信息改变模拟信号的某个特征的过程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-45.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-45.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-45.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-45.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-45.png"
+        title="数模转换" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-46.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-46.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-46.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-46.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-46.png"
+        title="模模转换" /></p>
+<br/>
+<br/>
+<h2 id="传输介质">传输介质</h2>
+<p>在物理层产生的电子信号需要传输介质从一段传输到另一端。传输介质通常在物理层之下，并且受到物理层的直接控制。我们可以说传输介质属于第 0 层。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-47.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-47.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-47.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-47.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-47.png"
+        title="传输介质" /></p>
+<p>传输介质可以大致定义为任何将信息从源传输到目标的介质。</p>
+<p>在电信中，传输介质可以分为：导向介质和无导向介质。</p>
+<br/>
+<br/>
+<h3 id="导向介质">导向介质</h3>
+<p>导向介质就是那些用来提供从一个设备到另一个设备的通道的，包括：</p>
+<ul>
+<li>双绞线（DSL 线路）</li>
+<li>同轴电缆（有线电视线路）</li>
+<li>光纤电缆（光纤网络）</li>
+</ul>
+<br/>
+<br/>
+<h3 id="非导向介质">非导向介质</h3>
+<p>非导向介质不通过物理上的导体来传播电磁波。这种通信通常归为无线通信。信号通常在自由空间中传播，这样任何有能够接收信号的设备的人都可以使用它。</p>
+<p>电磁波范围：</p>
+<ul>
+<li>无线电波：频率在 3 kHz - 1 GHz 之间，它们通常用于无线电通信。</li>
+<li>微波：频率在 1 - 300 GHz。微波没有方向性。</li>
+<li>红外波：频率在 300 GHz - 400 THz 之间。它可以用于短程通信。红外波的频率较高，无法穿透墙壁，这个特点是防止不同系统之间的干扰。如红外遥控器。红外信号对于长距离通信是无用的。另外，我们不能在室外使用红外波，因为太阳光中的红外波会对通信产生干扰。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-49.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-49.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-49.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-49.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/6-49.png"
+        title="电磁波频谱" /></p>
+<br/>
+<br/>
+<h1 id="操作系统">操作系统</h1>
+<p>计算机系统由两个主要部分组成：硬件和软件。</p>
+<ul>
+<li>硬件：计算机的物理设备</li>
+<li>软件：使得硬件能够正常工作的程序的集合
+<ul>
+<li>操作系统：控制计算机系统用户对硬件的访问</li>
+<li>应用程序：使用计算机硬件来解决用户的问题</li>
+</ul>
+</li>
+</ul>
+<br/>
+<h2 id="操作系统引言">操作系统引言</h2>
+<p>列举一些常见的操作系统的定义：</p>
+<ul>
+<li>操作系统是介于计算机硬件和用户之间的接口</li>
+<li>操作系统是一种用来使其他程序更加方便有效运行的程序</li>
+<li>操作系统为通用管理程序管理者计算机系统中每个部件的活动，并确保计算机系统中的硬件和软件资源能够更加有效地使用。当出现资源使用冲突时，操作系统应能够及时处理，排除冲突。</li>
+</ul>
+<p>操作系统的两个主要设计目标：</p>
+<ul>
+<li>有效地使用硬件</li>
+<li>容易地使用资源</li>
+</ul>
+<br/>
+<br/>
+<h2 id="操作系统演化">操作系统演化</h2>
+<p>操作系统经过了很长的发展历程。</p>
+<br/>
+<br/>
+<h3 id="批处理系统">批处理系统</h3>
+<p>批处理程序设计于 20 世纪 50 年代，目的是控制大型计算机。这个时代的操作系统非常简单，只保证计算机所有资源从一个作业转移到另一个作业。</p>
+<br/>
+<br/>
+<h3 id="分时系统">分时系统</h3>
+<p>为了有效使用计算机资源，多道程序的概念被引入。它可以将多个作业同时装入内存，并且仅当该资源可用时分配给需要它的作业。</p>
+<p>多道程序带来了分时的概念：资源可以被不同的作业分享。每个作业可以分到一段时间来使用资源。因为计算机运行速度很快，所以分时系统对于用户使隐藏的，每个用户都感觉系统在为自己服务。</p>
+<br/>
+<br/>
+<h3 id="个人系统">个人系统</h3>
+<p>当个人计算机产生后，需要有一类适合这类计算机的操作系统。于是，单用户操作系统就产生了（如 DOS）。</p>
+<br/>
+<br/>
+<h3 id="并行系统">并行系统</h3>
+<p>人们对更快和更有效的需求导致了并行系统的设计：在同一个计算机中安装了多个 CPU，每个 CPU 可以处理一个程序或者一个程序的一部分。</p>
+<br/>
+<br/>
+<h3 id="分布式系统">分布式系统</h3>
+<p>资源使分布式的，只要它们通过网络连接即可。</p>
+<br/>
+<br/>
+<h3 id="实时系统">实时系统</h3>
+<p>实时系统是指在特定时间限制内完成任务。</p>
+<br/>
+<br/>
+<h2 id="组成部分">组成部分</h2>
+<p>现代操作系统至少具有以下四种功能：</p>
+<ul>
+<li>内存管理</li>
+<li>进程管理</li>
+<li>设备管理</li>
+<li>文件管理</li>
+<li>用户界面或命令解释程序（其他）：它负责操作系统与外界的通信。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-3.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-3.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-3.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-3.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-3.png"
+        title="操作系统" /></p>
+<br/>
+<br/>
+<h3 id="用户界面">用户界面</h3>
+<p>用户界面用来接收用户（进程）的输入并向操作系统解释这些请求的程序。如 Unix 的用户界面被称为命令解释程序（shell）。</p>
+<br/>
+<br/>
+<h3 id="内存管理器">内存管理器</h3>
+<p>现代操作系统的一个重要职责是内存管理。内存分配必须进行管理以避免内存溢出的错误。操作系统按照内存管理可以分为两类：单道程序和多道程序。</p>
+<br/>
+<br/>
+<h4 id="单道程序">单道程序</h4>
+<p>单道程序中，大多数内存用来装载单一的程序，仅仅一小部分用来装载操作系统。在这种配置下，整个程序装入内存运行，运行结束后，程序区域由其他程序取代。</p>
+<p>这里的内存管理器简单明了，即将程序载入内存、运行它、再装入新程序。但仍有一些问题：</p>
+<ul>
+<li>程序必须能够载入内存。如果内存容量比程序小，程序将无法运行。</li>
+<li>当一个程序运行时，其他程序不能运行。程序需要与 IO 设备交互，其他程序不能运行，导致 CPU 和内存的使用效率很低。</li>
+</ul>
+<br/>
+<br/>
+<h4 id="多道程序">多道程序</h4>
+<p>多道程序中，同一时刻可以装入多个程序并且能够同时被执行。CPU 轮流为其服务。</p>
+<ul>
+<li>非交换范畴：程序在运行期间始终驻留在内存中</li>
+<li>交换范畴：在运行过程中，程序可以在内存和硬盘之间多次交换数据。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-6.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-6.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-6.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-6.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-6.png"
+        title="多道程序的类型" /></p>
+<br/>
+<p>分区调度技术。在这种模式中，内存被分为不定长的几个分区。每个部分或分区保存一个程序。CPU 在各个程序之间交替服务。</p>
+<p>在这种技术下，每个程序完全载入内存、并占用连续的地址。分区调度改进了 CPU 的使用效率，但仍有一些问题：</p>
+<ul>
+<li>分区的大小必须由内存管理器预先决定。如果分区小了，有些程序就不能载入内存。如果分区大了，就会出现空闲区。</li>
+<li>即使分区在刚开始时比较合适，但随着新程序的交换载入内存后有可能出现空闲区。</li>
+<li>当空闲分区过多时，内存管理器能够紧缩分区并删除空闲区和创建新区，但这将增加系统额外开销。</li>
+</ul>
+<br/>
+<p>分页调度提高了分区调度的效率。在分页调度下，内存被分成大小相等的若干部分，称为帧。程序则被分为大小相等的部分，称为页。页被载入内存中的帧。在这种技术下，程序在内存中不必是连续的。</p>
+<p>分页调度在一定程度上提高了效率，但整个程序仍需要在运行前全部载入内存。</p>
+<br/>
+<p>在请求分页调度中，程序被分为页，但是页可以一次载入内存、运行，然后被另一个页替代。换句话说，内存可以同时载入多个程序的页。</p>
+<br/>
+<p>在请求分段调度中，程序将按程序员的角度划分成段，它们载入内存中、执行，然后被来自同一程序或其他程序的模块所替代。</p>
+<br/>
+<p>请求分页和分段调度结合了两者的有点以提高系统效率。一个段也许太大而不能载入内存中的空闲区。内存可以分成很多帧，一个模块可以分成很多页，一次装入内存运行。</p>
+<br/>
+<br/>
+<h4 id="虚拟内存">虚拟内存</h4>
+<p>请求分页调度和请求分段调度意味着当程序运行时，一部分程序驻留在内存中，一部分则放在硬盘上。</p>
+<p>例如，10 MB 内存可以运行 10 个程序。每个程序 3 MB，一共 30 MB。任一时候 10 个程序中 10 MB 在内存中，还有 20 MB 在磁盘上。这里实际上只有 10 MB 内存但却有 30 MB的虚拟内存。</p>
+<p>虚拟内存意味着请求分页调度、请求分段调度，或两者都有。如今几乎所有的操作系统都使用了该技术。</p>
+<br/>
+<br/>
+<h3 id="进程管理器">进程管理器</h3>
+<br/>
+<p>现代操作系统关于指令集有三个术语：程序、作业和进程。</p>
+<p>程序是由程序员编写的一组稳定的指令。</p>
+<p>从一个程序被选中执行，到其运行结束并再次成为一个程序的这段过程中，该程序称为作业。</p>
+<p>进程是一个运行中的程序。换句话说，进程是驻留在内存中运行的作业，一个进程可以处于运行状态或等待 CPU 调用。</p>
+<br/>
+<p>状态图显示了每个实体的不同状态。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-12.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-12.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-12.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-12.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-12.png"
+        title="程序、作业和进程" /></p>
+<br/>
+<p>将一个作业或进程从一个状态改变为另一个状态，进程管理器使用了两个调度器：作业调度器和进程调度器。</p>
+<p>作业调度器将一个作业从保持状态转入就绪状态，或是从运行状态转入终止状态。换句话说，作业调度器负责从作业中创建一个进程和终止一个进程。</p>
+<p>进程调度器将一个进程从一个状态转入另一个状态。</p>
+<br/>
+<p>事实上，会有很多的作业和进程相互竞争计算机资源。为了处理多个进程和作业，进程管理器使用队列（等待列表）。与每一作业或进程相关的是存有这些作业和进程信息的作业控制块或进程控制块。进程管理在队列中存储的不是作业或进程，而是作业或进程控制块。作业或进程仍保存在内存或硬盘中，它们因为太大而无法被复制到队列中。这些作业控制块或进程控制块就是等待中的作业和进程的代表。</p>
+<p>一个操作系统有很多队列。进程管理器可以使用多种策略从队列中选择下一个作业或进程，可以是先进先出、最短长度有线、最高优先级等。</p>
+<ul>
+<li>作业队列：用来保存那些等待内存的作业。</li>
+<li>就绪队列：用来保存那些已经在内存中准备好运行但在等待 CPU 的进程。</li>
+<li>I/O队列：用来保存那些正在等待 I/O 设备的进程。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-15.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-15.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-15.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-15.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-15.png"
+        title="进程管理队列" /></p>
+<br/>
+<p>所有进程管理的思想都是使得拥有不同资源的不同进程同步。只要资源可以被多个用户（进程）同时使用，那么它就可能有两种有问题的状态：死锁和饥饿。</p>
+<p>在大多数操作系统中，文件都是不可共享的。当文件被一个进程使用时，将不能再被别的进程使用。在这种情况下，如果没有强制一个进程释放文件的防备措施，就会发生死锁。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-16.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-16.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-16.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-16.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/7-16.png"
+        title="死锁" /></p>
+<p>死锁发生在操作系统允许一个进程运行，而不用首先检查它所必需的资源是否准备好，是否允许这个进程占有资源直到它不需要为止。操作系统中需要一些措施来防止死锁。一种解决方法是当所需资源不空闲时，不允许程序运行。但后面会发现这样做将导致另一种问题。另一种解决方法时限制进程占有资源的时间。</p>
+<p>当操作系统没有对进程的资源进行限制时将会发生死锁。</p>
+<p>死锁不是经常发生，发生死锁需要 4 个必要条件：</p>
+<ul>
+<li>互斥：一个资源只能被一个进程占有；</li>
+<li>资源占有：一个进程占有一个资源，即使在获取其他资源之前无法使用它；</li>
+<li>抢先：操作系统不能临时对资源重新分配；</li>
+<li>循环等待：所有的进程和资源包含在一个循环里。</li>
+</ul>
+<p>所有四个条件都是死锁发生所必须的。但是它们只是必要条件（不是充分条件），也就是说对于死锁来说它们必须同时出现，但它们并不一定能引起死锁。换句话说，如果它们其中之一没有出现，死锁不会发生。</p>
+<p>只要不让它们中的某一个条件发生，就能避免死锁。</p>
+<br/>
+<p>饥饿是一种与死锁相反的情况。它发生在当操作系统对进程分配资源有太多限制的时候。</p>
+<p>例如，假使一个操作系统中规定一个进程只有在所需的所有资源都为其占有时才能执行。</p>
+<br/>
+<p>设备管理器（或输入输出管理器）负责访问输入输出设备。在计算机系统中，输入输出设备存在着数量和速度上的限制。</p>
+<p>由于速度相比 CPU 和内存很慢，所以当一个进程访问输入输出设备时，在这段时间内这些设备对其他进程而言是不可用的。设备管理器负责让输入输出设备使用起来更有效。</p>
+<p>简要的设备管理器的功能：</p>
+<ul>
+<li>设备管理器不停地监视所有的输入输出设备，以保证它们能够正常运行。管理器也需要知道何时设备已经完成一个进程的服务，而且能够为队列中下一个进程服务。</li>
+<li>设备管理器为每一个输入输出设备维护一个或多个队列。</li>
+<li>设备管理器控制用于访问输入输出设备的不同策略。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="文件管理器">文件管理器</h3>
+<p>现今的操作系统使用文件管理器来控制对文件的访问。</p>
+<p>简单的文件管理器的功能：</p>
+<ul>
+<li>文件管理器控制文件的访问。只有那些获得允许的应用程序才能够访问，访问方式也可以不同。</li>
+<li>文件管理器管理文件的创建、修改和删除。</li>
+<li>文件管理器可以给文件命名。</li>
+<li>文件管理器管理文件的存储：怎样存储，存在哪里等。</li>
+<li>文件管理器负责归档和备份。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="主流操作系统">主流操作系统</h2>
+<p>三种用户熟悉的操作系统，使用 C/C++ 等独立于某种计算机系统的机器语言。</p>
+<ul>
+<li>UNIX：多用户、多道程序、可移植的操作系统，它被设计来方便编程、文本处理、通信。</li>
+<li>Linux：1997 年发布的 Linus 2.0 内核成为商业操作系统，它具有传统 UNIX 的所有特性。</li>
+<li>Windows：微软开发的视窗界面操作系统。</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="算法">算法</h1>
+<p>本章的目标：</p>
+<ul>
+<li>定义算法，并于问题求解关联；</li>
+<li>定义三种结构（顺序、选择和循环），并描述它们再算法中的作用；</li>
+<li>描述 UML（统一建模语言） 图和当表示算法时它们是如何使用的；</li>
+<li>描述伪代码和当表示算法时它们是如何使用的；</li>
+<li>列出基本算法和它们的应用；</li>
+<li>描述排序的概念，理解三种原始排序算法背后的机制；</li>
+<li>描述搜索的概念，理解两种常见搜索算法背后的机制；</li>
+<li>定义子算法和它们与算法的关系；</li>
+<li>区分迭代和递归算法。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="算法的概念">算法的概念</h2>
+<p>算法是一种逐步解决或完成任务的方法。</p>
+<p>按照这种定义，算法完全独立于计算机系统。更特别的是，算法接收一组输入数据，同时产生一组输出数据。</p>
+<br/>
+<br/>
+<h2 id="算法的三种结构">算法的三种结构</h2>
+<p>计算机专家为结构化程序或算法定义了三种结构。这种想法认为程序必定是由顺序、判断（选择）和循环这三种结构组成的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-6.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-6.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-6.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-6.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-6.png"
+        title="算法的三种结构" /></p>
+<br/>
+<br/>
+<h2 id="算法的表示">算法的表示</h2>
+<p>这里介绍统一建模语言和伪代码这两种工具。</p>
+<br/>
+<br/>
+<h3 id="统一建模语言">统一建模语言</h3>
+<p>统一建模语言（UML）是算法的图形表示法。它使用大图的形式因该了算法的所有细节，只显示算法从开始到结束的整个流程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-7.png"
+        title="三种结构的UML" /></p>
+<br/>
+<br/>
+<h3 id="伪代码">伪代码</h3>
+<p>伪代码是算法的一种类似英语的表示法。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-8.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-8.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-8.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-8.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-8.png"
+        title="用伪代码表示三种结构" /></p>
+<br/>
+<p>示例，用伪代码写出求两个整数之和的算法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">算法: SumOfTwo(first, second)
+目的：求两个整数之和
+前提：给定两个整数（first, second）
+后续：无
+返回：和的值
+{
+  sum &lt;- first + second
+  return sum
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="更正式的定义">更正式的定义</h2>
+<p>算法是一组明确步骤的有序集合，它产生结果并在有限的时间内终止。</p>
+<p>算法更正式的定义：</p>
+<ul>
+<li><strong>定义良好</strong>：算法必须是一组定义良好且有序的指令集合。</li>
+<li><strong>明确步骤</strong>：算法的每一步都必须有清晰、明白的定义。</li>
+<li><strong>产生结果</strong>：算法必须产生结果，否则该算法就没有意义。</li>
+<li><strong>在有限的时间内终止</strong>：算法必须能够终止。如果不能（如无限循环），说明不是算法。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="基本算法">基本算法</h2>
+<p>有一些算法在计算机科学中应用非常普遍，我们称之为基本算法。</p>
+<br/>
+<br/>
+<h3 id="求和算法">求和算法</h3>
+<p>怎样才能实现一系列整数相加呢？答案很简单：在循环中使用加法操作。</p>
+<p>求和算法可分为三个逻辑部分：</p>
+<ul>
+<li>将和初始化。</li>
+<li>循环，在每次迭代中将一个新数加到和上。</li>
+<li>退出循环后返回结果。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-9.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-9.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-9.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-9.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-9.png"
+        title="求和算法" /></p>
+<br/>
+<br/>
+<h3 id="乘积算法">乘积算法</h3>
+<p>乘积算法的实现：在循环中使用乘法操作。</p>
+<p>乘法算法有三个逻辑部分：</p>
+<ul>
+<li>将乘积初始化</li>
+<li>循环，在每次迭代中将一个新数与乘积相乘。</li>
+<li>退出循环后返回结果。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-10.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-10.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-10.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-10.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-10.png"
+        title="乘积算法" /></p>
+<br/>
+<br/>
+<h3 id="最大值和最小值的算法">最大值和最小值的算法</h3>
+<p>求一组数中的最大/小值，思路是通过一个判断结构求出两个数中的最大/小值，再把这个结构放到循环中，就可以一组数中的最大/小值。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-11.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-11.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-11.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-11.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-11.png"
+        title="找到最小的数据项" /></p>
+<br/>
+<br/>
+<h3 id="排序算法">排序算法</h3>
+<p>计算机科学中一个最普遍的应用是排序，即根据数据的值对它们进行排序。人们的周围充满了数据，如果这些数据都是无序的，可能会花很多时间去查找一条简单信息。</p>
+<p>本节介绍三种排序算法：选择排序、冒泡排序和插入排序。这三种排序算法是当今计算机科学中使用的快速排序的基础。</p>
+<br/>
+<br/>
+<h4 id="选择排序">选择排序</h4>
+<p>在选择排序中，数字列表可分为两个子列表（已排序和未排序的），它们通过假想的一堵墙分开。求未排序子列表中最小的元素并把它和未排序子列表中的第一个元素进行交换，经过每次选择和交换，两个子列表中假想的这堵墙向前移动一个元素，这样每次排序列表中将增加一个元素而未排序列表中将减少一个元素，每次把一个元素从未排序列表移动到已排序列表就完成了一轮排序。</p>
+<p>一个含有 n 个元素的数字列表需要 <code>n-1</code> 轮排序来完成数据的重新排列。</p>
+<p>选择排序算法使用两重循环，外层循环每次扫描时迭代一次，内存循环在未排序列表中求最小的元素。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-12.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-12.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-12.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-12.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-12.png"
+        title="选择排序" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-14.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-14.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-14.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-14.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-14.png"
+        title="选择排序算法" /></p>
+<br/>
+<br/>
+<h4 id="冒泡排序">冒泡排序</h4>
+<p>在冒泡排序方法中，数字列表被分为两个子列表：已排序的和未排序的。在未排序子列表中，最小的元素通过冒泡的方法选出来并移到已排序子列表中。当把最小的元素移动到已排序列表后，墙向前移动一个元素，使得已排序元素的个数增加 1，而未排序元素的个数减少 1。每次元素从未排序子列表中移到已排序子列表中，便完成一轮。</p>
+<p>一个含有 n 个元素的列表，冒泡排序需要 <code>n-1</code> 轮来完成数据排序。</p>
+<p>冒泡排序在最初被编写为将列表中的最大元素向下冒泡。从效率的观点来看，无论是大数冒泡还是小数冒泡并没有什么区别。</p>
+<p>冒泡排序也是用两重循环，外层循环每轮迭代一次；内存循环的每次迭代将某一元素冒泡至顶部。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-15.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-15.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-15.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-15.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-15.png"
+        title="冒泡排序" /></p>
+<br/>
+<br/>
+<h4 id="插入排序">插入排序</h4>
+<p>插入排序是最常用的排序技术之一，经常在扑克牌游戏中使用。玩家将拿到的每张牌插入手中合适的为止，以便手中的牌以一定的顺序排列。</p>
+<p>在插入排序中，排序列表被分为两部分：已排序和未排序的。在每轮，把未排序子列表中的第一个元素转移到已排序子列表中，并且插入合适的为止。</p>
+<p>一个含有 n 个元素的列表至少需要 <code>n-1</code> 轮排序。</p>
+<p>插入排序算法的涉及类似于选择排序算法和冒泡排序算法的模式。外层循环每轮都迭代，内存循环则寻找插入的位置。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-17.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-17.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-17.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-17.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-17.png"
+        title="插入排序" /></p>
+<br/>
+<br/>
+<h4 id="其他排序算法">其他排序算法</h4>
+<p>这里讨论的三种排序算法是效率最低的排序算法，如果要排序的列表中有多于几百个元素，那么不应该使用这些算法。讨论这些算法仅出于学习的目的，但它们不实用。</p>
+<p>在一本导论书中讨论这些排序算法有几个原因：</p>
+<ul>
+<li>它们是最简单的算法，容易理解和分析</li>
+<li>它们是更高效算法的基础，如快速排序、堆排序、Shell 排序、桶排序、合并排序和基排序等。</li>
+</ul>
+<p>大多数这些高级排序算法在数据结构的图书中有讨论。</p>
+<p>为了决定哪种算法更适合特定的程序，需要一种叫做算法复杂度的度量。</p>
+<br/>
+<br/>
+<h3 id="查找算法">查找算法</h3>
+<p>计算机科学中还有一个常用的算法叫做查找，是一种在列表中确定目标所在位置的算法。</p>
+<p>在列表中，查找意味着给定一个值，并在包含该值的列表中找到第一个元素的位置。对于列表则有两种基本的查找方法：顺序查找和折半查找。顺序查找可以在任何列表中查找，折半查找则要求列表是有序的。</p>
+<br/>
+<br/>
+<h4 id="顺序查找">顺序查找</h4>
+<p>顺序查找用于在无需列表中查找。顺序查找算法很慢。一般来说，可用这种方法来查找较小的列表或不常用的列表。其他情况下，最好的方法是首先将列表排序，然后使用折半查找。</p>
+<p>顺序查找从列表起始处开始查找，当找到元素或确信查找目标不在列表中时，查找过程结束。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-19.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-19.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-19.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-19.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-19.png"
+        title="顺序查找示例" /></p>
+<br/>
+<br/>
+<h4 id="折半查找">折半查找</h4>
+<p>如果列表是无序的，则顺序查找是唯一的方法。如果这个列表是有序的，那么就可以使用一个更有效率的方法，称为折半查找。</p>
+<p>折半查找是从一个列表的中间元素来测试的。这将能够判别出目标在列表的前半部分还是后半部分。换句话说，可以通过判断减少一般的列表。</p>
+<p>重复这个过程，直到找到目标或确定目标不在这个列表里。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-20.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-20.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-20.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-20.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-20.png"
+        title="折半查找示例" /></p>
+<br/>
+<br/>
+<h2 id="子算法">子算法</h2>
+<p>结构化编程的原则要求将算法分成几个三元，称为子算法。每个子算法又分成更小的子算法。</p>
+<p>使用子算法的优点：</p>
+<ul>
+<li>程序更容易理解。</li>
+<li>子算法可在主算法中的不通地方调用，而无需重写。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="结构图">结构图</h3>
+<p>结构图是一种高级设计工具，它显示了算法和子算法之间的关系。它一般在设计阶段使用，而不是在编程阶段。</p>
+<br/>
+<br/>
+<h2 id="递归">递归</h2>
+<p>通常，有两种途径可用于编写解决问题的算法。一种使用迭代，另一种使用递归。递归是算法自我调用的过程。</p>
+<br/>
+<br/>
+<h3 id="迭代的定义">迭代的定义</h3>
+<p>一个简单的栗子，考虑一个阶乘的计算。阶乘的因此供 1 到该数的证书。如果算法的定义不涉及算法本身，则算法是迭代的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-22.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-22.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-22.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-22.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-22.png"
+        title="迭代和递归" /></p>
+<h3 id="递归的定义">递归的定义</h3>
+<p>如果每一个算法出现在它本身的定义中，该算法就是递归定义的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-24.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-24.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-24.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-24.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/8-24.png"
+        title="阶乘问题的递归解决步骤" /></p>
+<br/>
+<p>由这个示例看，似乎递归计算花费时间更长且更困难。那么为什么我们要用递归呢？虽然递归在使用纸和笔来解决问题时看起来很困难，但如果使用计算机则变得更简单和优美。而且，对于编程人员和程序阅读者在概念上很容易理解。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="程序设计语言">程序设计语言</h1>
+<p>本章的目标：</p>
+<ul>
+<li>描述从机器语言到高级语言的编程语言演化；</li>
+<li>理解如何使用编译器将高级语言中的程序编译成机器语言；</li>
+<li>区分四种计算机语言模式；</li>
+<li>理解面向过程模式和在模式中程序单元与数据项间的交互；</li>
+<li>理解面向对象模式和在这种模式中程序单元与对象间的交互；</li>
+<li>定义函数式模式，理解它的应用；</li>
+<li>定义声明式模式，理解它的应用；</li>
+<li>定义面向过程和面向对象语言中的常见概念。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="程序设计语言的演化">程序设计语言的演化</h2>
+<p>对于计算机而言，编写程序就必须使用计算机语言。计算机语言是指编写程序时，根据事先定义的规则（语法）而写出的预定语句集合。计算机语言净多过年的发展已经从机器语言演化到高级语言。</p>
+<br/>
+<br/>
+<h3 id="机器语言">机器语言</h3>
+<p>在计算机发展的早期，唯一的程序设计语言是机器语言。每台计算机都有自己的机器语言，这种机器语言由 0 和 1 的序列组成。</p>
+<p>机器语言是计算机硬件唯一能理解的语言，它由具有两种状态的电子开关构成：关（0）和开（1）。</p>
+<p>虽然用机器语言编写的程序真实地表示了数据是如何被计算机操纵的。但它至少有两个缺点：</p>
+<ul>
+<li>首先，它依赖于计算机。如果使用不同的硬件，那么两者的机器语言就不相同。</li>
+<li>其次，用机器语言编写程序时非常单调乏味的，而且很难发现错误。</li>
+</ul>
+<p>下表是两个整数相加的机器语言代码。</p>
+<table>
+<thead>
+<tr>
+<th>十六进制</th>
+<th>机器语言代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IFEF</td>
+<td>0001 1111 1110 1111</td>
+</tr>
+<tr>
+<td>240F</td>
+<td>0010 0100 0000 1111</td>
+</tr>
+<tr>
+<td>1FEF</td>
+<td>0001 1111 1110 1111</td>
+</tr>
+<tr>
+<td>241F</td>
+<td>0010 0100 0001 1111</td>
+</tr>
+<tr>
+<td>1040</td>
+<td>000 10000 0100 0000</td>
+</tr>
+<tr>
+<td>1141</td>
+<td>0001 0001 0100 0001</td>
+</tr>
+</tbody>
+</table>
+<p>现在我们将机器语言时代称为编程语言的第一代。</p>
+<br/>
+<br/>
+<h3 id="汇编语言">汇编语言</h3>
+<p>汇编语言中接下来的演化是伴随着用带符号或助记符的指令和地址代替二进制码而发生的。因为它们使用符号，所有又被称为符号语言。这些助记符语言后来被称为汇编语言。</p>
+<p>下表是两个整数相加的汇编语言代码。</p>
+<table>
+<thead>
+<tr>
+<th>汇编语言代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LOAD   RF        Keyboard</td>
+<td>从键盘控制器中取数，存到寄存器 F 中</td>
+</tr>
+<tr>
+<td>STORE  Number1   RF</td>
+<td>把寄存器 F 中的内容存到 Number1 中</td>
+</tr>
+<tr>
+<td>LOAD   RF        Keyboard</td>
+<td>从键盘控制器中取数，存到寄存器 F 中</td>
+</tr>
+<tr>
+<td>STORE  Number2   RF</td>
+<td>把寄存器 F 中的内存存到 Number2 中</td>
+</tr>
+<tr>
+<td>LOAD   R0        Number1</td>
+<td>把 Number1 中的内容存入寄存器 0 中</td>
+</tr>
+<tr>
+<td>LOAD   R1        Number2</td>
+<td>把 Number2 中的内容存入寄存器 1 中</td>
+</tr>
+<tr>
+<td>ADDI   R2        R0 R1</td>
+<td>把寄存器 0 和寄存器 1 的值相加，结果存入寄存器 2 中</td>
+</tr>
+<tr>
+<td>STORE  Result    R2</td>
+<td>把寄存器 2 的内容存入 Result 中</td>
+</tr>
+<tr>
+<td>LOAD   RF        Result</td>
+<td>把 Result 中的值放入寄存器 F 中</td>
+</tr>
+<tr>
+<td>STORE  Monitor   RF</td>
+<td>把寄存器 F 中的值存入显示控制器中</td>
+</tr>
+<tr>
+<td>HALT</td>
+<td>停止</td>
+</tr>
+</tbody>
+</table>
+<p>称为汇编语言的特殊程序将用于将汇编语言代码翻译成机器语言。</p>
+<br/>
+<br/>
+<h3 id="高级语言">高级语言</h3>
+<p>尽管汇编语言大大提高了编程效率，但仍然需要程序员在所使用的硬件上花费大部分精力。用符号语言编程也很枯燥，因为每条机器指令都必须单独编码。为了提高程序员效率以及从关注计算机转到关注要解决的问题，促进了高级语言的发展。</p>
+<p>高级语言旨在使程序员摆脱汇编语言繁琐的细节。高级语言同汇编语言有一个共性：它们必须被转化为机器语言，这个转化过程称为解释或编译。</p>
+<p>数年来，人们开发了各种各样的语言，如 BASIC、Pascal、C、C++ 和 Java 等。</p>
+<br/>
+<br/>
+<h2 id="翻译">翻译</h2>
+<p>当今程序通常是使用一种高级语言来编写。为了在计算机上运行程序，程序需要被翻译成它要运行在其他的计算机的机器语言。</p>
+<p>高级语言程序被称为源程序，被翻译成的机器语言程序称为目标程序。有两种方法用于翻译：编译和解释。</p>
+<br/>
+<br/>
+<h3 id="编译">编译</h3>
+<p>编译程序通常把整个源程序翻译成目标程序。</p>
+<br/>
+<br/>
+<h3 id="解释">解释</h3>
+<p>有些计算机语言使用解释器把源程序翻译成目标程序。解释是指把源程序中的每一行翻译成目标程序中相应的行，并执行它的过程。</p>
+<p>解释中有两种趋势：</p>
+<ul>
+<li>解释的第一种方法，在 Java 语言之前</li>
+<li>解释的第二种方法，Java 使用。</li>
+</ul>
+<p>在 Java 语言之前的有些解释式语言（如 BASIC）使用的解释，源程序的每一行被翻译成被其使用的计算机上的机器语言，改行机器语言被立即执行。如果在翻译和执行中有任何错误，过程就显示消息，其余的过程就被中止。程序需要被改正，再次从头解释和执行。第一种方法被看成一种慢的过程，这就是大多数语言使用编译而不是解释的原因。</p>
+<p>随着 java 的到来，一种新的解释过程就被引入了。Java 语言能向任何计算机移植。为了取得可移植性，源程序到目标程序的翻译分成两步进行：编译和解释。Java 源程序首先被编译，创建 Java 的字节代码，字节代码看起来像机器语言中的代码，但不是任何特定计算机的目标代码，它是一种虚拟机的目标代码，该虚拟机称为 Java 虚拟机或 JVM。字节代码然后能被任何运行 JVM 模拟器的计算机编译或解释，也就是运行字节代码的计算机只需要 JVM 模拟器，而不是 Java 模拟器。</p>
+<br/>
+<br/>
+<h3 id="翻译过程">翻译过程</h3>
+<p>编译和解释的不同在于，编译在执行前翻译整个源代码，而解释一次只翻译和执行源代码中的一行。但两种方法都遵循西面相同的翻译过程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-1.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-1.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-1.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-1.png"
+        title="源代码翻译过程" /></p>
+<br/>
+<br/>
+<h2 id="编程模式">编程模式</h2>
+<p>当今计算机语言按照它们使用的解决问题的方法来分类。因此，模式是计算机语言看待要解决问题的一种方式。计算机语言可分为 4 中模式：</p>
+<ul>
+<li>过程式（强制式）</li>
+<li>面向对象</li>
+<li>函数式</li>
+<li>声明式</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-2.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-2.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-2.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/9-2.png"
+        title="编程语言分类" /></p>
+<br/>
+<br/>
+<h3 id="过程式模式">过程式模式</h3>
+<p>在过程式模式（强制性模式）中，我们把程序看成是操纵被动对象的主动主体。我们在日常生活中遇到许多被动对象：石头、书、灯等。一个被动对象本身不能发出一个动作，但它能从主动主体接收动作。</p>
+<p>过程式模式下的程序就是主动主体，该主体使用称为数据或数据项的被动对象。作为被动对象的数据项存储在计算机的内存中，程序操纵它们。为了操纵数据，主动主体（程序）发出动作，称之为过程。</p>
+<p>我们需要把过程与程序触发区分开。程序不定义过程，它只触发或调用过程。过程必须已经存在。</p>
+<p>当使用过程式高级语言时，程序仅由许多过程调用构成，除此之外没有任何东西。</p>
+<p>如果我们考虑过程和操作对象，那么过程式模式的概念就变得更为简单，且容易理解。这种模式的程序由三部分构成：对象创建部分、一组过程调用和每个过程的一组代码。有些过程在语言本身中已经被定义。通过组合这些代码，开发者可以建立新的过程。</p>
+<br/>
+<br/>
+<h3 id="面向对象模式">面向对象模式</h3>
+<p>面向对象模式处理活动对象，而不是被动对象。我们在日常生活中遇到许多活动对象：汽车、自动门、洗盘机等。在这些对象上执行的动作都包含在这些对象中：对象只需要接收合适的外部刺激来执行其中一个动作。</p>
+<p>比较过程式模式和面向对象模式，过程式模式中的过程是独立的实体，但面向对象模式中的方法是属于对象领地的。</p>
+<p>相同类型的对象可以共享或继承方法。</p>
+<br/>
+<p>面向对象模式的一些特性：</p>
+<ul>
+<li>类：相同类型的对象需要一组方法，为了创建这些方法，面向对象语言使用了称为类的单元。</li>
+<li>方法：每个方法有它的头、局部变量和语句。</li>
+<li>继承性：指一个对象能从另一个对象继承。</li>
+<li>多态性：指我们可以定义一些具有相同名字的操作，而这些操作在相关类中做不同的事情。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="函数式模式">函数式模式</h3>
+<p>在函数式模式中程序被看成是一个数学函数。函数式语言主要实现以下功能：</p>
+<ul>
+<li>函数式语言预定义一系列可供任何程序员调用的原始函数。</li>
+<li>函数式语言允许程序员通过若干原始函数的组合创建新的函数。</li>
+</ul>
+<p>函数式语言相对过程式语言具有两方面优势：它支持模块化编程并且允许程序员使用已经存在的函数来开发新的函数。这两个因素使得程序员能够写出庞大而且不易出错的程序。</p>
+<br/>
+<br/>
+<h3 id="声明式模式">声明式模式</h3>
+<p>声明式模式依据推理的原则响应查询。</p>
+<p>声明性语言也有自生的缺憾，那就是有关特殊灵枢的程序由于要收集大量的事实信息而变得非常庞大。</p>
+<br/>
+<br/>
+<h2 id="共同概念">共同概念</h2>
+<p>标识符，即对象的名称。标识符允许给程序中的对象命名。</p>
+<br/>
+<p>数据类型定义了一系列值及应用于这些值的一系列操作。每种数据类型值得集合称为数据类型得域。大多数语言都定义了两种数据类型：</p>
+<ul>
+<li>简单数据类型：有时称为原子类型、基本类型、标量类型或内建类型。是不能分解成更小数据类型得数据类型。
+<ul>
+<li>整数类型</li>
+<li>实数类型</li>
+<li>字符类型</li>
+<li>布尔类型</li>
+</ul>
+</li>
+<li>复合数据类型：是一组元素，其中每个元素都是简单数据类型或复合数据类型。
+<ul>
+<li>数组是一组元素，其中每个元素具有相同的类型。</li>
+<li>记录是一组元素，其中得每个元素可以具有不同得类型。</li>
+</ul>
+</li>
+</ul>
+<br/>
+<p>变量是存储单元的名字。虽然计算机内部使用地址，但对程序员而言却十分不便。</p>
+<br/>
+<p>字面量是程序中使用的预定义的值。</p>
+<br/>
+<p>字面量被看作一种不好的编程实践，除非我们能确信字面值将不会随时间而改变。但是大多数字面值都会随时间而改变它的值。</p>
+<p>由于这个原因，大多数语言定义常量。常量的值不能改变。</p>
+<br/>
+<p>几乎所有的程序都需要输入和输出。</p>
+<br/>
+<p>表达式是由一系列操作数和运算符简化后的一个单一数值。</p>
+<ul>
+<li>运算符
+<ul>
+<li>算数运算符</li>
+<li>关系运算符</li>
+<li>逻辑运算符</li>
+</ul>
+</li>
+<li>操作数</li>
+</ul>
+<br/>
+<p>每条语句都使程序执行一个相应动作。</p>
+<ul>
+<li>赋值语句</li>
+<li>符合语句</li>
+<li>控制语句</li>
+</ul>
+<br/>
+<p>子程序在过程式语言中极其重要，在面向对象语言中作用要少些。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="软件工程">软件工程</h1>
+<p>本章的重点：</p>
+<ul>
+<li>软件生命周期的概念；</li>
+<li>开发过程模型——瀑布模型和增量模型；</li>
+<li>分析阶段，分析阶段两种独立的方法——面向过程分析和面向对象分析；</li>
+<li>设计阶段，设计阶段的两种独立的方法——面向过程设计和现象对象设计；</li>
+<li>实现阶段，识别该阶段的质量问题；</li>
+<li>测试阶段，区分白盒测试和黑盒测试；</li>
+<li>识别软件工程中文档的重要性，区分用户文档、系统文档和技术文档。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="软件生命周期">软件生命周期</h2>
+<p>软件生命周期使软件工程中一个基础概念。软件和其他产品一样，周期性地重复着一些阶段。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-09-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/computer-science/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/computer-science/" data-title="计算机科学导论" data-hashtags="cs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/computer-science/" data-title="计算机科学导论"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/computer-science/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/computer-science/" data-title="计算机科学导论"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/computer-science/" data-title="计算机科学导论"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/cs/">cs</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/s-pbtdkg/" class="prev" rel="prev" title="英语s音后清爆破辅音的发音问题"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>英语s音后清爆破辅音的发音问题</a>
+            <a href="/redis-guide/" class="next" rel="next" title="Redis使用手册">Redis使用手册<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

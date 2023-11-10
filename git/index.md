@@ -1,16 +1,12 @@
 # Git
 
 
-
 参考：
 
 - [git-scm文档](https://git-scm.com/book/zh/v2)
 - [廖雪峰Git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
 - [Git内部原理](https://www.kancloud.cn/kancloud/progit/70239)
 - [Git内部原理-伯乐在线](http://blog.jobbole.com/26209/)
-
-
-
 
 <br>
 <br/>
@@ -21,11 +17,6 @@
 
 <br/>
 <br/>
-
-
-
-
-
 
 # 介绍
 
@@ -1666,45 +1657,35 @@ git push origin :refs/tags/<tag-name>
 
 各种模板： <https://github.com/github/gitignore>
 
+```shell
+# 检查ignore
+git check-ignore .gitignore
 
-检查`.gitignore`文件: `git check-ignore .gitignore `
-
-
+```
 
 <br/>
+
+`.gitignore`的一些使用技巧:
+
+- 每一行都指定了一个模式
+- 空行会被忽略
+- `#` 表示注释
+- `dir/` 表示忽略文件夹下所有内容
+- `!` 表示取反
+- glob模式匹配
+  - `*` 表示一切字符串
+  - `**` 表示任何中间目录
+
 <br/>
 
 ---
 
 <br/>
 
-
-
 # 搭建Git服务器
-
 
 常见的Git服务器有：
 
-- GitLab: <https://gitlab.com/>
-- Gogs（go git service）: <https://gogs.io/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- [GitLab](https://gitlab.com/)
+- [Gogs]()https://gogs.io/)
 

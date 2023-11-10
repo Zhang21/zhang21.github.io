@@ -1,35 +1,17 @@
 # Tornado
 
 
-
-
-
-
-
-
 环境:
+
 - Tornado: v5.1
 - Python: v3.6
 
-
 <br>
-
 
 参考:
 
 - Docs: <https://www.tornadoweb.org/en/branch5.1/>
 
-
-
-
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
@@ -37,15 +19,6 @@
 <!--more-->
 
 <br/>
-<br/>
-
-
-
-
-
-
-
-
 
 
 

@@ -35,7 +35,7 @@
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "terraform, iac, 基础架构即代码, 基础设施即代码","wordcount":  1365 ,
+                        }],"genre": "posts","keywords": "Terraform, IAAS, IAC","wordcount":  1931 ,
         "url": "https:\/\/zhang21.cn\/terraform\/","datePublished": "2022-05-05T00:00:00+00:00","dateModified": "2022-05-07T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -52,7 +52,7 @@
             <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -94,7 +94,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -109,8 +109,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Terraform</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>devops</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-05">2022-05-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1365 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-05">2022-05-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1931 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -119,7 +119,7 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#基础架构即代码">基础架构即代码</a></li>
-    <li><a href="#terraform介绍">Terraform介绍</a>
+    <li><a href="#介绍">介绍</a>
       <ul>
         <li><a href="#terraform是什么">Terraform是什么</a></li>
         <li><a href="#用例">用例</a></li>
@@ -142,7 +142,20 @@
         </li>
       </ul>
     </li>
-    <li><a href="#terraform语言">Terraform语言</a></li>
+    <li><a href="#语言">语言</a></li>
+    <li><a href="#栗子">栗子</a>
+      <ul>
+        <li><a href="#操作阿里云">操作阿里云</a>
+          <ul>
+            <li><a href="#阿里云资源组">阿里云资源组</a></li>
+            <li><a href="#阿里云vpc">阿里云VPC</a></li>
+            <li><a href="#阿里云nat-gateway">阿里云NAT GATEWAY</a></li>
+            <li><a href="#阿里云安全组">阿里云安全组</a></li>
+            <li><a href="#阿里云ecs">阿里云ECS</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>参考:</p>
@@ -151,8 +164,7 @@
 <li><a href="https://www.redhat.com/zh/topics/automation/what-is-infrastructure-as-code-iac" target="_blank" rel="noopener noreffer ">什么是基础架构即代码</a></li>
 </ul>
 <br/>
-<br/>
-<br/>
+<hr>
 <br/>
 <h1 id="基础架构即代码">基础架构即代码</h1>
 <p>基础架构即代码(IaC, Infrastructure as Code)，是通过代码（而非手动流程）来管理和置备基础架构（网络、虚拟机、负载均衡器和连接拓扑）的方法。</p>
@@ -161,7 +173,7 @@
 <br/>
 <hr>
 <br/>
-<h1 id="terraform介绍">Terraform介绍</h1>
+<h1 id="介绍">介绍</h1>
 <br/>
 <h2 id="terraform是什么">Terraform是什么</h2>
 <p>Terraform是一个基础设施即代码的工具，可让你安全有效地构建，更改和版本化基础设施。这包含了两个组件，低级别的如计算实例，存储和网络；高级别的DNS和SaaS功能。</p>
@@ -217,9 +229,9 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">export AWS_ACCESS_KEY_ID=&#34;&lt;YOUR_AWS_ACCESS_KEY_ID&gt;&#34;
-export AWS_SECRET_ACCESS_KEY=&#34;&lt;YOUR_AWS_SECRET_ACCESS_KEY&gt;&#34;
-export AWS_DEFAULT_REGION=&#34;&lt;YOUR_AWS_DEFAULT_REGION&gt;&#34;
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s2">&#34;&lt;YOUR_AWS_ACCESS_KEY_ID&gt;&#34;</span>
+<span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s2">&#34;&lt;YOUR_AWS_SECRET_ACCESS_KEY&gt;&#34;</span>
+<span class="nb">export</span> <span class="nv">AWS_DEFAULT_REGION</span><span class="o">=</span><span class="s2">&#34;&lt;YOUR_AWS_DEFAULT_REGION&gt;&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
@@ -448,7 +460,7 @@ terraform state list
 </div><br/>
 <hr>
 <br/>
-<h1 id="terraform语言">Terraform语言</h1>
+<h1 id="语言">语言</h1>
 <p>Terraform使用HCL(Hashicorp Configuration Language)。</p>
 <p>Terraform语言的语法由一些基础元素组成:</p>
 <div class="highlight"><div class="chroma">
@@ -463,14 +475,14 @@ terraform state list
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">resource &#34;aws_vpc&#34; &#34;main&#34; {
-  cidr_block = var.base_cidr_block
-}
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="kr">resource</span> <span class="s2">&#34;aws_vpc&#34;</span> <span class="s2">&#34;main&#34;</span> <span class="p">{</span>
+  <span class="na">cidr_block</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">base_cidr_block</span>
+<span class="p">}</span>
 
-&lt;BLOCK TYPE&gt; &#34;&lt;BLOCK LABEL&gt;&#34; &#34;&lt;BLOCK LABEL&gt;&#34; {
-  # Block body
-  &lt;IDENTIFIER&gt;  = &lt;EXPRESSION&gt; # Agrument
-}
+<span class="o">&lt;</span><span class="nx">BLOCK</span> <span class="nx">TYPE</span><span class="o">&gt;</span> <span class="s2">&#34;&lt;BLOCK LABEL&gt;&#34;</span> <span class="s2">&#34;&lt;BLOCK LABEL&gt;&#34;</span> <span class="p">{</span><span class="c1">
+</span><span class="c1">  # Block body
+</span><span class="c1"></span>  <span class="o">&lt;</span><span class="nx">IDENTIFIER</span><span class="o">&gt;</span>  <span class="o">=</span> <span class="o">&lt;</span><span class="nx">EXPRESSION</span><span class="o">&gt;</span><span class="c1"> # Agrument
+</span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
@@ -577,7 +589,288 @@ terraform state list
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><br/>
+<br/>
+<h1 id="栗子">栗子</h1>
+<p>列举一些tf操作常见cloud provider的示例。</p>
+<br/>
+<br/>
+<h2 id="操作阿里云">操作阿里云</h2>
+<p>参考:</p>
+<ul>
+<li><a href="https://registry.terraform.io/providers/aliyun/alicloud/" target="_blank" rel="noopener noreffer ">terraform-provider-alicloud</a></li>
+<li><a href="https://github.com/aliyun/terraform-provider-alicloud/tree/master/examples" target="_blank" rel="noopener noreffer ">tf-alicloud-examples</a></li>
+</ul>
+<br/>
+<br/>
+<h3 id="阿里云资源组">阿里云资源组</h3>
+<p>创建阿里云资源组的示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="c1"># 资源组
+</span><span class="c1"></span><span class="kr">resource</span> <span class="s2">&#34;alicloud_resource_manager_resource_group&#34;</span> <span class="s2">&#34;main&#34;</span> <span class="p">{</span>
+  <span class="na">resource_group_name</span> = <span class="s2">&#34;test&#34;</span>
+  <span class="na">display_name</span> = <span class="s2">&#34;test&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="阿里云vpc">阿里云VPC</h3>
+<p>创建阿里云VPC的示例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="c1"># main.tf
+</span><span class="c1"></span><span class="kr">provider</span> <span class="s2">&#34;alicloud&#34;</span> <span class="p">{</span> 
+<span class="p">}</span><span class="c1">
+</span><span class="c1">
+</span><span class="c1"># vpc
+</span><span class="c1"></span><span class="kr">resource</span> <span class="s2">&#34;alicloud_vpc&#34;</span> <span class="s2">&#34;main&#34;</span> <span class="p">{</span>
+  <span class="na">vpc_name</span> = <span class="s2">&#34;test-vpc01&#34;</span>
+  <span class="na">cidr_block</span> = <span class="s2">&#34;172.16.0.0/16&#34;</span>
+
+  <span class="na">description</span> = <span class="s2">&#34;测试vpc&#34;</span>
+  <span class="na">tags</span> = <span class="p">{</span>
+    <span class="na">k1</span> = <span class="s2">&#34;v1&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="c1">
+</span><span class="c1">
+</span><span class="c1"># vswitch
+</span><span class="c1"></span><span class="kr">resource</span> <span class="s2">&#34;alicloud_vswitch&#34;</span> <span class="s2">&#34;main&#34;</span> <span class="p">{</span>
+  <span class="na">vpc_id</span> = <span class="nx">alicloud_vpc</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">id</span>
+  <span class="na">cidr_block</span> = <span class="s2">&#34;172.16.0.0/16&#34;</span>
+  <span class="na">zone_id</span> = <span class="s2">&#34;cn-hangzhou-b&#34;</span>
+  <span class="na">vswitch_name</span> = <span class="s2">&#34;test-vsw&#34;</span>
+
+  <span class="na">description</span> = <span class="s2">&#34;测试vswitch&#34;</span>
+  <span class="na">tags</span> = <span class="p">{</span>
+    <span class="na">k1</span> = <span class="s2">&#34;v1&#34;</span>
+    <span class="na">k2</span> = <span class="s2">&#34;v2&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="阿里云nat-gateway">阿里云NAT GATEWAY</h3>
+<p>创建阿里云NAT GATEWAY的示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="c1"># NAT网关
+</span><span class="c1"></span><span class="kr">resource</span> <span class="s2">&#34;alicloud_nat_gateway&#34;</span> <span class="s2">&#34;main&#34;</span> <span class="p">{</span>
+  <span class="na">depends_on</span> = <span class="p">[</span><span class="nx">alicloud_vswitch</span><span class="p">.</span><span class="nx">main</span><span class="p">]</span>
+  <span class="na">vpc_id</span> = <span class="nx">alicloud_vpc</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">id</span>
+  <span class="na">vswitch_id</span> = <span class="nx">alicoud_vswitch</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">id</span>
+  <span class="na">nat_gateway_name</span> = <span class="s2">&#34;test-nat&#34;</span>
+
+  <span class="na">payment_type</span> = <span class="s2">&#34;PayAsYouGo&#34;</span>
+  <span class="na">nat_type</span> = <span class="s2">&#34;Enhanced&#34;</span>
+  <span class="na">deletion_protection</span> = <span class="s2">&#34;false&#34;</span>
+  <span class="na">description</span> = <span class="s2">&#34;测试NAT网关&#34;</span>
+  <span class="na">tags</span> = <span class="p">{</span>
+    <span class="na">k1</span> = <span class="s2">&#34;v1&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="阿里云安全组">阿里云安全组</h3>
+<p>创建阿里云安全组的示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="c1"># 安全组
+</span><span class="c1"></span><span class="kr">resource</span> <span class="s2">&#34;alicloud_security_group&#34;</span> <span class="s2">&#34;group&#34;</span> <span class="p">{</span>
+  <span class="na">name</span> = <span class="s2">&#34;test-sg&#34;</span>
+
+  <span class="na">vpc_id</span> = <span class="nx">alicloud_vpc</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">id</span>
+  <span class="na">description</span> = <span class="s2">&#34;测试安全组&#34;</span>
+  <span class="na">tags</span> = <span class="p">{</span>
+    <span class="na">k1</span> = <span class="s2">&#34;v1&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="c1">
+</span><span class="c1">
+</span><span class="c1"># 安全组规则
+</span><span class="c1"></span><span class="kr">resource</span> <span class="s2">&#34;alicloud_security_group_rule&#34;</span> <span class="s2">&#34;deny-all&#34;</span> <span class="p">{</span>
+  <span class="na">security_group_id</span> = <span class="nx">alicloud_security_group</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">id</span>
+  <span class="na">type</span> = <span class="s2">&#34;ingress&#34;</span>
+  <span class="na">ip_protocol</span> = <span class="s2">&#34;all&#34;</span>
+  <span class="na">nic_type</span> = <span class="s2">&#34;internet&#34;</span>
+  <span class="na">policy</span> = <span class="s2">&#34;drop&#34;</span>
+  <span class="na">port_range</span> = <span class="s2">&#34;1/65535&#34;</span>
+  <span class="na">cidr_ip</span> = <span class="s2">&#34;0.0.0.0/0&#34;</span>
+  <span class="na">priority</span> = <span class="m">100</span>
+  <span class="na">description</span> = <span class="s2">&#34;deny all&#34;</span>
+<span class="p">}</span><span class="c1">
+</span><span class="c1"># 安全组规则
+</span><span class="c1"></span><span class="kr">resource</span> <span class="s2">&#34;alicloud_security_group_rule&#34;</span> <span class="s2">&#34;http-80&#34;</span> <span class="p">{</span>
+  <span class="na">security_group_id</span> = <span class="nx">alicloud_security_group</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="nx">id</span>
+  <span class="na">type</span> = <span class="s2">&#34;ingress&#34;</span>
+  <span class="na">ip_protocol</span> = <span class="s2">&#34;tcp&#34;</span>
+  <span class="na">nic_type</span> = <span class="s2">&#34;internet&#34;</span>
+  <span class="na">policy</span> = <span class="s2">&#34;accept&#34;</span>
+  <span class="na">port_range</span> = <span class="s2">&#34;80/80&#34;</span>
+  <span class="na">cidr_ip</span> = <span class="s2">&#34;0.0.0.0/0&#34;</span>
+  <span class="na">priority</span> = <span class="m">1</span>
+  <span class="na">description</span> = <span class="s2">&#34;accept 80/tcp&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="阿里云ecs">阿里云ECS</h3>
+<p>创建阿里云ECS的示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-tf" data-lang="tf"><span class="kr">resource</span> <span class="s2">&#34;alicloud_instance&#34;</span> <span class="s2">&#34;instance&#34;</span> <span class="p">{</span>
+  <span class="na">security_groups</span> = <span class="nx">alicloud_security_group</span><span class="p">.</span><span class="nx">group</span><span class="p">.</span><span class="o">*</span><span class="p">.</span><span class="nx">id</span>
+  <span class="na">vswitch_id</span> = <span class="nx">alicloud_vswitch</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">id</span>
+  <span class="na">resource_group_id</span> = <span class="nx">alicloud_resource_manager_resource_group</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">id</span>
+
+  <span class="na">instance_name</span> = <span class="s2">&#34;test01&#34;</span>
+  <span class="na">hostname</span> = <span class="s2">&#34;test01&#34;</span>
+  <span class="na">instance_type</span> = <span class="s2">&#34;ecs.n4.larger&#34;</span>
+  <span class="na">image_id</span> = <span class="s2">&#34;&#34;</span>
+  <span class="na">system_disk_name</span> = <span class="s2">&#34;test01-root&#34;</span>
+  <span class="na">system_disk_category</span> = <span class="s2">&#34;cloud_efficiency&#34;</span>
+  <span class="na">system_disk_size</span> = <span class="m">40</span>
+
+  <span class="nb">data</span><span class="err">_</span><span class="nx">disks</span> <span class="p">{</span>
+    <span class="na">name</span> = <span class="s2">&#34;data&#34;</span>
+    <span class="na">size</span> = <span class="m">100</span>
+    <span class="na">category</span>    = <span class="s2">&#34;cloud_efficiency&#34;</span>
+    <span class="na">description</span> = <span class="s2">&#34;data&#34;</span>
+  <span class="p">}</span>
+  <span class="nb">data</span><span class="err">_</span><span class="nx">disks</span> <span class="p">{</span>
+    <span class="na">name</span> = <span class="s2">&#34;data1&#34;</span>
+    <span class="na">size</span> = <span class="m">100</span>
+    <span class="na">category</span>    = <span class="s2">&#34;cloud_efficiency&#34;</span>
+    <span class="na">description</span> = <span class="s2">&#34;data1&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -588,13 +881,13 @@ terraform state list
                             <a class="link-to-markdown" href="/terraform/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/terraform/" data-title="Terraform" data-hashtags="terraform,iac,基础架构即代码,基础设施即代码"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/terraform/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/terraform/" data-title="Terraform" data-hashtags="Terraform,IAAS,IAC"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/terraform/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/terraform/" data-title="Terraform"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/terraform/">terraform</a>,&nbsp;<a href="/tags/iac/">iac</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E5%8D%B3%E4%BB%A3%E7%A0%81/">基础架构即代码</a>,&nbsp;<a href="/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/">基础设施即代码</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/terraform/">Terraform</a>,&nbsp;<a href="/tags/iaas/">IAAS</a>,&nbsp;<a href="/tags/iac/">IAC</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>

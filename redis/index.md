@@ -1,30 +1,25 @@
 # Redis
 
 
-
 参考:
 
-- 《Redis官方文档》: <http://www.redis.cn/documentation.html>
-- 《Redis命令大全》: <http://www.redis.cn/commands.html>
-
+- [Redis官方文档](http://www.redis.cn/documentation.html)
+- [Redis命令大全](http://www.redis.cn/commands.html)
 
 <br>
 
-
 环境:
 
-- CentOS7x86_64
-- Redis 3.2
-
-
-<!--more-->
+- rhel7x86_64
+- Redis v3.2
 
 <br/>
 
 ---
 
-<br>
+<!--more-->
 
+<br/>
 
 
 # 简介

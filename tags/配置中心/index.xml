@@ -12,7 +12,7 @@
     <guid>https://zhang21.cn/apollo/</guid>
     <description><![CDATA[<p>参考:</p>
 <ul>
-<li>Apollo官方文档: <a href="https://github.com/ctripcorp/apollo/wiki">https://github.com/ctripcorp/apollo/wiki</a></li>
+<li><a href="https://github.com/ctripcorp/apollo/wiki" target="_blank" rel="noopener noreffer ">Apollo官方文档</a></li>
 </ul>
 <br>
 <p>环境:</p>
@@ -22,12 +22,12 @@
 <li>K8s v1.11</li>
 </ul>
 <br/>
-<br/>]]></description>
+<hr>]]></description>
 </item>
 <item>
     <title>Consul</title>
     <link>https://zhang21.cn/consul/</link>
-    <pubDate>Thu, 05 Apr 2018 22:08:11 &#43;0000</pubDate>
+    <pubDate>Thu, 05 Apr 2018 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/consul/</guid>
     <description><![CDATA[<p>参考：</p>
@@ -38,11 +38,11 @@
 </ul>
 <p>环境：</p>
 <ul>
-<li>CentOS7x86_64</li>
+<li>RHEL7x86_64</li>
 <li>Consul v1.2.0</li>
 </ul>
-<br>
-<br/>]]></description>
+<br/>
+<hr>]]></description>
 </item>
 </channel>
 </rss>

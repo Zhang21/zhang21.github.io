@@ -1,46 +1,23 @@
-# Go
-
+# Golang
 
 
 参考:
 
-- github: <https://github.com/golang/go>
-- Docs: <https://golang.org/doc/>
-- awesome-go: <https://github.com/avelino/awesome-go>
-- goreleaser: <https://github.com/goreleaser/goreleaser/>
-- go-demo: <https://github.com/pibigstar/go-demo>
+- [go github](https://github.com/golang/go)
+- [go docs](https://golang.org/doc/)
+- [awesome-go](https://github.com/avelino/awesome-go)
+- [goreleaser](https://github.com/goreleaser/goreleaser/)
+- [go-demo](https://github.com/pibigstar/go-demo)
+- [Uber Go Style Guide](https://github.com/uber-go/guide/tree/master)
+- [如何高效编写Go单元测试](https://juejin.cn/post/6908938380114034701)
 
-<br>
-
-版本:
-
-- go v1.14
-
-
-
-
-<br>
-<br>
+<br/>
 
 ---
 
 <!--more-->
 
-<br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br/>
 
 # 介绍
 
@@ -49,36 +26,11 @@ Go编程语言是一个开源项目，使开发人员更高效。
 
 Go是传神，简洁，干净，高效的。它的并发机制(concurrency mechanisms)可充分利用多核和网络机器编写程序，它的新颖类型系统允许灵活和模块化结构。它是一个快速、静态类型、编译型语言，像一个动态类型、解释型语言。
 
-
-
-
-
-
-
-
-
-
-<br>
 <br>
 
 ---
 
 <br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 安装
 
@@ -949,12 +901,8 @@ func main() {
 }
 ```
 
-
-
 <br>
 <br>
-
-
 
 ### 更多类型
 
@@ -964,9 +912,9 @@ func main() {
 
 #### 指针
 
-go拥有指针。指针保存了值的内存地址。类型`*T`是指向T类型值的指针。其零值位nil。`&`操作符会生成一个指向其操作数的指针。`*`操作符表示指针指向的底层值。这也就是常说的间接引用和重定向。
+go 拥有指针。指针保存了值的内存地址。类型 `*T` 是指向T类型值的指针。其零值为 nil。`&` 操作符会生成一个指向其操作数的指针。`*` 操作符表示指针指向的底层值。这也就是常说的间接引用和重定向。
 
-与C不同，go没有指针运算。
+与 C 不同，go 没有指针运算。
 
 ```go
 // pointers.go
@@ -989,10 +937,8 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 结构体
 
@@ -1042,7 +988,7 @@ func main() {
 
 结构体字段可以通过结构体指针来访问。
 
-如果有一个指向结构体的指针P，那么可通过`(*p).X`来访问其字段X。不过这样写太啰嗦，可隐式间接引用，直接写`p.X`。
+如果有一个指向结构体的指针 P，那么可通过 `(*p).X` 来访问其字段 X。不过这样写太啰嗦，可隐式间接引用，直接写 `p.X`。
 
 ```go
 // struct-pointers.go
@@ -1091,14 +1037,12 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 数组
 
-类型`[n]T`表示拥有n个T类型的值的数组。
+类型 `[n]T` 表示拥有n个T类型的值的数组。
 
 数组的长度是其类型的一部分，因此数组不能改变大小。
 
@@ -1111,7 +1055,7 @@ import "fmt"
 
 func main() {
     var a [2]string
-    a[0] = “Hello"
+    a[0] = "Hello"
     a[1] = "World"
     fmt.Pringln(a[0], a[1])
     fmt.Println(a)
@@ -1121,16 +1065,14 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 切片
 
 每个数组大小都是固定的，而切片则为数组元素提供动态大小的、灵活的视角。在实践中，切片比数组更常用。
 
-类型`[]T`表示一个元素类型为T的切片。
+类型 `[]T` 表示一个元素类型为 T 的切片。
 
 ```go
 // slices.go
@@ -1209,7 +1151,7 @@ func main() {
 
 切片拥有长度和容量。切片的长度就是它所包含的元素个数。切片的容量从第一个元素开始数，到元素末尾的个数。
 
-可通过`len()`和`cap()`来获取。
+可通过 `len()` 和 `cap()` 来获取。
 
 ```go
 // slice-len-cap.go
@@ -1242,7 +1184,7 @@ func printSlice(s []int) {
 
 <br>
 
-切片的零值`nil`。nil切片的长度和容量为0且没有底层数组。
+切片的零值 `nil`。nil 切片的长度和容量为 0 且没有底层数组。
 
 ```go
 // nil-slices.go
@@ -1262,7 +1204,7 @@ func main() {
 
 <br>
 
-切片可以使用内建函数`make`来创建，这也是创建动态数组的方式。`make`函数会分配一个元素为零值的数组并返回一个引用了它的切片。
+切片可以使用内建函数 `make` 来创建，这也是创建动态数组的方式。`make` 函数会分配一个元素为零值的数组并返回一个引用了它的切片。
 
 ```go
 // making-slices.go
@@ -1328,7 +1270,7 @@ func main() {
 
 <br>
 
-向切片追加新的元素是常用的操作，为此go提供了内建的`append`函数。
+向切片追加新的元素是常用的操作，为此 go 提供了内建的 `append` 函数。
 
 ```go
 // append.go
@@ -1358,14 +1300,12 @@ func printSlice(s []int) {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### range
 
-for循环的range形式可以遍历切片或映射。
+for 循环的 range 形式可以遍历切片或映射。
 
 ```go
 // range.go
@@ -1393,7 +1333,7 @@ for i, _ := range pow
 
 for _, value := range pow
 
-# 若只要索引，忽略第二个变量即可
+// 若只要索引，忽略第二个变量即可
 for i := range pow
 ```
 
@@ -1415,14 +1355,12 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 映射
 
-映射将键映射到值。映射的零值为`nil`。nil映射既没有键，也不能添加键。`make`函数会返回给定类型的映射，并将其初始化备用。
+映射将键映射到值。映射的零值为 nil。nil 映射既没有键，也不能添加键。`make` 函数会返回给定类型的映射，并将其初始化备用。
 
 ```go
 // maps.go
@@ -1501,19 +1439,26 @@ func main() {
 可对映射进行增删查改。
 
 ```go
-# 插入或修改
+// 插入或修改
 m[key] = elem
-# 获取
+
+// 获取
 elem = m[key]
-# 删除
+
+// 删除
 delete(m, key)
 
-# 通过双赋值检测某个键是否存在
+// 通过双赋值检测某个键是否存在
 elem, ok = m[key]
-# 若 key 在 m 中，ok 为 true ；否则，ok 为 false。
-# 若 key 不在映射中，那么 elem 是该映射元素类型的零值。
-# 当从映射中读取某个不存在的键时，结果是映射的元素类型的零值。
+
+/*
+ 若 key 在 m 中，ok 为 true ；否则，ok 为 false。
+ 若 key 不在映射中，那么 elem 是该映射元素类型的零值。
+ 当从映射中读取某个不存在的键时，结果是映射的元素类型的零值。
+*/
 ```
+
+修改映射。
 
 ```go
 // mutating-maps.go
@@ -1539,10 +1484,8 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 函数值
 
@@ -1575,16 +1518,14 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 函数的闭包
 
-go函数可以是一个闭包。闭包是一个函数值，它引用了其函数体之外的变量。该函数可以访问并赋予其引用的变量的值，换句话说，该函数被这些变量绑定在一起。
+go 函数可以是一个闭包。闭包是一个函数值，它引用了其函数体之外的变量。该函数可以访问并赋予其引用的变量的值，换句话说，该函数被这些变量绑定在一起。
 
-例如，函数adder返回一个闭包。每个闭包都被绑定在其各自的sum变量上。
+例如，函数 adder 返回一个闭包。每个闭包都被绑定在其各自的sum变量上。
 
 ```go
 // functtion-closures.go
@@ -1636,7 +1577,6 @@ func main() {
 ```
 
 
-
 <br>
 <br>
 
@@ -1648,15 +1588,14 @@ docs: <https://tour.go-zh.org/methods/1>
 
 包含方法和接口，可以用这种构造来定义对象及其行为。
 
-
 <br>
-
+<br/>
 
 #### 方法
 
-go没有类。
+go 没有类。
 
-不过你可以为结构体类型定义方法。方法就是一类带特殊的接收者参数的函数。方法接收者在它自己的参数列表内，位于func关键字和方法名之间。
+不过你可以为结构体类型定义方法。方法就是一类带特殊的接收者参数的函数。方法接收者在它自己的参数列表内，位于 `func` 关键字和方法名之间。
 
 ```go
 // methods.go
@@ -1740,7 +1679,6 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
 
@@ -1763,7 +1701,7 @@ type Vertex struct {
     X, Y float64
 }
 
-func (v, Vertex) Abs() float64 {
+func (v Vertex) Abs() float64 {
     return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 
@@ -1778,7 +1716,6 @@ func main() {
     fmt.Println(v.Abs())
 }
 ```
-
 
 <br>
 <br>
@@ -1816,10 +1753,8 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 方法与指针重定向
 
@@ -1892,10 +1827,8 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 选择值或指针作为接收者
 
@@ -1903,6 +1836,8 @@ func main() {
 
 - 方法能够修改其接收者指向的值
 - 可以避免在每次调用方法时复制该值。若值的类型为大型结构体时，这样做会更加高效
+
+<br/>
 
 ```go
 // methods-pointer-receivers.go
@@ -1935,16 +1870,14 @@ func main() {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 接口
 
 接口类型是由一组方法签名定义的集合。接口类型的变量可以保存任何实现了这些方法的值。
 
-类型通过实现一个接口的所有方法来实现该接口。既然无需专门显式声明，也就没有`implements`关键字。隐式接口从接口的实现中解耦了定义，这样接口的实现可以出现在任何包中，无需提前准备。因此，也就无需在每一个实现上增加新的接口名称，这样同时也鼓励了明确的接口定义。
+类型通过实现一个接口的所有方法来实现该接口。既然无需专门显式声明，也就没有 `implements` 关键字。隐式接口从接口的实现中解耦了定义，这样接口的实现可以出现在任何包中，无需提前准备。因此，也就无需在每一个实现上增加新的接口名称，这样同时也鼓励了明确的接口定义。
 
 ```go
 // interfaces-implicitly.go
@@ -2025,9 +1958,9 @@ func describe(i I) {
 
 <br>
 
-底层值为nil的接口值。
+底层值为 nil 的接口值。
 
-即便接口内的具体值为nil， 方法仍然会被nil接收者调用。注意，保存了nil具体值的接口其自身并不为nil。
+即便接口内的具体值为 nil， 方法仍然会被 nil 接收者调用。注意，保存了 nil 具体值的接口其自身并不为 nil。
 
 ```go
 // interface-values-nil.go
@@ -2070,10 +2003,8 @@ func describe(i I) {
 }
 ```
 
-
 <br>
 <br>
-
 
 #### nil接口值
 
@@ -2909,26 +2840,184 @@ $
 go clean --modcache
 ```
 
-
-
 <br>
 <br>
 
+### 单元测试
 
+Unit Test
 
-### 测试
+单元测试用来对一个模块、一个函数或一个类来进行正确性校验的测试工作。我们需要根据它来检验代码的行为是否和预期一样。
 
-go有一个轻量测试框架`go test`命令和`testing`包。
+go 有一个轻量测试框架 `go test` 命令（使用 `testing` 包），和一些库可以帮助你更好地编写测试。由于 go 原生就不支持断言，因此可以使用第三方库（如 `GoConvey`, `testify` 等）。
 
-你可以通过创建一个以`_test.go`名称结尾的文件来编写一个测试，此测试文件包含以`func (t *testing.T)`签名的`TestXXX`函数。测试框架运行每个这样的函数，如果此函数调用一个失败的函数（如`t.Error`或`t.Fail`），则测试被认为失败。
+断言(assertion)，是在程序设计中的一阶逻辑（一个结果为真或者为假的逻辑判断式），目的是为了标示与验证程序的预期结果。当程序执行到断言的位置时，对应的断言应该为真。若不为真，程序会终止执行，并给出错误信息。
 
-通过创建包含以下代码的`morestrings/reverse_test.go`文件，对`morestrings`包添加一个测试。
+<br/>
+
+在 `xxx_test.go` 文件中，有三种类型的函数：
+
+- **测试函数**：`TextXx` 测试程序的一些逻辑行为是否争取
+- **基准函数**：`BenchmarkXx` 测试函数的性能
+- **示例函数**：`ExampleXx` 提供示例
+
+<br/>
+<br/>
+
+#### 单元测试介绍
+
+单元测试的意义：
+
+- 提高代码质量
+- 尽早发现问题
+- 简化调试过程
+- 简化集成过程
+- 优化代码设计
+- 单元测试是最好的文档
+
+<br/>
+
+好的测试应该具备的要点：
+
+- 可信赖
+- 可维护
+- 可读性
+- 简短性
+- 有断言：没有断言的测试没有灵魂，如果只是输出结果，单测没有意义。
+- 原子性：结果只有两种情况： Pass / Fail
+- 单一职责：一个用例只负责一个场景
+- 隔离：依赖于其他代码或中间件等，用例应该解除这些依赖。
+- 自动化：应该全自动化执行，不应该有交互。测试结果应该能被电脑获取，不应该由人来判断。
+- 尽量不带逻辑：应该尽量不免测试代码里带有逻辑。如果有过多的逻辑在里面，那么就会演变成他本身也是需要测试的代码，因为过多的逻辑带来了更多的不可信赖。
+- 尽量不带错误处理：应该尽量不要带有错误处理的逻辑，因为测试本身就是用来发现程序中的一些错误的。对于测试来说，错误应该是一种预期的结果。
+
+单元测试应该是可重复执行的，对外部依赖、环境的变化要通过 mock 或其他手段屏蔽掉。
+
+<br/>
+<br/>
+
+#### 什么是打桩
+
+在单元测试中，通常可以将所涉及的对象分为两种，主要测试对象和次要测试对象。比如主要测试对象是一个函数，而次要测试对象是需要打开的文件读取配置。
+
+一般地，在测试用例中，我们只需关注主要测试对象的行为是否正确。对于次要测试对象，我们通常只会关注它和主要测试对象之间的交互。比如是否被调用、调用参数、调用的次数和结果等。至于次要对象是如何执行的，这些细节过程我们并不关注。
+
+因此，在进行单元测试中（特别是次要测试对象需要依赖特定的条件时，如依赖的配置文件），我们通常选择使用一个 **模拟对象** 来替换次要测试对象，以此来模拟真实场景，对主要测试对象进行测试。而 **使用一个模拟对象来替换次要测试对象** 这个行为，我们通常称之为 **打桩**。
+
+因此，打桩的作用就是在单元测试中让我们从次要测试对象的繁琐依赖中解脱出来，进而能够聚焦于对主要测试对象的测试上。
+
+stub 和 mock 是两种最常见的打桩手段，它们都可以用来替换次要测试对象，从而实现对一些复杂依赖的隔离。 mock 使用更简单一些。
+
+<br/>
+<br/>
+
+#### Go单元测试中的打桩
+
+包括：
+
+- 为全局变量打桩
+- 为函数/方法打桩
+- 为接口打桩
+
+<br/>
+<br/>
+
+##### 为全局变量打桩
+
+全局变量也经常在代码中用到，因为它具有全局性，如果在单元测试用例中对全局变量做了修改，则在用例结束时，需要将其恢复为原来的值，避免对其他用例造成影响。
+
+```go
+func TestGlobalVal(t *testing.T) {
+    val1 := global.Val1 // 步骤1：记住原来的值
+    global.Val1 = 5     // 步骤2：赋予新的值
+    ...                 // 测试用例代码
+    global.Val1 = val1  // 步骤3：恢复原来的值
+}
+```
+
+<br/>
+<br/>
+
+##### 为函数和方法打桩
+
+在 Go 单元测试中，用来对函数和方法进行打桩的框架不少，但是就易用性而言，[monkey pathch](https://github.com/bouk/monkey) 最好。
+
+monkey patch 对函数进行打桩的 API 很简单，形式为 `monkey.Patch(<target function>, <replacement function>)`，需要注意的是，在用例结束后，记得调用 `monkey.UnpatchAll` 来解除打桩，避免影响其他用例。
+
+```go
+func TestIsConfigFileContain_MonkeyPatch(t *testing.T) {
+    ast := assert.New(t)
+    // 对os.Open进行打桩，固定返回(&os.File{}, nil)
+    monkey.Patch(os.Open, func(name string) (*os.File, error) {
+        return &os.File{}, nil
+    })
+    // 对ioutil.ReadAll进行打桩，固定返回([]byte("test for monkey patch"), nil)
+    monkey.Path(ioutil.ReadAll, func(r io.Reader) ([]byte, error) {
+        return []byte("test for monkey patch"), nil
+    })
+    // 测试用例结束时，解除打桩，避免影响其他用例
+    defer monkey.UnpatchAll()
+    ast.True(isConfigFileContain("test"))
+}
+```
+
+<br/>
+<br/>
+
+##### 为接口打桩
+
+<br/>
+<br/>
+
+#### mock模拟测试
+
+mock 模拟是一种测试技术，用于在测试中模拟真实的组件或对象的行为。使用 mock 的目的是为了在测试过程中隔离被测试的单元，以便集中关注单元的功能是否正确，而不会收到其他依赖项的干扰。
+
+在 Go 语言中，mock 用于模拟真实的对象或接口的行为，从而在测试中隔离被调试的代码的依赖项。
+
+通常，使用 Mock 对象来模拟那些难以获取或不稳定的资源，例如数据库、网络连接等。
+
+简而言之，Mock 用于模拟依赖项，使得单元测试更独立和可控。
+
+<br/>
+<br/>
+
+#### monkey猴子测试
+
+monkey 猴子测试是一种黑盒测试技术，它着眼于程序的稳定性和鲁棒性。在猴子测试中，测试人员随机或大规模地输入无效或异常数据，以测试程序对于不常见或非预期输入的处理能力。
+
+它模拟了像猴子乱按键盘一样的随机行为，以验证程序在异常情况下的表现。
+
+简而言之，Monkey 用于测试程序的鲁棒性和处理异常情况的能力。
+
+但过度使用 Monkey Testing 可能会导致测试不稳定和维护困难。因此，在编写测试时，通常更倾向于使用 Mock 技术，以确保测试的可靠性和可维护性。
+
+<br/>
+<br/>
+
+#### 猴子补丁
+
+Monkey Patch，参考：
+
+- [Go语言实现猴子补丁](https://taoshu.in/go/monkey/monkey.html)
+
+<br/>
+
+猴子补丁可以在程序运行期间动态修改函数行为。这种技术在 Python 这样的动态语言中比较常见，这并不意味着静态语言不能实现类似的效果。
+
+<br/>
+<br/>
+
+#### 编写测试样例
+
+示例测试代码。
 
 ```go
 package main
 
 import "test"
 
+// 使用内建的 testing 库
 func TestReverseRunes(t *testing.T) {
     cases := []struct {
         in, want string
@@ -2944,34 +3033,36 @@ func TestReverseRunes(t *testing.T) {
         }
     }
 }
+
+// 使用第三方的 testify 库
+func TestSomething(t *testing.T) {
+    assert := assert.New(t)
+    want := "xxx"
+    result := something("xxx")
+
+    assert.Equal(want, result)
+    assert.NotEqual(want, result, "they should not be equal")
+}
 ```
 
 接着使用`go test`运行测试:
 
-```
-$ go test
-PASS
-ok  	example.com/user/morestrings 0.165s
-$
+```bash
+go test
+
+# 指定运行哪个测试用例
+go test -run '^TestSomething$'
 
 # 帮助
 go help test
 ```
 
-
-
-
-<br>
 <br>
 <br>
 
+## IDE和插件
 
-
-## ide和插件
-
-doc: <https://golang.org/doc/editors.html>
-
-
+- doc: <https://golang.org/doc/editors.html>
 - vim-go: <https://github.com/fatih/vim-go>
 - Visual Studio Code: <https://marketplace.visualstudio.com/items?itemName=golang.Go>
 
@@ -2979,17 +3070,12 @@ doc: <https://golang.org/doc/editors.html>
 
 我是用的k-vim已经添加了vim-go，只需要将`let g:bundle_groups=`中添加golang即可。
 
-
-
-<br>
 <br>
 <br>
 
-
-## 高效go编程
+## 高效GO编程
 
 Effective Go: <https://golang.org/doc/effective_go.html>
-
 
 <br>
 
@@ -4606,17 +4692,8 @@ const templateStr = `
 
 Go语言强大到能让很多事情以短小精悍的方式解决。
 
-
-
-
-
 <br>
 <br>
-<br>
-
-
-
-
 
 ## 调试
 
@@ -4637,10 +4714,8 @@ Go生态提供了一套API和工具来诊断go程序的逻辑和性能问题。�
 - **Debugging**： 调试可以让我们暂停go程序，检查并执行。程序的状态和流程可通过调试进行验证；
 - **Runtime statistics and events**： 收集和分析运行时状态和事件，提供go程序运行状态的高度概括。
 
-
 <br>
 <br>
-
 
 ### 分析
 
@@ -4657,10 +4732,8 @@ Profiling
 - **block**： block profile，报告goroutine在哪里等待同步原语(synchronization primitives)阻塞。此功能默认关闭，使用`runtime.SetBlockProfileRate`开启。
 - **mutex**： mutex profile，报告锁的争用情况。当你认为由于互斥锁争用，CPU没有得到充分利用时，使用此功能。此功能默认关闭，使用`runtime.SetMutexProfileFraction`启用。
 
-
 <br>
 <br>
-
 
 ### 追踪
 
@@ -4676,10 +4749,8 @@ Tracing
 
 go的生态提供了多种追踪库。
 
-
 <br>
 <br>
-
 
 ### 调试
 
@@ -4692,10 +4763,8 @@ go用户大多使用以下调试器：
 - **(Delve)[https://github.com/go-delve/delve]**： Delve是一个go lang调试器。它支持go runtime和内建类型。它正努力成为一个go程序的全功能可靠的调试器。
 - **(GDB)[https://golang.org/doc/gdb]**： go通过标准的go编译器和Gccgo提供了GDB支持。尽管GDB可以用来调试go程序，但这不理想，可能导致混乱。
 
-
 <br>
 <br>
-
 
 ### 运行时统计数据和事件
 
@@ -4711,10 +4780,8 @@ Runtime statistics and events
 - `debug.WriteHeapDump`： 中止所有goroutine的执行，并允许转存(dump)堆(heap)到文件。一个堆转存是go程序在特定时间内存的快照。它包含所有分配的对象，以及goroutine, finalizers...
 - `runtime.NumGoroutine`： 返回当前的goroutine数量。该值可以被监测、以了解是否有足够的goroutine被利用，或检测goroutine泄漏。
 
-
 <br>
 <br>
-
 
 #### 执行追踪
 
@@ -4734,10 +4801,8 @@ go使用runtime execution tracer来捕获广泛的运行时事件。调度、系
 
 详细信息查看`go tool trace`，来收集和分析运行时追踪。
 
-
 <br>
 <br>
-
 
 #### GODEBUG
 
@@ -4751,17 +4816,8 @@ GODEBUG环境变量可用于在标准库和运行时中禁用指令集扩展。
 - `GODEBUG=cpu.all=off`： 禁止使用所有可选的扩展指令集。
 - `GODEBUG=cpu.extension=off`： 禁止从指定的指令集扩展中使用指令。
 
-
-
-
-
 <br>
 <br>
-<br>
-
-
-
-
 
 ## FAQ
 
@@ -4769,15 +4825,8 @@ docs: <https://golang.org/doc/faq>
 
 有关go的常见问答。
 
-
-
-
 <br>
 <br>
-<br>
-
-
-
 
 ## Go wiki
 
@@ -4785,87 +4834,18 @@ docs: <https://github.com/golang/go/wiki>
 
 由GO社区维护的wiki。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br>
 <br>
 
 ---
 
 <br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 参考
 
 References
 
-
 <br>
 <br>
-
 
 ## 包
 
@@ -4873,13 +4853,8 @@ Package Documentation: <https://golang.org/pkg/>
 
 Go标准库文档。
 
-
-
 <br>
 <br>
-<br>
-
-
 
 ## 命令
 
@@ -4887,13 +4862,9 @@ Command Documentation: <https://golang.org/doc/cmd>
 
 Go工具文档。
 
-
-
 <br>
 <br>
 <br>
-
-
 
 ## 语言规范
 
@@ -4901,41 +4872,23 @@ Language Specification: <https://golang.org/ref/spec>
 
 官方Go语言规范。
 
-
-
 <br>
 <br>
-
-
 
 ## 内存模型
 
 The Go Memory Model: <https://golang.org/ref/mem>
 
-
-
-
-
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
 
 <br/>
-<br/>
-
-
 
 # 一些工具
 
-
+<br/>
+<br/>
 
 ## goreleaser
 
@@ -4948,14 +4901,10 @@ goreleaser运行主要有以下四个步骤：
 - publishing：发布版本到SCM, Docker仓库，存储...
 - announcing：声明你的发布
 
-
 <br/>
 <br/>
-
 
 ### CI
-
-
 
 <br/>
 <br/>
@@ -4965,7 +4914,7 @@ goreleaser运行主要有以下四个步骤：
 
 goreleaser的一些常用命令。
 
-```bash
+```sh
 # Generates a .goreleaser.yaml file
 goreleaser init
 
@@ -4982,10 +4931,8 @@ goreleaser completion
 goreleaser release
 ```
 
-
 <br/>
 <br/>
-
 
 ### 配置详解
 
@@ -5663,13 +5610,8 @@ snapshot:
 # Announce
 ```
 
-
-
-
-
 <br/>
 <br/>
-
 
 ## golangci-lint
 
@@ -5677,31 +5619,20 @@ golangci-ling github: <https://github.com/golangci/golangci-lint>
 
 golangci-lint是一个用于go项目的静态检查工具。
 
-
-
-
-
 <br/>
 <br/>
-
-
 
 ## go-demo
 
-这个项目[go-demo](https://github.com/pibigstar/go-demo)写了很多go实例代码，可以看看。
+这个项目 [go-demo](https://github.com/pibigstar/go-demo) 写了很多示例代码，可以看看。
 
+<br/>
 
+---
 
+<br/>
 
+# 编码规范
 
-
-
-
-
-
-
-
-
-
-
+可参考 [Uber Go Style Guide](https://github.com/uber-go/guide)。
 

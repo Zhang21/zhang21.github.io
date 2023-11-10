@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>faq - 分类 - 风继续吹</title>
+        <link>https://zhang21.cn/categories/faq/</link>
+        <description>faq - 分类 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 22 May 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/faq/" rel="self" type="application/rss+xml" /><item>
+    <title>CentOS7升级Glibc到2.28</title>
+    <link>https://zhang21.cn/glibc-update/</link>
+    <pubDate>Mon, 22 May 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/glibc-update/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://roy.wang/centos7-upgrade-glibc/" target="_blank" rel="noopener noreffer ">CentOS7 升级 Glibc 2.17 到2.28</a></li>
+<li><a href="https://blog.csdn.net/esdhhh/article/details/121196317?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-121196317-blog-107057646.235%5Ev36%5Epc_relevant_default_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1" target="_blank" rel="noopener noreffer ">centos7 glibc2.17升级到glibc2.28</a></li>
+<li><a href="https://www.cnblogs.com/jasondayee/p/13403245.html" target="_blank" rel="noopener noreffer ">https://www.cnblogs.com/jasondayee/p/13403245.html</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+</channel>
+</rss>

@@ -1,7 +1,6 @@
 # Jenkins
 
 
-
 参考:
 
 - [jenkins文档](https://www.jenkins.io/zh/doc/)
@@ -9,11 +8,11 @@
 
 <br/>
 
+---
+
 <!--more-->
 
 <br/>
-
-
 
 # 入门
 

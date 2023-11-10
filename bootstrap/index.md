@@ -1,7 +1,6 @@
 # Bootstrap
 
 
-
 参考：
 
 - Bootstrap中文文档: <https://v3.bootcss.com/>
@@ -11,17 +10,6 @@
 - CentOS7x86_64
 - Bootstrap v3
 
-
-
-
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
@@ -29,25 +17,6 @@
 <!--more-->
 
 <br/>
-<br/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 概述
 

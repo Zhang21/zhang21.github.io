@@ -3,7 +3,7 @@
 
 参考:
 
-- [RKE文档](https://docs.rancher.cn/docs/rke/_index)
+- [RKE文档](https://docs.rancher.cn/docs/rke/)
 
 <br/>
 
@@ -11,15 +11,13 @@
 
 - rke1
 
-
-
-
 <br/>
 
 ---
 
-<br/>
+<!--more-->
 
+<br/>
 
 
 # 介绍

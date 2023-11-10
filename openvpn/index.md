@@ -521,13 +521,41 @@ cd /etc/openvpn
 #Mac下，下载对应Openvpn软件，指定配置文件进行连接
 ```
 
+<br/>
+<br/>
 
+# 证书过期
 
+openvpn连接提示证书过期，后经查看，原来ca默认是十年，client和server是两年，因此需要更新client和server的证书。
 
+```bash
+# 查看证书的过期时间
+openssl x509 -in xxx.crt -text -noout
+```
 
+```bash
+# 更新server
+# 包含ca的路径下
+EASYRSA_CERT_EXPIRE=3650  ./easyrsa renew server nopass
 
+# server路径下
+mv server.crt{,-bak} && mv server.key{,-bak}
+cp pki/private/server.key server.key
+cp pki/issued/server.crt server.crt
 
+# 更新client
+# 包含ca的路径下
+EASYRSA_CERT_EXPIRE=3650  ./easyrsa renew client nopass
 
+# client路径下
+mv client.crt{,-bak} && mv client.key{,-bak}
+cp server/pki/private/client.key client.key
+cp server/pki/issued/client.crt client.crt
+```
 
+<br/>
 
+重启 OpenVPN 服务。
+
+客户端更新客户端配置文件（如`client.ovpn`）里面的客户端的crt和key内容，重新连接openvpn即可。
 

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>lua - 分类 - 风继续吹</title>
+        <link>https://zhang21.cn/categories/lua/</link>
+        <description>lua - 分类 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 29 Oct 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/lua/" rel="self" type="application/rss+xml" /><item>
+    <title>Lua语言</title>
+    <link>https://zhang21.cn/lua/</link>
+    <pubDate>Sun, 29 Oct 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/lua/</guid>
+    <description><![CDATA[参考： Lua 官方文档 Lua v5.4 介绍 Lua 是一种强大、高效、轻量级的可嵌入脚本语言。它支持面向过程编程、面向对象编程、函数式编程、数据驱动编程和数据描述。 Lua]]></description>
+</item>
+</channel>
+</rss>

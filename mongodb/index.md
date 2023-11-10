@@ -1,8 +1,8 @@
 # MongoDB
 
 
-
 参考：
+
 - [MongoDB官方文档](https://docs.mongodb.com/)
 - [MongoDB中文文档](http://www.mongoing.com/docs)
 - <https://zh.wikipedia.org/wiki/MongoDB>
@@ -13,19 +13,15 @@
 - <http://wiki.jikexueyuan.com/project/the-little-mongodb-book/>
 
 环境：
-- CentOS7_x64；
+
+- RHEL7x86_64；
 - MongoDB3.4；
-
-<!--more-->
-
-
-
-<br/>
 
 ---
 
-<br/>
+<!--more-->
 
+<br/>
 
 # NoSQL
 

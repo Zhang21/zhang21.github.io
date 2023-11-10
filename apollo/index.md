@@ -3,7 +3,7 @@
 
 参考:
 
-- Apollo官方文档: <https://github.com/ctripcorp/apollo/wiki>
+- [Apollo官方文档](https://github.com/ctripcorp/apollo/wiki)
 
 <br>
 
@@ -13,19 +13,13 @@
 - Docker v1.18
 - K8s v1.11
 
-
-
 <br/>
-<br/>
-
-<!--more-->
 
 ---
 
-<br/>
-<br/>
+<!--more-->
 
-
+<br/>
 
 # 概述
 

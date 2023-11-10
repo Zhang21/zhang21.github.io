@@ -1,21 +1,16 @@
 # Django
 
 
-
-
 参考:
+
 - docs: <https://docs.djangoproject.com/zh-hans/2.1/topics/>
 
 <br>
 
 版本:
+
 - Django Version: v2.1
 
-
-
-
-
-<br/>
 <br/>
 
 ---
@@ -23,11 +18,6 @@
 <!--more-->
 
 <br/>
-<br/>
-
-
-
-
 
 
 

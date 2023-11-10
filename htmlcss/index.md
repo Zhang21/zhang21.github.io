@@ -6,10 +6,6 @@
 - Head First HTML and CSS
 - [w3cSchool](https://www.w3school.com.cn/)
 
-
-
-
-<br/>
 <br/>
 
 ---
@@ -17,10 +13,6 @@
 <!--more-->
 
 <br/>
-<br/>
-
-
-
 
 
 # 认识HTML
