@@ -4,7 +4,20 @@
         <link>https://zhang21.cn/tags/frontend/</link>
         <description>frontend - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/frontend/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 28 Feb 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/frontend/" rel="self" type="application/rss+xml" /><item>
+    <title>JavaScript权威指南</title>
+    <link>https://zhang21.cn/javascript-the-definitive-guide/</link>
+    <pubDate>Tue, 28 Feb 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/javascript-the-definitive-guide/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://book.douban.com/subject/35396470/" target="_blank" rel="noopener noreffer ">豆瓣</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
     <title>React</title>
     <link>https://zhang21.cn/react/</link>
     <pubDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</pubDate>

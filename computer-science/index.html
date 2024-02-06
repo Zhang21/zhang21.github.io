@@ -35,7 +35,7 @@
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "cs","wordcount":  29498 ,
+                        }],"genre": "posts","keywords": "cs","wordcount":  47866 ,
         "url": "https:\/\/zhang21.cn\/computer-science\/","datePublished": "2023-09-03T00:00:00+00:00","dateModified": "2023-09-03T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -109,8 +109,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">计算机科学导论</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/cs/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>cs</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-09-03">2023-09-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 29498 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 59 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-09-03">2023-09-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 47866 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 96 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -481,7 +481,267 @@
     </li>
     <li><a href="#软件工程">软件工程</a>
       <ul>
-        <li><a href="#软件生命周期">软件生命周期</a></li>
+        <li><a href="#软件生命周期">软件生命周期</a>
+          <ul>
+            <li><a href="#开发过程模型">开发过程模型</a></li>
+          </ul>
+        </li>
+        <li><a href="#分析阶段">分析阶段</a>
+          <ul>
+            <li><a href="#面向过程分析">面向过程分析</a></li>
+            <li><a href="#面向对象分析">面向对象分析</a></li>
+          </ul>
+        </li>
+        <li><a href="#设计阶段">设计阶段</a>
+          <ul>
+            <li><a href="#面向过程设计">面向过程设计</a></li>
+            <li><a href="#面向对象设计">面向对象设计</a></li>
+          </ul>
+        </li>
+        <li><a href="#实现阶段">实现阶段</a>
+          <ul>
+            <li><a href="#语言的选择">语言的选择</a></li>
+            <li><a href="#软件质量">软件质量</a></li>
+          </ul>
+        </li>
+        <li><a href="#测试阶段">测试阶段</a>
+          <ul>
+            <li><a href="#白盒测试">白盒测试</a></li>
+            <li><a href="#黑盒测试">黑盒测试</a></li>
+          </ul>
+        </li>
+        <li><a href="#文档">文档</a>
+          <ul>
+            <li><a href="#用户文档">用户文档</a></li>
+            <li><a href="#系统文档">系统文档</a></li>
+            <li><a href="#技术文档">技术文档</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#数据结构">数据结构</a>
+      <ul>
+        <li><a href="#数组">数组</a>
+          <ul>
+            <li><a href="#数组名与元素名">数组名与元素名</a></li>
+            <li><a href="#多维数组">多维数组</a></li>
+            <li><a href="#存储配置">存储配置</a></li>
+            <li><a href="#数组操作">数组操作</a></li>
+            <li><a href="#字符串">字符串</a></li>
+          </ul>
+        </li>
+        <li><a href="#记录">记录</a>
+          <ul>
+            <li><a href="#记录名与域名">记录名与域名</a></li>
+          </ul>
+        </li>
+        <li><a href="#链表">链表</a>
+          <ul>
+            <li><a href="#链表名与节点名">链表名与节点名</a></li>
+            <li><a href="#链表操作">链表操作</a></li>
+            <li><a href="#链表的应用">链表的应用</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#抽象数据结构">抽象数据结构</a>
+      <ul>
+        <li><a href="#背景">背景</a>
+          <ul>
+            <li><a href="#简单抽象数据类型">简单抽象数据类型</a></li>
+            <li><a href="#复杂抽象数据类型">复杂抽象数据类型</a></li>
+            <li><a href="#定义抽象数据类型">定义抽象数据类型</a></li>
+            <li><a href="#抽象数据类型的模型">抽象数据类型的模型</a></li>
+            <li><a href="#抽象数据类型的实现">抽象数据类型的实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#栈">栈</a>
+          <ul>
+            <li><a href="#栈的操纵">栈的操纵</a></li>
+            <li><a href="#栈的抽象数据类型">栈的抽象数据类型</a></li>
+            <li><a href="#栈的应用">栈的应用</a></li>
+            <li><a href="#栈的实现">栈的实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#队列">队列</a>
+          <ul>
+            <li><a href="#队列上的基本操作">队列上的基本操作</a></li>
+            <li><a href="#队列的抽象数据类型">队列的抽象数据类型</a></li>
+            <li><a href="#队列的使用">队列的使用</a></li>
+            <li><a href="#队列的实现">队列的实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#广义线性表">广义线性表</a>
+          <ul>
+            <li><a href="#广义线性表的操作">广义线性表的操作</a></li>
+            <li><a href="#广义线性表的抽象数据类型">广义线性表的抽象数据类型</a></li>
+            <li><a href="#广义线性表的应用">广义线性表的应用</a></li>
+            <li><a href="#广义线性表的实现">广义线性表的实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#树">树</a>
+          <ul>
+            <li><a href="#二叉树">二叉树</a></li>
+            <li><a href="#二叉树的操作">二叉树的操作</a></li>
+            <li><a href="#二叉树的应用">二叉树的应用</a></li>
+            <li><a href="#二叉树的实现">二叉树的实现</a></li>
+            <li><a href="#二叉搜索树">二叉搜索树</a></li>
+          </ul>
+        </li>
+        <li><a href="#图">图</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件结构">文件结构</a>
+      <ul>
+        <li><a href="#文件结构引言">文件结构引言</a>
+          <ul>
+            <li><a href="#顺序存取">顺序存取</a></li>
+            <li><a href="#随机存取">随机存取</a></li>
+          </ul>
+        </li>
+        <li><a href="#顺序文件">顺序文件</a></li>
+        <li><a href="#索引文件">索引文件</a></li>
+        <li><a href="#散列文件">散列文件</a>
+          <ul>
+            <li><a href="#散列方法">散列方法</a></li>
+            <li><a href="#散列冲突">散列冲突</a></li>
+          </ul>
+        </li>
+        <li><a href="#目录">目录</a>
+          <ul>
+            <li><a href="#unix操作系统中的目录">UNIX操作系统中的目录</a></li>
+          </ul>
+        </li>
+        <li><a href="#文本文件与二进制文件">文本文件与二进制文件</a>
+          <ul>
+            <li><a href="#文本文件">文本文件</a></li>
+            <li><a href="#二进制文件">二进制文件</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#数据库">数据库</a>
+      <ul>
+        <li><a href="#数据库引言">数据库引言</a>
+          <ul>
+            <li><a href="#数据库的定义">数据库的定义</a></li>
+            <li><a href="#数据库的优点">数据库的优点</a></li>
+            <li><a href="#数据库管理系统">数据库管理系统</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据库体系结构">数据库体系结构</a></li>
+        <li><a href="#数据库模型">数据库模型</a>
+          <ul>
+            <li><a href="#层次模型">层次模型</a></li>
+            <li><a href="#网状模型">网状模型</a></li>
+            <li><a href="#关系模型">关系模型</a></li>
+          </ul>
+        </li>
+        <li><a href="#关系数据库模型">关系数据库模型</a>
+          <ul>
+            <li><a href="#关系">关系</a></li>
+            <li><a href="#关系的操作">关系的操作</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据库设计">数据库设计</a>
+          <ul>
+            <li><a href="#实体关系模型">实体关系模型</a></li>
+            <li><a href="#规范化过程">规范化过程</a></li>
+          </ul>
+        </li>
+        <li><a href="#其他数据库模型">其他数据库模型</a>
+          <ul>
+            <li><a href="#分布式数据库">分布式数据库</a></li>
+            <li><a href="#面向对象数据库">面向对象数据库</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#数据压缩-1">数据压缩</a>
+      <ul>
+        <li><a href="#数据压缩引言">数据压缩引言</a></li>
+        <li><a href="#无损压缩方法">无损压缩方法</a>
+          <ul>
+            <li><a href="#游程长度编码">游程长度编码</a></li>
+            <li><a href="#赫夫曼编码">赫夫曼编码</a></li>
+            <li><a href="#lemple-ziv-编码">Lemple Ziv 编码</a></li>
+          </ul>
+        </li>
+        <li><a href="#有损压缩方法">有损压缩方法</a>
+          <ul>
+            <li><a href="#图像压缩-jpeg">图像压缩: JPEG</a></li>
+            <li><a href="#视频压缩-mpeg">视频压缩: MPEG</a></li>
+            <li><a href="#音频压缩">音频压缩</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#安全">安全</a>
+      <ul>
+        <li><a href="#安全引言">安全引言</a>
+          <ul>
+            <li><a href="#安全目标">安全目标</a></li>
+            <li><a href="#安全攻击">安全攻击</a></li>
+            <li><a href="#服务和技术">服务和技术</a></li>
+          </ul>
+        </li>
+        <li><a href="#机密性">机密性</a>
+          <ul>
+            <li><a href="#对称密钥密码术">对称密钥密码术</a></li>
+            <li><a href="#非对称密钥密码术">非对称密钥密码术</a></li>
+          </ul>
+        </li>
+        <li><a href="#其他安全服务">其他安全服务</a>
+          <ul>
+            <li><a href="#消息完整性">消息完整性</a></li>
+            <li><a href="#消息验证">消息验证</a></li>
+            <li><a href="#数字签名">数字签名</a></li>
+            <li><a href="#实体验证">实体验证</a></li>
+            <li><a href="#密钥管理">密钥管理</a></li>
+          </ul>
+        </li>
+        <li><a href="#防火墙">防火墙</a>
+          <ul>
+            <li><a href="#包过滤防火墙">包过滤防火墙</a></li>
+            <li><a href="#代理防火墙">代理防火墙</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#计算理论">计算理论</a>
+      <ul>
+        <li><a href="#简单语言">简单语言</a></li>
+        <li><a href="#图灵机">图灵机</a></li>
+        <li><a href="#哥德尔数">哥德尔数</a></li>
+        <li><a href="#停机问题">停机问题</a></li>
+        <li><a href="#问题的复杂度">问题的复杂度</a>
+          <ul>
+            <li><a href="#不可解问题">不可解问题</a></li>
+            <li><a href="#可解问题">可解问题</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#人工智能">人工智能</a>
+      <ul>
+        <li><a href="#人工智能引言">人工智能引言</a></li>
+        <li><a href="#知识表示">知识表示</a>
+          <ul>
+            <li><a href="#语义网">语义网</a></li>
+            <li><a href="#框架">框架</a></li>
+            <li><a href="#谓词逻辑">谓词逻辑</a></li>
+            <li><a href="#基于规则的系统">基于规则的系统</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#社会和道德问题">社会和道德问题</a>
+      <ul>
+        <li><a href="#道德问题">道德问题</a></li>
+        <li><a href="#知识产权">知识产权</a></li>
+        <li><a href="#隐私">隐私</a></li>
+        <li><a href="#计算机犯罪">计算机犯罪</a></li>
+        <li><a href="#黑客">黑客</a></li>
       </ul>
     </li>
   </ul>
@@ -2709,7 +2969,1612 @@
 <br/>
 <br/>
 <h2 id="软件生命周期">软件生命周期</h2>
-<p>软件生命周期使软件工程中一个基础概念。软件和其他产品一样，周期性地重复着一些阶段。</p>
+<p>软件生命周期是软件工程中一个基础概念。软件和其他产品一样，周期性地重复着一些阶段。</p>
+<br/>
+<br/>
+<h3 id="开发过程模型">开发过程模型</h3>
+<p>开发过程最常见的两种模型：</p>
+<ul>
+<li>瀑布模型：在这种模型中，开发过程只能一个方向的流动。这意味着前一阶段不结束，后一阶段不能开始。</li>
+<li>增量模型：在此模型中，软件开发要经历一系列步骤。开发者首先要完成整个系统的一个简化版本，这个版本表示了整个系统，但不包括具体的细节。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="分析阶段">分析阶段</h2>
+<p>整个开发过程始于分析阶段，这个阶段生成规格说明文档，这个文档说明了软件要做什么，而没有说明如何去做。</p>
+<br/>
+<br/>
+<h3 id="面向过程分析">面向过程分析</h3>
+<p>面向过程分析（结构化分析或经典分析）使用的工具：</p>
+<ul>
+<li>数据流图：显示了系统中数据的流动。</li>
+<li>实体关系图</li>
+<li>状态图：通常用于当系统中的实体状态在响应时间时将会改变的情况下。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="面向对象分析">面向对象分析</h3>
+<p>面向对象分析使用的工具：</p>
+<ul>
+<li>用例图：它显示了用户与系统间的交互。</li>
+<li>类图</li>
+<li>状态图</li>
+</ul>
+<br/>
+<br/>
+<h2 id="设计阶段">设计阶段</h2>
+<p>设计阶段定义系统如何完成在分析阶段所定义的需求。在设计阶段，系统所有的组成部分都被定义。</p>
+<br/>
+<br/>
+<h3 id="面向过程设计">面向过程设计</h3>
+<p>在面向过程设计中，我们既要设计过程，也要设计数据。在面向过程设计中，整个系统被分解成一组过程或模块。</p>
+<ul>
+<li>结构图：说明模块间的关系。</li>
+<li>模块化：将大项目分解成较小的部分，以便能够容易理解和处理。</li>
+</ul>
+<br/>
+<p>当系统被分解成模块时，主要关心两点：耦合和内聚。</p>
+<p>耦合是对两个模块互相绑定成都的度量。越紧耦合的模块，它们的独立性越差。既然目标是为了让模块尽可能地独立，你需要让它们松散耦合。至少有三条理由说明松散耦合是希望的：</p>
+<ul>
+<li>松散耦合的模块更可能被重用</li>
+<li>松散耦合的模块不容易在相关模块中产生错误</li>
+<li>当系统需要修改时，松散耦合的模块允许我们只修改需要改变的模块，而不会影响到不需要改变的模块。</li>
+</ul>
+<p><strong>软件系统中模块间的耦合必须最小化。</strong></p>
+<br/>
+<p>内聚是程序中处理过程相关紧密成都的度量。</p>
+<p><strong>软件系统中模块间的内聚必须最大化。</strong></p>
+<br/>
+<br/>
+<h3 id="面向对象设计">面向对象设计</h3>
+<p>在面向对象设计中，设计阶段通过详细描述类的细节来继续。类由一组变量（属性）和一组方法组成。面向对象设计阶段列出这些属性和方法的细节。</p>
+<br/>
+<br/>
+<h2 id="实现阶段">实现阶段</h2>
+<p>在实现阶段，程序员为面向过程设计中的模块编写程序或编写程序单元，实现面向对象设计中的类。</p>
+<p>在每种情况中，都有一些我们需要提及的问题。</p>
+<br/>
+<br/>
+<h3 id="语言的选择">语言的选择</h3>
+<p>选择合适的编程语言。</p>
+<br/>
+<br/>
+<h3 id="软件质量">软件质量</h3>
+<p>软件质量是一个非常重要的问题。具有高质量的软件系统是一个能满足用户需求、符合组织操作标准和能高效运行在其开发的硬件上的一个软件。</p>
+<p>软件质量能够划分成三个广义的度量：</p>
+<ul>
+<li>可操作性：可操作性涉及系统的基本操作。可操作性有多种度量方法：准确性、高效性、可靠性、安全性、及时性和适用性。</li>
+<li>可维护性：可维护性以保持系统正常运行并及时更新为参照。</li>
+<li>可迁移性：可迁移性是指把数据和系统从一个平台迁移到另一个平台并重用代码的能力。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/10-10.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/10-10.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/10-10.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/10-10.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/10-10.png"
+        title="质量因素" /></p>
+<br/>
+<br/>
+<h2 id="测试阶段">测试阶段</h2>
+<p>测试阶段的目标是发现错误，这就意味着良好的测试策略能发现最多的错误。有两种测试：白盒测试和黑盒测试。</p>
+<br/>
+<br/>
+<h3 id="白盒测试">白盒测试</h3>
+<p>白盒测试（玻璃盒测试）是基于软件内部结构的。测试的目标是检查软件所有的部分是否全部设计出来。白盒测试假定测试者知道有关软件的一切。在这种情况下，程序就像玻璃盒子，其中的每件事都是可见的。</p>
+<p>使用白盒测试需要保证至少满足下面四个标准：</p>
+<ul>
+<li>每个模块中的所有独立的路径至少被测试过一次。</li>
+<li>所有的判断结构每个分支都被测试。</li>
+<li>每个循环被测试。</li>
+<li>所有数据结构都被测试。</li>
+</ul>
+<br/>
+<p>讨论两种白盒测试方法：基本路径测试和控制结构测试。</p>
+<p>基本路径测试由 Tom McCabe 提出。这种方法创建一组测试用例，这些用例执行软件中的每条语句至少一次。</p>
+<p><strong>基本路径测试是一种软件中每条语句至少被执行一次的方法。</strong></p>
+<p>基本路径测试使用图论和圈复杂性找到必须走过的独立路径，从而保证每条语句至少被执行一次。</p>
+<br/>
+<p>控制结构测试比基本路径测试更容易理解并且包含基本路径测试。此方法使用下面三种不同类的测试。</p>
+<ul>
+<li>条件测试：应用于模块中的条件表达式，简单条件是关系表达式，而复合条件是简单条件和逻辑运算符的组合。条件测试用来检查是否所有的条件都被正确设置。</li>
+<li>数据流测试：基于通过模块的数据流。这种测试选择测试用例，这些用例涉及检查被用在赋值语句左边的变量的值。</li>
+<li>循环测试：使用测试用例检查循环的正确性。所有类型的循环被仔细检查。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="黑盒测试">黑盒测试</h3>
+<p>黑盒测试在不知道程序的内部也不知道程序是怎样工作的情况下测试程序。换言之，程序就像看不见内部的黑盒。黑盒测试按照软件应该完成的功能来测试软件，如它的输入和输出。</p>
+<p>下面介绍集中黑盒测试方法。</p>
+<ul>
+<li>穷尽测试：最好的黑盒测试方法就是用输入域中的所有可能的值去测试软件。但是，在复杂的软件中，输入域是如此巨大，这样做常常不现实。</li>
+<li>随机测试：在随机测试中，选择输入域的子集来测试，子集选择的方式（值在输入域上的分布）是非常重要的。在这种情况下，随机数生成器是非常有用的。</li>
+<li>边界值测试：当遇到边界值时，错误经常发生。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="文档">文档</h2>
+<p>软件的正确使用和有效维护离不开文档。通常软件有三种独立的文档：用户文档、系统文档和技术文档。</p>
+<p>注意，<strong>文档是一个持续的过程</strong>。如果软件在发布之后有问题，也必须写文档。如果软件被修改，那么所有的修改与原软件包间的关系都要被写进文档。只有当软件包过时后，编写文档才停止。</p>
+<br/>
+<br/>
+<h3 id="用户文档">用户文档</h3>
+<p>用户手册的文档对用户时必不可少的。它告诉用户如何一步步地使用软件包。</p>
+<br/>
+<br/>
+<h3 id="系统文档">系统文档</h3>
+<p>系统文档定义软件本身。撰写系统文档的目的是让原始开发人员之外的人能够维护和修改软件包。系统文档在系统开发的所有四个阶段都应该存在。</p>
+<ul>
+<li>在分析阶段，收集的信息应该仔细地使用文档记录。</li>
+<li>在设计阶段，最终版本中用到的工具必须记录在文档中。</li>
+<li>在实现阶段，代码的每个模块都应记录在文档中。另外，代码应该使用注释和描述尽可能详细地形成自文档。</li>
+<li>最后，开发人员必须仔细地形成测试阶段的文档。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="技术文档">技术文档</h3>
+<p>技术文档描述了软件系统的安装和服务。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="数据结构">数据结构</h1>
+<p>数据结构利用了有关变量的集合，而这些集合能够单独作为一个整体被访问。换句话说，一个数据结构代表了有特殊关系的数据的集合。</p>
+<p>本章讨论三种数据结构：数组、记录和链表，大多数编程语言都隐式实现了前两种，而第三种则通过指针和记录来模拟。</p>
+<p>本章的目标：</p>
+<ul>
+<li>定义数据结构；</li>
+<li>把数组定义为数据结构，并说明它是如何用于存储数据项列表的；</li>
+<li>区分数组的名字和数组中元素的名字；</li>
+<li>描述为数组定义的操作；</li>
+<li>把记录定义为数据结构，并说明它是如何用于存储属于单个数据元素的属性；</li>
+<li>区分记录的名字和它的域的名字；</li>
+<li>把链表定义为数据结构，并说明它是如何用指针来实现的；</li>
+<li>描述为链表定义的操作；</li>
+<li>比较和区分数据、记录和链表；</li>
+<li>说明数组、记录和链表的应用。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="数组">数组</h2>
+<p>数组是元素的顺序集合，通常这些元素具有相同的数据类型。我们可以使用循环来读写数组中的元素。</p>
+<p>当需要进行的插入和删除操作比较少，而需要大量的查找和检索操作时，数组是合适的结构。</p>
+<br/>
+<br/>
+<h3 id="数组名与元素名">数组名与元素名</h3>
+<p>数组的名字是整个结构的名字，而元素的名字允许我们查阅这个元素。</p>
+<br/>
+<br/>
+<h3 id="多维数组">多维数组</h3>
+<p>到目前为止，我们所讨论的都是一维数组，因为数据仅是在一个方向上线性组成。许多的应用要求数据存储在多维中。常见的例子如表格，就是包括行和列的数组，这是一个二维数组。</p>
+<br/>
+<br/>
+<h3 id="存储配置">存储配置</h3>
+<p>一维数组的索引直接定义了元素在实际存储上的相对位置。但是二维数组表示行和列。在内存中如何存储每个元素取决于计算机，大多数计算机使用行主序存储，其中数组的一个整行在内存上存储在下一个行之前。但是计算机也可以使用列主序存储，其中一个整列在内存上存储在下一个列之前。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-6.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-6.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-6.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-6.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-6.png"
+        title="数组的存储配置" /></p>
+<br/>
+<br/>
+<h3 id="数组操作">数组操作</h3>
+<p>数组作为结构的常用操作有：</p>
+<ul>
+<li>查找元素</li>
+<li>插入元素
+<ul>
+<li>尾部插入</li>
+<li>开始或中间插入</li>
+</ul>
+</li>
+<li>删除元素</li>
+<li>检索元素</li>
+<li>数组的遍历</li>
+</ul>
+<br/>
+<br/>
+<h3 id="字符串">字符串</h3>
+<p>字符串是字符的集合，不同的语言对于字符串的处理并不相同。字符串也可以理解为是字符构成的数组。</p>
+<br/>
+<br/>
+<h2 id="记录">记录</h2>
+<p>记录是一组相关元素的集合，它们可能是不同的类型，但整个记录有一个名称。记录中的每个元素称为域。域是具有含义的最小命名数据。它有类型且存在于内存中，它能被赋值，也能够被选择和操纵。域不同于变量主要在于它是记录的一部分。</p>
+<p><strong>记录中的元素可以是相同类型或不同类型，但记录中的所有元素必须是关联的。</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-7.png"
+        title="记录" /></p>
+<br/>
+<br/>
+<h3 id="记录名与域名">记录名与域名</h3>
+<p>记录的名字是整个结构的名字，而每个域的名字允许我们存取这些域。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 记录
+student
+
+# 域
+student.id, student.name
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="链表">链表</h2>
+<p>链表是一个数据的集合，其中每个元素包含下一个元素的地址。即每个元素都包含两部分：数据和链。</p>
+<p>数据部分包含可用的信息，并被处理。链则将数据连在一起，它包含一个指明列表中下一个元素的指针（地址）。另外，一个指针变量标识该列表中的第一个元素。列表的名字就是该指针变量的名字。</p>
+<p>链表中的元素习惯上称为节点 ，链表中的节点是至少包括两个域的记录：数据和下一个节点地址。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-9.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-9.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-9.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-9.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-9.png"
+        title="链表" /></p>
+<br/>
+<br/>
+<h3 id="链表名与节点名">链表名与节点名</h3>
+<p>链表名是头指针的名字，该头指针指向表中的第一个节点。另一方面，节点在链表中没有明显的名字，有的只是隐含的名字。</p>
+<p>例如，如果指向节点的指针称为 p，我们称节点为 <code>*p</code>，节点的数据部分为 <code>(*p).data</code>，节点的链部分为 <code>(*p).link</code>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-12.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-12.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-12.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-12.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/11-12.png"
+        title="链表名与节点名" /></p>
+<br/>
+<br/>
+<h3 id="链表操作">链表操作</h3>
+<p>为数组定义的操作同样可以应用于链表。</p>
+<ul>
+<li>查找链表：链表的查找算法只能是顺序的。链表中的节点没有特定的名字，那我们使用两个指针：pre（先前的） 和 cur（当前的）。</li>
+<li>插入节点：在链表中插入节点之前，要先使用查找算法，不允许重复值的数据。
+<ul>
+<li>插入空表</li>
+<li>开始处插入</li>
+<li>末尾处插入</li>
+<li>中间插入</li>
+</ul>
+</li>
+<li>删除节点：在链表中删除节点前，要先使用查找算法。
+<ul>
+<li>删除首节点</li>
+<li>删除中间或末尾节点</li>
+</ul>
+</li>
+<li>检索节点：检索就是为了检查或复制节点中所含数据的目的而随机访问节点。</li>
+<li>遍历链表</li>
+</ul>
+<br/>
+<br/>
+<h3 id="链表的应用">链表的应用</h3>
+<p>当需要对存储数据进行许多插入和删除时，链表是一种非常高效的数据结构。链表是一种动态的数据结构，其中表从没有节点开始，然后当需要新节点时，它就逐渐增长。与数组的情况相比，节点很容易被删除，不需要移动其它节点。</p>
+<p>链表可以无限增长，也可以缩短为空表。额外的开销是为这个节点含有一个额外的域。但对于经常需要查找的数据来说，链表不是一个好的候选者。</p>
+<p><strong>如果需要大量的插入和删除，那么链表是合适的结构，但查找一个链表会比查找一个数组要慢。</strong></p>
+<br/>
+<hr>
+<br/>
+<h1 id="抽象数据结构">抽象数据结构</h1>
+<p>抽象数据类型使用数据结构来实现，一些抽象数据类型：栈、队列、广义线性表、树、二叉树、二叉搜索树和图。</p>
+<p>本章的学习目标：</p>
+<ul>
+<li>说明抽象数据类型的概念</li>
+<li>说明栈、栈上的基本操作、它们的应用以及它们是如何实现的；</li>
+<li>说明队列、队列上的基本操作、它们的应用以及它们是如何实现的；</li>
+<li>说明广义线性表、广义线性表的基本操作、它们的应用以及他们是如何实现的；</li>
+<li>说明一般的树及其应用；</li>
+<li>说明二叉树及其应用；</li>
+<li>说明二叉搜索树及其应用；</li>
+<li>说明图及其应用。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="背景">背景</h2>
+<p>使用计算机进行问题求解意味着处理数据。为了处理数据，我们需要定义数据类型和在数据上进行的操作。数据类型的定义和应用于数据的操作的定义是抽象数据类型背后的一部分概念，以隐藏数据上的操作是如何进行的。</p>
+<br/>
+<br/>
+<h3 id="简单抽象数据类型">简单抽象数据类型</h3>
+<p>许多编程语言已经定义了一些简单的抽象数据类型作为语言的组成部分。例如，C 语言定义了称为整数的简单抽象数据类型。C 还定义了可以在这种数据类型上应用的集中操作（加减乘除等）。</p>
+<br/>
+<br/>
+<h3 id="复杂抽象数据类型">复杂抽象数据类型</h3>
+<p>几种简单的抽象数据类型（如整数、实数、字符、指针等）已经被实现，在大多数语言中它们对用户是可用的。但是许多有用的复杂抽象数据类型（如栈、表、队列等）却没有实现。</p>
+<p>抽象概念意味着：</p>
+<ul>
+<li>知道一个数据类型能做什么；</li>
+<li>如何去做是隐藏的。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="定义抽象数据类型">定义抽象数据类型</h3>
+<p>抽象数据类型：</p>
+<ul>
+<li>数据的定义；</li>
+<li>操作的定义；</li>
+<li>封装数据和操作。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="抽象数据类型的模型">抽象数据类型的模型</h3>
+<p>下图的抽象模型有两个部分：数据和操作（共有的和私有的）。应用程序只能通过结构访问公有操作。私有操作是抽象数据类型内部用户使用的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-1.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-1.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-1.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-1.png"
+        title="抽象数据模型" /></p>
+<br/>
+<br/>
+<h3 id="抽象数据类型的实现">抽象数据类型的实现</h3>
+<p>计算机语言不提供抽象数据类型包。要使用抽象数据类型，首先要实现它们，把它们存储在库中。</p>
+<br/>
+<br/>
+<h2 id="栈">栈</h2>
+<p>栈是一种限制线性表，该类列表的添加和删除只能在一端实现，称为栈顶。栈是一种后进先出（LIFO）的数据结构。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-2.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-2.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-2.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-2.png"
+        title="栈的示例" /></p>
+<br/>
+<br/>
+<h3 id="栈的操纵">栈的操纵</h3>
+<p>栈有四种基本操作：建栈、入栈、出栈和空。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 建栈创建一个空栈</span>
+stack<span class="o">(</span>stackName<span class="o">)</span>
+
+<span class="c1"># 入栈操作在栈顶部添加新的元素</span>
+push<span class="o">(</span>stackName, dataItem<span class="o">)</span>
+
+<span class="c1"># 出栈操作将栈顶部元素移走</span>
+pop<span class="o">(</span>stackName, dataItem<span class="o">)</span>
+
+<span class="c1"># 空操作检查栈的状态</span>
+empty<span class="o">(</span>stackName<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="栈的抽象数据类型">栈的抽象数据类型</h3>
+<p>栈的抽象数据类型：</p>
+<ul>
+<li>定义：一种只能在一段存取的数据项表，该端称为栈顶。</li>
+<li>操作: stack, push, pop, empty</li>
+</ul>
+<br/>
+<br/>
+<h3 id="栈的应用">栈的应用</h3>
+<p>栈的应用可以分为四类：</p>
+<ul>
+<li>倒装数据</li>
+<li>配对数据</li>
+<li>数据延迟</li>
+<li>回溯步骤</li>
+</ul>
+<br/>
+<br/>
+<h3 id="栈的实现">栈的实现</h3>
+<p>栈抽象数据类型可以使用数组也可以使用链表来实现。</p>
+<p>在数组中实现，我们有带有两个域的记录。第一个域用来存储关于数组的信息：把它当做计数域，在任何时刻其中显示的是栈中数据项的数目。第二个域是一个含有栈顶元素索引的整数。</p>
+<p>链表的实现是相似的，有一个具有栈名字的额外节点。这个节点也有两个域：一个计数器和一个指向栈顶元素的指针。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-7.png"
+        title="栈的实现" /></p>
+<br/>
+<br/>
+<h2 id="队列">队列</h2>
+<p>队列是一种线性表，该表中的数据只能在称为尾部的一端插入，并且只能在称为头部的一端删除。换言之，队列是先进先出结构。</p>
+<p>队列在日常生活中是常见的。如排队等待的人群队列。</p>
+<br/>
+<br/>
+<h3 id="队列上的基本操作">队列上的基本操作</h3>
+<p>队列的四个基本操作：建队列、入队、出队和空。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 建队列建立一个空队列</span>
+queue<span class="o">(</span>queueNamel 
+
+<span class="c1"># 入队操作在队列的末尾插入一个数据项</span>
+enqueue <span class="o">(</span>queueName , dataltem <span class="o">)</span>
+
+<span class="c1"># 出队操作删除队列头部的数据项</span>
+dequeue<span class="o">(</span>queueName, dataItem<span class="o">)</span>
+
+<span class="c1"># 空操作检查队列的状态</span>
+empty<span class="o">(</span>queueName<span class="o">)</span> 
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="队列的抽象数据类型">队列的抽象数据类型</h3>
+<ul>
+<li>定义：队列是一种线性表，该表中的数据只能在称为头部的一段删除，并且之恩那个在称为尾部的一端插入。</li>
+<li>操作：queue, enqueue, dequeue, empty</li>
+</ul>
+<br/>
+<br/>
+<h3 id="队列的使用">队列的使用</h3>
+<p>队列是最常用的数据处理结构之一。事实上，在所有的操作系统和网络中都有队列的身影，在其他技术领域更是数不胜数。</p>
+<br/>
+<br/>
+<h3 id="队列的实现">队列的实现</h3>
+<p>队列的抽象数据类型可以使用数组或链表来实现。</p>
+<p>在数组实现中，我们有带有三个域的记录。第一个域用来存储关于队列的信息：把它当作计数域，在任何时刻其中显示的是队列中数据项的数目。第二个域是一个含有队首元素索引的整数。第三个域也是一个整数，它含有队尾元素的索引。</p>
+<p>链表的实现是相似：我们有一个有队列名字的额外节点。这个节点也有三个域：一个计数器、一个指向队首元素的指针和一个指向队尾元素的指针。</p>
+<br/>
+<br/>
+<h2 id="广义线性表">广义线性表</h2>
+<p>栈和队列都是限制线性表。广义线性表是像插入和删除操作可以在其中任何地方进行的表。</p>
+<p>我们把广义线性表定义成具有如下特性的元素集合：</p>
+<ul>
+<li>元素具有相同的类型。</li>
+<li>元素顺序排列，这意味着有第一个元素和最后一个元素。</li>
+<li>除第一个元素外每个元素都有唯一的前驱，除最后一个元素外每个元素都有唯一的后继。</li>
+<li>每个元素是一个带有关键字域的记录。</li>
+<li>元素按关键字值排序。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-14.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-14.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-14.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-14.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-14.png"
+        title="广义线性表" /></p>
+<br/>
+<br/>
+<h3 id="广义线性表的操作">广义线性表的操作</h3>
+<p>广义线性表的六种常用的操作：建表、插入、删除、检索、遍历和空。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 建表操作建立一个空表</span>
+list<span class="o">(</span>listName<span class="o">)</span>
+
+<span class="c1"># 广义线性表中的数据是已排序的，那么插入就必须在保持元素顺序的方式下进行。</span>
+insert<span class="o">(</span>listName, element<span class="o">)</span>
+
+<span class="c1"># 从广义表中删除数据也需要查找表，以找到删除数据在表中的位置。当数据的位置被找到后，删除操作就能进行了。</span>
+delete<span class="o">(</span>listName, target, element<span class="o">)</span>
+
+<span class="c1"># 检索的意思是单个元素的存取。像插入和删除操作一样，广义表首先被查找，数据被发现，才能被检索。</span>
+retrieve<span class="o">(</span>listName, target, element<span class="o">)</span>
+
+<span class="c1"># 遍历涉及表的顺序存取</span>
+traverse<span class="o">(</span>listName, action<span class="o">)</span>
+
+<span class="c1"># 空操作检查表的状态</span>
+empty<span class="o">(</span>listName<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="广义线性表的抽象数据类型">广义线性表的抽象数据类型</h3>
+<ul>
+<li>定义：一个有序的数据项表，所有的项具有相同类型。</li>
+<li>操作：list, insert, delete, retrieve, traverse, empty</li>
+</ul>
+<br/>
+<br/>
+<h3 id="广义线性表的应用">广义线性表的应用</h3>
+<p>广义线性表可用于元素被随机存取或顺序存取的情况。例如，用线性表来存储每个学期入学的学生信息。</p>
+<br/>
+<br/>
+<h3 id="广义线性表的实现">广义线性表的实现</h3>
+<p>广义线性表抽象数据类型可以使用数组或链表来实现。</p>
+<p>在数组实现中，我们有带有两个域的记录。第一个域用来存储关于数组的信息的信息：把它当作计数域，其中显示的是表中当前数据项的数目。第二个域是一个含有表中首元素索引的整数。</p>
+<p>链表的实现是相似的：我们有一个具有表名字的额外节点。这个节点也有两个域：一个计数器和一个指向首元素的指针。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-19.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-19.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-19.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-19.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-19.png"
+        title="广义线性表的实现" /></p>
+<br/>
+<br/>
+<h2 id="树">树</h2>
+<p>树包括一组有限的元素，称为<strong>节点</strong>（顶点），同时包括一组有限的有向线段，用来连接节点，称为<strong>弧</strong>。</p>
+<p>如果树是非空的，其中有一个节点没有进入的弧，该节点称为<strong>根</strong>。树中的其他节点都可以沿着从根开始的唯一<strong>路径</strong>到达，该路径是指一系列相邻连接的节点序列。树的结构通常被画成上下颠倒，根在顶部。</p>
+<p>我们可以把树中的顶点分成三类：根、内部顶点和叶子。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-20.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-20.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-20.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-20.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-20.png"
+        title="树的示意图" /></p>
+<br/>
+<p>从一给定节点可以直接达到的节点称为<strong>子节点</strong>，从其触发子节点可以直接达到的节点称为<strong>双亲</strong>。具有相同双亲的节点称为<strong>兄弟节点</strong>。节点的子孙是指从该节点触发可以到达的所有节点，而从其出发所有的子孙都可以到达的节点称为<strong>祖先</strong>。树中的每个节点都可能有<strong>子树</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-21.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-21.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-21.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-21.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-21.png"
+        title="子树" /></p>
+<br/>
+<br/>
+<h3 id="二叉树">二叉树</h3>
+<p>二叉树是一棵树，且其中没有一个节点所含有的子树的个数超过两个。换句话说，任一节点只能有0、1或2棵子树。这些子树被描述为左子树和右子树。</p>
+<p>二叉树是一棵空树或有一个根节点和两颗子树构成，而每棵子树也是二叉树。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-22.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-22.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-22.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-22.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-22.png"
+        title="二叉树" /></p>
+<br/>
+<br/>
+<h3 id="二叉树的操作">二叉树的操作</h3>
+<p>二叉树中六种最常用的操作：建树、插入、删除、检索、遍历和空。</p>
+<p>下面讨论二叉树的遍历，二叉树的遍历要求按照预定的顺序处理每一个节点且仅处理一次。两种常用的遍历次序是深度优先和广度优先。</p>
+<br/>
+<p>深度优先遍历：</p>
+<ul>
+<li>前序遍历：根首先被访问，接着是左子树，最后是右子树。</li>
+<li>中序遍历：先处理左子树，然后是根，最后是右子树。</li>
+<li>后序遍历：根在左/右子树都处理完后才处理。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-24.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-24.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-24.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-24.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-24.png"
+        title="二叉树的深度优先遍历" /></p>
+<br/>
+<p>广度优先遍历，先处理节点的子节点，然后进行下一层。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-26.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-26.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-26.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-26.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-26.png"
+        title="二叉树的广度优先遍历" /></p>
+<br/>
+<br/>
+<h3 id="二叉树的应用">二叉树的应用</h3>
+<p>二叉树在计算机科学中有许多应用。这里介绍两种：赫夫曼编码和表达式树。</p>
+<br/>
+<p>赫夫曼编码是一种压缩技术，它使用二叉树来生成一个符号串的可变长度的二进制编码。</p>
+<br/>
+<p>一个算术表达式可以用三种格式来表示：</p>
+<ul>
+<li>中缀：操作符处于两个操作数中间（如 <code>A+B</code>）</li>
+<li>后缀：操作符处于两个操作数之后（如 <code>AB+</code>）</li>
+<li>前缀：操作符处于两个操作数之前（如 <code>+AB</code>）</li>
+</ul>
+<p>虽然我们在编程语言中常使用中缀表示，但编译程序经常在计算表达式之前需要把它们转变为后缀表示。进行转换的一种方法就是建立表达式树。</p>
+<p>在表达式树中，根和内部节点是操作符，而叶子是操作数。三种标准的遍历表示了三种不同的表达式格式。中序遍历产生了中缀表达式；后序遍历产生了后缀表达式；前序遍历产生了前缀表达式。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-27.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-27.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-27.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-27.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-27.png"
+        title="表达式树" /></p>
+<br/>
+<br/>
+<h3 id="二叉树的实现">二叉树的实现</h3>
+<p>二叉树可以使用数组或链表来实现。对于删除和插入操作，链表实现的效率要高，所以更为流行。</p>
+<br/>
+<br/>
+<h3 id="二叉搜索树">二叉搜索树</h3>
+<p>二叉搜索树（BST）是一种具有额外特性的二叉树：每个节点的关键字值大于左子树中所有节点的关键字值，而小于右子树中所有节点的关键字值。</p>
+<p>注意，如果所有子树是二叉搜索树，并且整棵树也是二叉搜索树，那这棵树才是二叉搜索树。</p>
+<p>二叉搜索树的两个特性：</p>
+<ul>
+<li>对二叉搜索树应用中序遍历会得到一个升序列表。</li>
+<li>能对二叉搜索树使用折半查找。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-28.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-28.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-28.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-28.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-28.png"
+        title="二叉搜索树" /></p>
+<br/>
+<br/>
+<h2 id="图">图</h2>
+<p>图是由一组节点（称为顶点）和一组顶点间的连线（陈伟边或弧）构成的抽象数据类型。树是定义成层次结构的，节点只能有一个双亲。而图中的节点可以有一个或多个双亲。图可能是有向或无向的。</p>
+<p>图中的顶点可以代表对象或概念，边可以代表这些对象或概念间的关系。如果图是有向的，那么关系就是单向的；如果图是无向的，那么关系就是双向的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-32.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-32.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-32.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-32.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/12-32.png"
+        title="图" /></p>
+<br/>
+<p>城市的地图和连接城市的道路可以表示称计算机中的一个无向图。城市是顶点，无向边是连接它们的道路。如果我们要显示城市间的距离，可以使用加权图，其中的每条边都有一个权重，该犬种表示由这条边连接的两个城市间的距离。</p>
+<p>图的另一个应用是在计算机网络中。顶点可以代表节点或集线器，边可以代表路由。每条边都有一个权重，表示从一个集线器到相邻集线器的代价。路由器能使用图算法找到它与包的最终目的地间的最短路径。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="文件结构">文件结构</h1>
+<p>本章的学习目标：</p>
+<ul>
+<li>定义两类存取方法：顺序存取和随机存取；</li>
+<li>理解顺序文件的结构和它们是如何更新的；</li>
+<li>理解索引文件的结构和索引文件与数据文件间的关系；</li>
+<li>理解散列文件背后的概念，说出一些散列方法；</li>
+<li>描述地址冲突和它们是如何解决的；</li>
+<li>定义目录和它们是如何用来组织文件的；</li>
+<li>区分文本文件和二进制文件。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="文件结构引言">文件结构引言</h2>
+<p>文件存储在辅助存储设备或二级存储设备中。两种最常见的二级存储设备是磁盘和磁带。文件在二级存储设备中是可读写的。广义上，键盘也是文件。</p>
+<p>文件是数据记录的集合，每一个记录都由一个或多个域组成。</p>
+<p>在设计文件时，关键问题是如何从文件中检索信息。有时需要一个接一个地处理记录，有时又需要快速存取一个特定的记录而不用检索前面的记录。存取方法决定了怎样检索记录：顺序的或随机的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-1.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-1.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-1.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-1.png"
+        title="文件结构的分类" /></p>
+<br/>
+<br/>
+<h3 id="顺序存取">顺序存取</h3>
+<p>如果需要顺序地存取记录，则使用顺序文件结构。</p>
+<br/>
+<br/>
+<h3 id="随机存取">随机存取</h3>
+<p>如果想存取某一特定记录而不用检索其之前的所有记录，则使用允许随机存取的文件架构。</p>
+<p>有两种结构都允许随机存取：索引文件和散列文件。</p>
+<br/>
+<br/>
+<h2 id="顺序文件">顺序文件</h2>
+<p>顺序文件是指记录只能按照从头到尾一个接一个地进行存取。</p>
+<p>顺序文件用于需要从头到尾存取记录的应用。例如公司职员信息存储于一个文件中。</p>
+<p>然而，顺序文件对随机存取来说效率并不高。</p>
+<br/>
+<p>顺序文件必须定期更新，以反映信息的变化。更新过程将非常棘手，因为所有记录都要被顺序地检查和更新。</p>
+<p>文件更新过程：要使文件更新过程有效率，所有文件都必须按同一个键排序。</p>
+<br/>
+<br/>
+<h2 id="索引文件">索引文件</h2>
+<p>在文件中随机存取记录，需要知道记录的地址。</p>
+<p>索引文件由数据文件组成，它是带索引的顺序文件。</p>
+<p>索引文件的好处之一就是可以有多个索引，每个索引有不同的键。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-5.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-5.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-5.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-5.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-5.png"
+        title="索引文件中的映射" /></p>
+<br/>
+<br/>
+<h2 id="散列文件">散列文件</h2>
+<p>散列文件用一个数学函数来完成映射。用户给出键，函数将键映射成地址，再传送给操作系统，这样就可检索记录了。</p>
+<p>散列文件无需额外的索引。在索引文件中，必须将文件的索引保存在磁盘上。当需要处理文件时，需要把索引导入内存中，搜索索引找到数据记录的地址，再访问数据文件存取记录。在散列文件中，用函数来寻找地址。这里不需要索引和随之而来的所有开销。然而，散列文件自身也存在问题。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-7.png"
+        title="散列文件中的映射" /></p>
+<br/>
+<br/>
+<h3 id="散列方法">散列方法</h3>
+<p>有多种散列方法：</p>
+<ul>
+<li>直接散列方法：键是未经算法处理的数据文件地址。</li>
+<li>求模法（除余散列法）：用文件大小去除键后，将余数加 1 作为地址。</li>
+<li>数字分析散列法：选择从键中析取的数字作为地址。</li>
+<li>其它方法：平方中值法、折叠法、旋转法和伪随机法。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="散列冲突">散列冲突</h3>
+<p>通常散列列表中键的数量比在数据文件中的记录数量要多。因为在文件中有很多键对应于一个地址。有可能多于一个的键就被散列为文件中的同一个地址。我们把列表中一些映射为同一地址的键称为同义词。</p>
+<p>如何插入列表的实际数据中有两个或多个同义词，将产生冲突。冲突的产生是在散列算法为插入键产生地址时，发现该地址已被占用。由散列算法产生的地址称为内部地址。包含所有内部地址的区域称为主区。当两个键在内部地址上冲突时，必须将其中一个键和数据存放到主区外的另一个地址单元中来解决冲突。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-10.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-10.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-10.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-10.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-10.png"
+        title="散列冲突" /></p>
+<br/>
+<p>冲突解决法：</p>
+<ul>
+<li>开放寻址解决法：解决了在主区的冲突。当一个冲突发生时，主区地址将查找开放的或空闲的记录来用于存放新数据。对于不能再内部地址中存放的数据，一种简单的策略就是把该数据存储在内部地址的下一个地址中（内部地址 +1）。</li>
+<li>链表解决法：开放寻址的一个主要缺点时每个冲突的解决增加了将来冲突的可能性。在链表解决法中，第一条记录存储在内部地址，但它包含了一个指向下一条记录的指针。</li>
+<li>桶散列法：桶是一个能接纳多个记录的节点。此方法的缺点是可能有很多浪费（未占用的）存储单元。</li>
+<li>组合方法：复杂的实现方法通常是组合使用多种方法。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="目录">目录</h2>
+<p>目录是大多数操作系统提供的，用来组织文件。在大多数操作系统中，目录被表示为含有其他文件信息的一种特殊文件类型。目录的作用不仅仅像一种索引文件，还包括了关于它所包含的文件的其他信息（如权限、日期这些）。</p>
+<p>在大多数操作系统中，目录被组织成像树的抽象数据类型，其中除根目录外每个目录都有双亲。包含在另一个目录中的目录称为子目录。</p>
+<br/>
+<br/>
+<h3 id="unix操作系统中的目录">UNIX操作系统中的目录</h3>
+<p>在 UNIX 中有 4 中特殊目录类型：</p>
+<ul>
+<li>根目录</li>
+<li>主目录</li>
+<li>工作目录</li>
+<li>父目录</li>
+</ul>
+<p>路径和路径名：文件系统的每个目录和文件都必须有一个名字。因此，使用了路径这个唯一标识。</p>
+<ul>
+<li>绝对路径</li>
+<li>相对路径</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-14.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-14.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-14.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-14.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/13-14.png"
+        title="UNIX 目录系统的一个例子" /></p>
+<br/>
+<br/>
+<h2 id="文本文件与二进制文件">文本文件与二进制文件</h2>
+<p>存储在存储设备上的文件是一个位（bit）的序列，可被应用程序翻译成一个文本文件或是二进制文件。</p>
+<br/>
+<br/>
+<h3 id="文本文件">文本文件</h3>
+<p>文本文件是一个字符文件。在它们的内存储器格式中不能包含整数、浮点或其他数据结构。要存储这些类型的数据，必须把它们转换成对应的字符格式。</p>
+<br/>
+<br/>
+<h3 id="二进制文件">二进制文件</h3>
+<p>二进制文件是计算机的内部格式存储的数据集合，在这种定义中，数据可以是整型（包括其他表示成无符号整数的数据类型，如图像、音频或视频）、浮点型或其他数据结构。</p>
+<p>不像文本文件，二进制文件中的数据只有当被程序正确地解释时才有意义。</p>
+<br/>
+<br/>
+<h1 id="数据库">数据库</h1>
+<p>本章讨论数据库和数据库管理系统。</p>
+<p>本章的学习目标：</p>
+<ul>
+<li>定义数据库和数据库管理系统</li>
+<li>描述基于 ANSI/SPARC 定义的数据库管理系统的体系结构</li>
+<li>定义三种传统的数据库模型：层次、网络和关系</li>
+<li>描述关系模型和关系</li>
+<li>理解关系模型和关系的操作，这些操作在 SQL 中有相应的命令</li>
+<li>描述数据库设计的步骤</li>
+<li>说明 ERM 和 E-R 图，解释这种模型中的实体和关系。</li>
+<li>列出除关系模型外其他的数据库类型</li>
+</ul>
+<br/>
+<br/>
+<h2 id="数据库引言">数据库引言</h2>
+<p>数据的存储传统上是使用单独没有关联的文件，有时称为平面文件。在过去，组织中的每个应用程序都是用自己的文件。但现在，所有这些平面文件都被组合成一个实体——一个数据库。</p>
+<br/>
+<br/>
+<h3 id="数据库的定义">数据库的定义</h3>
+<p>数据库是一个组织内被应用程序使用的逻辑相一致的相关数据的集合。</p>
+<br/>
+<br/>
+<h3 id="数据库的优点">数据库的优点</h3>
+<p>优点：</p>
+<ul>
+<li>冗余较少</li>
+<li>避免不一致性</li>
+<li>效率</li>
+<li>数据完整性</li>
+<li>机密性</li>
+</ul>
+<br/>
+<br/>
+<h3 id="数据库管理系统">数据库管理系统</h3>
+<p>数据库管理系统是定义、创建和维护数据库的一种工具。DBMS 也允许用户来控制数据库中数据的存取。它由 5 部分组成：</p>
+<ul>
+<li>硬件</li>
+<li>软件</li>
+<li>数据</li>
+<li>用户
+<ul>
+<li>最终用户</li>
+<li>应用程序</li>
+</ul>
+</li>
+<li>规程</li>
+</ul>
+<br/>
+<br/>
+<h2 id="数据库体系结构">数据库体系结构</h2>
+<p>美国国家标准协会为数据库管理系统建立了三层体系结构：</p>
+<ul>
+<li>内层：决定了数据在存储设备中的实际位置。它处理低层次的数据存取方法和如何在存储设备间传输字节。内层直接与硬件交互。</li>
+<li>概念层：定义数据的逻辑视图。在该层中定义了数据模式。它使得用户不必与内存打交道。</li>
+<li>外层：直接与用户交互。它将来自概念层的数据转化为用户所熟悉的格式和视图。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-2.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-2.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-2.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-2.png"
+        title="数据库体系结构" /></p>
+<br/>
+<br/>
+<h2 id="数据库模型">数据库模型</h2>
+<p>数据库模型定义了数据的逻辑设计，它也描述了数据的不同部分之间的联系。在数据库的发展中，曾使用过三种数据库模型：层次模型、网状模型和关系模型。</p>
+<br/>
+<br/>
+<h3 id="层次模型">层次模型</h3>
+<p>层次模型中，数据被组织成一个倒置的树。每一个实体可以有不同的子节点，但只能有一个父节点。层次的最顶端有一个实体，称为根。层次模型已过时。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-3.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-3.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-3.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-3.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-3.png"
+        title="层次模型" /></p>
+<br/>
+<br/>
+<h3 id="网状模型">网状模型</h3>
+<p>网状模型中，实体通过图来组织，图中的部分实体可通过多条路径来访问。网站模型已过时。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-4.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-4.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-4.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-4.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-4.png"
+        title="网状模型" /></p>
+<br/>
+<br/>
+<h3 id="关系模型">关系模型</h3>
+<p>关系模型中，数据组织称为关系的二维表，表或关系相互关联。</p>
+<p>如今，关系模型是数据库设计中最常用的模型。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-5.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-5.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-5.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-5.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-5.png"
+        title="关系模型" /></p>
+<br/>
+<br/>
+<h2 id="关系数据库模型">关系数据库模型</h2>
+<p>在关系数据库管理系统（RDBMS）中，数据是通过关系的集合来表示的。</p>
+<br/>
+<br/>
+<h3 id="关系">关系</h3>
+<p>从表面上看，关系就是二维表。在关系数据库管理系统中，数据的外部视图就是关系或表的集合，但这并不代表数据以表的形式存储。数据的物理存储与数据的逻辑组织的方式毫无关系。</p>
+<p>关系有以下特征：</p>
+<ul>
+<li>名称：每种关系都具有唯一的名称。</li>
+<li>属性：关系中的每一列称为属性。</li>
+<li>元组：关系中的行叫元组。关系中元组的个数叫关系的基数。当增加或减少元组时，关系的基数就会改变。这就实现了动态数据库。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="关系的操作">关系的操作</h3>
+<p>在关系数据库中，我们可以定义一些操作来通过已知的关系创建新的关系。本节定义了 9 种操作。我们并不抽象地讨论这些操作，而是把它们描述成在数据库查询语言 SQL（结构化查询语言）中的定义。</p>
+<p>结构化查询语言是美国国标协会和国际标准化组织用于关系数据库的标准化语言。这是一种描述性的语言，意味着使用者不需要一步步地编写详细的程序而只需声明它。</p>
+<p>SQL 语句允许我们组合祖居，从数据库中抽取出更复杂的信息。</p>
+<ul>
+<li>插入：一元操作。</li>
+<li>删除：一元操作。</li>
+<li>更新：一元操作。</li>
+<li>选择：一元操作，应用于一个关系并产生另外一个新关系。</li>
+<li>投影：一元操作，应用于一个关系并产生另外一个新关系。</li>
+<li>连接：二元操作，基于公有的属性把两个关系组合起来。</li>
+<li>并：二元操作，将两个关系合并成一个新的关系。两者必须有相同的属性。</li>
+<li>交：二元操作，对两个关系进行操作，创建一个新关系。两者必须具有相同的属性。</li>
+<li>差：二元操作，应用于具有相同属性的两个关系。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="数据库设计">数据库设计</h2>
+<p>数据库的设计是一个冗长且只能通过一步步过程来完成的任务。第一步通常设计于数据库潜在用户的交谈。第二部是建立一个实体关系模型（ERM），此模型定义了其中一些信息需要维护的实体，这些实体的属性和实体间的关系。</p>
+<br/>
+<br/>
+<h3 id="实体关系模型">实体关系模型</h3>
+<p>使用实体关系（E-R）图来表示那些其信息需要保存的实体和实体间的关系。</p>
+<ul>
+<li>矩形表示实体集。</li>
+<li>椭圆形表示属性。</li>
+<li>菱形表示关系集。</li>
+<li>线连接属性和实体集，实体集和关系集。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-16.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-16.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-16.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-16.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/14-16.png"
+        title="E-R 图示例" /></p>
+<br/>
+<p>E-R 图完成后，关系数据库中的关系就能建立了。</p>
+<br/>
+<br/>
+<h3 id="规范化过程">规范化过程</h3>
+<p>规范化是一个处理过程，通过此过程给定的一组关系转化成一组具有更坚固结构的新关系。规范化允许数据库中表示的任何关系，要允许像 SQL 这样的语言去使用由原子操作组成的恢复操作，要移除插入、删除和更新操作中的不规则，要减少当新的数据类型被加入时对数据库重建的需要。</p>
+<p>规范化过程定义了一组层次范式（NF）。多种范式已经被提出，包括 1NF, 2NF, 3NF, BCNF, 4NF, PJNF 和 5NF等。有一点需要知道，这些范式形成了一个层次结构。换言之，如果一个数据库中的关系是 3NF，那它首先应该是 2NF。</p>
+<br/>
+<p>第一范式（1NF）。</p>
+<p>当我们把实体或关系转换成表格的关系时，可能有些关系的行或列的交集有多个值。一个教授可以教授多门课程，而一个学生也可以修多门课程。这两个关系可以通过重复有问题的行来进行规范化。</p>
+<p>一个不是第一范式的关系可能会遇到许多问题。在数据库中，我们总是删除一整条记录，而不是一条记录的一部分。</p>
+<br/>
+<p>第二范式（2NF）。</p>
+<p>在每个关系中，我们需要有一个关键字（称为主键），所有其他的属性都依赖于它。如果每一个非关键字属性都依赖于整个复合关键字（两个或以上关键字的组合），那么这个关系就是第二范式。</p>
+<p>如果有些属性只依赖于复合关键字的一部分，那这个关系就不是第二范式的。</p>
+<br/>
+<p>其他范式使用属性间更复杂的依赖关系。这部分知识请查看专门介绍数据库的书籍。</p>
+<br/>
+<br/>
+<h2 id="其他数据库模型">其他数据库模型</h2>
+<p>关系型数据库并不是当今唯一通用的数据库模型。另外两种通用模型时：分布式数据库和面向对象数据库。</p>
+<br/>
+<br/>
+<h3 id="分布式数据库">分布式数据库</h3>
+<p>分布式数据库模型实际上并不是一种新的模型，它是基于关系模型的。只不过，数据库中的数据存储在一些通过因特网通信的计算机上。每台计算机都拥有部分或全部数据库。</p>
+<ul>
+<li>不完全的分布式数据库：数据是本地化的。本地使用的数据存储在相应的站点上。</li>
+<li>复制式分布式数据库：每个站点都有一个完全的副本。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="面向对象数据库">面向对象数据库</h3>
+<p>面向对象数据库在试图保留关系模型优点的同时，允许应用存取结构化数据。在面上对象数据库中，定义了对象和它们的关系。另外，每一个对象可以具有属性并以域的形式表达。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="数据压缩-1">数据压缩</h1>
+<p>人们希望在更短的时间内下载更多的数据，人们希望能在更小的空间存储更多的数据。</p>
+<p>压缩数据通过消除数据中内在的冗余来减少发送或存储的数据量。当我们产生数据的同时，冗余也就产生了。通过数据压缩，提高了数据传输和存储的效率，同时保护了数据的完整性。</p>
+<p>本章的学习目标：</p>
+<ul>
+<li>区分无损压缩和有损压缩；</li>
+<li>描述游程长度编码和它是如何实现压缩的；</li>
+<li>描述赫夫曼编码和它是如何实现压缩的；</li>
+<li>描述 Lempel Ziv 编码以及字典在编码和译码中的作用；</li>
+<li>描述压缩静止图像的 JEPG 标准背后的主要思想；</li>
+<li>描述压缩视频的 MPEG 标准背后的主要思想以及它与 JPEG 的关系；</li>
+<li>描述压缩音频的 MP3 标准背后的主要思想。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="数据压缩引言">数据压缩引言</h2>
+<p>数据压缩意味着发送或存储更少的位数。压缩方法一般分为两类：</p>
+<ul>
+<li>无损压缩
+<ul>
+<li>游程长度编码</li>
+<li>赫夫曼编码</li>
+<li>LZ 编码</li>
+</ul>
+</li>
+<li>有损压缩
+<ul>
+<li>JPEG</li>
+<li>MPEG</li>
+<li>MP3</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h2 id="无损压缩方法">无损压缩方法</h2>
+<p>在无损数据压缩中，数据的完整性是收到保护的。原始数据与压缩和解压后的数据完全一样。压缩和解压缩算法是完全互反的两个过程，没有数据丢失。</p>
+<br/>
+<br/>
+<h3 id="游程长度编码">游程长度编码</h3>
+<p>游程长度编码的思想是将数据中连续重复出现的符号用一个字符和这个字符重复的次数来代替。例如，AAAAAAAA 用 A08 来代替。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-3.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-3.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-3.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-3.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-3.png"
+        title="游程长度编码示例" /></p>
+<br/>
+<br/>
+<h3 id="赫夫曼编码">赫夫曼编码</h3>
+<p>在赫夫曼编码中，对于出现更为频繁的字符分配较短的编码，而对于出现较少的字符分配较长的编码。</p>
+<p>在给每个字符分配位模式前，首先根据每个字符的使用频率给他们分配相应的权值。然后根据权值构造一棵树。构造树的过程遵循以下三个基本步骤：</p>
+<ul>
+<li>将全部字符排成一排。每个字符现在都是树的最底层节点。</li>
+<li>找出权值最小的两个节点并由他们合成第三个节点，产生一个简单的二层树。</li>
+<li>重复上述步骤，知道各个层的所有节点结合成一棵树。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-4.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-4.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-4.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-4.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-4.png"
+        title="赫夫曼编码" /></p>
+<br/>
+<br/>
+<h3 id="lemple-ziv-编码">Lemple Ziv 编码</h3>
+<p>Lempel Ziv(LZ) 编码是称为基于字典的编码的那一类算法的一个例子，用其发明者的名字命名的。在通信会话的时候它将产生一个字符串字典（一个表）。如果接收和发送双方都有这样的字典，那么字符串可以由字典中的索引代替，以减少通信的数据传输量。</p>
+<br/>
+<br/>
+<h2 id="有损压缩方法">有损压缩方法</h2>
+<p>信息的丢失在文本和程序中都是不可接受的。但在图片、音频和视频中是可以接受的。对于这些情况，可以使用有损数据压缩。这使得在传输图像和视频数据时只需要花费更少的时间和空间以及更廉价的代价。</p>
+<br/>
+<br/>
+<h3 id="图像压缩-jpeg">图像压缩: JPEG</h3>
+<p>在 JPEG 中，一幅图像被划分成许多的像素块。JPEG 的整体思想是将图像变换成一个数的线性（矢量）集合来揭示冗余。这些冗余可以通过使用前面学过的无损压缩的方法来除去。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-11.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-11.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-11.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-11.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/15-11.png"
+        title="JPEG 处理过程" /></p>
+<br/>
+<br/>
+<h3 id="视频压缩-mpeg">视频压缩: MPEG</h3>
+<p>运动图像专家组（MPEG）方法用于压缩视频。帧是像素在空间上的组合，视频是一幅接一幅的帧的时间组合。压缩视频，就是对每帧空间上的压缩和对一系列帧时间上的压缩。</p>
+<p>空间压缩：每一帧的空间压缩使用 JPEG（或它的改进版）。</p>
+<p>时间压缩：在时间压缩中，多余的帧将被丢弃。</p>
+<br/>
+<br/>
+<h3 id="音频压缩">音频压缩</h3>
+<p>音频压缩可用来处理语音和音乐。有两类技术用来进行音频压缩：</p>
+<ul>
+<li>预测编码：样本间的差别被编码，而不是对所有的样本进行编码。此压缩方法通常用在语音上。已有的标准：GSM、G.729 和 G.723.3。</li>
+<li>感知编码：用来创建 CD 质量音频最常用的压缩技术。</li>
+</ul>
+<p>感知编码是基于心理声学的，心理声学是一门研究人类是如何感知声音的科学。想法是基于我们听觉系统的瑕疵，有些声音能够掩盖其他声音。掩盖可以发生在频率上和时间上。在频率掩盖中，一个频率范围的高的声音可以部分或完全掩盖另一个频率范围的低的声音（例如，在高音重金属演出中听不见同伴说的话）。在时间掩盖中，即使在高音停止后，它也可以在短时间内降低我们听觉灵敏度。</p>
+<p>MP3 使用这两种现象来压缩音频信号。该技术分析音谱并把音谱分成几个组。0 位被赋给了那些频率范围被完全掩盖的，小数值得位被赋给了那些频率范围部分被掩盖的。大数值得位被赋给了那些不被掩盖得。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="安全">安全</h1>
+<p>本章得学习内容：</p>
+<ul>
+<li>定义安全目标：机密性、完整性、可用性；</li>
+<li>区分对称加密和非对称加密，以及它们可以达到得机密性程度；</li>
+<li>描述安全的其他领域：消息完整性、消息验证、数字签名、实体验证和密钥管理；</li>
+<li>理解防火墙在防止有害消息达到一个系统中的作用。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="安全引言">安全引言</h2>
+<p>信息是一种有价值的资产，需要保护，免受攻击。为了安全，信息需要避开未授权的使用（机密性），保护信息不受到未授权的篡改（完整性），并且对于得到授权的实体来说是需要时可用的（可用性）。</p>
+<p>信息不仅应该在存储时保密，在传输时也应该保持机密性。</p>
+<br/>
+<br/>
+<h3 id="安全目标">安全目标</h3>
+<p>三个安全目标：</p>
+<ul>
+<li>机密性</li>
+<li>完整性</li>
+<li>可用性</li>
+</ul>
+<br/>
+<br/>
+<h3 id="安全攻击">安全攻击</h3>
+<p>安全攻击的分类：</p>
+<ul>
+<li>威胁机密性的攻击
+<ul>
+<li>嗅探</li>
+<li>流量分析</li>
+</ul>
+</li>
+<li>威胁完整性的攻击
+<ul>
+<li>篡改</li>
+<li>假冒</li>
+<li>重放</li>
+<li>抵赖</li>
+</ul>
+</li>
+<li>威胁可用性的攻击
+<ul>
+<li>拒绝服务（DoS）</li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-1.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-1.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-1.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-1.png"
+        title="攻击分类" /></p>
+<br/>
+<br/>
+<h3 id="服务和技术">服务和技术</h3>
+<p>现今流行的两种安全技术：</p>
+<ul>
+<li>密码术：通过加密把消息中的内容隐藏起来。有加密和解密。</li>
+<li>隐写术：通过在消息上覆盖其他内容而隐藏消息。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="机密性">机密性</h2>
+<p>机密性可以通过密码达到。密码术可分为两大类：对称密钥和非对称密钥。</p>
+<br/>
+<br/>
+<h3 id="对称密钥密码术">对称密钥密码术</h3>
+<p>对称密钥密码术使用了同一个密钥进行加密和解密，这个密钥可用来进行双向通信，这就是为什么它被称为对称。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-2.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-2.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-2.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-2.png"
+        title="对称加密" /></p>
+<br/>
+<p>对称加密又分为两类：</p>
+<ul>
+<li>传统对称加密：面向字符的密码。
+<ul>
+<li>替换密码：用一个符号替换另一个符号。</li>
+<li>单字母密码：明文中相同的字符在密文中用相同的字符替换，与该字符在明文中的位置无关。</li>
+<li>多字母密码</li>
+<li>移位密码：改变符号的位置。</li>
+</ul>
+</li>
+<li>流密码和分组密码
+<ul>
+<li>流密码：加密和解密都是一次只对一个符号进行。</li>
+<li>分组密码：一组大小为 m（m大于1）的明文符号被加密在一起，创造一组同样大小的密文。</li>
+<li>组合</li>
+</ul>
+</li>
+<li>现代对称加密：面向位的密码。
+<ul>
+<li>现代分组密码：对大小为 n 位（常用 64、128、256 和 512 位）的明文分组进行加密或密文解密。</li>
+<li>现代流密码：加密和解密都是每次对 r 位进行。流密码比分组密码更快，硬件实现也更简单。</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h3 id="非对称密钥密码术">非对称密钥密码术</h3>
+<p>在非对称密钥密码术中，秘密是个人独享的，每个人创造并保守个人的秘密。如身份认证和数字签名等。</p>
+<p>与对称密钥基于符号（字符或位）的替换和排列不同，非对称密钥基于数学函数在数字上的应用。在对称密钥中，明文和密文被看作符号的组合，加密和解密是对这些符号的排列或相互替换。在非对称密钥中，明文和密文都是数字，加密和解密的过程是对数字应用数学函数并创造其他数字的过程。</p>
+<p>非对称密钥通常用来加密或解密小段信息。</p>
+<p>在非对称密钥中使用两个公开的密钥：</p>
+<ul>
+<li>公钥：加密。最常用的公钥算法是 RSA 密码系统。</li>
+<li>私钥：解密</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-8.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-8.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-8.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-8.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-8.png"
+        title="非对称密钥的公钥和私钥" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-10.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-10.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-10.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-10.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-10.png"
+        title="RSA 密码示例" /></p>
+<br/>
+<br/>
+<h2 id="其他安全服务">其他安全服务</h2>
+<br/>
+<h3 id="消息完整性">消息完整性</h3>
+<p>有些场合需要保证完整性，如遗嘱。</p>
+<p>保证文档完整性的一种方法是通过指纹。为了保证消息的完整性，消息要通过一个称为密码散列函数的算法。</p>
+<p>散列函数将任意长度的消息加密成固定长度的消息摘要。</p>
+<p>罗恩-李维斯设计的几个散列算法被称为 MD2、MD4 和 MD5。这里的 MD 代表消息摘要。MD5 是 MD4 的加强版，它可以将消息分成长度为 512 位的分组并创造大小为 128 位的摘要。然而，事实证明大小为 128 位的消息摘要太小了以至于不能阻挡攻击。</p>
+<p>为了回应 MD 散列算法的不安全性，安全散列算法（SHA）诞生了。</p>
+<br/>
+<br/>
+<h3 id="消息验证">消息验证</h3>
+<p>消息摘要可以验证消息的完整性，保证消息没被篡改。</p>
+<p>消息验证码（MAC, Message Authentication Code）通过散列函数和密钥的组合来保证消息的完整性和消息验证。</p>
+<p>新一代的 MAC 标准称为 HMAC（散列消息验证码）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-12.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-12.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-12.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-12.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-12.png"
+        title="消息验证码" /></p>
+<br/>
+<br/>
+<h3 id="数字签名">数字签名</h3>
+<p>保证消息完整性和消息验证的另一种方法是数字签名。数字签名使用一组公私钥。</p>
+<ul>
+<li>对比
+<ul>
+<li>包含</li>
+<li>验证手段</li>
+<li>关系</li>
+<li>复制性</li>
+</ul>
+</li>
+<li>过程</li>
+<li>签署摘要</li>
+<li>服务
+<ul>
+<li>消息验证</li>
+<li>消息完整性</li>
+<li>不可抵赖性</li>
+<li>机密性</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h3 id="实体验证">实体验证</h3>
+<p>实体验证用来使得以放证明另一方标识的一种技术。</p>
+<ul>
+<li>实体验证与消息验证</li>
+<li>验证分类
+<ul>
+<li>所知道的</li>
+<li>所拥有的</li>
+<li>所固有的</li>
+</ul>
+</li>
+<li>密码</li>
+<li>质询-响应
+<ul>
+<li>使用对称密钥</li>
+<li>使用非对称密码</li>
+<li>使用数字签名</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h3 id="密钥管理">密钥管理</h3>
+<ul>
+<li>对称密钥分发
+<ul>
+<li>密钥分发中心（KDC）</li>
+<li>多个密钥分发中心</li>
+<li>会话密钥：一个双方间的会话对称密钥只被使用一次。</li>
+</ul>
+</li>
+<li>公钥分发：公钥对公众可用
+<ul>
+<li>公开声明</li>
+<li>认证机构（CA）</li>
+<li>X.509：是一个结构化描述证书的方式，证书格式的通用性。</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h2 id="防火墙">防火墙</h2>
+<p>我们需要防火墙控制对系统的访问。防火墙是一个在内部网络和因特网其他部分之间的一个设备。防火墙是为了推进一些数据包而过滤其他数据包所设计的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-22.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-22.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-22.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-22.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/16-22.png"
+        title="防火墙" /></p>
+<br/>
+<br/>
+<h3 id="包过滤防火墙">包过滤防火墙</h3>
+<p>防火墙可以用作数据包过滤器。它是基于网络层的信息和传输层的头部：源和目的 IP 地址、源和目的端口以及协议类型来放行或阻拦数据包。</p>
+<br/>
+<br/>
+<h3 id="代理防火墙">代理防火墙</h3>
+<p>有时我们也需要基于消息自身携带的信息（应用层）进行过滤。</p>
+<p>一个解决措施是安装代理计算机（应用网关）。当客户发送消息时，应用网关检查数据包并判断这个请求是否合法。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="计算理论">计算理论</h1>
+<p>哪些问题可以通过计算机解决？语言之间是否存在优劣？运行一个程序前，是否可以确定该程序将要停止还是一直运行？用一种特定的语言解决一个问题需要多长时间？为了回答这些问题，我们求助于一门学科：计算理论。</p>
+<p>本章的学习目标：</p>
+<ul>
+<li>描述称为简单语言的编程语言，并定义它的基本语句；</li>
+<li>在简单语言中，使用简单语言的复合写出宏；</li>
+<li>描述作为计算机模型的图灵机的构成；</li>
+<li>使用图灵机，显示简单语言中的简单语句是如何被模拟的；</li>
+<li>理解邱奇-图灵理论和它的含义；</li>
+<li>定义哥德尔数和它的应用；</li>
+<li>理解停机问题的概念和问题不可解是如何被证明的；</li>
+<li>区分可解和不可解问题；</li>
+<li>区分多项式和非多项式可解问题。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="简单语言">简单语言</h2>
+<p>我们可以仅用三条语句来定义一种语言：递增语句、递减语句和循环语句。</p>
+<p>归纳来说，可以证明只使用这三种语句的简单程序设计语言和我们现在使用的任何一种复杂语言（如 C）一样强大。</p>
+<br/>
+<br/>
+<h2 id="图灵机">图灵机</h2>
+<p>图灵机是用来解决可计算问题的，它是现代计算机的基础。</p>
+<p>图灵机能模拟简单语言中的三个基本语言。这就意味着图灵机能模拟我们为简单语言定义的所有的宏。那么图灵机是否能解决一台计算机能解决的任何问题？答案可在邱奇-图灵论题中找到。</p>
+<p>邱奇-图灵论题：如果存在一个能完成一个符号操纵任务的算法，那么也存在一台完成这个任务的图灵机。</p>
+<p>注意，这只是论题，不是定理。定理可以在数学上得到证明，但论题却不饿能。虽然这个论题可能永远得不到证明，但有些强有力的论断在支持它。首先，尚未发现有图灵机不能模拟的算法；其次所有在数学上已经证明的。</p>
+<br/>
+<br/>
+<h2 id="哥德尔数">哥德尔数</h2>
+<p>在计算机理论中，一个无符号数能被分配给任何用特定语言编写的程序，通常称为哥德尔数。</p>
+<br/>
+<br/>
+<h2 id="停机问题">停机问题</h2>
+<p>几乎所有的简单语言编写的程序都包含某种形式的重复（循环或递归）。一个重复结构可能永远都不会结束（停机）。这就是说，一个含有无限循环的程序可以永久运行。</p>
+<p>能否编写一个程序来测试可以用哥德尔数标识的程序是否会终止吗？不幸的是，现在已经证明这样的程序不可能存在。</p>
+<p>停机问题是不可解的。</p>
+<br/>
+<br/>
+<h2 id="问题的复杂度">问题的复杂度</h2>
+<p>在计算机科学领域，我们可以这么说，一般来说问题可以分为两类：</p>
+<ul>
+<li>可解问题
+<ul>
+<li>多项式问题</li>
+<li>非多项式问题</li>
+</ul>
+</li>
+<li>不可解问题</li>
+</ul>
+<br/>
+<br/>
+<h3 id="不可解问题">不可解问题</h3>
+<p>无法用计算机解决的问题无穷无尽，停机问题是其中一个。证明一个问题能否解决等同于证明停机问题能否解决。</p>
+<br/>
+<br/>
+<h3 id="可解问题">可解问题</h3>
+<p>能够被计算机解决的问题也是无穷无尽。我们关心的是：计算机需要花多长时间去解决一个问题。换言之，这个问题有多复杂？</p>
+<p>问题的复杂度可以用不同的方法衡量：如运行时间、内存用量等。</p>
+<p>可解问题的复杂度。衡量可解问题复杂度的一个方法是找出计算机运行该程序时要执行的运算数量。这样，复杂度问题不是依赖于运行程序的计算机的速度，而是依赖于输入的数目。</p>
+<p>大 O 表示法。相对于当今计算机的速度，我们关心的是程序总体的数量级而不是精确的数字。效率的简化以大 O 表示法最为著名。在该表示法中，运算数量表示为输入量的函数，符号 <code>O(n)</code> 表示有 n 个输入，执行 n 次运算。</p>
+<p>如果程序的复杂度为 <code>O(log n)</code>、<code>O(n)</code>、<code>O(n^k)</code>，则被称为多项式问题。以当今计算机的处理速度，对于一个有合理输入数量的多项式问题我们都能解决。</p>
+<p>如果程序的复杂度远比多项式问题复杂，如 <code>O(10^n)</code> 或 <code>O(n!)</code>。当输入数很小时，这种问题可以解决。如果输入数很大，则需要几个月的时间才能看到非多项式的解决结果。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="人工智能">人工智能</h1>
+<p>本章的学习目标：</p>
+<ul>
+<li>定义和叙述人工智能的简史；</li>
+<li>描述知识在智能体中是如何表示的；</li>
+<li>说明当人类专家不可用时，专家系统是如何使用的；</li>
+<li>说明如何用人工智能体来模仿人类完成任务；</li>
+<li>说明专家系统和平凡系统是如何使用不同的搜索方法解决问题的；</li>
+<li>说明人类的学习过程是如何被模仿的，在一定程度上，使用神经网络创建的电子版神经元称为感知器。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="人工智能引言">人工智能引言</h2>
+<p>当两千多年前希腊哲学家亚里士多德发明了逻辑推理这个概念时，人工智能就开始了，接着莱布尼茨和牛顿完成了逻辑语言的定稿。乔治布尔在十九世纪逐步提出了布尔代数奠定了计算机电子电路的基础。思维计算机的主要思想来自阿兰图灵，他提出了图灵测试。人工智能这个术语是约翰麦卡思在 1956 年首次提出的。</p>
+<p>在 1950 年，阿兰图灵提出了图灵测试，这个测试提出了机器具有智能的一个定义。该测试的方法是，简单比较人类的智能行为和计算机的智能行为。一个询问者对计算机和人类都提出一组问题，然后，询问者得到两组答案。如果询问者不能肯定地说出哪一组答案来自认类，哪一组答案来自计算机，那么，计算机就通过了具有智能行为的图灵测试。</p>
+<p>智能体是一个能智能地感知环境、从环境中学习并与环境进行交互的系统。智能体可以分为两大类：</p>
+<ul>
+<li>软件智能体：如搜索引擎</li>
+<li>硬件智能体：如机器人</li>
+</ul>
+<p>虽然有些通用语言能用来编写智能软件，但有两种语言是特别为人工智能设计的：LISP 和 PROLOG。</p>
+<br/>
+<br/>
+<h2 id="知识表示">知识表示</h2>
+<p>如果打算用人工智能来解决现实世界中的一些问题，那么它必须能表示知识。事实被表示成数据结构后就能被存储在计算机中的程序操纵。4 种常见的知识表示方法：语义网、框架、谓词逻辑和基于规则的系统。</p>
+<br/>
+<br/>
+<h3 id="语义网">语义网</h3>
+<p>语义网使用有向图表示知识。语义网用顶点代表概念，用边表示两个概念间的关系。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-1.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-1.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-1.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-1.png"
+        title="语义网" /></p>
+<br/>
+<br/>
+<h3 id="框架">框架</h3>
+<p>在框架中，数据结构（记录）用来表示相同的知识。</p>
+<p>语义网中的一个节点变成了一组框架的一个对象，所以一个对象可以定义一个类、一个子类或类的一个实例。</p>
+<p>语义网中的边被翻译成槽（数据结构中的域）。槽的名字定义了关系的类型和构成关系的槽的值。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-2.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-2.png, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-2.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-2.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/computerscience/18-2.png"
+        title="代表语义网的框架组" /></p>
+<br/>
+<br/>
+<h3 id="谓词逻辑">谓词逻辑</h3>
+<p>最通常的知识表示是谓词逻辑。谓词逻辑可用来表示复杂的事实。</p>
+<p>命题逻辑是对世界进行逻辑推理的一组句子组成的一种语言。命题逻辑使用 5 种运算符：</p>
+<ul>
+<li>非</li>
+<li>或</li>
+<li>与</li>
+<li>如果&hellip;那么</li>
+<li>当且仅当</li>
+</ul>
+<br/>
+<p>在人工智能中，我们需要从已知的事实中推导出新的事实。在命题逻辑中，这样的过程称为推演。给定两个假定为真的句子，我们能推演出新的为真的句子，前面两个句子称为前提，推演出的句子称为结论，而整个称为论断。</p>
+<p>当找不到反例时，论断就是合法的。</p>
+<br/>
+<p>谓词逻辑定义了命题各部分间的关系。在谓词逻辑中，句子被分成谓词和参数。</p>
+<p>谓词逻辑允许使用量词。在谓词逻辑中两个常用的量词：</p>
+<ul>
+<li>全称量词：它表明变量所表示的全部对象某些事为真。</li>
+<li>存在量词：它表明变量所表示的一个或多个对象某些事为真。</li>
+</ul>
+<p>由于逻辑推理的需要，逻辑得到了进一步的发展，包括高阶逻辑、默认逻辑、模态逻辑和时态逻辑。</p>
+<br/>
+<br/>
+<h3 id="基于规则的系统">基于规则的系统</h3>
+<br/>
+<hr>
+<br/>
+<h1 id="社会和道德问题">社会和道德问题</h1>
+<p>本章的学习目标：</p>
+<ul>
+<li>定义和计算机使用相关的三个道德原则；</li>
+<li>区分物质财产和知识产权，并列举几种知识产权；</li>
+<li>定义和计算机使用相关的隐私；</li>
+<li>给出计算机犯罪的定义，并讨论几种攻击以及攻击的动机，以及如何防范攻击；</li>
+<li>定义黑客以及他们造成的损害。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="道德问题">道德问题</h2>
+<p>当使用电脑时，评判我们对世界上其他人的责任的一种方式是将决策建立在道德至上。</p>
+<ul>
+<li>道德规则：我们应该尽量避免去做那些违反普遍道德的行为。</li>
+<li>使用：如果一个行为能够带来好的结果，那么它是道德的。</li>
+<li>社会契约：如果一个行为被社会中的大部分人接受，那么它是道德的。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="知识产权">知识产权</h2>
+<p>现代社会已经确认的几种类型的知识产权：</p>
+<ul>
+<li>商标</li>
+<li>商业机密</li>
+<li>专利</li>
+<li>版权</li>
+</ul>
+<br/>
+<br/>
+<h2 id="隐私">隐私</h2>
+<p>有一些国家已经引进了和用来收集数据的计算机的使用的相关的道德准则：</p>
+<ul>
+<li>只收集有必要的数据</li>
+<li>确保收集到的数据的准确性</li>
+<li>允许个人知道所收集到的数据有哪些</li>
+<li>在必要情况下，允许个人修改已收集到的数据。</li>
+<li>确保收集的数据只被用于原来的目的。</li>
+<li>使用加密技术来达成四小的交流。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="计算机犯罪">计算机犯罪</h2>
+<p>计算机犯罪是一种非法行为，它又被称为攻击。攻击类型：</p>
+<ul>
+<li>入侵攻击
+<ul>
+<li>病毒</li>
+<li>蠕虫</li>
+<li>特洛伊木马</li>
+</ul>
+</li>
+<li>拒绝服务攻击</li>
+</ul>
+<br/>
+<p>攻击保护的策略：</p>
+<ul>
+<li>使用物理保护：计算机只能被信任的个人使用。</li>
+<li>使用受保护的软件</li>
+<li>安装防病毒软件</li>
+</ul>
+<br/>
+<br/>
+<h2 id="黑客">黑客</h2>
+<p>现今，黑客指那些未经授权就访问他人计算机获取机密信息的人。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -2741,7 +4606,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

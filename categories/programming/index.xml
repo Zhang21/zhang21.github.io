@@ -4,7 +4,20 @@
         <link>https://zhang21.cn/categories/programming/</link>
         <description>programming - 分类 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/programming/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 28 Feb 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/programming/" rel="self" type="application/rss+xml" /><item>
+    <title>JavaScript权威指南</title>
+    <link>https://zhang21.cn/javascript-the-definitive-guide/</link>
+    <pubDate>Tue, 28 Feb 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/javascript-the-definitive-guide/</guid>
+    <description><![CDATA[<p>参考:</p>
+<ul>
+<li><a href="https://book.douban.com/subject/35396470/" target="_blank" rel="noopener noreffer ">豆瓣</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
     <title>React</title>
     <link>https://zhang21.cn/react/</link>
     <pubDate>Fri, 06 Aug 2021 09:02:17 &#43;0000</pubDate>
@@ -174,21 +187,6 @@
 数据结构可通过程序语言所提供的数据类型、引用及其它操作加以实现。不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计。
 一个涉及良好的数据结构，应该尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。</p>
 <p>正确选择数据结构可以提高算法的效率，在计算机程序设计里，选择适当的数据结构是一项重要工作。</p>
-<br/>]]></description>
-</item>
-<item>
-    <title>Yaml</title>
-    <link>https://zhang21.cn/yaml/</link>
-    <pubDate>Sat, 02 Sep 2017 17:16:38 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/yaml/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>维基百科: <a href="https://zh.wikipedia.org/wiki/YAML">https://zh.wikipedia.org/wiki/YAML</a></li>
-<li>YAML: <a href="https://yaml.org/">https://yaml.org/</a></li>
-<li>YAML语法检测: <a href="http://www.yamllint.com">http://www.yamllint.com</a></li>
-</ul>
-<br/>
 <br/>]]></description>
 </item>
 </channel>

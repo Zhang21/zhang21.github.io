@@ -59,7 +59,7 @@ Prometheus v2.14
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "Monitor, Prometheus, Metrics","wordcount":  32715 ,
+                        }],"genre": "posts","keywords": "Monitor, Prometheus, Metrics","wordcount":  31529 ,
         "url": "https:\/\/zhang21.cn\/prometheus\/","datePublished": "2018-09-11T00:00:00+00:00","dateModified": "2018-09-11T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -132,9 +132,9 @@ Prometheus v2.14
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Prometheus</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%9B%91%E6%8E%A7/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>监控</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-09-11">2018-09-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 32715 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 66 分钟&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/monitoring/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Monitoring</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-09-11">2018-09-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 31529 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 63 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -273,6 +273,13 @@ Prometheus v2.14
             <li><a href="#操作配置">操作配置</a></li>
           </ul>
         </li>
+        <li><a href="#联邦模式">联邦模式</a>
+          <ul>
+            <li><a href="#使用案例">使用案例</a></li>
+            <li><a href="#配置联邦">配置联邦</a></li>
+            <li><a href="#联邦配置参数">联邦配置参数</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#可视化">可视化</a>
@@ -294,12 +301,12 @@ Prometheus v2.14
     </li>
     <li><a href="#示例配置">示例配置</a>
       <ul>
+        <li><a href="#一套组件">一套组件</a></li>
         <li><a href="#prometheus配置样例">prometheus配置样例</a></li>
         <li><a href="#alertmanager配置样例">alertmanager配置样例</a></li>
         <li><a href="#prometheus自动发现">prometheus自动发现</a></li>
         <li><a href="#prometheus告警规则">prometheus告警规则</a></li>
         <li><a href="#进程探针配置">进程探针配置</a></li>
-        <li><a href="#进程告警规则">进程告警规则</a></li>
       </ul>
     </li>
     <li><a href="#集成">集成</a>
@@ -706,6 +713,7 @@ predict_linear(node_filesystem_free{job=&#34;node&#34;}[2h], 4 * 3600) &lt; 0
 <br/>
 <h1 id="prometheus">Prometheus</h1>
 <br/>
+<br/>
 <h2 id="入门">入门</h2>
 <p>GETTING STARTED</p>
 <p>本节介绍如何安装，配置，使用Prometheus的简单例子。你将在本地安装和运行Prometheus，将其配置为自我填充和示例应用程序，然后使用查询，规则和图表来使用收集的序列数据。</p>
@@ -719,9 +727,9 @@ predict_linear(node_filesystem_free{job=&#34;node&#34;}[2h], 4 * 3600) &lt; 0
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">tar xvfz prometheus-*.tar.gz
+<pre class="chroma"><code class="language-sh" data-lang="sh">tar xvfz prometheus-*.tar.gz
 
-cd prometheus-*
+<span class="nb">cd</span> prometheus-*
 </code></pre></td></tr></table>
 </div>
 </div><br>
@@ -781,8 +789,8 @@ Prometheus通过在目标上通过HTTP endPoints来抓取指标，来收集受�
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd prometheus-2.3.2.linux-amd64
-./prometheus --config.file=&#34;prometheus.yml&#34;
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> prometheus-2.3.2.linux-amd64
+./prometheus --config.file<span class="o">=</span><span class="s2">&#34;prometheus.yml&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><img
@@ -799,29 +807,25 @@ Prometheus通过在目标上通过HTTP endPoints来抓取指标，来收集受�
 绘制表达式图形同样在此操作。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#表达式
-prometheus_target_interval_length_seconds
-
-
-#表达式
-prometheus_target_interval_length_seconds{quantile=&#34;0.99&#34;}
-
-
-#计算返回的时间序列数
-count(prometheus_target_interval_length_seconds)
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#表达式</span><span class="w">
+</span><span class="w"></span><span class="l">prometheus_target_interval_length_seconds</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c">#表达式</span><span class="w">
+</span><span class="w"></span><span class="l">prometheus_target_interval_length_seconds{quantile=&#34;0.99&#34;}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c">#计算返回的时间序列数</span><span class="w">
+</span><span class="w"></span><span class="l">count(prometheus_target_interval_length_seconds)</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -861,25 +865,21 @@ count(prometheus_target_interval_length_seconds)
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir ./sample &amp;&amp; cd sample
+<pre class="chroma"><code class="language-sh" data-lang="sh">mkdir ./sample <span class="o">&amp;&amp;</span> <span class="nb">cd</span> sample
 
 git clone https://github.com/prometheus/client_golang.git
-cd client_golang/examples/random
+<span class="nb">cd</span> client_golang/examples/random
 go get -d
 go build
 
+<span class="c1"># Start 3 example targets in separate terminals:</span>
+./random -listen-address<span class="o">=</span>:9091
+./random -listen-address<span class="o">=</span>:9092
+./random -listen-address<span class="o">=</span>:9093
 
-# Start 3 example targets in separate terminals:
-./random -listen-address=:9091
-./random -listen-address=:9092
-./random -listen-address=:9093
-
-
-#访问
+<span class="c1">#访问</span>
 http://localhost:9091/metrices
 http://localhost:9092/metrices
 http://localhost:9093/metrices
@@ -938,13 +938,13 @@ Configure rules for aggregating scraped data into new time series</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#job_service:rpc_durations_seconds_count:avg_rate5m
-groups:
-- name: example
-  rules:
-  - record: job_service:rpc_durations_seconds_count:avg_rate5m
-    expr: avg(rate(rpc_durations_seconds_count[5m])) by (job, service)
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#job_service:rpc_durations_seconds_count:avg_rate5m</span><span class="w">
+</span><span class="w"></span><span class="nt">groups</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">example</span><span class="w">
+</span><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">record</span><span class="p">:</span><span class="w"> </span><span class="l">job_service:rpc_durations_seconds_count:avg_rate5m</span><span class="w">
+</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">avg(rate(rpc_durations_seconds_count[5m])) by (job, service)</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>要是Prometheus选择此新规则，需要修改Prometheus配置：</p>
 <div class="highlight"><div class="chroma">
@@ -984,40 +984,40 @@ groups:
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">global:
-  scrape_interval:     15s # By default, scrape targets every 15 seconds.
-  evaluation_interval: 15s # Evaluate rules every 15 seconds.
-
-  # Attach these extra labels to all timeseries collected by this Prometheus instance.
-  external_labels:
-    monitor: &#39;codelab-monitor&#39;
-
-rule_files:
-  - &#39;prometheus.rules.yml&#39;
-
-scrape_configs:
-  - job_name: &#39;prometheus&#39;
-
-    # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
-
-    static_configs:
-      - targets: [&#39;localhost:9090&#39;]
-
-  - job_name:       &#39;example-random&#39;
-
-    # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
-
-    static_configs:
-      - targets: [&#39;localhost:8091&#39;, &#39;localhost:8092&#39;]
-        labels:
-          group: &#39;production&#39;
-
-      - targets: [&#39;localhost:9093&#39;]
-        labels:
-          group: &#39;canary&#39;
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">global</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w">     </span><span class="l">15s</span><span class="w"> </span><span class="c"># By default, scrape targets every 15 seconds.</span><span class="w">
+</span><span class="w">  </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w"> </span><span class="c"># Evaluate rules every 15 seconds.</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Attach these extra labels to all timeseries collected by this Prometheus instance.</span><span class="w">
+</span><span class="w">  </span><span class="nt">external_labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">monitor</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;codelab-monitor&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">rule_files</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="s1">&#39;prometheus.rules.yml&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prometheus&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># Override the global default and scrape targets from this job every 5 seconds.</span><span class="w">
+</span><span class="w">    </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:9090&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w">       </span><span class="s1">&#39;example-random&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># Override the global default and scrape targets from this job every 5 seconds.</span><span class="w">
+</span><span class="w">    </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:8091&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;localhost:8092&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;production&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:9093&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;canary&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>重启Prometheus，使用<code>job_service:rpc_durations_seconds_count:avg_rate5m</code> metric验证。</p>
 <br/>
@@ -1041,15 +1041,13 @@ Prometheus image 使用 volume 来存储实际的指标。对于生产部署，�
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#bind-mount
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#bind-mount</span>
 docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus.yml  prom/prometheus
 
-
-#volume
-docker run -p 9090:9090 -v /promethe-data  prom/prometheus  --config.file=/prometheus-data/prometheus.yml
+<span class="c1">#volume</span>
+docker run -p 9090:9090 -v /promethe-data  prom/prometheus  --config.file<span class="o">=</span>/prometheus-data/prometheus.yml
 </code></pre></td></tr></table>
 </div>
 </div><br>
@@ -1062,10 +1060,10 @@ docker run -p 9090:9090 -v /promethe-data  prom/prometheus  --config.file=/prome
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">FROM prom/prometheus
-ADD prometheus.yml /etc/prometheus/
-xxx
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span><span class="s"> prom/prometheus</span><span class="err">
+</span><span class="err"></span><span class="k">ADD</span> prometheus.yml /etc/prometheus/<span class="err">
+</span><span class="err"></span>xxx<span class="err">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>构建：</p>
 <div class="highlight"><div class="chroma">
@@ -1073,7 +1071,7 @@ xxx
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker build -t my-prometheus .
+<pre class="chroma"><code class="language-sh" data-lang="sh">docker build -t my-prometheus .
 </code></pre></td></tr></table>
 </div>
 </div><br/>
@@ -1087,11 +1085,11 @@ xxx
 </ul>
 <br/>
 <br/>
-<br/>
 <h2 id="配置">配置</h2>
 <p>Configuration</p>
-<p>Prometheus通过命令行标志(flag)和配置文件进行配置。使用<code>./prometheus -h</code>查看所有命令行标志。
-Prometheus可在运行时重新加载配置。</p>
+<p>Prometheus通过命令行标志(flag)和配置文件进行配置。使用<code>./prometheus -h</code>查看所有命令行标志。</p>
+<p>Prometheus可在运行时重新加载配置。</p>
+<br/>
 <br/>
 <h3 id="配置文件">配置文件</h3>
 <p>configuration file: <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/">https://prometheus.io/docs/prometheus/latest/configuration/configuration/</a></p>
@@ -1206,9 +1204,9 @@ Prometheus可在运行时重新加载配置。</p>
 </ul>
 <br>
 <br>
-<br>
 <h3 id="记录规则">记录规则</h3>
 <p>Recording rules</p>
+<br>
 <br>
 <h4 id="配置规则">配置规则</h4>
 <p>Configuring rules</p>
@@ -1231,7 +1229,7 @@ Prometheus可在运行时重新加载配置。</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">go get github.com/prometheus/prometheus/cmd/promtool
+<pre class="chroma"><code class="language-sh" data-lang="sh">go get github.com/prometheus/prometheus/cmd/promtool
 
 promtool check rules /path/to/example.rules.yml
 </code></pre></td></tr></table>
@@ -1264,12 +1262,12 @@ promtool check rules /path/to/example.rules.yml
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">groups:
-  - name: example
-    relues:
-    - record: job:http_inprogress_requests:sum
-      expr: sum(http_inprogress_requests) by (job)
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">groups</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">example</span><span class="w">
+</span><span class="w">    </span><span class="nt">relues</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">record</span><span class="p">:</span><span class="w"> </span><span class="l">job:http_inprogress_requests:sum</span><span class="w">
+</span><span class="w">      </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">sum(http_inprogress_requests) by (job)</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><br>
 <p><strong>&lt;rule_group&gt;</strong></p>
@@ -1376,6 +1374,7 @@ promtool check rules /path/to/example.rules.yml
 <h3 id="告警规则">告警规则</h3>
 <p>Alerting rules</p>
 <p>告警规则允许你根据Prometheus表达式语言来定义告警条件，并发送提醒到外部服务。每当告警表达式在给定的时间内导致一个或多个矢量元素，告警计数主动作为这些元素的标签集。</p>
+<br>
 <br>
 <h4 id="定义告警规则">定义告警规则</h4>
 <p>在Prometheus中，告警规则的配置与记录规则的配置一样。</p>
@@ -1504,6 +1503,7 @@ Prometheus通过集成服务发现，可配置为自动发现可用的Alertmanag
 <h3 id="模板-1">模板</h3>
 <p>Template example</p>
 <p>Prometheus在alerts的annotations和labels中支持模板化，以及在控制台页面。模板要针对本地数据库运行查询、迭代数据，使用条件、格式数据等能力。Prometheus模板语言是基于Go template system。</p>
+<br>
 <br>
 <h4 id="简单告警字段模板">简单告警字段模板</h4>
 <div class="highlight"><div class="chroma">
@@ -1663,6 +1663,7 @@ Prometheus通过集成服务发现，可配置为自动发现可用的Alertmanag
 <h3 id="模板引用">模板引用</h3>
 <p>TEMPLATE REFERENCE</p>
 <br>
+<br>
 <h4 id="数据结构">数据结构</h4>
 <p>Data Structures</p>
 <p>用于处理时间序列数据的主要数据结构栗子:</p>
@@ -1674,15 +1675,13 @@ Prometheus通过集成服务发现，可配置为自动发现可用的Alertmanag
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">type sample struct {
-    Labels map[string]string
-    Value float64
-}
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">sample</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Labels</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+    <span class="nx">Value</span> <span class="kt">float64</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>栗子的指标名称(metric)编码在<code>Labels</code>map的特殊的<code>__name__</code>标签里。
-<code>[]sample</code>表示实例列表。
-Go中的<code>interface{}</code>与C中的void pointer类似。</p>
+</div><p>栗子的指标名称(metric)编码在<code>Labels</code>map的特殊的<code>__name__</code>标签里。<code>[]sample</code>表示实例列表。Go中的<code>interface{}</code>与C中的void pointer类似。</p>
 <br>
 <br>
 <h4 id="函数">函数</h4>
@@ -1707,12 +1706,12 @@ Go中的<code>interface{}</code>与C中的void pointer类似。</p>
 <p>你可使用<code>promtool</code>来测试你的规则。</p>
 <br>
 <br>
-<br>
 <h2 id="查询">查询</h2>
 <p>Querying</p>
 <br>
 <h3 id="查询prometheus">查询Prometheus</h3>
 <p>Prometheus提供了一个名为<code>PromQL</code>(Prometheus Query Language)功能化查询语言，让用户选择并实时汇总时间序列数据。表达式的结果可被显示为图形，可在Prometheus浏览器上查看，或通过HTTP API来获取。</p>
+<br>
 <br>
 <h4 id="表达式语言数据类型">表达式语言数据类型</h4>
 <p>Expression language data types</p>
@@ -1738,9 +1737,9 @@ Go中的<code>interface{}</code>与C中的void pointer类似。</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;this is a string&#34;
-&#39;these are unescaped: \n \\ \t&#39;
-`these are not unescaped: \n &#39; &#34; \t`&#34;&#39;`
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="s">&#34;this is a string&#34;</span>
+<span class="err">&#39;</span><span class="nx">these</span> <span class="nx">are</span> <span class="nx">unescaped</span><span class="p">:</span> <span class="err">\</span><span class="nx">n</span> <span class="err">\\</span> <span class="err">\</span><span class="nx">t</span><span class="err">&#39;</span>
+<span class="s">`these are not unescaped: \n &#39; &#34; \t`</span><span class="err">&#34;&#39;`</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
@@ -1881,6 +1880,7 @@ Syntax: &lt;instant_query&gt; &#39;[&#39; &lt;range&gt; &#39;:&#39; [&lt;resolut
 <br>
 <h3 id="操作符">操作符</h3>
 <p>Operators: <a href="https://prometheus.io/docs/prometheus/latest/querying/operators/">https://prometheus.io/docs/prometheus/latest/querying/operators/</a></p>
+<br>
 <br>
 <h4 id="二元运算符">二元运算符</h4>
 <p>Binary Operators</p>
@@ -2217,91 +2217,10 @@ topk(5, http_requests_total)
 </span><span class="lnt">129
 </span><span class="lnt">130
 </span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span><span class="lnt">158
-</span><span class="lnt">159
-</span><span class="lnt">160
-</span><span class="lnt">161
-</span><span class="lnt">162
-</span><span class="lnt">163
-</span><span class="lnt">164
-</span><span class="lnt">165
-</span><span class="lnt">166
-</span><span class="lnt">167
-</span><span class="lnt">168
-</span><span class="lnt">169
-</span><span class="lnt">170
-</span><span class="lnt">171
-</span><span class="lnt">172
-</span><span class="lnt">173
-</span><span class="lnt">174
-</span><span class="lnt">175
-</span><span class="lnt">176
-</span><span class="lnt">177
-</span><span class="lnt">178
-</span><span class="lnt">179
-</span><span class="lnt">180
-</span><span class="lnt">181
-</span><span class="lnt">182
-</span><span class="lnt">183
-</span><span class="lnt">184
-</span><span class="lnt">185
-</span><span class="lnt">186
-</span><span class="lnt">187
-</span><span class="lnt">188
-</span><span class="lnt">189
-</span><span class="lnt">190
-</span><span class="lnt">191
-</span><span class="lnt">192
-</span><span class="lnt">193
-</span><span class="lnt">194
-</span><span class="lnt">195
-</span><span class="lnt">196
-</span><span class="lnt">197
-</span><span class="lnt">198
-</span><span class="lnt">199
-</span><span class="lnt">200
-</span><span class="lnt">201
-</span><span class="lnt">202
-</span><span class="lnt">203
-</span><span class="lnt">204
-</span><span class="lnt">205
-</span><span class="lnt">206
-</span><span class="lnt">207
-</span><span class="lnt">208
-</span><span class="lnt">209
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">abs()
 abs(v instant-vector) 返回输入向量的所有样本的绝对值
-
-
-
 
 absent()
 absent(v instant-vector)，判断是否存在
@@ -2315,50 +2234,32 @@ absent(nonexistent{job=&#34;myjob&#34;,instance=~&#34;.*&#34;})
 absent(sum(nonexistent{job=&#34;myjob&#34;}))
 # =&gt; {}
 
-
-
-
 ceil()
 ceil(v instant-vector) 将v中所有元素的样本值向上四舍五入到最接近的整数
-
 
 floor()
 floor(v instant-vector) 与ceil()相反，将v中所有元素的样本值向下四舍五入到最接近的整数
 
-
-
-
 changes()
 changes(v range-vector) 输入一个区间向量，返回这个区间向量内每个样本数据值变化的次数（瞬时向量）。如果样本数据值没有发生变化，则返回结果为1
-
-
-
 
 clamp_max()
 clamp_max(v instant-vector, max scalar) 输入一个瞬时向量和最大值，样本数据值若大于max，则改为max，否则不变
 
-
 clamp_min()
 clamp_min(v instant-vector, min scalar) 输入一个瞬时向量和最小值，样本数据值若小于min，则改为min，否则不变
-
-
-
 
 day_of_month()
 day_of_month(v=vector(time()) instant-vector) 值范围为1-31
 
-
 day_of_week()
 day_of_week(v=vector(time()) instant-vector) 值范围为0-6
-
 
 days_in_month()
 days_in_month(v=vector(time()) instant-vector) 月份的天数，值范围为28-31
 
-
 minute()
 minute(v=vector(time()) instant-vector) 函数返回给定UTC时间当前小时的第多少分钟，范围为0-59
-
 
 month()
 month(v=vector(time()) instant-vector) 函数返回给定UTC时间当前属于第几个月，范围为1-12
@@ -2366,135 +2267,79 @@ month(v=vector(time()) instant-vector) 函数返回给定UTC时间当前属于�
 year()
 year(v=vector(time()) instant-vector) 返回被给定 UTC 时间的当前年份
 
-
 hour()
 hour(v=vector(time()) instant-vector) 值范围为0-23
-
-
 
 delta()
 delta(v range-vector) 它计算一个区间向量v的第一个元素和最后一个元素之间的差值，返回一个瞬时向量
 delta(cpu_temp_celsius{host=&#34;zeus&#34;}[2h]) # 现在和两小时前的CPU温度差
 
-
 idelta()
 idelta(v range-vector) 计算最后两个样本之间的差
-
-
-
 
 deriv()
 deriv(v range-vector) 使用简单的线性回归计算区间向量v中各个时间序列的导数
 
-
-
-
 exp()
 exp(v instant-vector) 输入一个瞬时向量，返回各个样本值的e的指数值
-
-
-
 
 histogram_quantile()
 histogram_quantile(φ float, b instant-vector)
 histogram_quantile(0.9, rate(http_request_duration_seconds_bucket[10m])) # 计算过去10分钟内请求持续在90%
 histogram_quantile(0.9, sum(rate(http_request_duration_seconds_bucket[10m])) by (job, le)) # 聚合
 
-
-
 holt_winters()
 holt_winters(v range-vector, sf scalar, tf scalar) 基于区间向量v，生成时间序列数据平滑值
-
-
-
 
 increase()
 increase(v range-vector) 获取区间向量中的第一个和最后一个样本并返回其增长量
 increase(http_requests_total{job=&#34;api-server&#34;}[5m]) # 区间向量中每个时间序列过去5分钟内HTTP请求数的增长数
 
-
-
-
 label_join()
 
-
-
 label_replace()
-
-
 
 ln()
 ln(v instant-vector) 计算瞬时向量v中所有样本数据的自然对数
 
-
-
 log2()
 log2(v instant-vector) 函数计算瞬时向量v中所有样本数据的二进制对数
 
-
-
 log10()
 log10(v instant-vector) 计算瞬时向量v中所有样本数据的十进制对数
-
-
-
 
 predict_linear()
 predict_linear(v range-vector, t scalar) 函数可以预测时间序列v在t秒后的值
 predict_linear(node_filesystem_free{job=&#34;node&#34;}[2h], 4 * 3600) &lt; 0 # 基于2小时的样本数据，来预测主机可用磁盘空间的是否在4个小时候被占满
 
-
-
 rate()
 rate(v range-vector) 直接计算区间向量 v 在时间窗口内平均增长速率
 rate(http_requests_total[5m]) 区间向量中每个时间序列过去5分钟内HTTP请求数的每秒增长率
-
 
 irate()
 irate(v range-vector) 用于计算区间向量的增长率，但是其反应出的是瞬时增长率。通过区间向量中最后两个两本数据来计算区间向量的增长速率。
 irate(http_requests_total{job=&#34;api-server&#34;}[5m]) # 区间向量中每个时间序列过去 5 分钟内最后两个样本数据的 HTTP 请求数的增长率
 
-
-
 resets()
 resets(v range-vector) 的参数是一个区间向量。对于每个时间序列，它都返回一个计数器重置的次数。两个连续样本之间的值的减少被认为是一次计数器重置。
-
-
 
 round()
 round(v instant-vector, to_nearest=1 scalar) 与ceil和floor函数类似，返回向量中所有样本值的最接近的整数
 
-
-
 scalar()
 scalar(v instant-vector) 函数的参数是一个单元素的瞬时向量,它返回其唯一的时间序列的值作为一个标量
-
-
 
 sort()
 sort(v instant-vector) 函数对向量按元素的值进行升序排序
 
-
-
 sort_desc()
 降序排列
-
-
 
 sqrt()
 sqrt(v instant-vector) 计算向量v 所有元素的平方根
 
-
-
-
-
-
 vector()
 vector(s scalar)
-
-
-
-
 
 &lt;aggregation&gt;_over_time()
 avg_over_time(range-vector) : 区间向量内每个度量指标的平均值。
@@ -2505,13 +2350,13 @@ count_over_time(range-vector) : 区间向量内每个度量指标的样本数据
 quantile_over_time(scalar, range-vector) : 区间向量内每个度量指标的样本数据值分位数，φ-quantile (0 ≤ φ ≤ 1)。
 stddev_over_time(range-vector) : 区间向量内每个度量指标的总体标准差。
 stdvar_over_time(range-vector) : 区间向量内每个度量指标的总体标准方差。
-
 </code></pre></td></tr></table>
 </div>
 </div><br>
 <br>
 <h3 id="查询栗子">查询栗子</h3>
 <p>Query examples: <a href="https://prometheus.io/docs/prometheus/latest/querying/examples/">https://prometheus.io/docs/prometheus/latest/querying/examples/</a></p>
+<br>
 <br>
 <h4 id="简单时序选择">简单时序选择</h4>
 <p>返回指标<code>http_requests_total</code>的所有时间序列数据:</p>
@@ -2649,6 +2494,7 @@ sum by (app, proc) (
 <h3 id="http-api">HTTP API</h3>
 <p>HTTP API: <a href="https://prometheus.io/docs/prometheus/latest/querying/api/">https://prometheus.io/docs/prometheus/latest/querying/api/</a></p>
 <p>目前稳定的HTTP API在Prometheus Server的<code>/api/v1</code>下。</p>
+<br>
 <br>
 <h4 id="格式">格式</h4>
 <p>API响应格式为JSON。每个成功的请求都返回<code>2xx</code>状态码。</p>
@@ -3934,7 +3780,6 @@ PUT /api/v1/admin/tsdb/clean_tombstones
 </div>
 </div><br>
 <br>
-<br>
 <h2 id="存储">存储</h2>
 <p>Storage: <a href="https://prometheus.io/docs/prometheus/latest/storage/">https://prometheus.io/docs/prometheus/latest/storage/</a></p>
 <p>Prometheus包含了一个本地磁盘上的时序数据库(time series database)，但是可选地与远程存储系统集成。</p>
@@ -4001,6 +3846,7 @@ PUT /api/v1/admin/tsdb/clean_tombstones
 <h3 id="compaction">Compaction</h3>
 <p>最初两个小时的块最终会在后台被压缩成更长的块。</p>
 <br>
+<br>
 <h3 id="操作配置">操作配置</h3>
 <p>Prometheus提供了几个标志来允许配置本地存储。最重要的几个:</p>
 <div class="highlight"><div class="chroma">
@@ -4016,24 +3862,18 @@ PUT /api/v1/admin/tsdb/clean_tombstones
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 数据存储路径，默认data/
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 数据存储路径，默认data/</span>
 --storage.tsdb.path
 
-
-# 样本数据在存储中保存的时间。超过该时间限制的数据就会被删除。默认15d
+<span class="c1"># 样本数据在存储中保存的时间。超过该时间限制的数据就会被删除。默认15d</span>
 -storage.tsdb.retention.time
 
-
-# 每个块的最大字节数（不包括 wal 文件）。如果超过限制，最早的样本数据会被优先删除。支持的单位有 KB, MB, GB, PB。默认0，即为不限制
+<span class="c1"># 每个块的最大字节数（不包括 wal 文件）。如果超过限制，最早的样本数据会被优先删除。支持的单位有 KB, MB, GB, PB。默认0，即为不限制</span>
 --storage.tsdb.retention.size
 
-
-# 压缩wal
+<span class="c1"># 压缩wal</span>
 --storage.tsdb.wal-compression
 </code></pre></td></tr></table>
 </div>
@@ -4050,17 +3890,126 @@ PUT /api/v1/admin/tsdb/clean_tombstones
 </div><p>从上面公式中可以看出在保留时间（<code>retention_time_seconds</code>）和样本大小（<code>bytes_per_sample</code>）不变的情况下，如果想减少本地磁盘的容量需求，只能通过减少每秒获取样本数（<code>ingested_samples_per_second</code>）的方式。因此有两种手段，一是减少时间序列的数量，二是增加采集样本的时间间隔。考虑到 Prometheus 会对时间序列进行压缩效率，减少时间序列的数量效果更明显。</p>
 <br/>
 <br/>
-<hr>
+<h2 id="联邦模式">联邦模式</h2>
+<p>FEDERATION</p>
+<p>联邦允许一个 Prometheus Server 从另一个 Prometheus Server 中抓取选定的时间序列。</p>
+<p>关于原生 histograms（实验性功能）：要通过联邦抓取直方图数据类型，抓取 Prom 需要启用本地直方图（通过命令行参数 <code>--enable-feature=native-histograms</code>），这意味着使用 protobuf 格式进行抓取。</p>
+<p>如果在联邦中抓取的节点和数据非常多，可以把抓取超时时间改大一些，默认值是 10s。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/prometheus/prometheus-federation.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/prometheus/prometheus-federation.png, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/prometheus/prometheus-federation.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/prometheus/prometheus-federation.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/prometheus/prometheus-federation.png"
+        title="Prometheus联邦模式" /></p>
 <br/>
+<br/>
+<h3 id="使用案例">使用案例</h3>
+<p>联邦有不同的用例。通常，它被用于实现可扩展的 Prometheus 监控设置，或者从一个服务的 Prometheus 中提取相关指标到另一个服务中。</p>
+<br/>
+<p><strong>分层联邦</strong></p>
+<p>分层联邦允许 Prometheus 在拥有数十个数据中心和数百万个节点的环境中进行扩展。在这种情况下，联邦拓扑类似于一棵树，较高级别的 Prometheus 服务器从更多下级服务器收集聚合的时间序列数据。</p>
+<br/>
+<p><strong>跨服务联邦</strong></p>
+<p>在跨服务联邦中，一个服务的 Promtheus 服务器被配置为从另一个服务器的 Promtheus 服务器中抓取特定的数据，以便在单个服务器内对两个数据进行警报和查询。</p>
+<p>例如，运行多个服务的集群调度程序可能会公开有关集群上运行的服务实例的资源使用信息（如CPU和MEM使用情况）。另一方面，运行在该集群上的服务只会公开特定应用程序的服务指标。通常，这两种指标由不同的 Prometheus 服务器进行抓取。通过联邦机制，包含服务级别指标的 Prometheus 可以从集群 Prometheus 获取其特定服务的资源使用指标，以便在该服务器中同时使用这两组指标。</p>
+<br/>
+<br/>
+<h3 id="配置联邦">配置联邦</h3>
+<p>在任何给定的 Prometheus 服务器上，<code>/federate</code> 端点允许检索该服务器中一组选定时间序列的当前值。至少需要指定一个 <code>match[]</code> URL 参数来选择要暴露的系列。每个 <code>match[]</code> 参数都需要指定一个即时向量选择器（如 <code>job=&quot;api-server&quot;</code>）。如果提供了多个 <code>match[]</code> 参数，则选择所有匹配系列的并集。</p>
+<p>要将一个服务器的指标联邦到另一个服务器上，请配置目标 Prom 从源 Prom 的 <code>/fedrate</code> 端点进行抓取，同时启用 <code>honor_labels</code> 抓取选项（不覆盖源服务器的任何标签），并传入所需的 <code>match[]</code> 参数。</p>
+<p>一个示例配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;federate&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">honor_labels</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/federate&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">&#39;match[]&#39;</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;{__name__=~&#34;.+&#34;}&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">targets</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;source-prometheus-1:9090&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;discovery/federate/*.yml&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># discovery/federate/federate.yml</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l">test-02</span><span class="w">
+</span><span class="w">  </span><span class="nt">targets</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">source-prometheus-2:9090</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l">test-03</span><span class="w">
+</span><span class="w">  </span><span class="nt">targets</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">source-prometheus-3:9090</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>之后就能够在 Prom 界面上查询到来自其它三个 Prom 机器的指标了。这样告警也能在这一台机器上进行配置和处理了。</p>
+<p>这样在 Grafana 界面上，添加一个 <code>env</code> 变量，便可以查看各个环境的指标的展示信息了。</p>
+<br/>
+<br/>
+<h3 id="联邦配置参数">联邦配置参数</h3>
+<p>params 参数，它是一个映射（map）类型。你可以在其中定义一组键值对，作为联邦请求的查询字符串参数。</p>
+<ul>
+<li><code>match[]</code>：指定匹配的指标规则，可以是一个或多个，可以使用正则。
+<ul>
+<li><code>__name__</code>：按指标名称进行匹配</li>
+<li><code>__prometheus__</code>：按源 Prom 实例的标识符进行匹配</li>
+<li><code>__address__</code>：按源 Prom 实例的地址进行匹配</li>
+<li><code>__scheme__</code>：按源 Prom 实例的协议（http/https）进行匹配</li>
+<li><code>__job__</code>：按作业名称进行匹配</li>
+<li><code>__instance__</code>：按目标实例的标识符进行匹配</li>
+</ul>
+</li>
+<li><code>start</code> 和 <code>end</code>：指定联邦请求的时间范围。</li>
+<li><code>step</code>：指定联邦请求的时间间隔</li>
+<li>自定义参数</li>
+</ul>
+<br/>
+<hr>
 <br/>
 <h1 id="可视化">可视化</h1>
 <p>Visualization</p>
 <br>
 <h2 id="表达式浏览器">表达式浏览器</h2>
 <p>Expression browser</p>
-<p>表达其浏览器在 Prometheus Server 的 <code>/graph</code> 处。
-对于图形，请使用 Grafana 或 Console template。</p>
-<br/>
+<p>表达其浏览器在 Prometheus Server 的 <code>/graph</code> 处。对于图形，请使用 Grafana 或 Console template。</p>
 <br/>
 <br/>
 <h2 id="grafana">Grafana</h2>
@@ -4258,10 +4207,126 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 <br>
 <br>
 <h1 id="示例配置">示例配置</h1>
-<p>由于prometheus自带的alertmanager对国内通知支持不够完善，因此使用PrometheusAlert做告警通知。</p>
+<p>由于 prometheus 自带的 alertmanager 对国内通知支持不够完善，因此使用 PrometheusAlert 做告警通知。</p>
+<br/>
+<br/>
+<h2 id="一套组件">一套组件</h2>
+<p>Promtheus 用于监控和告警的一套组件：</p>
+<ul>
+<li>Prometheus</li>
+<li>Alertmanager</li>
+<li>PrometheusAlert</li>
+<li>node-exporter</li>
+<li>process_exporter</li>
+<li>easeprobe</li>
+<li>elasticsearch_exporter</li>
+<li>mongodb_exporter</li>
+<li>redis_exporter</li>
+<li>业务接入 prom</li>
+</ul>
+<br>
 <br>
 <h2 id="prometheus配置样例">prometheus配置样例</h2>
-<p>prometheus的配置示例:</p>
+<p>prometheus 的配置示例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># my global config</span><span class="w">
+</span><span class="w"></span><span class="nt">global</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w">     </span><span class="l">1m</span><span class="w"> </span><span class="c"># Set the scrape interval to every 15 seconds. Default is every 1 minute.</span><span class="w">
+</span><span class="w">  </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w"> </span><span class="c"># Evaluate rules every 15 seconds. The default is every 1 minute.</span><span class="w">
+</span><span class="w">  </span><span class="nt">scrape_timeout</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w"> </span><span class="c"># scrape_timeout is set to the global default (10s).</span><span class="w">
+</span><span class="w">  </span><span class="c"># for thanos/fedaration</span><span class="w">
+</span><span class="w">  </span><span class="nt">external_labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l">ali</span><span class="w"> </span><span class="c"># hw|tx</span><span class="w">
+</span><span class="w">    </span><span class="nt">replica</span><span class="p">:</span><span class="w"> </span><span class="l">prom-01</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># Alertmanager configuration</span><span class="w">
+</span><span class="w"></span><span class="nt">alerting</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">alertmanagers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;localhost:9093&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># Load rules once and periodically evaluate them according to the global &#39;evaluation_interval&#39;.</span><span class="w">
+</span><span class="w"></span><span class="nt">rule_files</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="s2">&#34;rules/*.yml&#34;</span><span class="w">  </span><span class="c"># 通用告警规则模板</span><span class="w">
+</span><span class="w">  </span>- <span class="s2">&#34;rules/nodes/*.yml&#34;</span><span class="w">  </span><span class="c"># 各主机告警规则</span><span class="w">
+</span><span class="w">  </span>- <span class="s2">&#34;rules/services/*.yml&#34;</span><span class="w">  </span><span class="c"># 各主机告警规则</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># A scrape configuration containing exactly one endpoint to scrape:</span><span class="w">
+</span><span class="w"></span><span class="c"># Here it&#39;s Prometheus itself.</span><span class="w">
+</span><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">node-process-exporter</span><span class="w">
+</span><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s2">&#34;discovery/nodes/*.yml&#34;</span><span class="w">
+</span><span class="w">    </span><span class="c"># metrics_path defaults to &#39;/metrics&#39;</span><span class="w">
+</span><span class="w">    </span><span class="c"># scheme defaults to &#39;http&#39;.</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># fedefation</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;federate&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">honor_labels</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/federate&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">&#39;match[]&#39;</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;{__name__=~&#34;.+&#34;}&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;discovery/federate/*.yml&#39;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<h2 id="alertmanager配置样例">alertmanager配置样例</h2>
+<p>alertmanger 可以通过内部的 gossip 协议配置双节点的高可用。</p>
+<p>alertmanager 的配置示例:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -4327,136 +4392,6 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># my global config</span><span class="w">
-</span><span class="w"></span><span class="nt">global</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w">     </span><span class="l">1m</span><span class="w"> </span><span class="c"># Set the scrape interval to every 15 seconds. Default is every 1 minute.</span><span class="w">
-</span><span class="w">  </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w"> </span><span class="c"># Evaluate rules every 15 seconds. The default is every 1 minute.</span><span class="w">
-</span><span class="w">  </span><span class="nt">scrape_timeout</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
-</span><span class="w">  </span><span class="c"># scrape_timeout is set to the global default (10s).</span><span class="w">
-</span><span class="w">  </span><span class="c"># for thanos</span><span class="w">
-</span><span class="w">  </span><span class="nt">external_labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l">ali</span><span class="w"> </span><span class="c"># hw|tx</span><span class="w">
-</span><span class="w">    </span><span class="nt">replica</span><span class="p">:</span><span class="w"> </span><span class="l">full</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Alertmanager configuration</span><span class="w">
-</span><span class="w"></span><span class="nt">alerting</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">alertmanagers</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">static_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;localhost:9093&#34;</span><span class="p">]</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Load rules once and periodically evaluate them according to the global &#39;evaluation_interval&#39;.</span><span class="w">
-</span><span class="w"></span><span class="nt">rule_files</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="s2">&#34;rules/*.yml&#34;</span><span class="w">  </span><span class="c"># 通用告警规则模板</span><span class="w">
-</span><span class="w">  </span>- <span class="s2">&#34;rules/nodes/*.yml&#34;</span><span class="w">  </span><span class="c"># 各主机告警规则</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># A scrape configuration containing exactly one endpoint to scrape:</span><span class="w">
-</span><span class="w"></span><span class="c"># Here it&#39;s Prometheus itself.</span><span class="w">
-</span><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="c"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">node-process-exporter</span><span class="w">
-</span><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;discovery/exporter/*.yml&#34;</span><span class="w">
-</span><span class="w">    </span><span class="c"># metrics_path defaults to &#39;/metrics&#39;</span><span class="w">
-</span><span class="w">    </span><span class="c"># scheme defaults to &#39;http&#39;.</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">mongodb-exporter</span><span class="w">
-</span><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;discovery/mongodb/*.yml&#34;</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">kafka-exporter</span><span class="w">
-</span><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;discovery/kafka/*.yml&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">aliyun-exporter</span><span class="w">
-</span><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;localhost:9525&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;localhost:9526&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;localhost:9527&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;localhost:9528&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;localhost:9529&#34;</span><span class="p">]</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">blackbox_exporter</span><span class="w">
-</span><span class="w">    </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l">/probe</span><span class="w">
-</span><span class="w">    </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;discovery/blackbox/*.yml&#34;</span><span class="w">
-</span><span class="w">    </span><span class="nt">relabel_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">source_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">__address__]</span><span class="w">
-</span><span class="w">        </span><span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__param_target</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">source_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">module]</span><span class="w">
-</span><span class="w">        </span><span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__param_module</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">source_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">__param_target]</span><span class="w">
-</span><span class="w">        </span><span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">instance</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">target_label</span><span class="p">:</span><span class="w"> </span><span class="l">__address__</span><span class="w">
-</span><span class="w">        </span><span class="nt">replacement</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="p">:</span><span class="m">9115</span><span class="w">
-</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><br>
-<br>
-<h2 id="alertmanager配置样例">alertmanager配置样例</h2>
-<p>alertmanager的配置示例:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span></code></pre></td>
-<td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># global config</span><span class="w">
 </span><span class="w"></span><span class="nt">global</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">resolve_timeout</span><span class="p">:</span><span class="w"> </span><span class="l">5m</span><span class="w">
@@ -4470,10 +4405,12 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">
 </span><span class="w"></span><span class="c"># route tree</span><span class="w">
 </span><span class="w"></span><span class="nt">route</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;web.hook.prometheusalert&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;webhook-prometheusalert&#39;</span><span class="w">
 </span><span class="w">  </span><span class="nt">group_by</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="l">instanceId</span><span class="w">
+</span><span class="w">    </span>- <span class="l">hostgroup</span><span class="w">
 </span><span class="w">    </span>- <span class="l">hostname</span><span class="w">
+</span><span class="w">    </span>- <span class="l">alertname</span><span class="w">
+</span><span class="w">    </span>- <span class="l">instance</span><span class="w">
 </span><span class="w">  </span><span class="nt">group_wait</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
 </span><span class="w">  </span><span class="nt">group_interval</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
 </span><span class="w">  </span><span class="c"># notification again</span><span class="w">
@@ -4484,16 +4421,16 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">  </span><span class="nt">routes</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span>- <span class="nt">match</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">warning</span><span class="w">
-</span><span class="w">      </span><span class="nt">repeat_interval</span><span class="p">:</span><span class="w"> </span><span class="l">1h</span><span class="w">
+</span><span class="w">      </span><span class="nt">repeat_interval</span><span class="p">:</span><span class="w"> </span><span class="l">12h</span><span class="w">
 </span><span class="w">  </span>- <span class="nt">match_re</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">notice|info</span><span class="w">
-</span><span class="w">      </span><span class="nt">repeat_interval</span><span class="p">:</span><span class="w"> </span><span class="l">6h</span><span class="w">
+</span><span class="w">      </span><span class="nt">repeat_interval</span><span class="p">:</span><span class="w"> </span><span class="l">24h</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># receiver lists</span><span class="w">
 </span><span class="w"></span><span class="nt">receivers</span><span class="p">:</span><span class="w">
-</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;web.hook.prometheusalert&#39;</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;webhook-prometheusalert&#39;</span><span class="w">
 </span><span class="w">  </span><span class="nt">webhook_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;http://127.0.0.1:8080/prometheus/alert&#39;</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;http://prometheusAlert:8080/prometheus/alert&#39;</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># list of inhibit rules</span><span class="w">
 </span><span class="w"></span><span class="nt">inhibit_rules</span><span class="p">:</span><span class="w">
@@ -4521,7 +4458,7 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </div><br>
 <br>
 <h2 id="prometheus自动发现">prometheus自动发现</h2>
-<p>prometheus的文件自动发现示例:</p>
+<p>prometheus 的文件自动发现示例:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -4530,20 +4467,22 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml">- <span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">localhost</span><span class="w">
 </span><span class="w">    </span><span class="nt">hostgroup</span><span class="p">:</span><span class="w"> </span><span class="l">test</span><span class="w">
+</span><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">localhost</span><span class="w">
 </span><span class="w">  </span><span class="nt">targets</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s2">&#34;localhost:9100&#34;</span><span class="w"> </span><span class="c"># node-exporter</span><span class="w">
-</span><span class="w">    </span>- <span class="s2">&#34;localhost:9256&#34;</span><span class="w"> </span><span class="c"># process-exporter</span><span class="w">
+</span><span class="w">    </span>- <span class="l">localhost:9100</span><span class="w"> </span><span class="c"># node-exporter</span><span class="w">
+</span><span class="w">    </span>- <span class="l">localhost:9256</span><span class="w"> </span><span class="c"># process-exporter</span><span class="w">
+</span><span class="w">    </span>- <span class="l">localhost:8181</span><span class="w"> </span><span class="c"># easeprobe</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><br>
 <br>
 <h2 id="prometheus告警规则">prometheus告警规则</h2>
-<p>prometheus的告警规则示例:</p>
+<p>prometheus 的告警规则示例:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">  1
@@ -4679,131 +4618,6 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="lnt">131
 </span><span class="lnt">132
 </span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span><span class="lnt">158
-</span><span class="lnt">159
-</span><span class="lnt">160
-</span><span class="lnt">161
-</span><span class="lnt">162
-</span><span class="lnt">163
-</span><span class="lnt">164
-</span><span class="lnt">165
-</span><span class="lnt">166
-</span><span class="lnt">167
-</span><span class="lnt">168
-</span><span class="lnt">169
-</span><span class="lnt">170
-</span><span class="lnt">171
-</span><span class="lnt">172
-</span><span class="lnt">173
-</span><span class="lnt">174
-</span><span class="lnt">175
-</span><span class="lnt">176
-</span><span class="lnt">177
-</span><span class="lnt">178
-</span><span class="lnt">179
-</span><span class="lnt">180
-</span><span class="lnt">181
-</span><span class="lnt">182
-</span><span class="lnt">183
-</span><span class="lnt">184
-</span><span class="lnt">185
-</span><span class="lnt">186
-</span><span class="lnt">187
-</span><span class="lnt">188
-</span><span class="lnt">189
-</span><span class="lnt">190
-</span><span class="lnt">191
-</span><span class="lnt">192
-</span><span class="lnt">193
-</span><span class="lnt">194
-</span><span class="lnt">195
-</span><span class="lnt">196
-</span><span class="lnt">197
-</span><span class="lnt">198
-</span><span class="lnt">199
-</span><span class="lnt">200
-</span><span class="lnt">201
-</span><span class="lnt">202
-</span><span class="lnt">203
-</span><span class="lnt">204
-</span><span class="lnt">205
-</span><span class="lnt">206
-</span><span class="lnt">207
-</span><span class="lnt">208
-</span><span class="lnt">209
-</span><span class="lnt">210
-</span><span class="lnt">211
-</span><span class="lnt">212
-</span><span class="lnt">213
-</span><span class="lnt">214
-</span><span class="lnt">215
-</span><span class="lnt">216
-</span><span class="lnt">217
-</span><span class="lnt">218
-</span><span class="lnt">219
-</span><span class="lnt">220
-</span><span class="lnt">221
-</span><span class="lnt">222
-</span><span class="lnt">223
-</span><span class="lnt">224
-</span><span class="lnt">225
-</span><span class="lnt">226
-</span><span class="lnt">227
-</span><span class="lnt">228
-</span><span class="lnt">229
-</span><span class="lnt">230
-</span><span class="lnt">231
-</span><span class="lnt">232
-</span><span class="lnt">233
-</span><span class="lnt">234
-</span><span class="lnt">235
-</span><span class="lnt">236
-</span><span class="lnt">237
-</span><span class="lnt">238
-</span><span class="lnt">239
-</span><span class="lnt">240
-</span><span class="lnt">241
-</span><span class="lnt">242
-</span><span class="lnt">243
-</span><span class="lnt">244
-</span><span class="lnt">245
-</span><span class="lnt">246
-</span><span class="lnt">247
-</span><span class="lnt">248
-</span><span class="lnt">249
-</span><span class="lnt">250
-</span><span class="lnt">251
-</span><span class="lnt">252
-</span><span class="lnt">253
-</span><span class="lnt">254
-</span><span class="lnt">255
-</span><span class="lnt">256
-</span><span class="lnt">257
-</span><span class="lnt">258
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">groups</span><span class="p">:</span><span class="w">
@@ -4820,7 +4634,6 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">avg without (cpu) (instance_cpu:node_cpu_seconds_not_idle:rate2m)</span><span class="w">
 </span><span class="w">
 </span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">cpu使用率大于85%</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (1 - avg(irate(node_cpu_seconds_total{mode=&#34;idle&#34;}[5m])) by(instance,hostname)) * 100 &gt; 85</span><span class="w">
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">instance:node_cpu_utilization:ratio * 100 &gt; 85</span><span class="w">
 </span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">3m</span><span class="w">
 </span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
@@ -4828,54 +4641,10 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CpuUsage</span><span class="w">
 </span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu使用率大于85%: {{ $labels.hostname }}&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu使用率大于85%&#34;</span><span class="w">
 </span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的cpu使用率: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">cpu使用率大于90%</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (1 - avg(irate(node_cpu_seconds_total{mode=&#34;idle&#34;}[5m])) by(instance,hostname)) * 100 &gt; 90</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">instance:node_cpu_utilization:ratio * 100 &gt; 90</span><span class="w">
-</span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CpuUsage</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu使用率大于90%: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的cpu使用率: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">wxurl</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxx&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">cpu使用率一分钟内增长30%且大于70%</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">delta(instance:node_cpu_utilization:ratio[2m]) * 100 &gt; 30 and on(hostname) instance:node_cpu_utilization:ratio * 100 &gt; 70</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">warning</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CpuUsageDelta</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu使用率一分钟内增长30%且大于70%: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }} 的cpu使用率一分钟内增长30%且大于70%，增长率: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">wxurl</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxx&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">cpu使用率一分钟内增长40%且大于80%</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">delta(instance:node_cpu_utilization:ratio[2m]) * 100 &gt; 40 and on(hostname) instance:node_cpu_utilization:ratio * 100 &gt; 80</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CpuUsageDelta</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu使用率一分钟内增长40%且大于80%: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }} 的cpu使用率一分钟内增长40%且大于80%，增长率: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">cpu使用率一分钟内增长50%</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">delta(instance:node_cpu_utilization:ratio[2m]) * 100 &gt; 50</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu使用率一分钟内增长50%: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }} 的cpu使用率一分钟内增长50%，增长率: {{ $value | humanize }}%&#34;</span><span class="w">
 </span><span class="w">
 </span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">cpu负载大于Cores</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: node_load1 &gt; count(node_cpu_seconds_total{mode=&#34;idle&#34;}) without (cpu,mode)</span><span class="w">
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">node_load1 &gt; instance:node_cpus:count</span><span class="w">
 </span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">3m</span><span class="w">
 </span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
@@ -4883,30 +4652,17 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CpuLoad</span><span class="w">
 </span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu负载大于cpu核数: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的cpu负载: {{ $value }}&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">cpu负载大于2Cores-2</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: node_load1 &gt; 2 * (count(node_cpu_seconds_total{mode=&#34;idle&#34;}) without (cpu,mode)) - 2</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">node_load1 &gt; (instance:node_cpus:count * 2) - 2</span><span class="w">
-</span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CpuLoad</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu负载大于2Cores-2: {{ $labels.hostname }}&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cpu负载大于cpu核数&#34;</span><span class="w">
 </span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的cpu负载: {{ $value }}&#34;</span><span class="w">
 </span><span class="w">
 </span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">主机上下文切换忙</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (rate(node_context_switches_total[5m])) / (count without(cpu, mode) (node_cpu_seconds_total{mode=&#34;idle&#34;})) &gt; 2000</span><span class="w">
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">(rate(node_context_switches_total[5m]) / instance:node_cpus:count) &gt; 2000</span><span class="w">
 </span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">5m</span><span class="w">
 </span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">warning</span><span class="w">
 </span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;主机上下文切换忙: {{ $labels.hostname }}&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;主机上下文切换忙&#34;</span><span class="w">
 </span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;主机{{ $labels.hostname }}的上下文切换大于2000/s: {{ $value | humanize }}/s&#34;</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node-memory</span><span class="w">
@@ -4939,7 +4695,6 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;节点内存面临压力。High rate of major page faults: {{ $value }}&#34;</span><span class="w">
 </span><span class="w">
 </span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">内存使用率大于85%</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 &gt; 85</span><span class="w">
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">instance:node_memory_utilization:ratio * 100 &gt; 85</span><span class="w">
 </span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">3m</span><span class="w">
 </span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
@@ -4947,49 +4702,8 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">MemoryUsage</span><span class="w">
 </span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;内存使用率超过85%: {{ $labels.hostname }}&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;内存使用率超过85%&#34;</span><span class="w">
 </span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的内存使用率: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">内存使用率大于90%</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 &gt; 90</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">instance:node_memory_utilization:ratio * 100 &gt; 90</span><span class="w">
-</span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">MemoryUsage</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;内存使用率超过90%: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的内存使用率: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">内存使用率一分钟内增长30%且大于70%</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">delta(instance:node_memory_utilization:ratio[2m]) * 100 &gt; 30 and on(hostname) instance:node_memory_utilization:ratio * 100 &gt; 70</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">warning</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">MemoryUsageDelta</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;内存使用率一分钟内增长30%且大于70%: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }} 的内存使用率一分钟内增长30%且大于70%，增长率: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">内存使用率一分钟内增长40%且大于80%</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">delta(instance:node_memory_utilization:ratio[2m]) * 100 &gt; 40 and on(hostname) instance:node_memory_utilization:ratio * 100 &gt; 80</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">MemoryUsageDelta</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;内存使用率一分钟内增长40%且大于80%: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }} 的内存使用率一分钟内增长40%且大于80%，增长率: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">内存使用率一分钟内增长50%</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">delta(instance:node_memory_utilization:ratio[2m]) * 100 &gt; 50</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;内存使用率一分钟内增长50%: {{ $labels.hostname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }} 的内存使用率一分钟内增长50%，增长率: {{ $value | humanize }}%&#34;</span><span class="w">
 </span><span class="w">
 </span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">主机检测到oom kill</span><span class="w">
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="p">&gt;</span><span class="sd">
@@ -5000,7 +4714,7 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">warning</span><span class="w">
 </span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;主机检测到oom kill: {{ $labels.hostname }}&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;主机检测到oom kill&#34;</span><span class="w">
 </span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}检测到oom kill: {{ $value }}&#34;</span><span class="w">
 </span><span class="w">
 </span><span class="w">
@@ -5020,7 +4734,6 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>- <span class="l">instance:node_filesystem_files_avail:ratio</span><span class="w">
 </span><span class="w">
 </span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">磁盘分区使用率大于85%</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (1- (node_filesystem_avail_bytes{fstype=~&#34;ext4|xfs&#34;} / node_filesystem_size_bytes{fstype=~&#34;ext4|xfs&#34;})) * 100 &gt; 85</span><span class="w">
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">instance:node_filesystem_utilization:ratio{fstype=~&#34;(ext.|xfs|zfs)&#34;} * 100 &gt; 85</span><span class="w">
 </span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">10m</span><span class="w">
 </span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
@@ -5028,41 +4741,17 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.mountpoint }}&#34;</span><span class="w">
 </span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;磁盘分区{{ $labels.mountpoint}}使用率大于85%&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;磁盘分区使用率大于85%&#34;</span><span class="w">
 </span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的磁盘分区{{ $labels.mountpoint }}使用率为: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">磁盘分区使用率大于90%</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (1- (node_filesystem_avail_bytes{fstype=~&#34;ext4|xfs&#34;} / node_filesystem_size_bytes{fstype=~&#34;ext4|xfs&#34;})) * 100 &gt; 90</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">instance:node_filesystem_utilization:ratio{fstype=~&#34;(ext.|xfs|zfs)&#34;} * 100 &gt; 90</span><span class="w">
-</span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">3m</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.mountpoint }}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;磁盘分区{{ $labels.mountpoint}}使用率大于90%&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的磁盘分区{{ $labels.mountpoint }}使用率为: {{ $value | humanize }}%&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">分区inode使用率大于70%</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (1 - (node_filesystem_files_free{fstype=~&#34;ext4|xfs&#34;} / node_filesystem_files{fstype=~&#34;ext4|xfs&#34;})) * 100 &gt; 70</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">instance:node_filesystem_files_utilization:ratio{fstype=~&#34;(ext.|xfs)&#34;} * 100 &gt; 70</span><span class="w">
-</span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">3m</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">info</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;磁盘分区{{ $labels.mountpoint }}的inode使用率大于70%&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的磁盘分区{{ $labels.mountpoint }}的inode使用率: &#39;{{ $value | humanize }}%&#39;&#34;</span><span class="w">
 </span><span class="w">
 </span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">分区inode使用率大于80%</span><span class="w">
-</span><span class="w">    </span><span class="c">### expr: (1 - (node_filesystem_files_free{fstype=~&#34;ext4|xfs&#34;} / node_filesystem_files{fstype=~&#34;ext4|xfs&#34;})) * 100 &gt; 80</span><span class="w">
 </span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">instance:node_filesystem_files_utilization:ratio{fstype=~&#34;(ext.|xfs)&#34;} * 100 &gt; 80</span><span class="w">
 </span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">3m</span><span class="w">
 </span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">warning</span><span class="w">
 </span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;磁盘分区{{ $labels.mountpoint }}的inode使用率大于80%&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;磁盘分区的inode使用率大于80%&#34;</span><span class="w">
 </span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $labels.hostname }}的磁盘分区{{ $labels.mountpoint }}的inode使用率: &#39;{{ $value | humanize }}%&#39;&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -5083,10 +4772,6 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># https://github.com/ncabatoff/process-exporter</span><span class="w">
@@ -5095,86 +4780,16 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 </span><span class="w">  </span><span class="c"># java</span><span class="w">
 </span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{.Matches}}&#34;</span><span class="w">
 </span><span class="w">    </span><span class="nt">cmdline</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s1">&#39;.+/bin/java .+&#39;</span><span class="w">
+</span><span class="w">    </span>- <span class="s1">&#39;.+/bin/java -jar /opt/.+&#39;</span><span class="w">
+</span><span class="w">  </span><span class="c"># mongo</span><span class="w">
 </span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{.Matches}}&#34;</span><span class="w">
 </span><span class="w">    </span><span class="nt">cmdline</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s1">&#39;java .+&#39;</span><span class="w">
-</span><span class="w">  </span><span class="c">#匹配完整的运行命令</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{.Matches}}&#34;</span><span class="w">
-</span><span class="w">  </span><span class="c">#- name: &#34;{{.Comm}}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="nt">cmdline</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s1">&#39;.+&#39;</span><span class="w">
+</span><span class="w">    </span>- <span class="s1">&#39;.+/bin/mongo[ds] -f /opt/mongodb.+&#39;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><br>
-<br>
-<h2 id="进程告警规则">进程告警规则</h2>
-<p>prometheus进程告警规则示例:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">groups</span><span class="p">:</span><span class="w">
-</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">测试进程告警规则</span><span class="w">
-</span><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">nginx进程不存在</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;sum(namedprocess_namegroup_states{groupname=~&#34;map\\[:nginx: master process .+&#34;}) without(state) == 0&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;nginx进程不存在, 实例: {{ $labels.instance }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;主机: {{ $labels.hostname }}, 进程不存在: {{ $labels.groupname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">wxurl</span><span class="p">:</span><span class="w"> </span><span class="l">webhook1,webhook2</span><span class="w">
-</span><span class="w">      </span><span class="nt">mobile</span><span class="p">:</span><span class="w"> </span><span class="l">phone1,phone2</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">filebeat进程不存在</span><span class="w">
-</span><span class="w">    </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">sum without(state) (namedprocess_namegroup_states{groupname=~&#34;map\\[:/usr/share/filebeat/bin/filebeat -e -c .+&#34;, hostgroup=&#34;xxx&#34;}) == 0</span><span class="w">
-</span><span class="w">    </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
-</span><span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;filebeat进程不存在, 实例: {{ $labels.instance }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;主机: {{ $labels.hostname }}, 进程不存在: {{ $labels.groupname }}&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">wxurl</span><span class="p">:</span><span class="w"> </span><span class="l">webhook1,webhook2</span><span class="w">
-</span><span class="w">      </span><span class="nt">mobile</span><span class="p">:</span><span class="w"> </span><span class="l">phone1,phone2</span><span class="w">
-</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><br>
-<br>
+</div><br/>
 <hr>
-<br>
-<br>
+<br/>
 <h1 id="集成">集成</h1>
 <p>INSTRUMENTING</p>
 <br>
@@ -5963,7 +5578,7 @@ test1 <span class="m">1</span>
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

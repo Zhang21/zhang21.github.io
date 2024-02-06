@@ -20,14 +20,11 @@
 
 <br/>
 
-
 # 介绍
 
 Introduction
 
-
 <br/>
-
 
 ## 概述
 
@@ -418,14 +415,12 @@ Prometheus配置文件中配置。
 
 # Prometheus
 
-
 <br/>
-
+<br/>
 
 ## 入门
 
 GETTING STARTED
-
 
 本节介绍如何安装，配置，使用Prometheus的简单例子。你将在本地安装和运行Prometheus，将其配置为自我填充和示例应用程序，然后使用查询，规则和图表来使用收集的序列数据。
 
@@ -435,7 +430,7 @@ GETTING STARTED
 
 下载地址: <https://prometheus.io/download/>
 
-```
+```sh
 tar xvfz prometheus-*.tar.gz
 
 cd prometheus-*
@@ -474,7 +469,7 @@ scrape_configs:
 **启动**
 启动后，可访问9090端口查看状态。可访问`localhost:9090/metrics`查看有关自身的相关指标。
 
-```
+```sh
 cd prometheus-2.3.2.linux-amd64
 ./prometheus --config.file="prometheus.yml"
 ```
@@ -487,14 +482,12 @@ cd prometheus-2.3.2.linux-amd64
 让我们看一下Prometheus收集的一些数据。要使用Prometheus的内建表达式浏览器(expression browser)，请跳转到`http://localhost:9090/graph`并选择`Graph -> Console`，在其中输入表达式。
 绘制表达式图形同样在此操作。
 
-```
+```yml
 #表达式
 prometheus_target_interval_length_seconds
 
-
 #表达式
 prometheus_target_interval_length_seconds{quantile="0.99"}
-
 
 #计算返回的时间序列数
 count(prometheus_target_interval_length_seconds)
@@ -510,7 +503,7 @@ count(prometheus_target_interval_length_seconds)
 启动一些示例目标让Prometheus获取。
 确保已安装Go表一起并设置了正常的GO PATH。
 
-```
+```sh
 mkdir ./sample && cd sample
 
 git clone https://github.com/prometheus/client_golang.git
@@ -518,12 +511,10 @@ cd client_golang/examples/random
 go get -d
 go build
 
-
 # Start 3 example targets in separate terminals:
 ./random -listen-address=:9091
 ./random -listen-address=:9092
 ./random -listen-address=:9093
-
 
 #访问
 http://localhost:9091/metrices
@@ -563,7 +554,8 @@ Configure rules for aggregating scraped data into new time series
 聚合超过数千个时间序列的查询在计算`ad-hoc`时会变慢。为了提高效率，Prometheus允许你通过配置的规则将预录表达式预先记录到全新的持久时间序列中。
 
 创建规则文件`prometheus.rules.yml`：
-```
+
+```yml
 #job_service:rpc_durations_seconds_count:avg_rate5m
 groups:
 - name: example
@@ -574,7 +566,7 @@ groups:
 
 要是Prometheus选择此新规则，需要修改Prometheus配置：
 
-```
+```yml
 global:
   scrape_interval:     15s # By default, scrape targets every 15 seconds.
   evaluation_interval: 15s # Evaluate rules every 15 seconds.
@@ -612,29 +604,22 @@ scrape_configs:
 
 重启Prometheus，使用`job_service:rpc_durations_seconds_count:avg_rate5m` metric验证。
 
-
 <br/>
 <br/>
-
 
 ## 安装
-
 
 <br>
 
 ### 使用预编译的二进制文件
 
-
 <br/>
 <br/>
-
 
 ### 使用源码
 
-
 <br/>
 <br/>
-
 
 ### 使用Docker
 
@@ -643,10 +628,9 @@ Prometheus image 使用 volume 来存储实际的指标。对于生产部署，�
 
 栗子：
 
-```
+```sh
 #bind-mount
 docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus.yml  prom/prometheus
-
 
 #volume
 docker run -p 9090:9090 -v /promethe-data  prom/prometheus  --config.file=/prometheus-data/prometheus.yml
@@ -658,7 +642,7 @@ docker run -p 9090:9090 -v /promethe-data  prom/prometheus  --config.file=/prome
 
 Dockerfile:
 
-```
+```dockerfile
 FROM prom/prometheus
 ADD prometheus.yml /etc/prometheus/
 xxx
@@ -666,10 +650,9 @@ xxx
 
 构建：
 
-```
+```sh
 docker build -t my-prometheus .
 ```
-
 
 <br/>
 <br/>
@@ -682,23 +665,19 @@ docker build -t my-prometheus .
 - Puppet
 - SaltStack
 
-
-
 <br/>
 <br/>
-<br/>
-
 
 ## 配置
 
 Configuration
 
-
 Prometheus通过命令行标志(flag)和配置文件进行配置。使用`./prometheus -h`查看所有命令行标志。
+
 Prometheus可在运行时重新加载配置。
 
 <br/>
-
+<br/>
 
 ### 配置文件
 
@@ -775,13 +754,8 @@ remote_read:
 - `remote_write`
 - `remote_read`
 
-
-
-
 <br>
 <br>
-<br>
-
 
 
 ### 记录规则
@@ -789,7 +763,7 @@ remote_read:
 Recording rules
 
 <br>
-
+<br>
 
 #### 配置规则
 
@@ -804,10 +778,8 @@ Prometheus支持两种类型的可被配置的以规定的间隔进行评估的�
 
 规则文件可在Prometheus运行通过发送`SIGHUP`到Prometheus来进行重载。只有在所有规则文件都是正确格式下才会应用更改。
 
-
 <br>
 <br>
-
 
 #### 语法检查规则
 
@@ -815,7 +787,7 @@ Syntax-checking rules
 
 要快速检查规则文件的语法是否正确，而无需启动Prometheus Server，可安装和运行Prometheus的`promtool`命令行工具:
 
-```
+```sh
 go get github.com/prometheus/prometheus/cmd/promtool
 
 promtool check rules /path/to/example.rules.yml
@@ -823,10 +795,8 @@ promtool check rules /path/to/example.rules.yml
 
 如果规则文件语法正确，会返回`0`状态码。如果语法错误，会返回错误信息和`1`状态码。
 
-
 <br>
 <br>
-
 
 #### 记录规则
 
@@ -845,7 +815,7 @@ groups:
 
 栗子:
 
-```
+```yml
 groups:
   - name: example
     relues:
@@ -912,10 +882,8 @@ annotations:
   [ <labelname>: <tmpl_string> ]
 ```
 
-
 <br>
 <br>
-
 
 ### 告警规则
 
@@ -924,7 +892,7 @@ Alerting rules
 告警规则允许你根据Prometheus表达式语言来定义告警条件，并发送提醒到外部服务。每当告警表达式在给定的时间内导致一个或多个矢量元素，告警计数主动作为这些元素的标签集。
 
 <br>
-
+<br>
 
 #### 定义告警规则
 
@@ -951,10 +919,8 @@ groups:
 
 `annotations`子句指定的一组信息可用来存储更长的附加信息。注释的值可以作为模板。
 
-
 <br>
 <br>
-
 
 #### 模板
 
@@ -996,10 +962,8 @@ groups:
       description: "{{ $labels.instance }} has a median request latency above 1s (current value: {{ $value }})s"
 ```
 
-
 <br>
 <br>
-
 
 #### 运行时检查告警
 
@@ -1011,10 +975,8 @@ Inspecting alerts during runtime
 
 对于`pengding`和`firing`的告警，Prometheus还存储合成`ALERTS{alertname="<alert name>", alertstate="pending|firing", <additional alert labels>}`形式的时间序列。只要该警告是在所指示的active(pending或firing)状态，样本值被设置为1。当不再是这样时，该系列被标记为stale。
 
-
 <br>
 <br>
-
 
 #### 发送告警通知
 
@@ -1023,10 +985,8 @@ Sending alert notifications
 Prometheus的告警规则善于盘算现在什么坏了(broken)，但是它不是一个成熟的通知解决方案。需要另一层添加汇总，通知速率限制，沉默和告警依赖于简单告警定义。在Prometheus的生态系统中，**Alertmanager**承担了这一角色。因此，Prometheus可以配置成定期发送关于告警状态信息到Alertmanager实例，然后采取调度权发送通知。
 Prometheus通过集成服务发现，可配置为自动发现可用的Alertmanager实例。
 
-
 <br>
 <br>
-
 
 ### 模板
 
@@ -1035,7 +995,7 @@ Template example
 Prometheus在alerts的annotations和labels中支持模板化，以及在控制台页面。模板要针对本地数据库运行查询、迭代数据，使用条件、格式数据等能力。Prometheus模板语言是基于Go template system。
 
 <br>
-
+<br>
 
 #### 简单告警字段模板
 
@@ -1052,10 +1012,8 @@ annotations:
 
 告警字段模板为每个点燃的告警在每一个规则迭代过程中执行，所以保持任意查询和模板的轻量化。如果你需要为告警编写更复杂的模板，建议链接到控制台。
 
-
 <br>
 <br>
-
 
 #### 简单迭代
 
@@ -1071,10 +1029,8 @@ simple iteration
 
 特殊的`.`变量包含对于每次循环迭代当前样本的值。
 
-
 <br>
 <br>
-
 
 #### 展示一个值
 
@@ -1087,10 +1043,8 @@ simple iteration
 Go和Go的模板语言两者都是强类型，因此必须检查阳平返回，以避免执行错误。
 这里所包含的`prom_query_drilldown`模板处理，允许结果的格式，并链接到表达式浏览器。
 
-
 <br>
 <br>
-
 
 #### 使用控制台url参数
 
@@ -1104,10 +1058,8 @@ Using console URL parameters
 
 如果作为`console.html?instance=hostname`访问, `.Params.instance`将评估`hostname`。
 
-
 <br>
 <br>
-
 
 #### 高级的迭代
 
@@ -1130,10 +1082,8 @@ Advanced iteration
 
 这里，我们迭代了所有网络设备，并显示每个设备的网络流量。随着`range`动作不指定变量，`.Params.instance`循环内不可用，`.`现在是作为循环变量。
 
-
 <br>
 <br>
-
 
 #### 定义可重复使用的模板
 
@@ -1161,17 +1111,15 @@ Prometheus支持定义可重复使用的模板。当与控制台库相结合时�
 {{ template "myMultiArgTemplate" (args 1 2)}}
 ```
 
-
 <br>
 <br>
-
 
 ### 模板引用
 
 TEMPLATE REFERENCE
 
 <br>
-
+<br>
 
 #### 数据结构
 
@@ -1179,21 +1127,17 @@ Data Structures
 
 用于处理时间序列数据的主要数据结构栗子:
 
-```
+```go
 type sample struct {
     Labels map[string]string
     Value float64
 }
 ```
 
-栗子的指标名称(metric)编码在`Labels`map的特殊的`__name__`标签里。
-`[]sample`表示实例列表。
-Go中的`interface{}`与C中的void pointer类似。
-
+栗子的指标名称(metric)编码在`Labels`map的特殊的`__name__`标签里。`[]sample`表示实例列表。Go中的`interface{}`与C中的void pointer类似。
 
 <br>
 <br>
-
 
 #### 函数
 
@@ -1214,10 +1158,8 @@ Go中的`interface{}`与C中的void pointer类似。
 
 **Others**
 
-
 <br>
 <br>
-
 
 #### 模板类型差异
 
@@ -1225,11 +1167,8 @@ Template type differences
 
 每种类型的模板提供了可用于参数模板的不同信息，并有一些其它差异。
 
-
-
 <br>
 <br>
-
 
 ### 规则单元测试
 
@@ -1237,13 +1176,8 @@ Unit Testing for Rules
 
 你可使用`promtool`来测试你的规则。
 
-
-
 <br>
 <br>
-<br>
-
-
 
 ## 查询
 
@@ -1251,13 +1185,12 @@ Querying
 
 <br>
 
-
 ### 查询Prometheus
 
 Prometheus提供了一个名为`PromQL`(Prometheus Query Language)功能化查询语言，让用户选择并实时汇总时间序列数据。表达式的结果可被显示为图形，可在Prometheus浏览器上查看，或通过HTTP API来获取。
 
 <br>
-
+<br>
 
 #### 表达式语言数据类型
 
@@ -1272,10 +1205,8 @@ Expression language data types
 
 根据不同的使用情况(graphing, displaying the output of an expression)，例如：瞬时向量表达式返回的数据类型是唯一可以直接绘制成图表的数据类型。
 
-
 <br>
 <br>
-
 
 #### Literals
 
@@ -1286,7 +1217,7 @@ Expression language data types
 PromQL遵循Go的转义规则。
 不像Go，Prometheus不丢弃反引号里面的换行符。
 
-```
+```go
 "this is a string"
 'these are unescaped: \n \\ \t'
 `these are not unescaped: \n ' " \t`"'`
@@ -1301,7 +1232,6 @@ PromQL遵循Go的转义规则。
 ```
 -2.43
 ```
-
 
 <br>
 <br>
@@ -1396,10 +1326,8 @@ sum(http_requests_total{method="GET"}) offset 5m // INVALID.
 rate(http_requests_total[5m] offset 1w)
 ```
 
-
 <br>
 <br>
-
 
 #### 子查询
 
@@ -1414,19 +1342,15 @@ Subquery
 Syntax: <instant_query> '[' <range> ':' [<resolution>] ']' [ offset <duration> ]
 ```
 
-
-
 <br>
 <br>
-
-
 
 ### 操作符
 
 Operators: <https://prometheus.io/docs/prometheus/latest/querying/operators/>
 
 <br>
-
+<br>
 
 #### 二元运算符
 
@@ -1482,10 +1406,8 @@ logical/set 二元运算符尽在instan vectors之间定义:
 - `or` (union)
 - `unless` (complement)
 
-
 <br>
 <br>
-
 
 #### 矢量匹配
 
@@ -1550,10 +1472,8 @@ method_code:http_errors:rate5m / ignoring(code) group_left method:http_request:r
 {method="post", code="404"} 0.175           //  21 / 120
 ```
 
-
 <br>
 <br>
-
 
 #### 聚合运算符
 
@@ -1589,10 +1509,8 @@ count_values("version", build_version)
 topk(5, http_requests_total)
 ```
 
-
 <br>
 <br>
-
 
 #### 二元运算符优先级
 
@@ -1607,10 +1525,8 @@ Binary operator precedence
 - `and`, `unless`
 - `or`
 
-
 <br>
 <br>
-
 
 ### 函数
 
@@ -1621,9 +1537,6 @@ Founctions: <https://prometheus.io/docs/prometheus/latest/querying/functions/>
 ```
 abs()
 abs(v instant-vector) 返回输入向量的所有样本的绝对值
-
-
-
 
 absent()
 absent(v instant-vector)，判断是否存在
@@ -1637,50 +1550,32 @@ absent(nonexistent{job="myjob",instance=~".*"})
 absent(sum(nonexistent{job="myjob"}))
 # => {}
 
-
-
-
 ceil()
 ceil(v instant-vector) 将v中所有元素的样本值向上四舍五入到最接近的整数
-
 
 floor()
 floor(v instant-vector) 与ceil()相反，将v中所有元素的样本值向下四舍五入到最接近的整数
 
-
-
-
 changes()
 changes(v range-vector) 输入一个区间向量，返回这个区间向量内每个样本数据值变化的次数（瞬时向量）。如果样本数据值没有发生变化，则返回结果为1
-
-
-
 
 clamp_max()
 clamp_max(v instant-vector, max scalar) 输入一个瞬时向量和最大值，样本数据值若大于max，则改为max，否则不变
 
-
 clamp_min()
 clamp_min(v instant-vector, min scalar) 输入一个瞬时向量和最小值，样本数据值若小于min，则改为min，否则不变
-
-
-
 
 day_of_month()
 day_of_month(v=vector(time()) instant-vector) 值范围为1-31
 
-
 day_of_week()
 day_of_week(v=vector(time()) instant-vector) 值范围为0-6
-
 
 days_in_month()
 days_in_month(v=vector(time()) instant-vector) 月份的天数，值范围为28-31
 
-
 minute()
 minute(v=vector(time()) instant-vector) 函数返回给定UTC时间当前小时的第多少分钟，范围为0-59
-
 
 month()
 month(v=vector(time()) instant-vector) 函数返回给定UTC时间当前属于第几个月，范围为1-12
@@ -1688,135 +1583,79 @@ month(v=vector(time()) instant-vector) 函数返回给定UTC时间当前属于�
 year()
 year(v=vector(time()) instant-vector) 返回被给定 UTC 时间的当前年份
 
-
 hour()
 hour(v=vector(time()) instant-vector) 值范围为0-23
-
-
 
 delta()
 delta(v range-vector) 它计算一个区间向量v的第一个元素和最后一个元素之间的差值，返回一个瞬时向量
 delta(cpu_temp_celsius{host="zeus"}[2h]) # 现在和两小时前的CPU温度差
 
-
 idelta()
 idelta(v range-vector) 计算最后两个样本之间的差
-
-
-
 
 deriv()
 deriv(v range-vector) 使用简单的线性回归计算区间向量v中各个时间序列的导数
 
-
-
-
 exp()
 exp(v instant-vector) 输入一个瞬时向量，返回各个样本值的e的指数值
-
-
-
 
 histogram_quantile()
 histogram_quantile(φ float, b instant-vector)
 histogram_quantile(0.9, rate(http_request_duration_seconds_bucket[10m])) # 计算过去10分钟内请求持续在90%
 histogram_quantile(0.9, sum(rate(http_request_duration_seconds_bucket[10m])) by (job, le)) # 聚合
 
-
-
 holt_winters()
 holt_winters(v range-vector, sf scalar, tf scalar) 基于区间向量v，生成时间序列数据平滑值
-
-
-
 
 increase()
 increase(v range-vector) 获取区间向量中的第一个和最后一个样本并返回其增长量
 increase(http_requests_total{job="api-server"}[5m]) # 区间向量中每个时间序列过去5分钟内HTTP请求数的增长数
 
-
-
-
 label_join()
 
-
-
 label_replace()
-
-
 
 ln()
 ln(v instant-vector) 计算瞬时向量v中所有样本数据的自然对数
 
-
-
 log2()
 log2(v instant-vector) 函数计算瞬时向量v中所有样本数据的二进制对数
 
-
-
 log10()
 log10(v instant-vector) 计算瞬时向量v中所有样本数据的十进制对数
-
-
-
 
 predict_linear()
 predict_linear(v range-vector, t scalar) 函数可以预测时间序列v在t秒后的值
 predict_linear(node_filesystem_free{job="node"}[2h], 4 * 3600) < 0 # 基于2小时的样本数据，来预测主机可用磁盘空间的是否在4个小时候被占满
 
-
-
 rate()
 rate(v range-vector) 直接计算区间向量 v 在时间窗口内平均增长速率
 rate(http_requests_total[5m]) 区间向量中每个时间序列过去5分钟内HTTP请求数的每秒增长率
-
 
 irate()
 irate(v range-vector) 用于计算区间向量的增长率，但是其反应出的是瞬时增长率。通过区间向量中最后两个两本数据来计算区间向量的增长速率。
 irate(http_requests_total{job="api-server"}[5m]) # 区间向量中每个时间序列过去 5 分钟内最后两个样本数据的 HTTP 请求数的增长率
 
-
-
 resets()
 resets(v range-vector) 的参数是一个区间向量。对于每个时间序列，它都返回一个计数器重置的次数。两个连续样本之间的值的减少被认为是一次计数器重置。
-
-
 
 round()
 round(v instant-vector, to_nearest=1 scalar) 与ceil和floor函数类似，返回向量中所有样本值的最接近的整数
 
-
-
 scalar()
 scalar(v instant-vector) 函数的参数是一个单元素的瞬时向量,它返回其唯一的时间序列的值作为一个标量
-
-
 
 sort()
 sort(v instant-vector) 函数对向量按元素的值进行升序排序
 
-
-
 sort_desc()
 降序排列
-
-
 
 sqrt()
 sqrt(v instant-vector) 计算向量v 所有元素的平方根
 
-
-
-
-
-
 vector()
 vector(s scalar)
-
-
-
-
 
 <aggregation>_over_time()
 avg_over_time(range-vector) : 区间向量内每个度量指标的平均值。
@@ -1827,20 +1666,17 @@ count_over_time(range-vector) : 区间向量内每个度量指标的样本数据
 quantile_over_time(scalar, range-vector) : 区间向量内每个度量指标的样本数据值分位数，φ-quantile (0 ≤ φ ≤ 1)。
 stddev_over_time(range-vector) : 区间向量内每个度量指标的总体标准差。
 stdvar_over_time(range-vector) : 区间向量内每个度量指标的总体标准方差。
-
 ```
 
-
 <br>
 <br>
-
 
 ### 查询栗子
 
 Query examples: <https://prometheus.io/docs/prometheus/latest/querying/examples/>
 
 <br>
-
+<br>
 
 #### 简单时序选择
 
@@ -1874,10 +1710,8 @@ http状态码不为4xx:
 http_requests_total{status!~"4.."}
 ```
 
-
 <br>
 <br>
-
 
 #### 子查询
 
@@ -1892,7 +1726,6 @@ rate(http_requests_total[5m])[30m:1m]
 ```
 max_over_time(deriv(rate(distance_covered_total[5s])[30s:5s])[10m:])
 ```
-
 
 <br>
 <br>
@@ -1952,7 +1785,7 @@ HTTP API: <https://prometheus.io/docs/prometheus/latest/querying/api/>
 目前稳定的HTTP API在Prometheus Server的`/api/v1`下。
 
 <br>
-
+<br>
 
 #### 格式
 
@@ -1988,10 +1821,8 @@ JSON响应包格式如下:
 
 `<duration>`占位符指的是`[0-9]+[smhdwy]`形式的Prometheus 持续时间字符串。例如，`5m`表示5分钟的持续时间。
 
-
 <br>
 <br>
-
 
 #### 表达式查询
 
@@ -2061,7 +1892,6 @@ $ curl 'http://localhost:9090/api/v1/query?query=up&time=2015-07-01T20:10:51.781
 ```
 
 <br>
-
 
 **区间查询(range query)**
 
@@ -2136,13 +1966,10 @@ $ curl 'http://localhost:9090/api/v1/query_range?query=up&start=2015-07-01T20:10
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 查询元数据
-
 
 **通过标签匹配器查找序列(Finding series by label matchers)**
 
@@ -2259,10 +2086,8 @@ $ curl http://localhost:9090/api/v1/label/job/values
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 表达式查询结果的格式
 
@@ -2376,10 +2201,8 @@ curl http://localhost:9090/api/v1/targets
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 规则
 
@@ -2443,10 +2266,8 @@ curl http://localhost:9090/api/v1/rules
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 告警
 
@@ -2479,10 +2300,8 @@ curl http://localhost:9090/api/v1/alerts
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 查询目标元数据
 
@@ -2566,10 +2385,8 @@ curl -G http://localhost:9091/api/v1/targets/metadata \
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 告警器
 
@@ -2602,10 +2419,8 @@ curl http://localhost:9090/api/v1/alertmanagers
 }
 ```
 
-
 <br>
 <br>
-
 
 #### 状态
 
@@ -2722,10 +2537,8 @@ curl http://localhost:9090/api/v1/status/buildinfo
 }
 ```
 
-
 <br>
 <br>
-
 
 #### TSDB Admin APIs
 
@@ -2803,15 +2616,8 @@ PUT /api/v1/admin/tsdb/clean_tombstones
 curl -XPOST http://localhost:9090/api/v1/admin/tsdb/clean_tombstones
 ```
 
-
-
-
 <br>
 <br>
-<br>
-
-
-
 
 ## 存储
 
@@ -2820,7 +2626,6 @@ Storage: <https://prometheus.io/docs/prometheus/latest/storage/>
 Prometheus包含了一个本地磁盘上的时序数据库(time series database)，但是可选地与远程存储系统集成。
 
 <br>
-
 
 ### 本地存储
 
@@ -2868,34 +2673,29 @@ Prometheus块数据的目录结构如下所示:
 
 有关存储格式的详细信息，请参考 [TSDB格式](https://github.com/prometheus/prometheus/blob/master/tsdb/docs/format/README.md)
 
-
 <br>
 <br>
-
 
 ### Compaction
 
 最初两个小时的块最终会在后台被压缩成更长的块。
 
 <br>
-
+<br>
 
 ### 操作配置
 
 Prometheus提供了几个标志来允许配置本地存储。最重要的几个:
 
-```
+```sh
 # 数据存储路径，默认data/
 --storage.tsdb.path
-
 
 # 样本数据在存储中保存的时间。超过该时间限制的数据就会被删除。默认15d
 -storage.tsdb.retention.time
 
-
 # 每个块的最大字节数（不包括 wal 文件）。如果超过限制，最早的样本数据会被优先删除。支持的单位有 KB, MB, GB, PB。默认0，即为不限制
 --storage.tsdb.retention.size
-
 
 # 压缩wal
 --storage.tsdb.wal-compression
@@ -2911,76 +2711,125 @@ needed_disk_space = retention_time_seconds * ingested_samples_per_second * bytes
 
 从上面公式中可以看出在保留时间（`retention_time_seconds`）和样本大小（`bytes_per_sample`）不变的情况下，如果想减少本地磁盘的容量需求，只能通过减少每秒获取样本数（`ingested_samples_per_second`）的方式。因此有两种手段，一是减少时间序列的数量，二是增加采集样本的时间间隔。考虑到 Prometheus 会对时间序列进行压缩效率，减少时间序列的数量效果更明显。
 
+<br/>
+<br/>
 
+## 联邦模式
 
+FEDERATION
 
+联邦允许一个 Prometheus Server 从另一个 Prometheus Server 中抓取选定的时间序列。
 
+关于原生 histograms（实验性功能）：要通过联邦抓取直方图数据类型，抓取 Prom 需要启用本地直方图（通过命令行参数 `--enable-feature=native-histograms`），这意味着使用 protobuf 格式进行抓取。
 
+如果在联邦中抓取的节点和数据非常多，可以把抓取超时时间改大一些，默认值是 10s。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![Prometheus联邦模式](https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/prometheus/prometheus-federation.png)
 
 <br/>
+<br/>
+
+### 使用案例
+
+联邦有不同的用例。通常，它被用于实现可扩展的 Prometheus 监控设置，或者从一个服务的 Prometheus 中提取相关指标到另一个服务中。
+
+<br/>
+
+**分层联邦**
+
+分层联邦允许 Prometheus 在拥有数十个数据中心和数百万个节点的环境中进行扩展。在这种情况下，联邦拓扑类似于一棵树，较高级别的 Prometheus 服务器从更多下级服务器收集聚合的时间序列数据。
+
+<br/>
+
+**跨服务联邦**
+
+在跨服务联邦中，一个服务的 Promtheus 服务器被配置为从另一个服务器的 Promtheus 服务器中抓取特定的数据，以便在单个服务器内对两个数据进行警报和查询。
+
+例如，运行多个服务的集群调度程序可能会公开有关集群上运行的服务实例的资源使用信息（如CPU和MEM使用情况）。另一方面，运行在该集群上的服务只会公开特定应用程序的服务指标。通常，这两种指标由不同的 Prometheus 服务器进行抓取。通过联邦机制，包含服务级别指标的 Prometheus 可以从集群 Prometheus 获取其特定服务的资源使用指标，以便在该服务器中同时使用这两组指标。
+
+<br/>
+<br/>
+
+### 配置联邦
+
+在任何给定的 Prometheus 服务器上，`/federate` 端点允许检索该服务器中一组选定时间序列的当前值。至少需要指定一个 `match[]` URL 参数来选择要暴露的系列。每个 `match[]` 参数都需要指定一个即时向量选择器（如 `job="api-server"`）。如果提供了多个 `match[]` 参数，则选择所有匹配系列的并集。
+
+要将一个服务器的指标联邦到另一个服务器上，请配置目标 Prom 从源 Prom 的 `/fedrate` 端点进行抓取，同时启用 `honor_labels` 抓取选项（不覆盖源服务器的任何标签），并传入所需的 `match[]` 参数。
+
+一个示例配置文件：
+
+```yml
+scrape_configs:
+  - job_name: 'federate'
+    honor_labels: true
+    metrics_path: '/federate'
+    params:
+      'match[]':
+        - '{__name__=~".+"}'
+    static_configs:
+      - targets:
+        - 'source-prometheus-1:9090'
+    file_sd_configs:
+      - files:
+        - 'discovery/federate/*.yml'
+```
+
+```yml
+# discovery/federate/federate.yml
+
+- labels:
+    env: test-02
+  targets:
+    - source-prometheus-2:9090
+
+- labels:
+    env: test-03
+  targets:
+    - source-prometheus-3:9090
+```
+
+之后就能够在 Prom 界面上查询到来自其它三个 Prom 机器的指标了。这样告警也能在这一台机器上进行配置和处理了。
+
+这样在 Grafana 界面上，添加一个 `env` 变量，便可以查看各个环境的指标的展示信息了。
+
+<br/>
+<br/>
+
+### 联邦配置参数
+
+params 参数，它是一个映射（map）类型。你可以在其中定义一组键值对，作为联邦请求的查询字符串参数。
+
+- `match[]`：指定匹配的指标规则，可以是一个或多个，可以使用正则。
+  - `__name__`：按指标名称进行匹配
+  - `__prometheus__`：按源 Prom 实例的标识符进行匹配
+  - `__address__`：按源 Prom 实例的地址进行匹配
+  - `__scheme__`：按源 Prom 实例的协议（http/https）进行匹配
+  - `__job__`：按作业名称进行匹配
+  - `__instance__`：按目标实例的标识符进行匹配
+- `start` 和 `end`：指定联邦请求的时间范围。
+- `step`：指定联邦请求的时间间隔
+- 自定义参数
+
 <br/>
 
 ---
 
 <br/>
-<br/>
-
-
-
-
-
-
-
-
-
-
-
 
 # 可视化
 
 Visualization
 
-
 <br>
-
 
 ## 表达式浏览器
 
 Expression browser
 
-
-表达其浏览器在 Prometheus Server 的 `/graph` 处。
-对于图形，请使用 Grafana 或 Console template。
-
+表达其浏览器在 Prometheus Server 的 `/graph` 处。对于图形，请使用 Grafana 或 Console template。
 
 <br/>
 <br/>
-<br/>
-
 
 ## Grafana
 
@@ -3187,28 +3036,43 @@ GF_PATHS_PROVISIONING	/etc/grafana/provisioning
 
 # 示例配置
 
+由于 prometheus 自带的 alertmanager 对国内通知支持不够完善，因此使用 PrometheusAlert 做告警通知。
 
-由于prometheus自带的alertmanager对国内通知支持不够完善，因此使用PrometheusAlert做告警通知。
+<br/>
+<br/>
 
+## 一套组件
+
+Promtheus 用于监控和告警的一套组件：
+
+- Prometheus
+- Alertmanager
+- PrometheusAlert
+- node-exporter
+- process_exporter
+- easeprobe
+- elasticsearch_exporter
+- mongodb_exporter
+- redis_exporter
+- 业务接入 prom
 
 <br>
-
+<br>
 
 ## prometheus配置样例
 
-prometheus的配置示例:
+prometheus 的配置示例:
 
 ```yaml
 # my global config
 global:
   scrape_interval:     1m # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: 1m # Evaluate rules every 15 seconds. The default is every 1 minute.
-  scrape_timeout: 1m
-  # scrape_timeout is set to the global default (10s).
-  # for thanos
+  scrape_timeout: 1m # scrape_timeout is set to the global default (10s).
+  # for thanos/fedaration
   external_labels:
     region: ali # hw|tx
-    replica: full
+    replica: prom-01
 
 # Alertmanager configuration
 alerting:
@@ -3220,6 +3084,7 @@ alerting:
 rule_files:
   - "rules/*.yml"  # 通用告警规则模板
   - "rules/nodes/*.yml"  # 各主机告警规则
+  - "rules/services/*.yml"  # 各主机告警规则
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
@@ -3228,48 +3093,31 @@ scrape_configs:
   - job_name: node-process-exporter
     file_sd_configs:
       - files:
-        - "discovery/exporter/*.yml"
+        - "discovery/nodes/*.yml"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
 
-  - job_name: mongodb-exporter
+  # fedefation
+  - job_name: 'federate'
+    honor_labels: true
+    metrics_path: '/federate'
+    params:
+      'match[]':
+        - '{__name__=~".+"}'
     file_sd_configs:
       - files:
-        - "discovery/mongodb/*.yml"
-  - job_name: kafka-exporter
-    file_sd_configs:
-      - files:
-        - "discovery/kafka/*.yml"
-
-  - job_name: aliyun-exporter
-    static_configs:
-        - targets: ["localhost:9525", "localhost:9526", "localhost:9527", "localhost:9528", "localhost:9529"]
-
-  - job_name: blackbox_exporter
-    metrics_path: /probe
-    file_sd_configs:
-      - files:
-        - "discovery/blackbox/*.yml"
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [module]
-        target_label: __param_module
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        replacement: 127.0.0.1:9115
+        - 'discovery/federate/*.yml'
 
 ```
 
-
 <br>
 <br>
-
 
 ## alertmanager配置样例
 
-alertmanager的配置示例:
+alertmanger 可以通过内部的 gossip 协议配置双节点的高可用。
+
+alertmanager 的配置示例:
 
 ```yml
 # global config
@@ -3285,10 +3133,12 @@ templates: []
 
 # route tree
 route:
-  receiver: 'web.hook.prometheusalert'
+  receiver: 'webhook-prometheusalert'
   group_by:
-    - instanceId
+    - hostgroup
     - hostname
+    - alertname
+    - instance
   group_wait: 30s
   group_interval: 1m
   # notification again
@@ -3299,16 +3149,16 @@ route:
   routes:
   - match:
       severity: warning
-      repeat_interval: 1h
+      repeat_interval: 12h
   - match_re:
       severity: notice|info
-      repeat_interval: 6h
+      repeat_interval: 24h
 
 # receiver lists
 receivers:
-- name: 'web.hook.prometheusalert'
+- name: 'webhook-prometheusalert'
   webhook_configs:
-      - url: 'http://127.0.0.1:8080/prometheus/alert'
+      - url: 'http://prometheusAlert:8080/prometheus/alert'
 
 # list of inhibit rules
 inhibit_rules:
@@ -3333,32 +3183,29 @@ inhibit_rules:
     - kind
 ```
 
-
 <br>
 <br>
-
 
 ## prometheus自动发现
 
-prometheus的文件自动发现示例:
+prometheus 的文件自动发现示例:
 
 ```yaml
 - labels:
-    hostname: localhost
     hostgroup: test
+    hostname: localhost
   targets:
-    - "localhost:9100" # node-exporter
-    - "localhost:9256" # process-exporter
+    - localhost:9100 # node-exporter
+    - localhost:9256 # process-exporter
+    - localhost:8181 # easeprobe
 ```
 
-
 <br>
 <br>
-
 
 ## prometheus告警规则
 
-prometheus的告警规则示例:
+prometheus 的告警规则示例:
 
 ```yml
 groups:
@@ -3375,7 +3222,6 @@ groups:
     expr: avg without (cpu) (instance_cpu:node_cpu_seconds_not_idle:rate2m)
 
   - alert: cpu使用率大于85%
-    ### expr: (1 - avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) by(instance,hostname)) * 100 > 85
     expr: instance:node_cpu_utilization:ratio * 100 > 85
     for: 3m
     labels:
@@ -3383,54 +3229,10 @@ groups:
       level: 2
       kind: CpuUsage
     annotations:
-      summary: "cpu使用率大于85%: {{ $labels.hostname }}"
+      summary: "cpu使用率大于85%"
       description: "{{ $labels.hostname }}的cpu使用率: {{ $value | humanize }}%"
-
-  - alert: cpu使用率大于90%
-    ### expr: (1 - avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) by(instance,hostname)) * 100 > 90
-    expr: instance:node_cpu_utilization:ratio * 100 > 90
-    for: 1m
-    labels:
-      severity: critical
-      level: 3
-      kind: CpuUsage
-    annotations:
-      summary: "cpu使用率大于90%: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }}的cpu使用率: {{ $value | humanize }}%"
-      wxurl: "xxx"
-
-  - alert: cpu使用率一分钟内增长30%且大于70%
-    expr: delta(instance:node_cpu_utilization:ratio[2m]) * 100 > 30 and on(hostname) instance:node_cpu_utilization:ratio * 100 > 70
-    labels:
-      severity: warning
-      level: 2
-      kind: CpuUsageDelta
-    annotations:
-      summary: "cpu使用率一分钟内增长30%且大于70%: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }} 的cpu使用率一分钟内增长30%且大于70%，增长率: {{ $value | humanize }}%"
-      wxurl: "xxx"
-
-  - alert: cpu使用率一分钟内增长40%且大于80%
-    expr: delta(instance:node_cpu_utilization:ratio[2m]) * 100 > 40 and on(hostname) instance:node_cpu_utilization:ratio * 100 > 80
-    labels:
-      severity: critical
-      level: 3
-      kind: CpuUsageDelta
-    annotations:
-      summary: "cpu使用率一分钟内增长40%且大于80%: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }} 的cpu使用率一分钟内增长40%且大于80%，增长率: {{ $value | humanize }}%"
-
-  - alert: cpu使用率一分钟内增长50%
-    expr: delta(instance:node_cpu_utilization:ratio[2m]) * 100 > 50
-    labels:
-      severity: critical
-      level: 3
-    annotations:
-      summary: "cpu使用率一分钟内增长50%: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }} 的cpu使用率一分钟内增长50%，增长率: {{ $value | humanize }}%"
 
   - alert: cpu负载大于Cores
-    ### expr: node_load1 > count(node_cpu_seconds_total{mode="idle"}) without (cpu,mode)
     expr: node_load1 > instance:node_cpus:count
     for: 3m
     labels:
@@ -3438,30 +3240,17 @@ groups:
       level: 2
       kind: CpuLoad
     annotations:
-      summary: "cpu负载大于cpu核数: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }}的cpu负载: {{ $value }}"
-
-  - alert: cpu负载大于2Cores-2
-    ### expr: node_load1 > 2 * (count(node_cpu_seconds_total{mode="idle"}) without (cpu,mode)) - 2
-    expr: node_load1 > (instance:node_cpus:count * 2) - 2
-    for: 1m
-    labels:
-      severity: critical
-      level: 3
-      kind: CpuLoad
-    annotations:
-      summary: "cpu负载大于2Cores-2: {{ $labels.hostname }}"
+      summary: "cpu负载大于cpu核数"
       description: "{{ $labels.hostname }}的cpu负载: {{ $value }}"
 
   - alert: 主机上下文切换忙
-    ### expr: (rate(node_context_switches_total[5m])) / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) > 2000
     expr: (rate(node_context_switches_total[5m]) / instance:node_cpus:count) > 2000
     for: 5m
     labels:
       severity: warning
       level: 2
     annotations:
-      summary: "主机上下文切换忙: {{ $labels.hostname }}"
+      summary: "主机上下文切换忙"
       description: "主机{{ $labels.hostname }}的上下文切换大于2000/s: {{ $value | humanize }}/s"
 
 - name: node-memory
@@ -3494,7 +3283,6 @@ groups:
       description: "节点内存面临压力。High rate of major page faults: {{ $value }}"
 
   - alert: 内存使用率大于85%
-    ### expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
     expr: instance:node_memory_utilization:ratio * 100 > 85
     for: 3m
     labels:
@@ -3502,49 +3290,8 @@ groups:
       level: 2
       kind: MemoryUsage
     annotations:
-      summary: "内存使用率超过85%: {{ $labels.hostname }}"
+      summary: "内存使用率超过85%"
       description: "{{ $labels.hostname }}的内存使用率: {{ $value | humanize }}%"
-
-  - alert: 内存使用率大于90%
-    ### expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 90
-    expr: instance:node_memory_utilization:ratio * 100 > 90
-    for: 1m
-    labels:
-      severity: critical
-      level: 3
-      kind: MemoryUsage
-    annotations:
-      summary: "内存使用率超过90%: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }}的内存使用率: {{ $value | humanize }}%"
-
-  - alert: 内存使用率一分钟内增长30%且大于70%
-    expr: delta(instance:node_memory_utilization:ratio[2m]) * 100 > 30 and on(hostname) instance:node_memory_utilization:ratio * 100 > 70
-    labels:
-      severity: warning
-      level: 2
-      kind: MemoryUsageDelta
-    annotations:
-      summary: "内存使用率一分钟内增长30%且大于70%: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }} 的内存使用率一分钟内增长30%且大于70%，增长率: {{ $value | humanize }}%"
-
-  - alert: 内存使用率一分钟内增长40%且大于80%
-    expr: delta(instance:node_memory_utilization:ratio[2m]) * 100 > 40 and on(hostname) instance:node_memory_utilization:ratio * 100 > 80
-    labels:
-      severity: critical
-      level: 3
-      kind: MemoryUsageDelta
-    annotations:
-      summary: "内存使用率一分钟内增长40%且大于80%: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }} 的内存使用率一分钟内增长40%且大于80%，增长率: {{ $value | humanize }}%"
-
-  - alert: 内存使用率一分钟内增长50%
-    expr: delta(instance:node_memory_utilization:ratio[2m]) * 100 > 50
-    labels:
-      severity: critical
-      level: 3
-    annotations:
-      summary: "内存使用率一分钟内增长50%: {{ $labels.hostname }}"
-      description: "{{ $labels.hostname }} 的内存使用率一分钟内增长50%，增长率: {{ $value | humanize }}%"
 
   - alert: 主机检测到oom kill
     expr: >
@@ -3555,7 +3302,7 @@ groups:
       severity: warning
       level: 2
     annotations:
-      summary: "主机检测到oom kill: {{ $labels.hostname }}"
+      summary: "主机检测到oom kill"
       description: "{{ $labels.hostname }}检测到oom kill: {{ $value }}"
 
 
@@ -3575,7 +3322,6 @@ groups:
     expr: 1 - instance:node_filesystem_files_avail:ratio
 
   - alert: 磁盘分区使用率大于85%
-    ### expr: (1- (node_filesystem_avail_bytes{fstype=~"ext4|xfs"} / node_filesystem_size_bytes{fstype=~"ext4|xfs"})) * 100 > 85
     expr: instance:node_filesystem_utilization:ratio{fstype=~"(ext.|xfs|zfs)"} * 100 > 85
     for: 10m
     labels:
@@ -3583,44 +3329,19 @@ groups:
       level: 2
       kind: "{{ $labels.mountpoint }}"
     annotations:
-      summary: "磁盘分区{{ $labels.mountpoint}}使用率大于85%"
+      summary: "磁盘分区使用率大于85%"
       description: "{{ $labels.hostname }}的磁盘分区{{ $labels.mountpoint }}使用率为: {{ $value | humanize }}%"
-
-  - alert: 磁盘分区使用率大于90%
-    ### expr: (1- (node_filesystem_avail_bytes{fstype=~"ext4|xfs"} / node_filesystem_size_bytes{fstype=~"ext4|xfs"})) * 100 > 90
-    expr: instance:node_filesystem_utilization:ratio{fstype=~"(ext.|xfs|zfs)"} * 100 > 90
-    for: 3m
-    labels:
-      severity: critical
-      level: 3
-      kind: "{{ $labels.mountpoint }}"
-    annotations:
-      summary: "磁盘分区{{ $labels.mountpoint}}使用率大于90%"
-      description: "{{ $labels.hostname }}的磁盘分区{{ $labels.mountpoint }}使用率为: {{ $value | humanize }}%"
-
-  - alert: 分区inode使用率大于70%
-    ### expr: (1 - (node_filesystem_files_free{fstype=~"ext4|xfs"} / node_filesystem_files{fstype=~"ext4|xfs"})) * 100 > 70
-    expr: instance:node_filesystem_files_utilization:ratio{fstype=~"(ext.|xfs)"} * 100 > 70
-    for: 3m
-    labels:
-      severity: info
-      level: 1
-    annotations:
-      summary: "磁盘分区{{ $labels.mountpoint }}的inode使用率大于70%"
-      description: "{{ $labels.hostname }}的磁盘分区{{ $labels.mountpoint }}的inode使用率: '{{ $value | humanize }}%'"
 
   - alert: 分区inode使用率大于80%
-    ### expr: (1 - (node_filesystem_files_free{fstype=~"ext4|xfs"} / node_filesystem_files{fstype=~"ext4|xfs"})) * 100 > 80
     expr: instance:node_filesystem_files_utilization:ratio{fstype=~"(ext.|xfs)"} * 100 > 80
     for: 3m
     labels:
       severity: warning
       level: 2
     annotations:
-      summary: "磁盘分区{{ $labels.mountpoint }}的inode使用率大于80%"
+      summary: "磁盘分区的inode使用率大于80%"
       description: "{{ $labels.hostname }}的磁盘分区{{ $labels.mountpoint }}的inode使用率: '{{ $value | humanize }}%'"
 ```
-
 
 <br>
 <br>
@@ -3637,92 +3358,22 @@ process_names:
   # java
   - name: "{{.Matches}}"
     cmdline:
-    - '.+/bin/java .+'
+    - '.+/bin/java -jar /opt/.+'
+  # mongo
   - name: "{{.Matches}}"
     cmdline:
-    - 'java .+'
-  #匹配完整的运行命令
-  - name: "{{.Matches}}"
-  #- name: "{{.Comm}}"
-    cmdline:
-    - '.+'
+    - '.+/bin/mongo[ds] -f /opt/mongodb.+'
 ```
 
-
-<br>
-<br>
-
-
-## 进程告警规则
-
-prometheus进程告警规则示例:
-
-```yml
-groups:
-- name: 测试进程告警规则
-  rules:
-  - alert: nginx进程不存在
-    expr: 'sum(namedprocess_namegroup_states{groupname=~"map\\[:nginx: master process .+"}) without(state) == 0'
-    for: 1m
-    labels:
-      severity: critical
-      level: 3
-    annotations:
-      summary: "nginx进程不存在, 实例: {{ $labels.instance }}"
-      description: "主机: {{ $labels.hostname }}, 进程不存在: {{ $labels.groupname }}"
-      wxurl: webhook1,webhook2
-      mobile: phone1,phone2
-
-  - alert: filebeat进程不存在
-    expr: sum without(state) (namedprocess_namegroup_states{groupname=~"map\\[:/usr/share/filebeat/bin/filebeat -e -c .+", hostgroup="xxx"}) == 0
-    for: 1m
-    labels:
-      severity: critical
-      level: 3
-    annotations:
-      summary: "filebeat进程不存在, 实例: {{ $labels.instance }}"
-      description: "主机: {{ $labels.hostname }}, 进程不存在: {{ $labels.groupname }}"
-      wxurl: webhook1,webhook2
-      mobile: phone1,phone2
-
-```
-
-
-
-
-
-
-<br>
-<br>
+<br/>
 
 ---
 
-<br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br/>
 
 # 集成
 
 INSTRUMENTING
-
 
 <br>
 

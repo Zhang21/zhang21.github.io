@@ -16,7 +16,7 @@
 
 # 前言
 
-关于 Redis 的基本信息，比如它提供了什么功能，它能做什么，它的有点是什么，有哪些公司使用它等等。
+关于 Redis 的基本信息，比如它提供了什么功能，它能做什么，它的优点是什么。
 
 <br/>
 <br/>
@@ -65,6 +65,268 @@ PONG
 
 # 字符串
 
+字符串（string）是最基本的键值对类型。
+
+键和值既可以是普通的文本数据，也可以是二进制数据（图片、视频、音频和压缩文件等）。
+
+<br/>
+<br/>
+
+## 为字符串键设置值
+
+```redis
+# 为字符串键设置值
+# O(1)
+SET key value
+
+# 默认情况下，对一个已经存在的 key 设置值将导致旧的值被覆盖。
+# v2.6.12 可选 NX（不覆盖） 和 XX（只会在有值的情况下执行覆盖） 选项来决定是否覆盖
+SET key value NX
+SET key value XX
+```
+
+<br/>
+<br/>
+
+## 获取字符串键的值
+
+```redis
+# 获取字符串键的值
+# O(1)
+GET key
+```
+
+<br/>
+<br/>
+
+## 获取旧值并设置新值
+
+```redis
+# 获取旧值并设置新值
+# O(1)
+GETSET key new_value
+```
+
+<br/>
+<br/>
+
+## 一次为多个字符串键设置值
+
+执行多条 SET 命令需要客户端和服务器之间进行多次网络通信，并因此消耗大量的时间。而使用一条 MSET 命令只需要一次网络通信，从而有效地减少程序执行多个设置操作的时间。
+
+```redis
+# 一次为多个字符串键设置值
+# O(N)
+MSET k1 v1 [k2 v2 ...]
+```
+
+<br/>
+<br/>
+
+## 一次获取多个字符串键的值
+
+MGET 命令也可以将执行多次获取操作所需的网络通信次数从原来的 N 次降低为一次，从而有效地提高程序的运行效率。
+
+```redis
+# 一次获取多个字符串键的值
+# O(N)
+MGET k1 [k2 ...]
+```
+
+<br/>
+<br/>
+
+## 只在键不存在时为多个字符串键设置值
+
+MSETNX 只会在给定键都不存在的情况下对键进行设置，而不会像 MSET 那样覆盖键的值。
+
+注意，是给定键都不存在。
+
+```redis
+# 只有在键不存在的情况下，一次为多个字符串键设置值
+# O(N)
+MSETNX k1 v1 [k2 v2 ...]
+```
+
+<br/>
+<br/>
+
+## 获取字符串值的字节长度
+
+```redis
+# 获取字符串值的字节长度
+# O(1)
+STRLEN key
+```
+
+<br/>
+<br/>
+
+## 字符串值的索引
+
+因为每个字符串都是由一系列连续的字节组成，所以字符串中的每个字节实际上都拥有与之相对应的索引。通过索引对某个部分进行处理。
+
+![字符串的索引示例](https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/2-5.png)
+
+<br/>
+<br/>
+
+## 获取字符串值指定索引范围上的内容
+
+```redis
+# 获取字符串值指定索引范围上的内容
+# O(N)
+GETRANGE key start end
+
+GETRANGE hello 0 4
+"hello"
+GETRANGE message -11 -7
+"hello"
+```
+
+<br/>
+<br/>
+
+## 对字符串值的指定索引范围进行设置
+
+```redis
+# 对字符串值的指定索引返回进行设置
+SETRANGE key index substitute
+
+GET message
+"hello world"
+
+SETRANGE message 6 "Redis"
+GET message
+"hello Redis"
+```
+
+<br/>
+<br/>
+
+## 自动扩展被修改的字符串
+
+当用户给定的新内容比被替换的内容更长时，SETRANGE 命令就会自动扩展被修改的字符串值，从而确保可以顺利写入。
+
+```redis
+GET message
+"hello Redis"
+
+SETRANGE message 5 ", this a messge."
+
+GET message
+"hello, this is a message."
+```
+
+<br/>
+<br/>
+
+## 在值里面填充空字节
+
+SETRANGE 命令除了会根据用户给定的系内容自动扩展字符串值之外，还会根据用户给定的 index 索引扩展字符串。
+
+当用户给定的 index 超出字符串值的长度时，字符串值末尾知道索引 `index-1` 之间的部分将使用空字节进行填充。
+
+```redis
+# 长度为 5
+GET greeting
+"hello"
+
+# 长度变为 15
+SETRANGE greeting 10 "world"
+
+GET greeting
+"hello\x00\x00\x00\x00\x00world"
+```
+
+<br/>
+<br/>
+
+## 追加新内容到值的末尾
+
+```redis
+# 追加新内容到值的末尾
+APPEND key suffix
+
+# 如果键不存在，APPEND 命令会先将键的值出师未空字符串""，然后再执行追加操作，相当于 SET。
+```
+
+<br/>
+<br/>
+
+## 使用字符串键存储数字值
+
+如果值为一下两种类型，那么 Redis 就会把这个值当作数字来处理。
+
+第一种类型是能够使用 C 语言的 long long int 类型存储的整数，在大多数系统中，此类型存储 64 位长度的有符号整数。
+
+第二种类型是能够使用 C 语言的 long double 类型存储的浮点数，在大多数系统中，此类型存储 128 位长度的有符号浮点数。
+
+<br/>
+<br/>
+
+## 对整数值执行加减法
+
+当字符串键的值不能被 Redis 解释为整数时，对键执行整数的加减操作将返回错误。
+
+当加减操作遇到不存在的键时，命令会先将键的值初始化为 0，然后再执行相应的加减操作。
+
+```redis
+# 对整数值执行加减法操作
+INCRBY key increment
+DECRBY key increment
+
+SET number 100
+INCRBY number 300
+DECRBY number 200
+```
+
+<br/>
+<br/>
+
+## 对整数值执行自增或自减
+
+对整数执行自增或自减的场景经常出现。
+
+```redis
+# O(1)
+
+# 加 1
+INCR key
+
+# 减 1
+DECR key
+```
+
+<br/>
+<br/>
+
+## 对数字值浮点数执行加减操作
+
+INCRBYFLOAT 遇到不存在的键时，会先将键的值初始化为 0，然后再执行相应的加减操作。
+
+此命令既可用于浮点数值，也可用于整数值。增量既可以是整数值，也可以是浮点数值。
+
+```redis
+# O(1)
+INCRBYFLOAT key increment
+
+SET decimal 3.14
+INCRBYFLOAT decimal 2.55
+INCRBYFLOAT decimal -1.1
+
+SET pi 1
+INCRBYFLOAT pi 2.14
+INCRBYFLOAT pi -0.14
+```
+
+<br/>
+<br/>
+
+## 小数位长度限制
+
+虽然 Redis 并不限制字符串键存储的浮点数的小数位长度，但是使用 INCRBYFLOAD 命令处理浮点数时，命令最多保留计算结果小数点后的 17 位数字。
+
 <br/>
 
 ---
@@ -72,6 +334,411 @@ PONG
 <br/>
 
 # 散列
+
+Redis 的散列会将一个键和一个散列在数据库里关联起来，用户可以在散列中为任意多个字段设置值。
+
+散列包含的字段在实际中是以无序方式进行排序的。
+
+<br/>
+<br/>
+
+## 为字段设置值
+
+如果字段已经存在于散列中，那么这次设置就是一次更新操作。
+
+```redis
+# 为字段设置值
+# O(1)
+HSET key field value
+
+HSET hash01 title "greeting"
+HSET hash01 author "peter"
+HSET  hash01 content "hello"
+
+# 更新字段值
+HSET hash01 content "hello world"
+```
+
+<br/>
+<br/>
+
+## 只在字段不存在的情况下为它设置值
+
+```redis
+# 只在字段不存在的情况下才为它设置值，不会覆盖
+# O(1)
+HSETNX key field value
+
+HSETNX hash01 author "zhang"
+0 -- 设置失败，因为字段已存在
+
+HSETNX hash01 views 100
+1
+```
+
+<br/>
+<br/>
+
+## 获取字段的值
+
+获取不存在的字段，将返回空值。
+
+```redis
+# 获取字段的值
+# O(1)
+HGET key field
+
+HGET hash01 title
+```
+
+<br/>
+<br/>
+
+## 对字段存储的整数执行加减操作
+
+对非整数执行会报错。
+
+```redis
+# 对字段值整数进行加减操作
+# O(1)
+HINCRBY key field increment
+
+HINCRY hash01 views 3
+HINCRY hash01 views -2
+```
+
+<br/>
+<br/>
+
+## 对字段存储的浮点数执行加减法操作
+
+HINCRBYFLOAT 命令可以操作整数。
+
+```redis
+# 对字段值浮点数执行加减法操作
+# O(1)
+HINCRBYFLOAT key field increment
+```
+
+<br/>
+<br/>
+
+## 获取字段值的字节长度
+
+```redis
+# 获取字段值的字节长度
+# O(1)
+HSTRLEN key field
+
+HSTRLEN hash01 title
+```
+
+<br/>
+<br/>
+
+## 获取散列包含的字段数量
+
+```redis
+# 获取散列包含的字段数量
+# O(1)
+HLEN key
+```
+
+<br/>
+<br/>
+
+## 检查字段是否存在
+
+```redis
+# 检查字段是否存在于散列中
+# O(1)
+HEXISTS key field
+```
+
+<br/>
+<br/>
+
+## 删除字段
+
+如果散列或字段不存在，将返回 0 表示失败。
+
+```redis
+# 删除散列中的字段及其值
+# O(1)
+HDEL key field
+```
+
+<br/>
+<br/>
+
+## 一次为多个字段设置值
+
+HMSET 命令会覆盖已有的字段值。
+
+```redis
+# 一次为多个字段设置值
+# O(N)
+HMSET key f1 v1 [f2 v2 ...]
+```
+
+<br/>
+<br/>
+
+## 一次获取多个字段的值
+
+```redis
+# 一次获取多个字段的值
+# O(N)
+HMGET key f1 [f2 ...]
+```
+
+<br/>
+<br/>
+
+## 获取所有字段和值
+
+Redis 散列包含的字段在底层是以无序方式存储的。如果又需要，用户可以对这些命令返回的元素进行排序，使它们从无序变为有序。
+
+```redis
+# O(N)
+
+# 获取所有字段
+HKEYS key
+
+# 获取所有值
+KVALS key
+
+# 获取所有字段和值
+HGETALL key
+```
+
+<br/>
+
+---
+
+<br/>
+
+# 列表
+
+Redis 的列表是一种线性的有序结构，可以按照元素被推入列表中的顺序来存储元素，并且列表中的元素可以重复出现。
+
+<br/>
+<br/>
+
+## 将元素推入列表左端或右端
+
+如果列表不存在，将自动创建一个空列表，并将元素推入刚刚创建的列表中。
+
+```redis
+# 将一个或多个元素推入给定列表的左端
+# O(N)
+LPUSH key item [item ...]
+
+LPUSH todo "watch tv"
+LPUSH todo "finish homework"
+LPUSH anothor-todo "to do 01" "to do 02"
+
+# 在列表右端推入一个或多个元素
+# O(N)
+RPUSH key item [item ...]
+```
+
+<br/>
+<br/>
+
+## 只对已存在的列表执行推入操作
+
+如果列表不存在，则会放弃推入操作。
+
+每次只能推入单个元素，给定多个元素将报错。
+
+```redis
+# O(1)
+LPUSHX key item
+RPUSHX key item
+```
+
+<br/>
+<br/>
+
+## 弹出列表最左端或右端的元素
+
+如果列表不存在，将返回一个空值，表示列表为空。
+
+```redis
+# O(1)
+# 弹出列表最左端的元素
+LPOP key
+
+# 弹出列表最右端的元素
+RPOP key
+```
+
+<br/>
+<br/>
+
+## 将右端弹出的元素推入左端
+
+如果源列表不存在，此命令将放弃操作，并返回空值表示执行失败。
+
+如果源列表非空，但目标列表为空，那么将正常执行（也就是新建了一个目标空列表，并推入元素）。
+
+```redis
+# 将右端弹出的元素推入左端
+# O(1)
+RPOPLPUSH source target
+
+RPOPLPUSH key1 key2
+# 源和目标相同，表示把列表最右端的元素变为最左端的元素
+RPOPLPUSH key1 key1
+```
+
+<br/>
+<br/>
+
+## 获取指定索引上的元素
+
+列表的每个元素都有与之对应的正数索引和负数索引。
+
+如果给定的索引超出范围，那么将返回空值，以此来表示并不存在的元素。
+
+```redis
+# 获取指定索引上的单个元素
+# O(N)
+LINDEX key index
+
+LINDEX todo 0
+LINDEX todo -1
+```
+
+<br/>
+<br/>
+
+## 获取指定索引范围上的元素
+
+如果起始索引和结束索引都超出了范围，那么将返回空。
+
+如果只有其中一个索引超出了范围，命令将对索引进行修改，获取实际的元素。
+
+```redis
+# O(N)
+LRANGE key start end
+
+LRANGE todo 0 2
+LRANGE todo -3 -1
+# 获取所有元素
+LRANGE todo 0 -1
+```
+
+<br/>
+<br/>
+
+## 为指定索引设置新元素
+
+如果超出索引范围，将返回错误。
+
+```redis
+# O(N)
+LSET key index new_element
+
+LSET todo 0 "play video games"
+```
+
+<br/>
+<br/>
+
+## 将元素插入列表
+
+将一个元素插入到列表的某个元素之前/后。
+
+如果目标元素不存在，那么操作会失败。
+
+```redis
+# O(N)
+LINSERT key BEFORE|AFTER target_element new_element
+
+LINSERT todo AFTER "play video games" "sleep"
+```
+
+<br/>
+<br/>
+
+## 保留或移除列表中的指定元素
+
+LTRIM 命令，移除列表中给定索引范围之外的所有元素，只保留给定范围内的元素。
+
+LREM 命令，从列表中移除指定元素。
+
+```redis
+# O(N)
+LTRIM key start end
+
+LTRIM todo 0 2
+
+
+# count 等于0，移除包含所有指定元素。
+# count 大于0，从左向右检查，并移除最先发现的 count 数量的指定元素。
+# count 小于0，从右向左检查，并移除最先发现的 abs(count) 数量的指定元素。
+LREM key count element
+
+RPUSH testl1 "a" "b" "b" "a" "c" "a"
+RPUSH testl2 "a" "b" "b" "a" "c" "a"
+RPUSH testl3 "a" "b" "b" "a" "c" "a"
+
+# 移除所有 a 元素，移除后列表："b" "b" "c"
+LREM testl1 0 "a"
+
+# 移除最左端两个 a 元素，移除后列表："b" "b" "c" "a"
+LREM testl2 2 "a"
+
+# 移除最右端两个 a 元素，移除后列表："a" "b" "b" "c"
+LREM testl3 -2 "a"
+```
+
+<br/>
+<br/>
+
+## 阻塞式左端或右端弹出操作
+
+BLPOP 命令，从左往右依次检查列表，对最先遇到的非空列表执行左端元素弹出操作。如果检查了所有列表后都没有发现可以弹出的非空列表，那么它将阻塞执行该命令的客户端并开始等待，知道某个给定列表变为非空，又或者等待时间超时。
+
+BRPOP 命令。从右往左。
+
+如果在客户端被阻塞的过程中，有另一个客户端向导致阻塞的列表推入了新的元素，那么该列表就会变为非空，而被阻塞的客户端也会随着命令成功弹出列表元素而重新回到非阻塞状态。
+
+如果所有列表在给定时限内都是空列表，那么命令将在给定时限到达后向客户端返回一个空值，表示没有任何元素被弹出。
+
+阻塞效果只会对执行这个命令的客户端有效，其他客户端以及 Redis 服务器不受影响。
+
+```redis
+# O(N)
+# 超时时间单位为秒
+
+# 阻塞式左端弹出操作
+BLPOP key [key ...] timeout
+
+BLPOP todo 5
+
+
+# 阻塞式右端弹出操作
+BRPOP key [key ...] timeout
+
+BRPOP todo 5
+```
+
+<br/>
+<br/>
+
+## 阻塞式弹出并推入操作
+
+如果源列表为空，命令将阻塞执行该命令的客户端，然后在给定的时限内等待可弹出的元素出现，或者超时。
+
+```redis
+# O(1)
+BRPOPLPUSH source target timeout
+
+BRPOPLPUSH list1 list2 5
+```
 
 <br/>
 
@@ -81,6 +748,187 @@ PONG
 
 # 集合
 
+Redis 的集合（set）允许用户将任意多个各不相同的元素存储到集合中。集合是无序的，且元素不可重复。
+
+列表元素可以重复，集合元素不可重复。列表以有序方式存储元素，集合以无序方式存储元素。这样就导致了两者命令的复杂度不同。
+
+对于集合来说，所有针对单个元素的集合命令都不需要遍历整个集合，所以复杂度都为 O(1)。
+
+<br/>
+<br/>
+
+## 将元素添加到集合
+
+向集合中添加重复元素会被忽略。
+
+```redis
+# 将一个或多个元素添加到集合
+# O(N)
+SADD key element [element ...]
+
+SADD databases "Redis" "MySQL" "MongoDB"
+```
+
+<br/>
+<br/>
+
+## 从集合中移除元素
+
+不存在的元素会被忽略。
+
+```redis
+# 从集合中移除一个或多个元素
+# O(N)
+SREM key element [element ...]
+
+SREM databases "Redis"
+```
+
+<br/>
+<br/>
+
+## 将元素从一个集合移动到另一个集合
+
+元素不存在于源集合，命令返回 0（表示失败）。
+元素存在于目标集合，命令将会覆盖目标集合的相同元素。
+
+```redis
+# 将指定元素从源集合移动到目标集合
+# O(1)
+SMOVE source target element
+```
+
+<br/>
+<br/>
+
+## 获取集合包含的所有元素
+
+因为集合元素是无序的，所以结果顺序可能会有不同。
+
+```redis
+# 获取集合包含的所有元素
+# O(N)
+SMEMBERS key
+```
+
+<br/>
+<br/>
+
+## 获取集合包含的元素数量
+
+获取给定集合的大小（元素数量）。
+
+```redis
+# O(1)
+SCARD key
+```
+
+<br/>
+<br/>
+
+## 检查给定元素是否存在于集合
+
+```redis
+# 检查元素是否存在于集合中
+# O(1)
+SISMEMBER key element
+
+SISMEMBER databases "Redis"
+```
+
+<br/>
+<br/>
+
+## 随机获取集合中的元素
+
+如果 count 为正，将返回 count 个不重复的元素。如果大于集合数量，则返回所有元素。如果为负数，将返回 abs(count) 个可能有重复的数。
+
+```redis
+# 从集合中随机地获取指定数量的元素
+# O(N)
+SRANDMEMBER key [count]
+
+SRANDMEMBER databases
+SRANDMEMBER databases -2
+```
+
+<br/>
+<br/>
+
+## 随机地从集合中移除指定数量的元素
+
+```redis
+# 从集合中随机移除指定数量的元素
+# O(N)
+SPOP key [count]
+```
+
+<br/>
+<br/>
+
+## 对集合进行交集计算
+
+```redis
+# 计算给定集合的交集，返回交集中的元素
+# O(N*M)
+SINTER key [key ...]
+
+SINTER s1 s2
+
+# 把交集结果存储到指定的键里，如果键已经存在，此命令会先删除存在的键
+# O(N*M)
+SINTERSTORE destination_key key [key ...]
+
+SINTERSTORE s1_inter_s2 s1 s2
+```
+
+<br/>
+<br/>
+
+## 对集合进行并集计算
+
+```redis
+# 计算出所有集合的并集，然后返回并集的所有元素
+# O(N)
+SUNION key [key ...]
+
+# 把并集结果存储到指定的键，它会覆盖已有的键
+# O(N)
+SUNIONSTORE destination_key key [key ...]
+
+SUNION s1 s2
+SUNIONSTORE s1_union_s2 s1 s2
+```
+
+<br/>
+<br/>
+
+## 对集合进行差集计算
+
+命令会按照给定集合的顺序，从左到右以此对集合执行差集计算。
+
+```redis
+# 计算给定集合之间的差集，并返回差集包含的所有元素
+# O(N)
+SDIFF key [key ...]
+
+# 把差集存储到指定的键
+# O(N)
+SDIFFSTORE destionation_key key [key ...]
+
+# 先计算 s1-s2 的差集，得到的结果和 s3 计算差集
+SDIFF s1 s2 s3
+
+SDIFFSTORE diff-result s1 s2 s3
+```
+
+<br/>
+<br/>
+
+## 执行集合计算的注意事项
+
+对集合执行交集、并集、差集等计算需要耗费大量的资源，所以应该尽量使用 `SINTERSTORE` 等命令来存储并重用计算结果，而不要每次都重复进行计算。
+
 <br/>
 
 ---
@@ -89,6 +937,235 @@ PONG
 
 # 有序集合
 
+Redis 的有序集合（sorted set）同时具有有序和集合两种性质。这种数据结构中的每个元素都由一个成员和一个与成员相关的分值组成，成员以字符串方式存储，分值以 64 位双精度浮点数格式存储。
+
+有序集合中的每个成员也都是独一无二的，不会出现重复的成员。但不同成员的分值可以相同。分值相同时，将按照成员在字典序中的大小对其进行排列。
+
+有序集合的分值除了数字之外，还可以是 `+inf` 或 `-inf`，表示无穷大和无穷小。
+
+![有序集合示例](https://raw.githubusercontent.com/zhang21/images/master/cs/database/redis/6-1.png)
+
+<br/>
+<br/>
+
+## 添加或更新成员
+
+此命令除了向有序集合添加成员之外，还可以对有序集合中已存在的成员的分值进行更新。
+
+```redis
+# 向有序集合中添加一个或多个新成员
+# O(M*log(N))，M 为给定成员的数量，N 为有序集合包含的成员数量。
+ZADD key score member [score member]
+
+ZADD salary 3500 "A" 4000 "B" 3000 "C"
+ZADD salary 3500 "C"
+
+# 通过 XX（只更新） 或 NX（只添加） 选项
+ZADD key [XX|NX] score member [score member ...]
+
+# 默认情况下，ZADD 命令返回新添加成员的数量作为返回值。从 3.2 版本开始，可使用 CH 选项，让命令返回被修改成员的数量。
+
+ZADD key [CH] score member [score member ...]
+```
+
+<br/>
+<br/>
+
+## 移除指定的成员
+
+如果成员不存在于有序集合中，命令将自动忽略该成员。
+
+```redis
+# 从有序集合中移除一个或多个成员和它们的分值
+# O(M*log(N))，M 为给定成员的数量，N 为有序集合包含的成员数量。
+ZREM key member [member ...]
+
+ZREM salary "C"
+```
+
+<br/>
+<br/>
+
+## 获取成员的分值
+
+```redis
+# 获取给定成员相关联的分值
+# O(1)
+ZSCORE key member
+```
+
+<br/>
+<br/>
+
+## 对成员的分值执行自增或自减操作
+
+如果成员并不存在于有序集合，或有序集合不存在，命令将直接把给定成员添加到有序集合中，并把增量设置为该成员的分值。
+
+```redis
+# 分值自增或自减
+# O(log(N))
+ZINCRBY key increment member
+
+ZINCRBY salary 500 "A"
+ZINCRBY salary -500 "A"
+
+ZINCRBY salary 4500 "D"
+ZINCRY salarys 4500 "D"
+```
+
+<br/>
+<br/>
+
+## 获取有序集合的大小
+
+如果有序集合不存在，将返回 0。
+
+```redis
+# 获取有序集合包含的成员数量
+# O(1)
+ZCARD key
+```
+
+<br/>
+<br/>
+
+## 获取成员在有序集合中的排名
+
+如果有序集合不存在，将返回一个空值。
+
+```redis
+# 按升序排列排名
+# O(log(N))
+ZRANK key member
+
+# 按降序排列排名
+# O(log(N))
+ZREVRANK key member
+```
+
+<br/>
+<br/>
+
+## 获取指定索引范围内的成员
+
+如果有序集合不存在，将返回一个空列表。
+
+```redis
+# 通过索引获取，按分值升序排列
+# O(log(N) + M)，N 为有序集合包含的成员数，M 为命令返回的成员数
+ZRANGE key start end
+
+# 通过索引获取，按分值降序排列
+ZREVRANGE key start end
+
+ZRANGE salary 0 3
+ZRANGE salary -3 -1
+
+# 默认只返回成员，可通过 WITHSCORES 选项也获取分值
+ZRANGE|ZREVRANGE key start end [WITHSOCRES]
+```
+
+<br/>
+<br/>
+
+## 获取指定分值范围内的成员
+
+```redis
+# min/max 指定最小分值和最大分值
+# O(log(N) + M)，N 为有序集合包含的成员数，M 为返回的成员数
+ZRANGEBYSCORE key min max
+ZREVRANGEBYSCORE key max min
+
+ZRANGEBYSCORE salary 3000 5000
+ZREVRANGEBYSCORE salary 5000 3000
+
+# 命令默认返回成员，可通过 WITHSCORES 选项来同时获取成员及其分值
+ZRANGEBYSCORE key min max [WITHSCORES]
+ZREVRANGEBYSCORE key max min [WITHSCORES]
+
+# 命令默认返回所有成员，可通过 LIMIT 选项限制返回的成员数量， offset 参数指示在返回结果前需要跳过的成员数量，count 参数指示命令最多可以返回多少个成员
+ZRANGEBYSCORE key min max [LIMIT offset count]
+ZREVRANGEBYSCORE key max min [LIMIT offset count]
+
+ZRANGEBYSCORE salary 3000 5000 LIMIT 1 2
+
+# 命令默认是闭区间，也就是给定分值的最大和最小也会包含在内。可在分值参数前使用单括号(转为开区间，这样就不包含
+ZRANGEBYSCORE salary (3000 5000 WITHSCORES
+
+# 使用无限值作为范围，+inf 和 -inf
+ZRANGEBYSOCRE salary -inf (5000 WITHSCORES
+```
+
+<br/>
+<br/>
+
+## 统计指定分值范围内的成员数量
+
+```redis
+# 统计有序集合中分值介于指定范围内的成员数量
+# O(log(N))
+ZCOUNT key min max
+
+ZCOUNT salary 3000 5000
+```
+
+<br/>
+<br/>
+
+## 移除指定排名范围内的成员
+
+```redis
+# 从升序排列的有序集合中移除位于指定排名范围内的成员
+# O(log(N) + M)，N 为有序集合包含的成员数量，M 为被移除的成员数量。
+ZREMRANGEBYRANK key start end
+
+ZREMRANGEBYRANK salary 0 2
+```
+
+<br/>
+<br/>
+
+## 移除指定分值范围内的成员
+
+```redis
+# 从有序集合中移除位于指定分值范围内的成员，并在移除操作执行完毕返回被移除成员的数量
+# O(log(N) + M)，N 为有序集合包含的成员数量，M 为被移除的成员数量。
+ZREMRANGEBYSCORE key min max
+
+ZREMRANGEBYSCORE salary 3000 4000
+```
+
+<br/>
+<br/>
+
+## 有序集合的并集运算和交集运算
+
+```redis
+# 有序集合的并集运算
+ZUNIONSTORE destination numbers key [key ...]
+
+# 有序集合的交集运算
+ZINTERSTORE destination numbers key [key ...]
+
+ZUNIONSTORE union-result-1 2 sorted_set1 sorted_set2
+ZINTERSTORE inter-result-1 2 sorted_set1 sorted_set2
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <br/>
 
 ---
@@ -96,6 +1173,22 @@ PONG
 <br/>
 
 # HyperLogLog
+
+HyperLogLog 是一个专门为了计算集合的基数而创建的概率算法，对于一个给定的集合，HyperLogLog 可计算出这个集合的近似基数。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <br/>
 
@@ -510,6 +1603,13 @@ FLUSHDB
 FLUSHDB async
 ```
 
+建议对这个命令增加别名，以避免误删除库。
+
+```conf
+# redis.conf
+rename-command FLUSHDB ABCDEFG
+```
+
 <br/>
 <br/>
 
@@ -524,6 +1624,13 @@ FLUSHDB async
 FLUSHALL
 
 FLUSHALL async
+```
+
+建议对这个命令增加别名，以避免误删库。
+
+```conf
+# redis.conf
+rename-command FLUSHALL HIJKLMN
 ```
 
 <br/>
@@ -2020,6 +3127,61 @@ Redis 允许用户在脚本中选择性地打开或者关闭命令传播功能�
 
 - 如果脚本的体积不大，执行的计算也不多，但却会产生大量命令调用，那么使用脚本传输模式可以有效地节约网络资源。
 - 如果脚本的体积很大，执行的计算非常多，但是只会产生少量的命令调用，那么使用命令传播模式可以重用已有的计算结果来节约计算资源和网络资源。
+
+<br/>
+<br/>
+
+## 服务器相关命令
+
+Redis 服务器相关的命令。
+
+```sh
+# 查看 redis 支持的命令
+COMMAND
+# 获取特定命令的信息
+COMMAND INFO AUTH
+
+# 认证
+AUTH 密码
+
+# 查看信息
+INFO
+# 查看复制相关信息
+INFO REPLICATION
+
+# 实时打赢出 redis 接收到的命令，调试用
+MONITOR
+
+# 获取键的调试信息
+DEBUG object 键名称
+
+# 客户端连接相关
+CLIENT LIST
+CLIENT KILL [ip:port] [ID client-id]
+
+# 配置相关
+CONFIG GET *
+CONFIG GET slave-priority
+CONFIG SET 参数 值
+CONFIG REWRITE
+
+# 最近一次成功将数据保存到磁盘上的 UNIX 时间
+LASTSAVE
+
+# 慢日志
+SLOWLOG
+
+# 角色
+ROLE
+
+# 将当前实例添加为主的从
+SLAVEOF 主 端口
+# 从节点从主中下线，自己独立为主
+SLAVE NO ONE
+
+# 关闭
+SHUTDOW NOSAVE/SAVE
+```
 
 <br/>
 

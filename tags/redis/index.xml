@@ -18,25 +18,5 @@
 <br/>
 <hr>]]></description>
 </item>
-<item>
-    <title>Redis</title>
-    <link>https://zhang21.cn/redis/</link>
-    <pubDate>Mon, 05 Feb 2018 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/redis/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="http://www.redis.cn/documentation.html" target="_blank" rel="noopener noreffer ">Redis官方文档</a></li>
-<li><a href="http://www.redis.cn/commands.html" target="_blank" rel="noopener noreffer ">Redis命令大全</a></li>
-</ul>
-<br>
-<p>环境:</p>
-<ul>
-<li>rhel7x86_64</li>
-<li>Redis v3.2</li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
 </channel>
 </rss>

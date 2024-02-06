@@ -4,7 +4,28 @@
         <link>https://zhang21.cn/posts/</link>
         <description>所有文章 | 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 29 Oct 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 28 Jan 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java核心技术</title>
+    <link>https://zhang21.cn/java_core/</link>
+    <pubDate>Sun, 28 Jan 2024 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/java_core/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li>Java核心技术-卷一</li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>操作系统导论</title>
+    <link>https://zhang21.cn/ostep/</link>
+    <pubDate>Sun, 10 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/ostep/</guid>
+    <description><![CDATA[参考： 操作系统导论 操作系统介绍 程序运行时会发生什么——执行指令。 处理器从内存中获取（fetch）一条指令，对其进行解码（decode），然后]]></description>
+</item>
+<item>
     <title>Lua语言</title>
     <link>https://zhang21.cn/lua/</link>
     <pubDate>Sun, 29 Oct 2023 00:00:00 &#43;0000</pubDate>
@@ -90,38 +111,14 @@
 <hr>]]></description>
 </item>
 <item>
-    <title>指南</title>
-    <link>https://zhang21.cn/guide/</link>
-    <pubDate>Sun, 29 Jan 2023 00:00:00 &#43;0000</pubDate>
+    <title>JavaScript权威指南</title>
+    <link>https://zhang21.cn/javascript-the-definitive-guide/</link>
+    <pubDate>Tue, 28 Feb 2023 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
-    <guid>https://zhang21.cn/guide/</guid>
-    <description><![CDATA[<p>收录的各个技术栈可以参考的一些学习资料。</p>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>Doris</title>
-    <link>https://zhang21.cn/doris/</link>
-    <pubDate>Tue, 20 Sep 2022 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/doris/</guid>
+    <guid>https://zhang21.cn/javascript-the-definitive-guide/</guid>
     <description><![CDATA[<p>参考:</p>
 <ul>
-<li><a href="https://doris.apache.org/docs/summary/basic-summary/" target="_blank" rel="noopener noreffer ">Doris文档</a></li>
-<li><a href="https://github.com/apache/doris/" target="_blank" rel="noopener noreffer ">Dorish官方仓库</a></li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>Argo-CD文档</title>
-    <link>https://zhang21.cn/argo-cd/</link>
-    <pubDate>Fri, 12 Aug 2022 14:33:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/argo-cd/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://argo-cd.readthedocs.io/en/stable/" target="_blank" rel="noopener noreffer ">argo-cd官方文档</a></li>
+<li><a href="https://book.douban.com/subject/35396470/" target="_blank" rel="noopener noreffer ">豆瓣</a></li>
 </ul>
 <br/>
 <hr>]]></description>

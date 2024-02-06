@@ -24,26 +24,5 @@
 <br>
 <hr>]]></description>
 </item>
-<item>
-    <title>Zabbix</title>
-    <link>https://zhang21.cn/zabbix/</link>
-    <pubDate>Tue, 14 Nov 2017 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/zabbix/</guid>
-    <description><![CDATA[<p>参考：</p>
-<ul>
-<li><a href="https://www.zabbix.com/" target="_blank" rel="noopener noreffer ">Zabbix官方网站</a></li>
-<li><a href="https://www.zabbix.com/documentation/3.4/zh/manual/" target="_blank" rel="noopener noreffer ">Zabbix中文文档</a></li>
-<li>Zabbix-repo仓库: <a href="http://repo.zabbix.com">http://repo.zabbix.com</a></li>
-<li>阿里云镜像: <a href="https://mirrors.aliyun.com/zabbix/zabbix/">https://mirrors.aliyun.com/zabbix/zabbix/</a> .</li>
-</ul>
-<p>环境：</p>
-<ul>
-<li>CentOS7x86_64</li>
-<li>Zabbix 3.4</li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
 </channel>
 </rss>

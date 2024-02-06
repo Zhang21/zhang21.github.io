@@ -6079,27 +6079,56 @@ tmux attach -t alice_bob
 
 此时两人共用一个会话，内容是共享的，都可以操作，彼此都能看见，这个很强了。
 
-
-
-
-
-<br/>
 <br/>
 
 ---
 
 <br/>
+
+# SSH端口转发
+
+SSH 隧道（Tunneling），也叫 SSH 端口转发（Port Forwarding）。典型用途是将本地端口映射到远程端口，和提供加密提高安全性。
+
 <br/>
 
+## 端口转发的三种类型
 
+3 种情况：
 
+- 动态转发（`-D`）：通过 socket 代理进行加密访问
+- 本地转发（`-L`）：通过本地端口代理远程主机的端口
+- 远程转发（`-R`）：通过远程端口代理其他机器的端口
 
+```sh
+# 动态转发，通过 ssh 进行加密。ssh 会在本地建立一个 socket:8080 端口，通过此端口把数据转到 ssh 连接上，发往远程主机。
+# localhost:8080 -> host:anyPort
+ssh -D 8080 user@host1
+curl -x sock5://localhost:8080 host1:1234
+curl -x sock5://localhost:8080 host2:1234
 
+# 本地转发，host1 通过 host 访问 host2
+# ssh -L 本地端口:目标主机:目标主机端口 中转主机
+# localhost:8000 -> host -> host2:80
+ssh -L 8000:host2:80 user@host
+curl localhost:8000
 
+# 远程转发，host3 无公网，host1 有公网， host1 无法访问 host3。
+# ssh -R 远程主机端口:目标主机:目标主机端口 中转主机
+# host1:2121 -> host3 -> host2:21
+ssh -R 2121:host2:21 user@host1
 
+# 几个参数
+# -N 表示只连接远程主机，不打开远程 shell
+# -T 表示不分配 tty
+# -f 表示 ssh 连接成功后，转入后台运行
+ssh -D 8080 -NT user@host
+```
 
+<br/>
 
+---
 
+<br/>
 
 # 运维常见命令
 

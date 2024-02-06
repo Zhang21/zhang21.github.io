@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>OperatingSystem - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/operatingsystem/</link>
+        <description>OperatingSystem - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 10 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/operatingsystem/" rel="self" type="application/rss+xml" /><item>
+    <title>操作系统导论</title>
+    <link>https://zhang21.cn/ostep/</link>
+    <pubDate>Sun, 10 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/ostep/</guid>
+    <description><![CDATA[参考： 操作系统导论 操作系统介绍 程序运行时会发生什么——执行指令。 处理器从内存中获取（fetch）一条指令，对其进行解码（decode），然后]]></description>
+</item>
+</channel>
+</rss>
