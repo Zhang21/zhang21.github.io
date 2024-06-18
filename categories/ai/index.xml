@@ -1,0 +1,36 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>AI - 分类 - 风继续吹</title>
+        <link>https://zhang21.cn/categories/ai/</link>
+        <description>AI - 分类 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 19 May 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/ai/" rel="self" type="application/rss+xml" /><item>
+    <title>生成式人工智能</title>
+    <link>https://zhang21.cn/generative-ai/</link>
+    <pubDate>Sun, 19 May 2024 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/generative-ai/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://microsoft.github.io/generative-ai-for-beginners" target="_blank" rel="noopener noreffer ">generative-ai-for-beginners</a></li>
+<li><a href="https://github.com/Microsoft/generative-ai-for-beginners" target="_blank" rel="noopener noreffer ">github repo</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>人工智能</title>
+    <link>https://zhang21.cn/ai-for-beginners/</link>
+    <pubDate>Sun, 31 Mar 2024 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/ai-for-beginners/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://microsoft.github.io/AI-For-Beginners/" target="_blank" rel="noopener noreffer ">MS AI for Beginners</a></li>
+<li>DeepL</li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+</channel>
+</rss>

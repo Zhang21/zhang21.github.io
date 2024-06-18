@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>生成式人工智能 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="生成式人工智能" />
+<meta property="og:description" content="参考：
+
+generative-ai-for-beginners
+github repo
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/generative-ai/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-05-19T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-05-19T00:00:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="生成式人工智能"/>
+<meta name="twitter:description" content="参考：
+
+generative-ai-for-beginners
+github repo
+
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/generative-ai/" /><link rel="prev" href="https://zhang21.cn/ai-for-beginners/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "生成式人工智能",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/generative-ai\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "AI","wordcount":  5903 ,
+        "url": "https:\/\/zhang21.cn\/generative-ai\/","datePublished": "2024-05-19T00:00:00+00:00","dateModified": "2024-05-19T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">生成式人工智能</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-05-19">2024-05-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5903 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#课程环境配置">课程环境配置</a>
+      <ul>
+        <li><a href="#设置步骤">设置步骤</a></li>
+        <li><a href="#如何在本地环境运行">如何在本地环境运行</a></li>
+        <li><a href="#课程和技术要求">课程和技术要求</a></li>
+        <li><a href="#首次使用-azure-openai">首次使用 Azure OpenAI</a></li>
+        <li><a href="#首次使用-openai-api">首次使用 OpenAI API</a></li>
+        <li><a href="#认识其他学员">认识其他学员</a></li>
+      </ul>
+    </li>
+    <li><a href="#生成式人工智能和大语言模型">生成式人工智能和大语言模型</a>
+      <ul>
+        <li><a href="#教育场景">教育场景</a></li>
+        <li><a href="#如何获取生成式ai">如何获取生成式AI</a></li>
+        <li><a href="#大预言模型如何工作">大预言模型如何工作</a></li>
+        <li><a href="#初创公司如何利用大预言模型">初创公司如何利用大预言模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#探索和比较不同的大语言模型">探索和比较不同的大语言模型</a>
+      <ul>
+        <li><a href="#了解不同类型的大语言模型">了解不同类型的大语言模型</a>
+          <ul>
+            <li><a href="#基础模型与大语言模型">基础模型与大语言模型</a></li>
+            <li><a href="#开源模式与专有模式">开源模式与专有模式</a></li>
+            <li><a href="#嵌入与图像生成与文本和代码生成">嵌入与图像生成与文本和代码生成</a></li>
+            <li><a href="#编码器解码器与纯解码器">编码器解码器与纯解码器</a></li>
+            <li><a href="#服务与模型">服务与模型</a></li>
+          </ul>
+        </li>
+        <li><a href="#在-azure-上使用不同模型进行测试">在 Azure 上使用不同模型进行测试</a></li>
+        <li><a href="#提高大语言模型的结果">提高大语言模型的结果</a>
+          <ul>
+            <li><a href="#带上下文的提示工程">带上下文的提示工程</a></li>
+            <li><a href="#检索增强生成">检索增强生成</a></li>
+            <li><a href="#微调模型">微调模型</a></li>
+            <li><a href="#训练模型">训练模型</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#负责任地使用生成式人工智能">负责任地使用生成式人工智能</a>
+      <ul>
+        <li><a href="#负责任的人工智能原则">负责任的人工智能原则</a></li>
+      </ul>
+    </li>
+    <li><a href="#了解提示工程">了解提示工程</a>
+      <ul>
+        <li><a href="#沙箱环境">沙箱环境</a></li>
+        <li><a href="#图文指南">图文指南</a></li>
+        <li><a href="#我们的初创项目">我们的初创项目</a></li>
+        <li><a href="#什么是提示工程">什么是提示工程</a>
+          <ul>
+            <li><a href="#词块化">词块化</a></li>
+            <li><a href="#基础模型">基础模型</a></li>
+            <li><a href="#指令微调型大语言模型">指令微调型大语言模型</a></li>
+          </ul>
+        </li>
+        <li><a href="#为什么需要提示工程">为什么需要提示工程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考：</p>
+<ul>
+<li><a href="https://microsoft.github.io/generative-ai-for-beginners" target="_blank" rel="noopener noreffer ">generative-ai-for-beginners</a></li>
+<li><a href="https://github.com/Microsoft/generative-ai-for-beginners" target="_blank" rel="noopener noreffer ">github repo</a></li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="概述">概述</h1>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/repository-thumbnail.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/repository-thumbnail.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/repository-thumbnail.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/repository-thumbnail.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/repository-thumbnail.png"
+        title="生成式AI" /></p>
+<p>学习构建生成式 AI 应用程序的基础知识。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="课程环境配置">课程环境配置</h1>
+<br/>
+<br/>
+<h2 id="设置步骤">设置步骤</h2>
+<p>为了避免依赖等问题，建议使用 github codespace（github online vscode）。</p>
+<ol>
+<li>Fork this repo</li>
+<li>Create a codespace</li>
+<li>Storing your API keys</li>
+</ol>
+<br/>
+<br/>
+<h2 id="如何在本地环境运行">如何在本地环境运行</h2>
+<ol>
+<li>安装 Python</li>
+<li>克隆本仓库到本地</li>
+<li>安装 <a href="https://docs.anaconda.com/free/miniconda/" target="_blank" rel="noopener noreffer ">Minicoda</a>（可选）：用于创建和管理 coda 和 python 虚拟环境</li>
+<li>使用 VS Code 和 Python 扩展</li>
+<li>在浏览器中使用 <a href="https://jupyter.org/" target="_blank" rel="noopener noreffer ">Jupyter</a></li>
+</ol>
+<br/>
+<br/>
+<h2 id="课程和技术要求">课程和技术要求</h2>
+<p>课程包括 6 节概念课和 6 节编码课。</p>
+<p>编码课用了 Azure OpenAI Service，你需要有 Azure OpenAI Service API key 来运行此代码。</p>
+<p>你可以通过填写本申请来 <a href="https://azure.microsoft.com/zh-cn/products/ai-services/openai-service/" target="_blank" rel="noopener noreffer ">申请 Azure OpenAI API</a>。</p>
+<br/>
+<br/>
+<h2 id="首次使用-azure-openai">首次使用 Azure OpenAI</h2>
+<p>如果您是首次使用 Azure OpenAI 服务，请按照本指南了解如何 <a href="https://learn.microsoft.com/zh-cn/azure/ai-services/openai/how-to/create-resource" target="_blank" rel="noopener noreffer ">创建和部署 Azure OpenAI 服务资源</a>。</p>
+<br/>
+<br/>
+<h2 id="首次使用-openai-api">首次使用 OpenAI API</h2>
+<p>如果你是首次使用 OpenAI API，请按照指南了解如何 <a href="https://platform.openai.com/docs/quickstart" target="_blank" rel="noopener noreffer ">创建和使用接口</a>。</p>
+<br/>
+<br/>
+<h2 id="认识其他学员">认识其他学员</h2>
+<p>官方的 <a href="https://discord.com/invite/ByRwuEEgH4" target="_blank" rel="noopener noreffer ">AI Community Discord</a> 可以其他人进行交流。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="生成式人工智能和大语言模型">生成式人工智能和大语言模型</h1>
+<p>了解什么是生成式 AI 以及 LLMs 的工作原理。</p>
+<p>生成式 AI 是一种能够生成文本、图像和其他类型内容（语音、视频和代码等）的人工智能。任何人都可以使用它，只需一个文本提示，一句用自然语言写成的句子。你不需要学习 Java 或 SQL 等语言来完成事情，你只需要使用你的语言，说出你想要的东西，AI 模型就会给出建议。它的应用和影像是巨大的，你可以在短时间内编写应用程序等。</p>
+<p>在本课程中，我们将探讨初创公司如何利用生成式 AI来开启新局面，以及如果应对社会影响和技术局限性的挑战。</p>
+<br/>
+<br/>
+<h2 id="教育场景">教育场景</h2>
+<p>本例中，我们将通过一家虚构的初创公司来讨论它是如何彻底改变教育的。公司的目标是：在全球范围了提高学习的可及性确保公平的教育机会，并根据每个学习者的需要为其提供个性化的学习体验。</p>
+<p>创业团队意识到，如果不利用现代最强大的工具之一 LLMs，将无法实现这一目标。</p>
+<br/>
+<br/>
+<h2 id="如何获取生成式ai">如何获取生成式AI</h2>
+<p>AI 的统计方法：机器学习。从数据中学习模式，而无需明确编程。</p>
+<p>神经网络和现代虚拟助手。先进的机器学习算法，称为神经网络或深度学习算法。神经网络（尤其是递归神经网络 RNNs），极大的增强了自然语言处理能力。</p>
+<p>今天，生成式 AI。它可以看作是深度学习的一个子集。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/AI-diagram.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/AI-diagram.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/AI-diagram.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/AI-diagram.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/AI-diagram.png"
+        title="AI发展" /></p>
+<br/>
+<p>变换器的新模型架构克服了 RNNs 的限制，能够获取更长的文本序列作为输入。</p>
+<p>大多数的 AI 模型（也称为大语言模型，处理文本输入和输出）都是基于这种架构。</p>
+<br/>
+<br/>
+<h2 id="大预言模型如何工作">大预言模型如何工作</h2>
+<p>介绍 OpenAI GPT 模型如何工作。</p>
+<ul>
+<li><strong>分词器（Tokenizer），文本到数字</strong>：LLM 接收文本作为输入，并生成文本作为输出。然而，作为统计模型，它们对数字的处理比对文本序列要好得多。这就是为什么每个输入在被核心模型使用前，都要经过分词器处理的原因。词块/词元（token）由可变的字符数量组成的文本块（chunk of text），因此分词器的主要任务是将输入分割成词块数组。然后，每个词块会映射一个词块索引（token index），即原始文本块的整数编码。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/tokenizer-example.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/tokenizer-example.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/tokenizer-example.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/tokenizer-example.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/tokenizer-example.png"
+        title="分词器例子" /></p>
+<br/>
+<ul>
+<li><strong>预测输出词块</strong>：给定 n 给词块作为输入，模型能够预测一个词块作为输出。然后，这个词块会以扩展窗口的模式纳入下一次迭代的输入中，从而使用户在获得一个（多个）句子作为答案时获得更好的体验。比如使用 ChatGPT 有时它看起来像是在句子中间停止了。</li>
+</ul>
+<br/>
+<ul>
+<li><strong>选择过程，概率分布</strong>：输出词块由模型根据当前文本序列之后出现的概率进行选择。因为模型预测了所有可能的 “下一个词块” 的概率分布（由训练计算得出）。但是，并不是从结果分布中选择概率最高的词块。这种选择增加了一定的随机性，使模型以一种非确定的方式运行——不会因为相同的输入而得到相同的输出。加入这种随机性是为了模拟创造性思维过程。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="初创公司如何利用大预言模型">初创公司如何利用大预言模型</h2>
+<p>大语言模型的输入称为提示，输出称为完成，指的是模型生成下一个词块以完成当前输入的机制。</p>
+<ul>
+<li>指定我们期望从模型中得到的输出类型的指令。
+<ul>
+<li>总结文章和书籍等内容，并从中提取见解。</li>
+<li>对文章和论文等进行构思和设计。</li>
+<li>以与代理人对话的形式提出问题。</li>
+<li>对写作的帮助</li>
+<li>对代码的帮助</li>
+</ul>
+</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="探索和比较不同的大语言模型">探索和比较不同的大语言模型</h1>
+<p>本章内容：</p>
+<ul>
+<li>了解不同类型的 LLM。</li>
+<li>测试、迭代和比较不同的模型。</li>
+<li>如何部署 LLM。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="了解不同类型的大语言模型">了解不同类型的大语言模型</h2>
+<p>LLM 可以根据其架构、训练数据和用例进行多种分类。你对模型的选择取决于你的目标、数据和费用等。</p>
+<p>根据你是否打算将模型用于文本、音频、视频、图像生成等，你可能会选择不同类型的模型。</p>
+<ul>
+<li><strong>音频和语音识别</strong> <a href="https://platform.openai.com/docs/models/whisper" target="_blank" rel="noopener noreffer ">Whisper-type 模型</a> 是不错的选择，它们是通用型的，以语音识别为目标。</li>
+<li><strong>图像生成</strong> <a href="https://platform.openai.com/docs/models/dall-e" target="_blank" rel="noopener noreffer ">DALL-E</a> 和 Midjourney 是两个非常著名的选择。</li>
+<li><strong>文本生成</strong> 大多数模型都是在文本生成方面进行训练的，你有从 GPT-3.5 到 GPT-4 的多种选择。</li>
+<li><strong>多种模式</strong> 如果你希望在输入和输出中处理多种类型的数据，你可以考虑 gpt-4 turbo 或 gpt-4o（OpenAI 模型的最新版本）。它们能够将自然语言处理于视觉理解相结合，通过多模态界面实现交互。</li>
+</ul>
+<p>选择一个模型意味着你可以获得一些基本功能，但这还不够。通常情况下，你需要向 LLM 提供特定的数据。关于如何处理这些数据，</p>
+<br/>
+<br/>
+<h3 id="基础模型与大语言模型">基础模型与大语言模型</h3>
+<p>基础模型（Foundation Model）一词，它被定义为遵循某些标准的人工智能模型。例如：</p>
+<ul>
+<li><strong>它们使用无监督学习或自我监督学习进行训练</strong> 这意味着它们是在无标注的多模态数据上进行训练的，而且训练过程中不需要认为注解或标注数据。</li>
+<li><strong>它们是非常大的模型</strong> 基于数十亿参数训练的深度神经网络。</li>
+<li><strong>它们通常是作为其他模型的基础</strong> 它们可以作为一个起点，在此基础上建立其他模型。</li>
+</ul>
+<br/>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/FoundationModel.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/FoundationModel.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/FoundationModel.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/FoundationModel.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/FoundationModel.png"
+        title="基础模型" /></p>
+<br/>
+<p>为了进一步说明这种区别，以 ChatGPT 为例。在构建 ChatGPT 的第一个版本时，一个名为 GPT-3.5 的模型充当了基础模型。这意味着，OpenAI 使用了一些特定于聊天的数据，创建了一个经过调整的 GPT-3.5 版本，专门用于在对话场景（如聊天机器人）中表现良好。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Multimodal.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Multimodal.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Multimodal.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Multimodal.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Multimodal.png"
+        title="栗子" /></p>
+<br/>
+<br/>
+<h3 id="开源模式与专有模式">开源模式与专有模式</h3>
+<p>LLM 也可以按其是开源还是专有进行分类。</p>
+<p>开源模型是向公众提供的模型，允许针对 LLM 中的各种用例进行检查、修改和定制。不过，它们并不对生产使用进行优化，性能可能不如专有模式。流行的开源模型包括：Alpaca, Bloom, LLaMA, Gemma。</p>
+<p>专有模型是公司拥有的，不向公众提供。这些模型通常针对生产进行了优化。但是，它们不允许修改或定制。它们并不是免费提供。此外，用户无法控制用于训练模型的数据。流行的专有模型包括：<a href="https://platform.openai.com/docs/models" target="_blank" rel="noopener noreffer ">OpenAI Models</a>, Google Bard, Claude 2。</p>
+<br/>
+<br/>
+<h3 id="嵌入与图像生成与文本和代码生成">嵌入与图像生成与文本和代码生成</h3>
+<p>LLM 也可以按其生成的输出进行分类。</p>
+<p>嵌入（Embedding）是一组可以将文本转换为数字形式的模型，是输入文本的数字表示。嵌入可以使机器更容易理解单词或句子之间的关系，并可作为其他模型（如分类模型或聚类模型）的输入，这些模型在数字数据上有更好的表现。嵌入模型通常用于转换学习（transfer learning），即为一个有大量数据的代用任务建立模型，然后将模型权重（嵌入）重新用于其他下游任务。</p>
+<p><a href="https://platform.openai.com/docs/models/embeddings" target="_blank" rel="noopener noreffer ">OpenAI embedding</a> 就是一个栗子。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Embedding.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Embedding.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Embedding.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Embedding.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Embedding.png"
+        title="嵌入模型" /></p>
+<br/>
+<p>图像生成模型，用于图像编辑、图像合成和图像翻译。图像生成模型通常在大型图像数据集（如 LAION-5B）上进行训练，可用于生成图像，或内绘、超分辨率。例如 <a href="https://openai.com/index/dall-e-3/" target="_blank" rel="noopener noreffer ">DALL-E-3</a> 和 <a href="https://github.com/Stability-AI/StableDiffusion" target="_blank" rel="noopener noreffer ">Stable Diffusion Models</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Image.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Image.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Image.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Image.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Image.png"
+        title="图像生成模型" /></p>
+<br/>
+<p>文本和代码生成模型，用于生成文本和代码。这些模型通常用于文本摘要、翻译和问题解答。文本生成模型通常在大型文本数据集上进行训练，可用于生成新文本或回答问题。代码生成模型通常在大型代码数据集上进行训练，可用于生成新代码或修复现有代码中的错误。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Text.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Text.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Text.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Text.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Text.png"
+        title="文本生成" /></p>
+<br/>
+<br/>
+<h3 id="编码器解码器与纯解码器">编码器解码器与纯解码器</h3>
+<p>Encoder-Decoder versus Decoder-only</p>
+<p>关于 LLM 的不同架构类型，不妨打个比方。</p>
+<p>比如为学生编写一份测试，一个人负责创造内容，另一个负责审核内容。</p>
+<p>内容创作者就像一个解码器模型，他们可以查看主题，看看你已经写了什么，然后在此基础上编写课程。解码器很擅长编写信息丰富的内容，却不擅长理解主题和学习目标。解码器模型的例子如 GPT-3。</p>
+<p>审阅者就像一个编码器模型，他们负责审阅所写的课程和答案，注意它们之间的关系并理解上下文，但编码器并不擅长生成内容。编码器模型的示例如 BERT。</p>
+<p>如果有人既可以创建也可以审核内容，这就是编码器-解码器模型，如 BART 和 T5。</p>
+<br/>
+<br/>
+<h3 id="服务与模型">服务与模型</h3>
+<p>服务（service）通常是云服务商提供的产品，通常由模型、数据和其他组件组成。模型（model）是服务的核心组件。</p>
+<p>服务通常针对生产使用进行了优化，通过 界面和 API 可调用，通常比模型更容易使用。不过，服务并不总是免费的。如 Azure OpenAI 服务等。</p>
+<p>模型指示神经网络，包括参数、权重等。然而，要在公司本地运行，就需要购买设备、建立规模化结构和购买许可证等。像 LLaMA 这样的模型是可以使用的，但需要算力来运行模型。</p>
+<br/>
+<br/>
+<h2 id="在-azure-上使用不同模型进行测试">在 Azure 上使用不同模型进行测试</h2>
+<p>大多数模型都可在 <a href="https://ai.azure.com/" target="_blank" rel="noopener noreffer ">Azure AI Studio</a> 上找到。</p>
+<br/>
+<br/>
+<h2 id="提高大语言模型的结果">提高大语言模型的结果</h2>
+<p>什么时候应该考虑对模型进行微调（fine-tuning），而不是使用预训练的模型呢？是否还有其它方法可以提高模型在特定工作负载上的性能？</p>
+<p>你可以不同训练程度的不同类型的模型。</p>
+<p>在生产环境中部署 LLM，复杂程度、成本和质量各不相同。以下是一些方法：</p>
+<ul>
+<li><strong>带上下文的提示工程（Prompt engineering with context）</strong>：在提示时提供足够的上下文，以确保获得准确的回复。</li>
+<li><strong>检索增强生成（Retrieval Augmented Generation, RAG）</strong>：对大型语言模型输出进行优化，使其能够在生成响应之前引用训练数据来源之外的权威知识库。</li>
+<li><strong>微调模型（Fine-tunned）</strong>：根据自己的需要对模型进一步训练，从而使模型更加精确化满足你的需求，但成本可能更高。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Deploy.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Deploy.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Deploy.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Deploy.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/Deploy.png"
+        title="模型部署" /></p>
+<br/>
+<br/>
+<h3 id="带上下文的提示工程">带上下文的提示工程</h3>
+<p>预训练好的 LLM 在处理通用自然语言任务时的效果非常好，甚至可以通过简短的提示来调用它们——这就是所谓的 “零样本（zero-shot）” 学习。</p>
+<p>然而，用户能够通过详细的请求和示例（上下文）框定的查询越多，答案就越准确，也就越接近用户的预期。在这种情况下，如果提示只包含一个示例，我们称之为“单样本（one-shot）”学习；如果包含多个实例，就称之为“小样本（few-shot）”学习。</p>
+<p>带有上下文的提示工程是最具成本效益的方法。</p>
+<br/>
+<br/>
+<h3 id="检索增强生成">检索增强生成</h3>
+<p>LLM 有一个局限性，它们只能使用训练过程中使用过的数据来生成答案。这意味着它们对训练过程之后发生的事实一无所知，也无法访问非公开的信息（如公司内部数据）。可以使用“检索增强生成（RAG）”来克服这一问题。RAG 是一种考虑到提示语长度限制，以文件块的形式用外部数据增强提示语的技术。矢量（vector）数据库工具可提供支持，从各种预定义数据源中检索有用的数据块，并将其添加到提示内容中。</p>
+<p>这个技术非常有用，当企业没有足够的数据、时间或资源对 LLM 进行微调，但仍希望提高特定工作负载的性能并降低捏造的风险。</p>
+<br/>
+<br/>
+<h3 id="微调模型">微调模型</h3>
+<p>微调是一个利用转换学习使模型适应下游任务或解决特定问题的过程。与小样本学习和 RAG 不同，微调的结果是生成一个新的模型，并更新权重（weight）和偏置（bias）。它需要一组由单一输入（提示）以及相关输出（完成）组成的训练示例。</p>
+<p>下面这些情况，微调更可取：</p>
+<ul>
+<li><strong>使用微调模型</strong>。企业希望使用功能较弱的微调模型，而不是高性能模型，从而获得更具成本效益和更快的解决方案。</li>
+<li><strong>考虑延迟</strong>。对特定用例来说，延迟非常重要。因此不可能使用很长的提示，或者从模型中学习的示例数量与提示长度限制不符。</li>
+<li><strong>保持更新</strong>。企业拥有大量高质量数据和实时标签，以及长期更新这些数据所需的资源。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="训练模型">训练模型</h3>
+<p>毫无疑问，从头开始训练 LLM 是最困难、最复杂的方法，需要海量数据、技术资源和计算能力。只有当企业拥有特定领域的用例和大量以领域为中心的数据时，才应考虑采用这种方法。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="负责任地使用生成式人工智能">负责任地使用生成式人工智能</h1>
+<p>本章内容包括：</p>
+<ul>
+<li>在构建生成式人工智能时，要优先考虑负责任的人工智能。</li>
+<li>负责任的人工智能的核心原则以及生成式人工智能的关系。</li>
+<li>如果通过战略和工具将这些负责任的人工智能原则付诸实践。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="负责任的人工智能原则">负责任的人工智能原则</h2>
+<p>公平、包容、可靠、安全、隐私、透明和问责。</p>
+<p>生成式人工智能的独特之处在于它能为用户创建有用的答案、信息、指导和内容。如果没有适当的规划和策略，它也可能不幸地导致一些对用户、产品和社会有害的结果。</p>
+<ul>
+<li>幻觉/虚假</li>
+<li>有害内容</li>
+<li>缺乏公平</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="了解提示工程">了解提示工程</h1>
+<p>精心编写的提示语可以提高回复的质量。生成式人工智能能够根据用户请求创建内容（如文本、图像、音频、代码和视频等），它使用大语言模型来实现。</p>
+<p>用户可以使用聊天等模式与模型进行交互，而无需任何专业技术知识。这些模型基于提示——用户发送输入（prompt），然后得到 AI 的回复（complete）。然后，可以在多轮对话中反复与人工智能聊天，改进他们的提示，知道回答符合预期。</p>
+<p>现在，<strong>提示</strong> 已成为 AIGC 的主要编程接口，它告诉模型该做什么，并影响返回响应的质量。<strong>提示工程（Prompt Engineering）</strong> 是一个快速发展的研究领域，其重点是设计和优化提示，以提供一致和高质量的大规模响应。</p>
+<br/>
+<p>本章节目标：</p>
+<ul>
+<li>解释什么是提示工程</li>
+<li>描述提示语的组成部分及其使用方法</li>
+<li>学习提示工程的最佳实践</li>
+<li>使用 OpenAI 将学习用于实践</li>
+</ul>
+<br/>
+<br/>
+<h2 id="沙箱环境">沙箱环境</h2>
+<p>Jupyter Notebook 提供了一个沙箱环境，你可以在其中尝试学到的内容。要执行这些练习，你需要：</p>
+<ul>
+<li>Azure OpenAI API key</li>
+<li>A Python Runtime</li>
+<li>Local Env Variables</li>
+</ul>
+<br/>
+<br/>
+<h2 id="图文指南">图文指南</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-prompt-engineering-sketchnote.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-prompt-engineering-sketchnote.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-prompt-engineering-sketchnote.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-prompt-engineering-sketchnote.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-prompt-engineering-sketchnote.png"
+        title="提示工程基础" /></p>
+<br/>
+<br/>
+<h2 id="我们的初创项目">我们的初创项目</h2>
+<p>我们希望建立由人工智能驱动的个性化学习应用，让我们思考应用如何为不同的用户设计提示。</p>
+<ul>
+<li>管理员可能要求 AI 分析课程数据，以确定覆盖范围。</li>
+<li>教育工作者可能会要求 AI 为目标受众和主题生成个性化的课程计划。</li>
+<li>学生可能会要求 AI 为课程提供辅导。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="什么是提示工程">什么是提示工程</h2>
+<p>可将提示工程定义为设计和优化输入（prompts）的过程，以便针对给定的应用目标和模型提供一致且高质量的响应（completions）。可将其视为一个分两步走的过程：</p>
+<ul>
+<li>为特定模型和对象设计初始提示</li>
+<li>反复推敲提示内容，提高回答质量</li>
+</ul>
+<p>这必然是一个反复试验的过程。它非常重要，我们首先需要了解三个概念：</p>
+<ul>
+<li><strong>Tokenization</strong>：模型如何 “看到” 提示</li>
+<li><strong>Base LLMs</strong>：基础模型如何 “处理” 提示</li>
+<li><strong>Instruction-Tuned LLMs</strong>：模型现在如何看到 “任务”</li>
+</ul>
+<br/>
+<br/>
+<h3 id="词块化">词块化</h3>
+<p>词块化（Tokenization）</p>
+<p>LLM 将提示视为一串词块（token），不同的模型可以用不同的方式对同一提示进行分词（tokenize）。由于 LLM 是在 <strong>词块/词元</strong>（而不是原始文本）上进行训练的，因此对提示进行分词的方式会直接影响生成回复的质量。</p>
+<p>要直观的了解词块化是如何工作的，可以使用 <a href="https://platform.openai.com/tokenizer" target="_blank" rel="noopener noreffer ">OpenAI Tokenizer</a> 等工具。复制你的提示，看看它是如何转换成词块的，注意空白字符和标点符号是如何处理的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-tokenizer-example.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-tokenizer-example.png, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-tokenizer-example.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-tokenizer-example.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/generative-ai/04-tokenizer-example.png"
+        title="分词器" /></p>
+<br/>
+<br/>
+<h3 id="基础模型">基础模型</h3>
+<p>提示被词块化后，基础模型（foundation model）的主要功能是预测该序列中的词块。由于 LLM 是在海量的数据集上训练出来的，因此它对词块之间的关系有很好的感知，并能在一定程度上做出预测。</p>
+<p>请注意，它并不理解提示语中的词或词块的含义。它只是看到了一种模式，可以用下一次预测来完成。它可以继续预测序列，直到用户干预或某些条件而终止。</p>
+<br/>
+<br/>
+<h3 id="指令微调型大语言模型">指令微调型大语言模型</h3>
+<p>指令微调型大语言模型从基础模型开始，通过示例的微调或输入输出对进行微调。这些可以包含明确的指令，以及 AI 能试图遵循该指令的响应。</p>
+<p>这种方法使用了 <strong>带人类反馈的强化学习</strong>（RLHF, Reinforcement Learning with Human Feedback）等技术，可以训练模型遵从指令并从反馈中学习，从而做出更适合的响应。</p>
+<br/>
+<br/>
+<h2 id="为什么需要提示工程">为什么需要提示工程</h2></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-05-19</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/generative-ai/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/generative-ai/" data-title="生成式人工智能" data-hashtags="AI"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/generative-ai/" data-title="生成式人工智能"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/generative-ai/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/generative-ai/" data-title="生成式人工智能"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/generative-ai/" data-title="生成式人工智能"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ai/">AI</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ai-for-beginners/" class="prev" rel="prev" title="人工智能"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>人工智能</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

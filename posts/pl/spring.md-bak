@@ -1,0 +1,199 @@
+---
+title: "Spring"
+date: 2024-03-10
+draft: true
+categories: ["java"]
+tags: ["java", "spring"]
+---
+
+参考：
+
+- [spring](https://spring.io/)
+
+<br/>
+
+<!--more-->
+
+---
+
+<br/>
+
+# 构建REST服务
+
+使用 Spring 组合构建一个 RESTful 服务。
+
+<br/>
+<br/>
+
+## 开始使用
+
+使用 [Spring Boot](https://spring.io/projects/spring-boot)。前往 [Sping Initializr](https://start.spring.io/) 添加以下依赖：Web, JPA, H2，然后选择生成压缩包文件。
+
+此压缩包包含了一个简单的项目，在此基础上编写我们需要的代码。
+
+<br/>
+<br/>
+
+## 到目前为止
+
+让我们从最简单的东西开始。
+
+我们将创建一个简单的工资服务（payroll），用于管理员工。在数据库（H2 内存数据库）中存储员工对象，并访问他们（通过 JPA）。然后，将使用一些东西对其进行封装，以允许通过互联网访问（称为 Spring MVC 层）。
+
+`src/main/java/payroll/Employee.java` 在系统中定义一个员工：
+
+```java
+package payroll;
+
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+class Employee {
+
+  private @Id @GeneratedValue Long id;
+  private String name;
+  private String role;
+
+  Employee() {}
+
+  Employee(String name, String role) {
+
+    this.name = name;
+    this.role = role;
+  }
+
+  public Long getId() {
+    return this.id;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public String getRole() {
+    return this.role;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+
+    if (this == o)
+      return true;
+    if (!(o instanceof Employee))
+      return false;
+    Employee employee = (Employee) o;
+    return Objects.equals(this.id, employee.id) && Objects.equals(this.name, employee.name)
+        && Objects.equals(this.role, employee.role);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.id, this.name, this.role);
+  }
+
+  @Override
+  public String toString() {
+    return "Employee{" + "id=" + this.id + ", name='" + this.name + '\'' + ", role='" + this.role + '\'' + '}';
+  }
+}
+```
+
+一些解释：
+
+- `@Entity` 是一个 JPA 注解，用于使该对象准备好存储在基于 JPA 的数据存储中。
+- `id` 使用更多 JPA 注解标记，以指示它是主键，并由 JPA 提供器自动填充。
+
+Spring Data JPA 存储库支持在后端数据存储中创建、读取、更新和删除记录的方法的接口。
+
+<br/>
+
+声明 `EmployeeRepository` 接口来自动的 CRUD。
+
+```java
+// nonrest/src/main/java/payroll/EmployeeRepository.java
+package payroll;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+interface EmployeeRepository extends JpaRepository<Employee, Long> {
+
+}
+```
+
+<br/>
+
+一个 Spring Boot 应用程序，至少应该包含 `public static void main` 入口点和 `@SpringBootApplication` 注解。这告诉 Spring Boot 在可能的情况下提供帮助。
+
+`@SpringBootApplication` 是一个元注解，它引入了组件扫描、自动配置和属性支持。它将启动一个 Servlet 容器并提供服务。
+
+```java
+// nonrest/src/main/java/payroll/PayrollApplication.java
+package payroll;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PayrollApplication {
+
+  public static void main(String... args) {
+    SpringApplication.run(PayrollApplication.class, args);
+  }
+}
+```
+
+<br/>
+
+没有数据的应用不是很有趣，所以让我们预加载它。
+
+```java
+// nonrest/src/main/java/payroll/LoadDatabase.java
+package payroll;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+class LoadDatabase {
+
+  private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+
+  @Bean
+  CommandLineRunner initDatabase(EmployeeRepository repository) {
+
+    return args -> {
+      log.info("Preloading " + repository.save(new Employee("Bilbo Baggins", "burglar")));
+      log.info("Preloading " + repository.save(new Employee("Frodo Baggins", "thief")));
+    };
+  }
+}
+```
+
+回到入口函数运行程序，便可以看到预加载的数据。
+
+<br/>
+<br/>
+
+## HTTP是平台
+
+
+

@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>PostgreSQL - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="PostgreSQL" />
+<meta property="og:description" content="参考：
+
+PG14 中文文档
+PG Docs
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/postgresql/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-17T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-03-17T00:00:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="PostgreSQL"/>
+<meta name="twitter:description" content="参考：
+
+PG14 中文文档
+PG Docs
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/postgresql/" /><link rel="prev" href="https://zhang21.cn/apis/" /><link rel="next" href="https://zhang21.cn/ai-for-beginners/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "PostgreSQL",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/postgresql\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "Database, SQL, PostgreSQL","wordcount":  19500 ,
+        "url": "https:\/\/zhang21.cn\/postgresql\/","datePublished": "2024-03-17T00:00:00+00:00","dateModified": "2024-03-17T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">PostgreSQL</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>database</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-17">2024-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 19500 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 39 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#pg是什么">PG是什么</a></li>
+        <li><a href="#pg简史">PG简史</a></li>
+        <li><a href="#约定">约定</a></li>
+      </ul>
+    </li>
+    <li><a href="#教程">教程</a>
+      <ul>
+        <li><a href="#从头开始">从头开始</a>
+          <ul>
+            <li><a href="#基础架构">基础架构</a></li>
+            <li><a href="#创建一个数据库">创建一个数据库</a></li>
+            <li><a href="#访问数据库">访问数据库</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#sql语言">SQL语言</a></li>
+    <li><a href="#相关参考">相关参考</a>
+      <ul>
+        <li><a href="#sql命令">SQL命令</a></li>
+        <li><a href="#pg客户端应用">PG客户端应用</a></li>
+        <li><a href="#pg服务器应用">PG服务器应用</a></li>
+      </ul>
+    </li>
+    <li><a href="#服务器管理">服务器管理</a>
+      <ul>
+        <li><a href="#二进制安装">二进制安装</a></li>
+        <li><a href="#源码安装">源码安装</a>
+          <ul>
+            <li><a href="#简单版">简单版</a></li>
+            <li><a href="#要求">要求</a></li>
+            <li><a href="#获取源码">获取源码</a></li>
+            <li><a href="#安装过程">安装过程</a></li>
+            <li><a href="#安装后设置">安装后设置</a></li>
+          </ul>
+        </li>
+        <li><a href="#服务器设置和操作">服务器设置和操作</a>
+          <ul>
+            <li><a href="#用户账户">用户账户</a></li>
+            <li><a href="#创建一个数据库集簇">创建一个数据库集簇</a></li>
+            <li><a href="#启动数据库服务器">启动数据库服务器</a></li>
+            <li><a href="#管理内核资源">管理内核资源</a>
+              <ul>
+                <li><a href="#共享内存和信号量">共享内存和信号量</a></li>
+                <li><a href="#systemd-removeipc">Systemd RemoveIPC</a></li>
+                <li><a href="#资源限制">资源限制</a></li>
+                <li><a href="#内存过量使用">内存过量使用</a></li>
+                <li><a href="#大页面">大页面</a></li>
+              </ul>
+            </li>
+            <li><a href="#关闭服务器">关闭服务器</a></li>
+            <li><a href="#升级一个pg集簇">升级一个PG集簇</a>
+              <ul>
+                <li><a href="#通过pg_dumpall升级数据">通过pg_dumpall升级数据</a></li>
+                <li><a href="#通过pg_upgrade升级数据">通过pg_upgrade升级数据</a></li>
+                <li><a href="#通过复制升级数据">通过复制升级数据</a></li>
+              </ul>
+            </li>
+            <li><a href="#阻止服务器欺骗">阻止服务器欺骗</a></li>
+            <li><a href="#加密选项">加密选项</a></li>
+            <li><a href="#用ssl进行安全的连接">用SSL进行安全的连接</a></li>
+            <li><a href="#gssapi加密">GSSAPI加密</a></li>
+            <li><a href="#使用ssh隧道的安全连接">使用SSH隧道的安全连接</a></li>
+          </ul>
+        </li>
+        <li><a href="#服务器配置">服务器配置</a>
+          <ul>
+            <li><a href="#设置参数">设置参数</a></li>
+            <li><a href="#文件位置">文件位置</a></li>
+            <li><a href="#连接和认证">连接和认证</a></li>
+            <li><a href="#资源消耗">资源消耗</a></li>
+            <li><a href="#预写式日志">预写式日志</a></li>
+            <li><a href="#复制">复制</a></li>
+            <li><a href="#查询规划">查询规划</a></li>
+            <li><a href="#错误报告和日志">错误报告和日志</a></li>
+            <li><a href="#运行时统计数据">运行时统计数据</a></li>
+            <li><a href="#自动清理">自动清理</a></li>
+            <li><a href="#客户端默认值">客户端默认值</a></li>
+            <li><a href="#锁管理">锁管理</a></li>
+            <li><a href="#版本和平台兼容性">版本和平台兼容性</a></li>
+            <li><a href="#错误处理">错误处理</a></li>
+            <li><a href="#预置选项">预置选项</a></li>
+            <li><a href="#自定义选项">自定义选项</a></li>
+            <li><a href="#开发者选项">开发者选项</a></li>
+          </ul>
+        </li>
+        <li><a href="#客户端认证">客户端认证</a>
+          <ul>
+            <li><a href="#pg_hba文件">pg_hba文件</a></li>
+            <li><a href="#用户名映射">用户名映射</a></li>
+          </ul>
+        </li>
+        <li><a href="#pg的角色">PG的角色</a>
+          <ul>
+            <li><a href="#数据库角色">数据库角色</a></li>
+            <li><a href="#角色属性">角色属性</a></li>
+            <li><a href="#角色成员关系">角色成员关系</a></li>
+            <li><a href="#删除角色">删除角色</a></li>
+            <li><a href="#预定义角色">预定义角色</a></li>
+            <li><a href="#函数和触发器安全性">函数和触发器安全性</a></li>
+          </ul>
+        </li>
+        <li><a href="#管理数据库">管理数据库</a>
+          <ul>
+            <li><a href="#数据库概述">数据库概述</a></li>
+            <li><a href="#创建数据库">创建数据库</a></li>
+            <li><a href="#模板数据库">模板数据库</a></li>
+            <li><a href="#数据库配置">数据库配置</a></li>
+            <li><a href="#销毁数据库">销毁数据库</a></li>
+            <li><a href="#表空间">表空间</a></li>
+          </ul>
+        </li>
+        <li><a href="#本地化">本地化</a>
+          <ul>
+            <li><a href="#区域支持">区域支持</a></li>
+            <li><a href="#排序规则支持">排序规则支持</a></li>
+            <li><a href="#字符集支持">字符集支持</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据库维护">数据库维护</a>
+          <ul>
+            <li><a href="#日常清理工作">日常清理工作</a>
+              <ul>
+                <li><a href="#清理的基础知识">清理的基础知识</a></li>
+                <li><a href="#恢复磁盘空间">恢复磁盘空间</a></li>
+                <li><a href="#更新规划器统计信息">更新规划器统计信息</a></li>
+                <li><a href="#更新可见性映射">更新可见性映射</a></li>
+                <li><a href="#防止事务id回卷失败">防止事务ID回卷失败</a></li>
+                <li><a href="#自动清理后台进程">自动清理后台进程</a></li>
+              </ul>
+            </li>
+            <li><a href="#日常重建索引">日常重建索引</a></li>
+            <li><a href="#日志文件维护">日志文件维护</a></li>
+          </ul>
+        </li>
+        <li><a href="#备份和恢复">备份和恢复</a>
+          <ul>
+            <li><a href="#sql转储">SQL转储</a>
+              <ul>
+                <li><a href="#从转储中恢复">从转储中恢复</a></li>
+                <li><a href="#pg_dumpall">pg_dumpall</a></li>
+                <li><a href="#处理大型数据库">处理大型数据库</a></li>
+              </ul>
+            </li>
+            <li><a href="#文件系统级别备份">文件系统级别备份</a></li>
+            <li><a href="#连续归档和时间点恢复">连续归档和时间点恢复</a>
+              <ul>
+                <li><a href="#建立wal归档">建立WAL归档</a></li>
+                <li><a href="#制作一个基础备份">制作一个基础备份</a></li>
+                <li><a href="#使用一个连续归档备份进行恢复">使用一个连续归档备份进行恢复</a></li>
+                <li><a href="#时间线">时间线</a></li>
+                <li><a href="#建议和例子">建议和例子</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#高可用与负载均衡和复制">高可用与负载均衡和复制</a>
+          <ul>
+            <li><a href="#不同方案的比较">不同方案的比较</a></li>
+            <li><a href="#日志传送后备服务器">日志传送后备服务器</a>
+              <ul>
+                <li><a href="#规划主备服务器">规划主备服务器</a></li>
+                <li><a href="#后备服务器操作">后备服务器操作</a></li>
+                <li><a href="#准备主服务器">准备主服务器</a></li>
+                <li><a href="#建立一个后备服务器">建立一个后备服务器</a></li>
+                <li><a href="#流复制">流复制</a></li>
+                <li><a href="#复制槽">复制槽</a></li>
+                <li><a href="#级联复制">级联复制</a></li>
+                <li><a href="#同步复制">同步复制</a></li>
+                <li><a href="#在后备机上连续归档">在后备机上连续归档</a></li>
+              </ul>
+            </li>
+            <li><a href="#故障转移">故障转移</a></li>
+            <li><a href="#热备">热备</a></li>
+          </ul>
+        </li>
+        <li><a href="#监控数据库活动">监控数据库活动</a>
+          <ul>
+            <li><a href="#统计收集器">统计收集器</a>
+              <ul>
+                <li><a href="#统计收集配置">统计收集配置</a></li>
+                <li><a href="#查看统计信息">查看统计信息</a></li>
+              </ul>
+            </li>
+            <li><a href="#查看锁">查看锁</a></li>
+            <li><a href="#过程上报">过程上报</a></li>
+            <li><a href="#动态追踪">动态追踪</a></li>
+          </ul>
+        </li>
+        <li><a href="#监控磁盘使用">监控磁盘使用</a>
+          <ul>
+            <li><a href="#判断磁盘使用量">判断磁盘使用量</a></li>
+            <li><a href="#磁盘满失败">磁盘满失败</a></li>
+          </ul>
+        </li>
+        <li><a href="#可靠性和预写式日志">可靠性和预写式日志</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考：</p>
+<ul>
+<li><a href="http://www.postgres.cn/docs/14/" target="_blank" rel="noopener noreffer ">PG14 中文文档</a></li>
+<li><a href="https://www.postgresql.org/docs/current/index.html" target="_blank" rel="noopener noreffer ">PG Docs</a></li>
+</ul>
+<br/>
+<br/>
+<h1 id="前言">前言</h1>
+<br/>
+<br/>
+<h2 id="pg是什么">PG是什么</h2>
+<p>PostgreSQL 是一个对象关系型数据库管理系统。因为自由宽松的许可证，任何人都可以以任何目的免费使用、修改和分发PostgreSQL， 不管是私用、商用还是学术研究目的。</p>
+<br/>
+<br/>
+<h2 id="pg简史">PG简史</h2>
+<p>伯克利的 POSTGRES 项目，到 Postgres95，到 PostgreSQL。</p>
+<br/>
+<br/>
+<h2 id="约定">约定</h2>
+<p>以下约定被用于命令大纲：</p>
+<ul>
+<li>方括弧（<code>[]</code>）表示可选部分。</li>
+<li>花括弧（<code>{}</code>）和竖线（<code>|</code>）表示你必须选取一个候选。</li>
+<li>点（<code>...</code>）表示它前面的元素可以被重复。</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="教程">教程</h1>
+<br/>
+<br/>
+<h2 id="从头开始">从头开始</h2>
+<br/>
+<br/>
+<h3 id="基础架构">基础架构</h3>
+<p>PG 是一种客户端-服务器的模型。一次 PG 会话由下列相关的进程组成：</p>
+<ul>
+<li>服务器进程（postgres）：管理数据库文件、接受来自客户端应用与数据库的连接并且代表客户端在数据库上执行操作。</li>
+<li>客户端应用：客户端是多种多样的。</li>
+</ul>
+<p>PG 服务器可以处理来自客户端的多个并发请求。它为每个连接启动（fork）一个新的进程。从这时开始，客户端和服务器新的进程就不再经过最初的 postgre 进程的干涉进行通讯。因此，服务器守护者进程总是在运行并等待客户端连接，而客户端和相关联的服务器进程则是起起停停。</p>
+<br/>
+<br/>
+<h3 id="创建一个数据库">创建一个数据库</h3>
+<p>数据库名必须是以字母开头并且小于 63 个字符长。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 创建一个新的数据库</span>
+createdb mydb
+
+<span class="c1"># 删除数据库</span>
+dropdb mydb
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="访问数据库">访问数据库</h3>
+<p>可以通过以下方式访问 PG：</p>
+<ul>
+<li>使用 <code>pgsql</code> 交互式客户端程序</li>
+<li>使用图形化管理程序</li>
+<li>通过编程语言</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">pgsql mydb
+
+<span class="c1"># mydb=# 提示符意味着数据库超级用户</span>
+
+<span class="c1"># 内部命令，以 \ 开头</span>
+<span class="nv">mydb</span><span class="o">=</span>&gt; <span class="se">\h</span>
+<span class="nv">mydb</span><span class="o">=</span>&gt; <span class="se">\q</span>
+
+<span class="nv">mydb</span><span class="o">=</span>&gt; SELECT version<span class="o">()</span><span class="p">;</span>
+<span class="nv">mydb</span><span class="o">=</span>&gt; SELECT current_date<span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="sql语言">SQL语言</h1>
+<p>SQL 语言: <a href="http://www.postgres.cn/docs/14/sql.html">http://www.postgres.cn/docs/14/sql.html</a></p>
+<p>使用 SQL 语言来执行操作，SQL 的使用详情这里不写了，之前的博客有写。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="相关参考">相关参考</h1>
+<p>提供关于相应主题的权威、完整和正式的总结。</p>
+<br/>
+<br/>
+<h2 id="sql命令">SQL命令</h2>
+<p>SQL 命令: <a href="http://www.postgres.cn/docs/14/sql-commands.html">http://www.postgres.cn/docs/14/sql-commands.html</a></p>
+<br/>
+<br/>
+<h2 id="pg客户端应用">PG客户端应用</h2>
+<p>PG 客户端应用和工具：<a href="http://www.postgres.cn/docs/14/reference-client.html">http://www.postgres.cn/docs/14/reference-client.html</a></p>
+<ul>
+<li><code>clusterdb</code>：聚簇一个 PG 数据库</li>
+<li><code>createdb</code>：创建一个新的 PG 数据库</li>
+<li><code>createuser</code>：定义一个新的 PG 用户账户</li>
+<li><code>dropdb</code>：移除一个 PG 数据库</li>
+<li><code>dropuser</code>：一个一个 PG 用户账户</li>
+<li><code>ecpg</code>：嵌入式 SQL C 预处理器</li>
+<li><code>pg_amcheck</code>：在一个或多个 PG 数据库中检查损坏</li>
+<li><code>pg_basebackup</code>：获得一个 PG 集簇的一个基础备份</li>
+<li><code>pgbench</code>：在 PG 上运行一个基准测试</li>
+<li><code>pg_config</code>：获取已安装 PG 的信息</li>
+<li><code>pg_dump</code>：将 PG 数据库抽取为一个脚本文件或其他归档文件</li>
+<li><code>pg_dumpall</code>：将一个 PG 数据库集簇抽取到一个脚本文件中</li>
+<li><code>pg_isready</code>：检查一个 PG 服务器的连接状态</li>
+<li><code>pg_receivewal</code>：以流的方式从一个 PG 服务器得到预写式日志</li>
+<li><code>pg_recvlogical</code>：控制 PG 逻辑解码流</li>
+<li><code>pg_restore</code>：从一个由 pg_dump 创建的归档文件中恢复一个 PG 数据库</li>
+<li><code>pg_verifybackup</code>：验证 PG 集群的基础备份的完整性</li>
+<li><code>psql</code>：PG 的交互式终端</li>
+<li><code>reindexdb</code>：重新索引一个 PG 数据库</li>
+<li><code>vacuumdb</code>：对一个 PG 数据库进行垃圾收集和分析</li>
+</ul>
+<br/>
+<br/>
+<h2 id="pg服务器应用">PG服务器应用</h2>
+<p>PG 服务器应用和工具：<a href="http://www.postgres.cn/docs/14/reference-server.html">http://www.postgres.cn/docs/14/reference-server.html</a></p>
+<ul>
+<li><code>initdb</code>：创建一个新的 PG 数据库集簇</li>
+<li><code>pg_archivecleanup</code>：清理 PG WAL 归档文件</li>
+<li><code>pg_checksums</code>：在 PG 数据库集簇中启用、禁用或检查数据校验和</li>
+<li><code>pg_controldata</code>：显示一个 PG 数据库集簇的控制信息</li>
+<li><code>pg_ctl</code>：初始化、启动、停止或控制一个 PG 服务器</li>
+<li><code>pg_resetwal</code>：重置一个 PG 数据库集簇的预写式日志以及其他控制信息</li>
+<li><code>pg_rewind</code>：把一个 PG 数据目录与另一个从该目录中复制出来的数据目录同步</li>
+<li><code>pg_test_fsync</code>：为 PG 判断最快的 wal_sync_method</li>
+<li><code>pg_test_timing</code>：度量计时开销</li>
+<li><code>pg_upgrade</code>：升级 PG 服务器实例</li>
+<li><code>pg_waldump</code>：以人类可读的形式显示一个 PG 数据库集簇的预写式日志</li>
+<li><code>postgres</code>：PG 数据库服务器</li>
+<li><code>postmaster</code>：PG 数据库服务器</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="服务器管理">服务器管理</h1>
+<p>包括软件安装、搭建和配置一个服务器，管理用户和数据库以及维护任务。</p>
+<br/>
+<br/>
+<h2 id="二进制安装">二进制安装</h2>
+<p>下载地址：<a href="https://www.postgresql.org/download/">https://www.postgresql.org/download/</a></p>
+<br/>
+<br/>
+<h2 id="源码安装">源码安装</h2>
+<br/>
+<br/>
+<h3 id="简单版">简单版</h3>
+<p>默认是安装到 <code>/usr/local/pgsql</code> 下，可以修改。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">./configure
+make
+su
+make install
+adduser postgres
+mkdir /usr/local/pgsql/data
+chown postgres /usr/local/pgsql/data
+su - postgres
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+/usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data -l logfile start
+/usr/local/pgsql/bin/createdb <span class="nb">test</span>
+/usr/local/pgsql/bin/psql <span class="nb">test</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="要求">要求</h3>
+<p>编译 PG 需要以下软件：</p>
+<ul>
+<li>GNU make 3.80 或以上</li>
+<li>GCC</li>
+<li>解压缩软件</li>
+<li>默认时将自动使用GNU Readline库。</li>
+<li>默认的时候将使用zlib压缩库。 如果你不想使用它，那么你必须给configure声明&ndash;without-zlib选项。使用这个选项关闭了在pg_dump和pg_restore中对压缩归档的支持。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="获取源码">获取源码</h3>
+<p>从下载地址下载源码包。</p>
+<br/>
+<br/>
+<h3 id="安装过程">安装过程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 配置</span>
+./configure
+
+<span class="c1"># 构建</span>
+make
+make all
+<span class="c1"># make world: 构建可以构建的所有内容，包括文档（HTML 和手册页）和附加模块</span>
+<span class="c1"># make world-bin: 构建可以构建的所有内容，和附加模块，除了文档</span>
+
+<span class="c1"># 回归测试</span>
+make check
+
+<span class="c1"># 安装文件</span>
+make install
+<span class="c1"># make install-docs: 安装文档</span>
+
+<span class="c1"># 如果只想安装客户端应用程序和接口库</span>
+make -C src/bin install
+make -C src/include install
+make -C src/interfaces install
+make -C doc install
+
+<span class="c1"># 撤销安装</span>
+make uninstall
+
+<span class="c1"># 清理</span>
+make clean
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="安装后设置">安装后设置</h3>
+<p>设置共享库。最广泛的方法是设置环境变了 <code>LD_LIBRARY_PATH</code>。</p>
+<p>设置环境变量 PATH。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/usr/local/pgsql/lib
+<span class="nb">export</span> LD_LIBRARY_PATH
+
+<span class="nv">PATH</span><span class="o">=</span>/usr/local/pgsql/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span> PATH
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="服务器设置和操作">服务器设置和操作</h2>
+<br/>
+<br/>
+<h3 id="用户账户">用户账户</h3>
+<p>PG 的预打包版本通常会在安装期间自动创建一个合适的账户（通常是 <code>postgres</code>）。你也可以使用 <code>useradd</code> 命令添加用户。</p>
+<br/>
+<br/>
+<h3 id="创建一个数据库集簇">创建一个数据库集簇</h3>
+<p>在你能做任何事情之前，你必须在磁盘上初始化一个数据库存储区域。我们称之为一个数据库集簇。一个数据库集簇是被一个运行数据库服务器的单一实例所管理的多个数据库的集合。</p>
+<p>一个数据库集簇将包含一个名为 postgres 的数据库，它表示被功能、用户和第三方应用所使用的默认数据库。数据库服务器本身并不要求 postgres 数据库存在。</p>
+<p>在文件系统术语中，一个数据库集簇是一个单一目录，所有数据都将被存储在其中。如比较流行的位置 <code>/var/lib/pgsql/data</code> 或 <code>/usr/local/pgsql/data</code>。 数据目录必须在使用前初始化，必须使用与 PostgreSQL 一起安装的程序 initdb。</p>
+<p>如果数据目录已经包含文件，initdb 将拒绝运行，避免覆盖一个已有的安装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 必须登录 PG 用户后才能执行命令</span>
+su - postgres
+
+<span class="c1"># 手动初始化数据库集群</span>
+initdb -D /usr/local/pgsql/data
+
+<span class="c1"># 或通过 pg_ctl 程序</span>
+pg_ctl -D /usr/local/pgsql/data initdb
+</code></pre></td></tr></table>
+</div>
+</div><p>虽然目录的内容是安全的，但默认的客户端认证设置允许任意本地用户连接到数据库甚至成为数据库超级用户。</p>
+<p>如果你不信任其他本地用户， 我们建议你使用 initdb 的 <code>-W</code>、<code>--pwprompt</code> 或 <code>--pwfile</code> 选项之一给数据库超级用户赋予一个口令。还可以指定 <code>-A md5</code> 或 <code>-A password</code>，这样就不会使用默认的 trust 身份认证。或者修改 <code>pg_hba.conf</code> 配置文件。</p>
+<br/>
+<br/>
+<h3 id="启动数据库服务器">启动数据库服务器</h3>
+<p>根据不同的安装方式，启动命令也有所不同。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">postgres -D /usr/local/pgsql/data &gt;logfile 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
+
+<span class="c1"># pg_ctl 命令简化</span>
+pg_ctl start -l logfile
+
+<span class="c1"># systemd</span>
+systemctl start postgresql
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="管理内核资源">管理内核资源</h3>
+<p>PG 某些时候会耗尽操作系统的各种资源限制，本节解释 PG 使用额内核资源以及你可以采取的解决内核资源耗尽的相关问题。</p>
+<br/>
+<br/>
+<h4 id="共享内存和信号量">共享内存和信号量</h4>
+<p>PG 需要操作系统提供进程间通信特性，特别是共享内存和信号量。Unix 系统通常提供 &ldquo;System V&rdquo; 和 &ldquo;POSIX&rdquo; IPC。</p>
+<p>默认情况下，PG 分配很少量的 System V 共享内存，和大量的匿名的 mmap 共享内存。另外，在服务器启动时会创建大量信号量。目前，POSIX 信号量用于 Linux 和 FreeBSD 系统，其它平台则使用 System V 信号量。</p>
+<p>可以使用 <code>sysctl</code> 命令来修改默认配置，最后请记得写入 <code>/etc/sysctl.conf</code> 文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">sysctl -w kernel.shmmax<span class="o">=</span><span class="m">17179869184</span>
+sysctl -w kernel.shmall<span class="o">=</span><span class="m">4194304</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="systemd-removeipc">Systemd RemoveIPC</h4>
+<p>如果正在使用 systemd，则必须注意 IPC 资源不会被操作系统过早删除。</p>
+<p>控制当用户完全退出时是否移除IPC对象。系统用户免除。 此设置在死板的 systemd 中默认为 on， 但某些操作系统分配默认为关闭。</p>
+<p>在 <code>/etc/systemd/logind.conf</code> 或其他适当的配置文件中。</p>
+<br/>
+<br/>
+<h4 id="资源限制">资源限制</h4>
+<p>Linux 系统强制了许多资源限制，这些限制可能干扰 PG 服务器的操作。</p>
+<p>尤其重要的是对每个用户的进程数目的限制、每个进程打开文件数目的限制以及每个进程可用的内存的限制。</p>
+<br/>
+<br/>
+<h4 id="内存过量使用">内存过量使用</h4>
+<p>Linux 上默认的虚拟内存行为对 PG 不是最优的，如果 PG 进程内存要求导致系统用光虚拟内存，那么内核可能会 OOM PG 的 postmaster 主进程。</p>
+<p>如果 PG 本身导致系统内存耗尽，可以通过修改配置来避免。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 尽管此设置不会阻止OOM 杀手被调用，但它可以显著地降低其可能性并且将因此得到更鲁棒的系统行为。</span>
+sysctl -w vm.overcommit_memory<span class="o">=</span><span class="m">2</span>
+
+<span class="c1"># 进程相关的OOM score adjustment值设置为-1000，从而保证它不会成为 OOM 杀手的目标。这样做最简单的方法是在 postmaster 的启动脚本中执行</span>
+<span class="nb">echo</span> -1000 &gt; /proc/self/oom_score_adj
+<span class="nb">export</span> <span class="nv">PG_OOM_ADJUST_FILE</span><span class="o">=</span>/proc/self/oom_score_adj
+<span class="nb">export</span> <span class="nv">PG_OOM_ADJUST_VALUE</span><span class="o">=</span><span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="大页面">大页面</h4>
+<p>当 PG 使用大量连续的内存块时，使用大页面会减少开销，特别是在使用大 shared buffers 时。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 通过 huge_page_size 明确要求为2MB或1GB。 假设 2MB 大页面，6490428 / 2048 大约得出3169.154， 所以在这里例子里我们需要至少 3170 大页面。</span>
+sysctl -w vm.nr_hugepages<span class="o">=</span><span class="m">3170</span>
+
+<span class="nb">echo</span> <span class="m">3170</span> &gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="关闭服务器">关闭服务器</h3>
+<p>有几种方法关闭服务器。在后台，它们都简化为向主管 postgres 进程发送信号。</p>
+<ul>
+<li><code>SIGTERM</code>：智能关闭模式。接收此信号后，服务器将不允许新连接，但是会让现有的会话正常结束它们的工作。仅当所有的会话终止后它才关闭。</li>
+<li><code>SIGINT</code>：快速关闭模式。服务器不再允许新的连接，并向所有现有服务器进程发送 SIGTERM，让它们中断当前事务并立刻退出。</li>
+<li><code>SIGQUIT</code>：立即关闭模式。服务器将给所有子进程发送 SIGQUIT 并且等待它们终止。如果有任何进程没有在 5 秒内终止，它们将被发送 SIGKILL。主管服务器进程将在所有子进程推出之后立刻退出，而无需做普通的数据库关闭处理。这将导致在下一次启动时（通过重放 WAL 日志）恢复。不推荐使用此方式。</li>
+</ul>
+<p><code>pg_ctl</code> 程序提供了一个发送这些信号关闭服务器的方便的接口。或者直接给相关进程发送信号。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">kill</span> -INT <span class="sb">`</span>head -1 /usr/local/pgsql/data/postmaster.pid<span class="sb">`</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>最好不要使用 SIGKILL（9）关闭服务器。这样做将会阻止服务器释放共享内存和信号量。此外，使用 SIGKILL 杀掉 postgres 进程时， postgres 不会有机会将信号传播到它的子进程，所以可能也必须手工杀掉单个的子进程。</p>
+<p>要终止单个会话同时允许其他会话继续，使用 <code>pg_terminate_backend()</code> 或发送 SIGTERM 信号到该会话相关的子进程。</p>
+<br/>
+<br/>
+<h3 id="升级一个pg集簇">升级一个PG集簇</h3>
+<p>如何把你的 PG 升级到一个更新的发行版。</p>
+<p>PG 版本号由主要版本和次要版本组成。次要版本从来不改变内部存储格式并且总是向后兼容同一主版本中的次要版本。例如 10.1 与 10.0 和 10.6 兼容。</p>
+<p>要在兼容的版本间升级，只需要简单地在服务器关闭时替换可执行文件并重启服务器。</p>
+<p>对于 PG 的主发行版，内部数据存储格式经常被改变，这使得升级复杂化。传统的方法是数据转储（<code>pg_dump</code>）然后重新载入到数据库，不过这可能会很慢。一种更快的方式是 <code>pg_upgrade</code>。</p>
+<br/>
+<br/>
+<h4 id="通过pg_dumpall升级数据">通过pg_dumpall升级数据</h4>
+<p>使用 <code>pg_dumpall</code> 逻辑备份工具，然后重新载入的新的发行版中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 备份</span>
+pg_dumpall &gt; outputfile
+
+<span class="c1"># 关停旧服务器</span>
+pg_ctl stop
+/etc/rc.d/init.d/postgresql stop
+
+<span class="c1"># 备份旧目录</span>
+mv <span class="o">{</span>/usr/local/pgsql,-old<span class="o">}</span>
+
+<span class="c1"># 安装新发行版</span>
+<span class="c1"># 修改配置</span>
+<span class="c1"># 启动新发行版</span>
+<span class="c1"># 从备份文件中恢复</span>
+/usr/local/pgsql/bin/psql -d postgres -f outputfile
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>通过在一个不同的目录中安装新的服务器并且并行地在不同的端口运行新旧发行版，可以达到最低的停机时间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">pg_dumpall -p <span class="m">5432</span> <span class="p">|</span> psql -d postgres -p <span class="m">5433</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="通过pg_upgrade升级数据">通过pg_upgrade升级数据</h4>
+<p>pg_upgrade 模块允许一个安装从一个 PGSQL 主版本就地升级成另一个主版本。升级可以在数分钟内被执行，特别是使用 <code>--link</code> 模式时。</p>
+<p><a href="http://www.postgres.cn/docs/14/pgupgrade.html" target="_blank" rel="noopener noreffer ">pg_upgrade 文档</a></p>
+<br/>
+<br/>
+<h4 id="通过复制升级数据">通过复制升级数据</h4>
+<p>也可以用 PG 的已更新版本逻辑复制来创建一个后备服务器，逻辑复制支持在不同主版本的 PG 之间的复制。一旦它与主服务器同不好，你可以切换主并将后备服务器作为主，然后关闭旧的数据库实例。这样一种切换使得一次升级的停机时间只有数秒。</p>
+<br/>
+<br/>
+<h3 id="阻止服务器欺骗">阻止服务器欺骗</h3>
+<p>服务器在运行时，它不可能让恶意代码取代正常的数据库服务器。然而，当服务器关闭时，一个本地用户可以通过启动它们自己的服务器来欺骗正常的服务器。行骗的服务器可以读取客户端发送的密码和查询语句，但不会返回任何数据，因为 PG_DATA 目录权限是安全的。欺骗是可能的，因为任何用户都可以启动一个数据库服务器。客户端无法识别一个无效的服务器，除非专门配置。</p>
+<p>一种阻止 local 连接七篇的方法是使用 Unix 域套接字目录，该目录只对一个被信任的本地用户有写权限。这可以防止恶意用户在该目录中创建自己的套接字文件。</p>
+<p>local 连接的另一个选项是对客户端使用 requirepeer 指定所需的连接到该套接字的服务器进程的拥有者。</p>
+<p>要在 TCP 连接上防止欺骗，要么使用 SSL 证书，并且确保客户检查服务器的证书，或者使用 GSSAPI 加密。</p>
+<p>要防止 SSL 欺骗，服务器必须配置为仅接受 hostssl 连接，并且有 SSL 密钥和证书文件。</p>
+<p>要防止 GSSAPI 欺骗，必须将服务器配置为仅接受 hostgssenc 连接并对它们使用 gss 身份认证。</p>
+<br/>
+<br/>
+<h3 id="加密选项">加密选项</h3>
+<p>PG 提供了几个不同级别的加密。</p>
+<br/>
+<br/>
+<h3 id="用ssl进行安全的连接">用SSL进行安全的连接</h3>
+<p>使用 SSL 连接加密客户端/服务器通讯的本地支持，它可以增加安全性。</p>
+<br/>
+<br/>
+<h3 id="gssapi加密">GSSAPI加密</h3>
+<br/>
+<br/>
+<h3 id="使用ssh隧道的安全连接">使用SSH隧道的安全连接</h3>
+<br/>
+<br/>
+<h2 id="服务器配置">服务器配置</h2>
+<br/>
+<br/>
+<h3 id="设置参数">设置参数</h3>
+<p>参数名称和值。</p>
+<p>所有参数名都是大小写不敏感的。每个参数都可以接受五种类型之一的值： 布尔、字符串、整数、 浮点数或枚举。</p>
+<br/>
+<p>通过配置文件影响参数。</p>
+<p>设置这些参数最基本的方法是编辑 <code>postgresql.conf</code> 文件，它通常保存在数据目录中。</p>
+<p>主服务器进程每次收到 SIGHUP 信号（最简单的方法是运行 <code>pg_ctl reload</code> 或者调用 SQL 函数 <code>pg_reload_conf()</code> 来发送信号）后都会重新读取此配置文件。</p>
+<p>注意，有些参数只能在服务器启动的时候生效，对于这些参数，直到服务器下次重启才会生效。</p>
+<p>PG 数据目录还有一个 <code>postgresql.auto.conf</code>，它具有和 <code>postgresql.conf</code> 相同的格式但是原自动编辑，而不是手工编辑。</p>
+<br>
+<p>通过 SQL 影响参数。</p>
+<p>PG 提供了三个 SQL 命令来配置参数：</p>
+<ul>
+<li><code>ALTER SYSTEM</code>：等效于 <code>postgresql.conf</code> 文件。</li>
+<li><code>ALERT DATABASE</code>：针对一个数据库覆盖其全局设置。</li>
+<li><code>ALTER ROLE</code>：用户指定的值来覆盖全局设置和数据库设置。</li>
+</ul>
+<p>一旦一个客户端连接到数据库，PG 会提供两个额外的 SQL 命令用以影响会话本地的设置配置：</p>
+<ul>
+<li><code>SHOW</code>：查看任何参数的当前值。</li>
+<li><code>SET</code>：修改一个会话可以本地设置的当前值，不影响其它会话。</li>
+</ul>
+<p>此外，系统试图 <code>pg_settings</code> 可以查看和改变会话本地的值：</p>
+<ul>
+<li>查询这个试图与使用 <code>SHOW ALL</code> 相似，但是可以提供更多细节。</li>
+<li>在这个视图上使用 <code>UPDATE</code> 指定更新 settings 列，其效果等同于 <code>SET</code> 命令。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">configuration_parameter</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="k">DEFAULT</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">等效于</span><span class="w">
+</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">pg_settings</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">setting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reset_val</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;configuration_parameter&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>通过 shell 影响参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 通过 -c 传递参数</span>
+postgres -c <span class="nv">log_connections</span><span class="o">=</span>yes -c <span class="nv">log_destination</span><span class="o">=</span><span class="s1">&#39;syslog&#39;</span>
+
+<span class="c1"># 当通过libpq启动一个客户端会话时，可以使用PGOPTIONS 环境变量指定参数设置。</span>
+env <span class="nv">PGOPTIONS</span><span class="o">=</span><span class="s2">&#34;-c geqo=off -c statement_timeout=5min&#34;</span> psql
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>管理配置文件内容。</p>
+<p>PG 提供了一些特性用于把复杂的 <code>postgresql.conf</code> 文件分解成子文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 包含其它文件
+include &#39;filename&#39;
+
+# 包含其它目录
+include_dir &#39;directory&#39;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="文件位置">文件位置</h3>
+<p>除了 <code>postgresql.conf</code> 文件外，PG 还有另外两个手工编辑的配置文件，它们控制客户端认证。默认情况下，这三个文件都存放在数据库集簇的数据目录中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 指定用于数据存储的目录
+data_directory (string)
+
+# 指定主服务器配置文件（通常叫postgresql.conf）
+config_file (string)
+
+# 指定基于主机认证配置文件（通常叫pg_hba.conf）
+hba_file (string)
+
+# 指定用于用户名称映射的配置文件（通常叫pg_ident.conf）
+ident_file (string)
+
+# 指定可被服务器创建的用于管理程序的额外进程 ID（PID）文件
+external_pid_file (string)
+</code></pre></td></tr></table>
+</div>
+</div><p>在默认安装中不会显式设置以上参数。相反，命令行参数 <code>-D</code> 或环境变量 <code>PGDATA</code> 必须指向包含配置文件的目录。</p>
+<br/>
+<br/>
+<h3 id="连接和认证">连接和认证</h3>
+<p>连接和认证的相关参数。</p>
+<br/>
+<br/>
+<h3 id="资源消耗">资源消耗</h3>
+<p>内存、磁盘、内核、清理、后台写入、异步等相关参数。</p>
+<br/>
+<br/>
+<h3 id="预写式日志">预写式日志</h3>
+<p>WAL、检查点、归档、归档恢复等相关参数。</p>
+<br/>
+<br/>
+<h3 id="复制">复制</h3>
+<p>复制、主服务器、备服务器、订阅者相关参数。</p>
+<p>服务器将可以是主控服务器或后备服务器。主控机能发送数据，而后备机总是被复制数据的接收者。当使用级联复制时，后备服务器也可以是发送者，同时也是接收者。这些参数主要用于发送服务器和后备服务器，尽管某些只在主服务器上有意义。如果有必要，设置可以在集群中变化而不出问题。</p>
+<br/>
+<br/>
+<h3 id="查询规划">查询规划</h3>
+<p>这些配置参数提供了影响查询优化器选择查询规划的原始方法。</p>
+<br/>
+<br/>
+<h3 id="错误报告和日志">错误报告和日志</h3>
+<p>日志输出相关参数。</p>
+<br/>
+<br/>
+<h3 id="运行时统计数据">运行时统计数据</h3>
+<p>查询、索引、监控等相关参数。</p>
+<br/>
+<br/>
+<h3 id="自动清理">自动清理</h3>
+<p>自动清理相关参数。</p>
+<br/>
+<br/>
+<h3 id="客户端默认值">客户端默认值</h3>
+<p>客户管连接的相关参数。</p>
+<br/>
+<br/>
+<h3 id="锁管理">锁管理</h3>
+<p>锁相关参数。</p>
+<br/>
+<br/>
+<h3 id="版本和平台兼容性">版本和平台兼容性</h3>
+<p>版本兼容性的相关参数。</p>
+<br/>
+<br/>
+<h3 id="错误处理">错误处理</h3>
+<p>错误处理相关参数。</p>
+<br/>
+<br/>
+<h3 id="预置选项">预置选项</h3>
+<p>这些参数是只读的，并被排除在 <code>postgresql.conf</code> 文件例子之外。所有这些都是在 PG 被编译或者它被安装时决定的。</p>
+<br/>
+<br/>
+<h3 id="自定义选项">自定义选项</h3>
+<p>这个特性被设计用来由附加模块向 PG 添加通常不为系统知道的参数（例如过程语言）。这允许使用标准方法配制扩展模块。</p>
+<br/>
+<br/>
+<h3 id="开发者选项">开发者选项</h3>
+<p>这些参数目的是用在开发测试上， 并且永远不能用于生产数据库。 但是，它们中的一些能够用于帮助恢复严重损坏的数据库。 同样，它们被从例子 <code>postgresql.conf</code> 文件中排除。 请注意许多这些参数要求特殊的源代码编译标志才能工作。</p>
+<br/>
+<br/>
+<h2 id="客户端认证">客户端认证</h2>
+<p>当一个客户端应用连接到数据库服务器时，它将指定以哪个 PG 数据库用户名连接，这决定了对数据库对象的访问权限。</p>
+<p>PG 实际上以角色来进行权限管理。</p>
+<p>PG 提供多种不同的客户端认证方式。被用来认证一个特定客户端连接的方法可以基于主机地址、数据库和用户来选择。</p>
+<p>PG 数据库用户在逻辑上和操作系统中的用户时相互独立的。</p>
+<br/>
+<br/>
+<h3 id="pg_hba文件">pg_hba文件</h3>
+<p>客户端认证由一个配置文件（通常是  <code>pg_hba.conf</code>）控制，HBA 表示基于主机的认证。</p>
+<p>pg_hba 文件的常用格式是一组记录，每行一条。空白行将被忽略，注释符（<code>#</code>）后面的任何文本也被忽略。记录可以延续到下一行并以反斜线结束改行。</p>
+<p>每条记录指定一种连接类型、一个客户端 IP 地址范围、一个数据库名、一个用户名以及对匹配这些参数的连接使用的认证方法。</p>
+<p>记录可以由多种格式:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># TYPE  DATABASE        USER            ADDRESS                 METHOD
+local         database  user  auth-method [auth-options]
+host          database  user  address     auth-method  [auth-options]
+hostssl       database  user  address     auth-method  [auth-options]
+hostnossl     database  user  address     auth-method  [auth-options]
+hostgssenc    database  user  address     auth-method  [auth-options]
+hostnogssenc  database  user  address     auth-method  [auth-options]
+host          database  user  IP-address  IP-mask      auth-method  [auth-options]
+hostssl       database  user  IP-address  IP-mask      auth-method  [auth-options]
+hostnossl     database  user  IP-address  IP-mask      auth-method  [auth-options]
+hostgssenc    database  user  IP-address  IP-mask      auth-method  [auth-options]
+hostnogssenc  database  user  IP-address  IP-mask      auth-method  [auth-options]
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>类型</p>
+<ul>
+<li>local：这条记录匹配企图使用 Unix 域套接字的连接。 如果没有这种类型的记录，就不允许 Unix 域套接字连接。</li>
+<li>host：这条记录匹配企图使用 TCP/IP 建立的连接。 host记录匹配SSL和非SSL的连接尝试， 此外还有GSSAPI 加密的或non-GSSAPI 加密的连接尝试。</li>
+<li>hostssl：这条记录匹配企图使用 TCP/IP 建立的连接，但必须是使用SSL加密的连接。</li>
+<li>hostnossl：这条记录的行为与 hostssl 相反；它只匹配那些在 TCP/IP上不使用SSL的连接企图。</li>
+<li>hostgssenc：这条记录匹配企图使用TCP/IP建立的连接，但仅当使用GSSAPI加密建立连接时。</li>
+<li>hostnogssenc：这个记录类型具有与 hostgssenc 相反的表现; 它仅匹配通过不使用GSSAPI加密的TCP/IP进行的连接尝试。</li>
+</ul>
+<br/>
+<p>数据库，指定记录所匹配的数据库名称。</p>
+<ul>
+<li>值 all 指定该记录匹配所有数据库。</li>
+<li>值 replication 指定如果一个物理复制连接被请求则该记录匹配，不过，它不匹配逻辑复制连接。</li>
+<li>可以通过用逗号分隔的方法指定多个数据库，也可以通过在文件名前面放 <code>@</code> 来指定一个包含数据库名的文件。</li>
+</ul>
+<br/>
+<p>用户，指定这条记录匹配哪些数据库用户名。</p>
+<ul>
+<li>值 all 指定它匹配所有用户。</li>
+<li>多个用户名可以通过用逗号分隔的方法提供。一个包含用户名的文件可以通过在文件名前面加上 <code>@</code> 来指定。</li>
+</ul>
+<br/>
+<p>地址，指定这个记录匹配的客户端机器地址。这个域可以包含一个主机名、一个 IP 地址范围或下文提到的特殊关键字之一。</p>
+<ul>
+<li>all 匹配任何 IP 地址。</li>
+<li>ip/mask CIDR 地址。</li>
+<li>主机名会解析出特定的 IP 地址，主机名比较是大小写敏感的。</li>
+<li>以点号（<code>.</code>）开始的主机名声明匹配实际主机名的后缀。</li>
+<li>这个域不适用于 localhost 记录。</li>
+</ul>
+<br/>
+<p>认证方法，指定当一个连接匹配这个记录时，要使用的认证方法。</p>
+<ul>
+<li>trust：无条件地允许连接，不需要口令或者其他任何认证。</li>
+<li>reject：无条件地拒绝连接。</li>
+<li>scram-sha-256：执行 SCRAM-SHA-256 认证来验证用户的口令。</li>
+<li>md5：执行 SCRAM-SHA-256 或 MD5 认证来验证用户的口令。</li>
+<li>password：要求客户端提供一个未加密的口令进行认证。因为口令是以明文形式在网络上发送的，所以我们不应该在不可信的网络上使用这种方式。</li>
+<li>gss：用 GSSAPI 认证用户。只对 TCP/IP 连接可用。</li>
+<li>sspi：用 SSPI 来认证用户。只在 Windows 上可用。</li>
+<li>ident：通过联系客户端的 ident 服务器获取客户端的操作系统名，并且检查它是否匹配被请求的数据库用户名。Ident 认证只能在 TCIP/IP 连接上使用。当为本地连接指定这种认证方式时，将用 peer 认证来替代。</li>
+<li>peer：从操作系统获得客户端的操作系统用户，并且检查它是否匹配被请求的数据库用户名。这只对本地连接可用。</li>
+<li>ldap：使用LDAP服务器认证。</li>
+<li>radius：用 RADIUS 服务器认证。</li>
+<li>cert：使用 SSL 客户端证书认证。</li>
+<li>pam：使用操作系统提供的可插入认证模块服务（PAM）认证。</li>
+<li>bsd：使用由操作系统提供的 BSD 认证服务进行认证。</li>
+</ul>
+<br/>
+<p>认证选项，在认证方法域的后米娜，可以是 <code>name=value</code> 的域，它们指定认证方法的选项。</p>
+<br/>
+<br/>
+<h3 id="用户名映射">用户名映射</h3>
+<p>当使用像 Ident 或者 GSSAPI 之类的外部认证系统时，发起连接的操作系统用户名可能不同于要被使用的数据库用户（角色）。在这种情况下，一个用户名映射可被用来把操作系统用户名映射到数据库用户。</p>
+<p>要使用用户名映射，在 <code>pg_hba.conf</code> 的选项域指定 <code>map=map-name</code>。此选项支持所有接收外部用户名的认证方法。由于不同的连接可能需要不同的映射，在 <code>pg_hba.conf</code> 中的 <code>map-name</code> 参数中指定要被使用的映射名，用以指示哪个映射用于每个个体连接。</p>
+<p>用户名映射定义在 ident 映射文件中，默认情况下它被命名为 <code>pg_ident.conf</code> 并被存储在集簇的数据目录中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">map-name system-username database-username
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="pg的角色">PG的角色</h2>
+<p>PG 使用角色的概念管理数据库访问权限。一个角色可以被堪称一个数据库用户或用户组。角色可以拥有数据库对象，并且能够把哪些对象上的权限赋值给其他角色来控制谁能访问哪些对象。</p>
+<br/>
+<br/>
+<h3 id="数据库角色">数据库角色</h3>
+<p>系统预定义的角色总是 superuser 权限，这个角色被命名为 postgres。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">xxx</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">查看角色</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">rolname</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_roles</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">或</span><span class="w">
+</span><span class="w"></span><span class="err">\</span><span class="n">du</span><span class="p">;</span><span class="w">
+</span><span class="w">                                   </span><span class="n">List</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">roles</span><span class="w">
+</span><span class="w"> </span><span class="k">Role</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">|</span><span class="w">                         </span><span class="n">Attributes</span><span class="w">                         </span><span class="o">|</span><span class="w"> </span><span class="n">Member</span><span class="w"> </span><span class="k">of</span><span class="w">
+</span><span class="w"></span><span class="c1">-----------+------------------------------------------------------------+-----------
+</span><span class="c1"></span><span class="w"> </span><span class="n">postgres</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">Superuser</span><span class="p">,</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="k">role</span><span class="p">,</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">DB</span><span class="p">,</span><span class="w"> </span><span class="n">Replication</span><span class="p">,</span><span class="w"> </span><span class="n">Bypass</span><span class="w"> </span><span class="n">RLS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">{}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>SQL 命令的包装器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">createuser name
+dropuser name
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="角色属性">角色属性</h3>
+<p>数据库角色的属性：</p>
+<ul>
+<li>LOGIN：数据库连接的权限。</li>
+<li>SUPERUSER：超级用户会绕开所有权限检查，除了登入的权利。</li>
+<li>CREATEDB：创建数据库的权限。</li>
+<li>CREATEROLE：创建、修改和删除角色的权限。</li>
+<li>REPLICATION：复制流的权限。一个被用于流复制的角色必须也具有 LOGIN 权限。</li>
+<li>PASSWORD：只有当客户端认证方法要求用户在连接数据库时提供一个口令时，一个口令才有意义。password 和 md5 认证方法使用口令。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">[</span><span class="n">role_attr</span><span class="p">...];</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="角色成员关系">角色成员关系</h3>
+<p>把用户分组在一起来便于管理权限常常很方便，权限可以被授予一整个组或从一整个组回收。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">给组角色增加或移除成员</span><span class="w">
+</span><span class="w"></span><span class="k">GRANT</span><span class="w"> </span><span class="n">group_role</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">role1</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">REVOKE</span><span class="w"> </span><span class="n">group_role</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">role1</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>可以为其它组角色授予成员关系（因为组角色和非组角色之间没有任何区别）。</p>
+<p>组角色的成员可以以两种方式使用角色的权限。第一，一个组的每一个成员可以显式地做 <code>SET ROLE</code> 来临时成为组角色。第二，有 <code>INHERIT</code> 属性的成员角色自动地具有它们所属角色的权限，包括任何组角色继承得到的权限。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">joe</span><span class="w"> </span><span class="n">LOGIN</span><span class="w"> </span><span class="n">INHERIT</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="k">admin</span><span class="w"> </span><span class="n">NOINHERIT</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">wheel</span><span class="w"> </span><span class="n">NOINHERIT</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">GRANT</span><span class="w"> </span><span class="k">admin</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">joe</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">GRANT</span><span class="w"> </span><span class="n">wheel</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="k">admin</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="k">admin</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="删除角色">删除角色</h3>
+<p>由于角色可以拥有数据库对象并且能持有访问其他对象的特权，删除一个角色常常并非一次 <code>DROP ROLE</code> 就能解决。 任何被该用户所拥有的对象必须首先被删除或者转移给其他拥有者，并且任何已被授予给该角色的权限必须被收回。</p>
+<br/>
+<br/>
+<h3 id="预定义角色">预定义角色</h3>
+<p>PG 提供了一组预定义角色。</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>允许的访问</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pg_read_all_data</td>
+<td>读所有数据</td>
+</tr>
+<tr>
+<td>pg_write_all_data</td>
+<td>写全部数据</td>
+</tr>
+<tr>
+<td>pg_read_all_settings</td>
+<td>读取所有配置变量</td>
+</tr>
+<tr>
+<td>pg_read_all_stats</td>
+<td>读取所有的 <code>pg_stat_*</code> 视图并且使用与扩展相关的各种统计信息</td>
+</tr>
+<tr>
+<td>pg_stat_scan_tables</td>
+<td>执行可能会在表上取得 <code>ACCESS SHARE</code> 锁的监控函数（可能会持锁很长时间）</td>
+</tr>
+<tr>
+<td>pg_monitor</td>
+<td>读取/执行各种不同的监控视图和函数</td>
+</tr>
+<tr>
+<td>pg_database_owner</td>
+<td>当前数据库的所有者</td>
+</tr>
+<tr>
+<td>pg_signal_backend</td>
+<td>发信号到其他后端以取消查询或中止它的会话</td>
+</tr>
+<tr>
+<td>pg_read_server_files</td>
+<td>允许使用 <code>COPY</code> 以及其他文件访问函数从服务器上该数据库可访问的任意位置读取文件</td>
+</tr>
+<tr>
+<td>pg_write_server_files</td>
+<td>允许使用 <code>COPY</code> 以及其他文件访问函数在服务器上该数据库可访问的任意位置中写入文件</td>
+</tr>
+<tr>
+<td>pg_execute_server_program</td>
+<td>允许用运行该数据库的用户执行数据库服务器上的程序来配合 <code>COPY</code> 和其他允许执行服务器端程序的函数</td>
+</tr>
+</tbody>
+</table>
+<p>管理员可以这些预定义角色授予用户：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="n">pg_signal_backend</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">admin_user</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="函数和触发器安全性">函数和触发器安全性</h3>
+<p>函数、触发器以及行级安全性策略允许用户在后端服务器中插入代码，其他用户不会注意到这些代码的执行。因此，这些机制允许用户相对容易地为其他人设置“特洛伊木马”。最强的保护是严格控制哪些人能定义对象。如果做不到，则编写查询时应该只引用具有可信任拥有者的对象。</p>
+<br/>
+<br/>
+<h2 id="管理数据库">管理数据库</h2>
+<p>在组织数据库对象的层次中，数据库位于最顶层。本章描述数据库的属性，以及如何创建、管理、删除它们。</p>
+<br/>
+<br/>
+<h3 id="数据库概述">数据库概述</h3>
+<p>集群内部有多个数据库，相互之间彼此隔离，但可以访问集群级对象。 每个数据库内部都有多个模式，它们包含表和函数等对象。因此，完整的层级结构为:集群、数据库、模式、表(或一些其他类型的对象，如函数)。</p>
+<p>SQL 标准把数据库称为目录，不过实际上没有区别。</p>
+<p>虽然可以在单个集群中创建多个数据库，但建议仔细考虑好处是否大于风险和限制。 特别是，共享 WAL 对备份和恢复选项的影响。从用户的角度来看，集群中的各个数据库是隔离的，但从数据库管理员的角度来看，它们是紧密绑定的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span><span class="w"> </span><span class="err">列出数据库</span><span class="w">
+</span><span class="w"></span><span class="err">\</span><span class="n">l</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="创建数据库">创建数据库</h3>
+<p>当前角色自动成为该新数据库的拥有者。以后删除这个数据库也是该拥有者的特权。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span><span class="w"> 
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">dbname</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">为其他人创建一个数据库</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">dbname</span><span class="w"> </span><span class="k">OWNER</span><span class="w"> </span><span class="n">rolename</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>同等的包装命令，个人觉得包装命令不够显式，所以尽量少用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># create 命令连接到 postgres 数据库并发出 CREATE DATABASE 命令</span>
+create dbname
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="模板数据库">模板数据库</h3>
+<p><code>CREATE DATABASE</code> 实际上通过拷贝一个已有数据库进行工作。默认情况下，它拷贝名为 <code>template1</code> 的标准系统数据库，所以它是创建新数据库的模板。</p>
+<p>如果你为 template1 数据库增加对象，这些对象将被拷贝到后续创建的用户数据库中。</p>
+<p>系统里还有名为 <code>template0</code> 的第二个标准系统数据库，它包含和 template1初始内容一样的数据，也就是只包含 PG 版本预定义的标准对象。在数据库集簇被初始化之后，不应该对 template0 做任何修改。在创建库时指示使用 template0 模板，你可以创建一个原始的数据库，它不会包含 template1 中的站点本地附加物。这一点在恢复一个 <code>pg_dump</code> 转储时非常方便：转储脚本应该在一个原始的数据库中恢复以确保我们重建被转储数据库的正确内容，而不和任何现在可能已经被加入到 template1 中的附加物相冲突。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">dbname</span><span class="w"> </span><span class="k">TEMPLATE</span><span class="w"> </span><span class="n">template0</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="数据库配置">数据库配置</h3>
+<p>通过 <code>SET</code> 命令修改特定数据库的配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">mydb</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">geqo</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="k">off</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="销毁数据库">销毁数据库</h3>
+<p>只有数据库的拥有者或者超级用户才可以删除数据库。删除数据库会移除其中包括的所有对象。数据库的删除不能被撤销。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="表空间">表空间</h3>
+<p>表空间允许数据库管理员在文件系统中定义用来存放表示数据库对象的文件的位置。一旦被创建，表空间就可以在创建数据库对象时通过名称引用。</p>
+<p>通过使用表空间，可以控制 PG 安装的磁盘布局。这么做至少有两个用处。</p>
+<ul>
+<li>首先，如果初始化集簇所在的分区或者卷用光了空间，而又不能在逻辑上扩展或者做别的什么操作，那么表空间可以被创建在一个不同的分区上，直到系统可以被重新配置。</li>
+<li>其次，表空间允许管理员根据数据库对象的使用模式来优化性能。例如，一个很频繁使用的索引可以被放在 SSD 上；一个很少使用的或者对性能要求不高的存储归档数据的表可以存储在一个便宜但比较慢的磁盘系统上。</li>
+</ul>
+<br/>
+<blockquote>
+<p>警告：<br/>
+即便是位于主要 PG 数据目录之外，表空间也是数据库集簇的一部分并且不能被视作数据文件的一个自治集合。它们依赖于包含在主数据目录中的元数据，并且因此不能被附加到一个 不同的数据库集簇或者单独备份。<br/>
+如果丢失一个表空间（文件删除、磁盘失效等）， 数据库集簇可能会变成不可读或者无法启动。把一个表空间放在一个临时文件系统 （如一个内存虚拟盘）上会带来整个集簇的可靠性风险。</p>
+</blockquote>
+<br/>
+<p>定义一个表空间，必须是已存在的空目录，属于 PG 操作的用户。所有后续在该表空间中创建的对象都将被存放在这个目录下的文件中。该位置不能放在可移动 或者瞬时存储上，因为如果表空间丢失会导致集簇无法工作。</p>
+<p>表、索引和整个数据库都可以被分配到特定的表空间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">fastspace</span><span class="w"> </span><span class="k">LOCATION</span><span class="w"> </span><span class="s1">&#39;/ssd1/postgresql/data&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">在表空间</span><span class="w"> </span><span class="n">space1</span><span class="w"> </span><span class="err">中创建一个表</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">space1</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">还可以使用</span><span class="w"> </span><span class="n">default_tablespace</span><span class="w"> </span><span class="err">参数来指定默认的表空间。</span><span class="w">
+</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">default_tablespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">space1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="nb">int</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">查看表空间</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">spcname</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_tablespace</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">或</span><span class="w">
+</span><span class="w"></span><span class="err">\</span><span class="n">db</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="本地化">本地化</h2>
+<p>PG 支持两种本地化方法：</p>
+<ul>
+<li>利用操作系统的区域（locale）特性。</li>
+<li>提供一些不同的字符集来支持存储所有 种类语言的文本，并提供在客户端和服务器之间的字符集转换。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="区域支持">区域支持</h3>
+<p>PG 使用服务器操作系统提供的标准 ISO C 和 POSIX 的区域机制。</p>
+<p>区域支持是在使用 <code>iniitdb</code> 创建数据库集簇时自动被初始化的。默认情况下，initdb 将会按照它的执行环境的区域设置初始刷数据库集簇。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 设置其它区域</span>
+initdb --locale<span class="o">=</span>en_US
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>区域设置特别影响下面的 SQL 特性：</p>
+<ul>
+<li>在文本数据上使用 <code>ORDER BY</code> 或标准比较操作符的查询中的排序顺序</li>
+<li>函数 <code>upper</code>、<code>lower</code> 和 <code>initcap</code></li>
+<li>模式匹配操作符（<code>LIKE</code>、<code>SIMILAR TO</code> 和 POSIX 风格的正则表达式）；区域影响大小写不敏感匹配和通过字符类正则表达式的字符分类</li>
+<li><code>to_char</code> 函数家族</li>
+<li>为 <code>LIKE</code> 子句使用索引的能力</li>
+</ul>
+<br/>
+<p>检查系统中安装了哪些区域，使用 <code>locale -a</code> 命令。</p>
+<p>PG 源码目录 <code>src/test/locale</code> 中包含了区域支持的测试套件。</p>
+<br/>
+<br/>
+<h3 id="排序规则支持">排序规则支持</h3>
+<p>排序规则特性允许指定每一列甚至每一个操作的数据的排序顺序和字符分类行为。</p>
+<p>在概念上，一种可排序数据类型的每一种表达式都有一个排序规则。如果该表达式是一个列引用，该表达式的排序规则就是列所定义的排序规则。如果该表达式是一个常量，排序规则就是该常量数据类型的默认排序规则。</p>
+<br/>
+<br/>
+<h3 id="字符集支持">字符集支持</h3>
+<p>一个重要的限制是每个数据库的字符集必须和数据库的 LC_CTYPE （字符分类）和 LC_COLLATE （字符串排序顺序）设置兼容。</p>
+<p><code>initdb</code> 为一个 PG 集簇定义缺省的字符集（编码）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">initdb -E/--encoding
+</code></pre></td></tr></table>
+</div>
+</div><p>或使用 SQL 来指定。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">korean</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">ENCODING</span><span class="w"> </span><span class="s1">&#39;EUC_KR&#39;</span><span class="w"> </span><span class="n">LC_COLLATE</span><span class="o">=</span><span class="s1">&#39;ko_KR.euckr&#39;</span><span class="w"> </span><span class="n">LC_CTYPE</span><span class="o">=</span><span class="s1">&#39;ko_KR.euckr&#39;</span><span class="w"> </span><span class="k">TEMPLATE</span><span class="o">=</span><span class="n">template0</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="数据库维护">数据库维护</h2>
+<p>一个是定期创建数据库数据的后备拷贝。另一种是周期性地清理数据库。另一项是周期性的日志文件管理。</p>
+<p><code>check_postgres</code> 可用于检测数据库的健康并报告异常情况。</p>
+<br/>
+<br/>
+<h3 id="日常清理工作">日常清理工作</h3>
+<br/>
+<br/>
+<h4 id="清理的基础知识">清理的基础知识</h4>
+<p>PG 的 VACUUM （垃圾收集并根据需要分析一个库）命令出于几个原因必须定期处理一个表：</p>
+<ul>
+<li>恢复或重用已更新或已删除行所占用的磁盘空间。</li>
+<li>更新被 PG 查询规划器使用的数据统计信息。</li>
+<li>更新可见性映射，它可以加速只用索引的扫描。</li>
+<li>保护老旧数据不会由于事务 ID 回卷或多事务 ID 回卷而丢失。</li>
+</ul>
+<br/>
+<p>有两种 VACUUM 的变体：</p>
+<ul>
+<li>标准 VACUUM：标准形式可以和生产数据库操作并行允许（SELECT, INSERT, UPDATE 和 DELETE 等命令将继续正常工作，但在清理期间无法使用 ALTER TABLE 等命令来更新表的定义。）</li>
+<li>VACUUM FULL：可以收回更多磁盘空间，但运行起来更慢。它会要求在其工作的表上得到一个 ACCESS EXCLUSIVE 锁，因此无法和对此表的其他使用并行。</li>
+</ul>
+<p>因此，通常管理员应该努力使用标准方式。VACUUM 会产生大量 IO 流，这将导致其他活动会话性能变差。</p>
+<br/>
+<br/>
+<h4 id="恢复磁盘空间">恢复磁盘空间</h4>
+<p>在 PG 中，一次行的 UPDATE 或 DELETE 不会立即移除该行的旧版本。这种方法对于从多版本并发控制获益是必需的：当旧版本仍可能对其他事务可见时，它不能被删除。但是最后，任何事务都不会再对一个过时的/被删除的行版本感兴趣。它所占用的空间必须回收来用于新行，这样可避免磁盘空间需求的无限制增长。这通过运行 VACUUM 完成。</p>
+<p>一些管理员更喜欢自己计划清理，例如在晚上负载低时做所有的工作。</p>
+<p>如果你在一个集簇中有多个数据库，别忘记VACUUM每一个，你会用得上 vacuumdb 程序。</p>
+<br/>
+<br/>
+<h4 id="更新规划器统计信息">更新规划器统计信息</h4>
+<p>PG 查询规划器依赖于有关表内容的统计信息来为查询产生好的计划。这些统计信息由 <code>ANALYZE</code> 命令收集。</p>
+<p>可以在指定表上运行 ANALYZE 甚至在表的指定列上运行。因此如果你的应用需要，可以更加频繁地更新某些统计。但实际上，通常只分析整个数据库是最好的，因为它是一种很快的操作。ANALYZE 对一个表的行使用一种统计的随机采样，而不是读取每一个单一行。</p>
+<br/>
+<br/>
+<h4 id="更新可见性映射">更新可见性映射</h4>
+<p>清理机制为每一个表维护着一个可见性映射，它被用来跟踪哪些页面只包含对所有活动事务可见的元组。</p>
+<p>这样做有两个目的。第一，清理本身可以在下一次运行时跳过这样的页面，因为其中没有什么需要被清除。</p>
+<p>第二，这允许 PG 回答一些只用索引的查询，而不需要引用底层表。</p>
+<br/>
+<br/>
+<h4 id="防止事务id回卷失败">防止事务ID回卷失败</h4>
+<p>PG 的 MVCC 事务语义依赖于能够比较事务 ID（XID） 数字：如果一个行版本的插入 XID 大于当前事务的 XID，它就是属于未来的并且不应该对当前事务可见。</p>
+<p>因为事务 ID 的尺寸有限（32位），一个长时间（超过 40 亿个事务）运行的集簇会遭受到事务 ID 回卷问题：XID 计数器回卷到 0，并且本来属于过去的事务突然间就变成了属于未来 — 这意味着它们的输出变成不可见。简而言之，灾难性的数据丢失（实际上数据仍然在那里，但是如果你不能得到它也无济于事）。为了避免发生这种情况，有必要至少每 20 亿个事务就清理每个数据库中的每个表。</p>
+<br/>
+<br/>
+<h4 id="自动清理后台进程">自动清理后台进程</h4>
+<p>PG 有一个可选但是被高度推荐的特性 autovacuum，它的目的是自动执行 VACUUM 和 ANALYZE 命令。</p>
+<p>当它被启用时，自动清理会检查被大量插入、更新或删除元组的表。这些检查会利用统计信息收集功能，因此除非 track_counts 被设置为 true，自动清理不能被使用。在默认配置下，自动清理是被启用的并且相关配置参数已被正确配置。</p>
+<br/>
+<br/>
+<h3 id="日常重建索引">日常重建索引</h3>
+<p>在某种情况下值得周期性地使用 REINDEX 命令或一系列独立重构步骤来重建索引。</p>
+<p>已经完全变成空的 B-Tree 索引页面被收回重用。但是，还是有一种低效的空间利用的可能性：如果一个页面上除少量索引键之外的全部键被删除，该页面仍然被分配。因此，在这种每个范围中大部分但不是全部键最终被删除的使用模式中，可以看到空间的使用是很差的。对于这样的使用模式，推荐使用定期重新索引。</p>
+<p>对于非 B-Tree 索引可能的膨胀还没有很好地定量分析，因此定期监控索引的物理尺寸是个好主意。</p>
+<p>对于 B 树索引，一个新建立的索引比更新了多次的索引访问起来要略快， 因为在新建立的索引上，逻辑上相邻的页面通常物理上也相邻（这样的考虑目前并不适用于非B树索引）。仅仅为了提高访问速度也值得定期重新索引。</p>
+<p>REINDEX 在所有情况下都可以安全和容易地使用。 默认情况下，此命令需要一个 ACCESS EXCLUSIVE 锁，因此通常最好使用 CONCURRENTLY 选项执行它，该选项仅需要获取 SHARE UPDATE EXCLUSIVE 锁。</p>
+<br/>
+<br/>
+<h3 id="日志文件维护">日志文件维护</h3>
+<p>PG 有一个内建的日志轮转程序，你可以通过在 <code>postgresql.conf</code> 里设置配置参数 <code>logging_collector</code> 为 true 的办法启用它。</p>
+<p>或者你使用外部日志轮转程序。您可以通过设置 logrotate 来收集由 PG 内置日志收集器生成的日志文件来组合这些方法。这通常是通过 postrotate 脚本完成的，该脚本向应用程序发送SIGHUP 信号，使其重新打开日志文件。</p>
+<p>另外一种生产级的管理日志输出的方法就是把它们发送给 syslog，让 syslog 处理文件轮转。不过，在很多系统上，syslog 不是非常可靠，特别是在面对大量日志消息的情况下。它可能在你最需要那些消息的时候截断或者丢弃它们。另外，在 Linux，syslog 会把每个消息刷写到磁盘上， 这将导致很差的性能。</p>
+<br/>
+<br/>
+<h2 id="备份和恢复">备份和恢复</h2>
+<p>PG 数据库应当被定期地备份。虽然过程相当简单，但清晰地理解其底层技术和假设却很重要。</p>
+<p>有三种不同的基本方法来备份 PG 数据：</p>
+<ul>
+<li>SQL 转储</li>
+<li>文件系统级备份</li>
+<li>连续归档</li>
+</ul>
+<br/>
+<br/>
+<h3 id="sql转储">SQL转储</h3>
+<p>创建一个由 SQL 命令组成的文件，服务器用其中的 SQL 命令重建数据库。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># -U --user, -h --host, -p --port, -d --dbname, -W --password, -f --file</span>
+<span class="c1"># 默认使用当前用户进行连接</span>
+pg_dump dbname &gt; dumpfile
+
+pg_dump -U user -h host -p port -d dbname -W xxx -f dump.sql
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="从转储中恢复">从转储中恢复</h4>
+<p>生成的文件可由 psql 程序读取。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 此命令不会创建数据库，你必须先创建数据库</span>
+psql dbname &lt; dumpfile
+
+psql -U user -h host -p port -d dbname -W <span class="nb">pwd</span> -f dump.sql
+
+<span class="c1"># 从一个服务器转储一个数据库到另一个服务器</span>
+pg_dump -h host1 dbname <span class="p">|</span> psql -h host2 dbname
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><code>pg_dump</code> 产生的转储是相对于 template0。这意味着在 template1 中加入的任何语言、过程等都会被 pg_dump 转储。结果是，如果在恢复时使用的是一个自定义的 template1，你必须从 template0 创建一个空的数据库。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">createdb -T template0 dbname
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="pg_dumpall">pg_dumpall</h4>
+<p>pg_dump 每次只转储一个数据库，而且它不会转储关于角色或表空间（因为它们是集簇范围的）的信息。为了支持方便地转储一个数据库集簇的全部内容，提供了 <code>pg_dumpall</code> 程序。pg_dumpall 备份一个给定集簇中的每一个数据库，并且也保留了集簇范围的数据，如角色和表空间定义。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">pg_dumpall &gt; dumpfile
+
+psql -f dumpfile postgres
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="处理大型数据库">处理大型数据库</h4>
+<p>在一些具有最大文件尺寸限制的操作系统上创建大型的 pg_dump 输出文件可能会出现问题。幸运地是，pg_dump 可以写出到标准输出，因此你可以使用标准 Unix 工具来处理这种潜在的问题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># gzip</span>
+pg_dump dbname <span class="p">|</span> gzip &gt; filename.gz
+gunzip -c filename.gz <span class="p">|</span> psql dbname
+
+<span class="c1"># split 拆分为多个文件</span>
+pg_dump dbname <span class="p">|</span> split -b 2G - filename
+cat filename* <span class="p">|</span> psql dbname
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="文件系统级别备份">文件系统级别备份</h3>
+<p>直接复制 PG 用于存储数据库中数据的文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">tar -cf pg-backup.tar /usr/local/pgsql/data
+</code></pre></td></tr></table>
+</div>
+</div><p>此方法有两个限制，使得此方法比 pg_dump 差：</p>
+<ul>
+<li>为了得到一个可用的备份，数据库服务器必须被关闭。</li>
+<li>文件系统备份值适合于完整地备份或恢复整个数据库集簇。</li>
+</ul>
+<br/>
+<p>另一种文件系统备份方法是创建一个数据目录的一致快照。但是，以这种方式创建的备份保存的文件看起来就像数据库没有被正确关闭时的状态。因此，当你从备份数据上启动数据库服务器时，它会认为上一次的服务器实例崩溃了并尝试重放WAL日志。</p>
+<br/>
+<p>还有一种选择是使用rsync来执行一次文件系统备份。其做法是先在数据库服务器运行时执行rsync，然后关闭数据库服务器足够长时间来做一次 rsync &ndash;checksum （&ndash;checksum是必需的，因为rsync的文件修改 时间粒度只能精确到秒）。第二次 rsync 会比第一次快，因为它只需要传送相对很少的数据，由于服务器是停止的，所以最终结果将是一致的。这种方法允许在最小停机时间内执行一次文件系统备份。</p>
+<br/>
+<p>注意一个文件系统备份通常会比一个SQL转储体积更大（例如 pg_dump 不需要转储索引的内容，而是转储用于重建索引的命令）。但是，做一次文件系统备份可能更快。</p>
+<br/>
+<br/>
+<h3 id="连续归档和时间点恢复">连续归档和时间点恢复</h3>
+<p>在任何时间，PG 在数据集簇目录的 <code>pg_wal/</code> 目录下都有一个预写式日志（WAL）。这个日志存在的目的是为了保证崩溃后的安全：如果系统崩溃，可以重放从最后一次检查点以来的日志项来恢复数据库的一致性。</p>
+<p>该日志的存在，使得第三种备份数据库的策略变得可能。我们可以把一个文件系统级别的备份和 WA L文件的备份结合起来。当需要恢复时，我们先恢复文件系统备份，然后从备份的 WAL 文件中重放来把系统带到一个当前状态。</p>
+<br/>
+<br/>
+<h4 id="建立wal归档">建立WAL归档</h4>
+<p>抽象地来说，一个运行中的 PG 系统产生一个无穷长的 WAL 记录序列。系统从物理上将这个序列划分成 WAL 段文件，通常是每个 16MB（段尺寸在 initdb 期间可修改）。段文件会被分配一个数字名称以便反映它在整个抽象 WAL 序列中的位置。</p>
+<p>归档命令通常应该被设计成拒绝覆盖已经存在的归档文件。这是一个非常重要的安全特性， 可以在管理员操作失误（比如把两个不同的服务器的输出发送到同一个归档目录）的时候保持你的归档的完整性。</p>
+<br/>
+<br/>
+<h4 id="制作一个基础备份">制作一个基础备份</h4>
+<p>执行一次基础备份最简单的方法是使用 <code>pg_basebackup</code> 工具。</p>
+<br/>
+<br/>
+<h4 id="使用一个连续归档备份进行恢复">使用一个连续归档备份进行恢复</h4>
+<p>过程：</p>
+<ol>
+<li>如果服务器仍在运行，停止它。</li>
+<li>如果你具有足够的空间，将整个集簇数据目录和表空间复制到一个临时位置。</li>
+<li>移除所有位于集簇数据目录和正在使用的表空间目录下的文件和子目录</li>
+<li>从你的文件系统备份中恢复数据库文件，注意权限。</li>
+<li>移除 <code>pg_wal</code> 中的任何文件。</li>
+<li>如果有保存的未归档的 WAL 段文件，把它们拷贝到 pg_wal 目录下。</li>
+<li>设定 <code>postgresql.conf</code> 中的恢复配置设置，并且在集簇数据目录中创建一个 <code>recovery.signal</code> 文件。</li>
+<li>启动服务器。服务器将会进入恢复模式并且进而根据需要读取归档 WAL 文件。服务器将删除 <code>recovery.signal</code>（为了阻止以后意外地重新进入恢复模式），并且开始正常数据库操作。</li>
+<li>检查数据库的内容来确保你已经恢复到了期望的状态。</li>
+</ol>
+<br/>
+<br/>
+<h4 id="时间线">时间线</h4>
+<p>将数据库回复到一个之前的时间点带来了一些复杂性。假如你在周二晚是丢弃了一个关键表，但到周三中午才意识到错误。你需要将完成时间点恢复后生成的WAL记录序列与初始数据库历史中产生的WAL记录序列区分开来。</p>
+<p>要解决这个问题，PG 有一个时间线概念。无论何时当一次归档恢复完成，一个新的时间线被创建来标识恢复之后生成的 WAL 记录序列。时间线 ID 号是 WAL 段文件名的一部分，因此一个新的时间线不会重写由之前的时间线生成的 WAL 数据。而有了时间线，你可以恢复到任何之前的状态，包括早先被你放弃的时间线分支中的状态。</p>
+<br/>
+<br/>
+<h4 id="建议和例子">建议和例子</h4>
+<p>单机热备份。</p>
+<br/>
+<p>压缩的归档日志。</p>
+<br/>
+<p><code>archive_command</code> 脚本。</p>
+<br/>
+<br/>
+<h2 id="高可用与负载均衡和复制">高可用与负载均衡和复制</h2>
+<br/>
+<br/>
+<h3 id="不同方案的比较">不同方案的比较</h3>
+<p>高可用、负载均衡和复制特性：</p>
+<ul>
+<li>共享磁盘故障转移</li>
+<li>文件系统（块设备）复制</li>
+<li>预写式日志（WAL）传送</li>
+<li>逻辑复制</li>
+<li>基于触发器的主备复制</li>
+<li>基于 SQL 的复制中间件</li>
+<li>异步多主控机复制</li>
+<li>同步多主控机复制</li>
+</ul>
+<br/>
+<p>有一些方案不适合上述的类别：</p>
+<ul>
+<li>数据分区</li>
+<li>多服务器并行查询执行</li>
+</ul>
+<br/>
+<br/>
+<h3 id="日志传送后备服务器">日志传送后备服务器</h3>
+<p>连续归档可用来创建一个高可用性（HA）集群配置，其中有一个或多个后备服务器随时准备在主服务器失效时接管操作。这种能力被广泛地称为温备或日志传送。</p>
+<p>主服务器在连续归档模式下操作，而每一个后备服务器在连续恢复模式下操作并且持续从主服务器读取 WAL 文件。</p>
+<p>直接从一个数据库服务器移动 WAL 记录到另一台服务器通常被称为日志传送。基于记录的日志传送具有更细的粒度并且能够在网络连接上以流的方式增量传递 WAL 的改变。</p>
+<p>日志传送是异步的，即 WAL 记录是在事务提交后才被传送。在一个窗口期内如果主服务器发生灾难性的失效则会导致数据丢失，还没有被传送的事务将会被丢失。基于文件的日志传送中这个数据丢失窗口的尺寸可以通过使用参数 archive_timeout 进行限制</p>
+<p>这种配置的恢复性能是足够好的，后备服务器在被激活后通常只有片刻就可以到达完全可用。因此，这被称为一种提供高可用性的温备配置。一台后备服务器也可以被用于只读查询，在这种情况下它被称为一台热备服务器。</p>
+<br/>
+<br/>
+<h4 id="规划主备服务器">规划主备服务器</h4>
+<p>创建主服务器和备服务器是明智的，因此它们应该尽可能相似。</p>
+<br/>
+<br/>
+<h4 id="后备服务器操作">后备服务器操作</h4>
+<p>在后备模式中，服务器持续地应用从主控服务器接收到的 WAL。</p>
+<br/>
+<br/>
+<h4 id="准备主服务器">准备主服务器</h4>
+<p>在主服务器上设置连续归档到一个后备服务器可访问的归档目录。即使主服务器垮掉该归档位置也应当是后备服务器可访问的，即它应当位于后备服务器本身或者另一个可信赖的服务器，而不是位于主控服务器上。</p>
+<p>如果使用流复制，需要在主上配置认证来允许来自备的复制连接。即创建一个角色并且在 <code>pg_hba.conf</code> 中提供一个或多个数据库域被设置为 <code>replication</code> 的项。还要保证在主服务器的配置文件中 <code>max_wal_senders</code> 被设置为足够大的值。如果要使用复制槽，请确保 <code>max_replication_slots</code> 也被设置得足够高。</p>
+<br/>
+<br/>
+<h4 id="建立一个后备服务器">建立一个后备服务器</h4>
+<p>要建立备，恢复从主取得的基础备份。在备的集簇数据目录中创建一个文件 <code>standby.signal</code>。将 <code>restore_command</code> 设置为一个从 WAL 归档中复制文件的简单命令。</p>
+<p>可以有任意数量的备，但是如果你使用流复制，确保你在主服务器上将 <code>max_wal_senders</code> 设置得足够高，这样可以允许它们能同时连接。</p>
+<br/>
+<br/>
+<h4 id="流复制">流复制</h4>
+<p>流复制允许一台备比使用基于文件的日志传送更能保持为最新的状态。备连接到主，主则在 WAL 记录产生时将它们以流式传送给备而不必等到 WAL 文件被填充。</p>
+<p>默认情况下流复制是异步的，主上提交一个事务与该变化在备上可见之间存在短暂的延迟。不过这种延迟比基于文件的日志传送方式中要小得多。</p>
+<p>当后备服务器被启动并且 <code>primary_conninfo</code> 被正确设置，后备服务器将在重放完归档中所有可用的 WAL 文件之后连接到主服务器。 如果连接被成功建立，你将在后备服务器中看到一个 walreceiver，并且在主服务器中有一个相应的 walsender 进程。</p>
+<br/>
+<p>设置好用于复制的访问权限非常重要，这样只有受信任的用户可以读取 WAL 流。备必须作为一个具有 REPLICATION 特权的账户或一个超级用户来向主认证。推荐为复制创建一个专用的具有 REPLICATION 和 LOGIN 特权的用户账户。</p>
+<p>虽然 REPLICATION 特权给出了非常高的权限，但它不允许用户修改主系统上的任何数据，而 SUPERUSER 特权则可以。</p>
+<br/>
+<p>一个 <code>pg_hba.conf</code> 中关于复制流的示例内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 允许来自 192.168.1.100 的用户 &#34;foo&#34; 在提供了正确的口令时作为一个复制后备机连接到主控机。
+#
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+host    replication     foo             192.168.1.100/32        md5
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>主的主机名、端口号、用户名和口令在 <code>primary_conninfo</code> 中指定。在备上还可以在 <code>~/.pgpass</code> 文件中设置口令。</p>
+<p>一个备的 <code>postgresql.conf</code> 文件示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 后备机要连接到的主控机运行在主机 192.168.1.50 上，
+# 端口号是 5432，连接所用的用户名是 &#34;foo&#34;，口令是 &#34;foopass&#34;。
+primary_conninfo = &#39;host=192.168.1.50 port=5432 user=foo password=foopass&#39;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>流复制的一个重要健康指标是主上产生但还没在备上应用的 WAL 记录数，通过通过比较主上 WAL 写位置（<code>pg_current_wal_lsn</code>）和备上收到的最后一个 WAL 位置（<code>pg_last_wal_receive_lsn</code>）来计算这个滞后量。后备服务器的最后 WAL 接收位置也被显示在 WAL 接收者进程的进程状态中，即使用 ps 命令显示的状态。</p>
+<br/>
+<br/>
+<h4 id="复制槽">复制槽</h4>
+<p>复制槽提供了一种自动化的方法来确保主控机在所有的后备机收到 WAL 段之前不会移除它们，并且主控机也不会移除可能导致恢复冲突的行，即时后备机断开也是如此。</p>
+<br/>
+<br/>
+<h4 id="级联复制">级联复制</h4>
+<p>级联复制特性允许一台后备服务器接收复制连接并且把 WAL 记录流式传送给其他后备服务器，就像一个转发器一样。这可以被用来减小对于主控机的直接连接数并且使得站点间的带宽开销最小化。</p>
+<br/>
+<br/>
+<h4 id="同步复制">同步复制</h4>
+<p>PG 流复制默认是异步的。如果主崩溃，则某些已被提交的事务可能还没有被复制到后备服务器，这会导致数据丢失。数据的丢失与故障转移时的复制延迟成比例。</p>
+<p>同步复制能够保证一个事务的所有修改都能被传送到一台或者多台同步后备服务器。</p>
+<p>在请求同步复制时，一个写事务的每次提交将一直等待，直到收到一个确认表明该提交在主服务器和后备服务器上都已经被写入到磁盘上的预写式日志中。</p>
+<br/>
+<br/>
+<h4 id="在后备机上连续归档">在后备机上连续归档</h4>
+<p>在一个备上使用连续归档时，有两种不同的情景：WAL 归档在主和备之间共享，或备有自己的 WAL 归档。</p>
+<br/>
+<br/>
+<h3 id="故障转移">故障转移</h3>
+<p>如果主失效，则备应该开始故障转移过程。</p>
+<br/>
+<br/>
+<h3 id="热备">热备</h3>
+<p>术语热备用来描述处于归档恢复或后台模式中的服务器连接到服务器并运行只读查询的能力。这有助于复制目的以及高精度恢复一个备份到一个期望的状态。</p>
+<p>术语热备也指服务器从恢复转移到正常操作而用户能继续运行查询并保持其连接打开的能力。</p>
+<br/>
+<br/>
+<h2 id="监控数据库活动">监控数据库活动</h2>
+<p>搞清楚系统则正在做什么。</p>
+<br/>
+<p>可通过 ps 命令查看进程：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">ps auxww <span class="p">|</span> grep ^postgres
+postgres  <span class="m">15551</span>  0.0  0.1  <span class="m">57536</span>  <span class="m">7132</span> pts/0    S    18:02   0:00 postgres -i
+postgres  <span class="m">15554</span>  0.0  0.0  <span class="m">57536</span>  <span class="m">1184</span> ?        Ss   18:02   0:00 postgres: background writer
+postgres  <span class="m">15555</span>  0.0  0.0  <span class="m">57536</span>   <span class="m">916</span> ?        Ss   18:02   0:00 postgres: checkpointer
+postgres  <span class="m">15556</span>  0.0  0.0  <span class="m">57536</span>   <span class="m">916</span> ?        Ss   18:02   0:00 postgres: walwriter
+postgres  <span class="m">15557</span>  0.0  0.0  <span class="m">58504</span>  <span class="m">2244</span> ?        Ss   18:02   0:00 postgres: autovacuum launcher
+postgres  <span class="m">15558</span>  0.0  0.0  <span class="m">17512</span>  <span class="m">1068</span> ?        Ss   18:02   0:00 postgres: stats collector
+postgres  <span class="m">15582</span>  0.0  0.0  <span class="m">58772</span>  <span class="m">3080</span> ?        Ss   18:04   0:00 postgres: joe runbug 127.0.0.1 idle
+postgres  <span class="m">15606</span>  0.0  0.0  <span class="m">58772</span>  <span class="m">3052</span> ?        Ss   18:07   0:00 postgres: tgl regression <span class="o">[</span>local<span class="o">]</span> SELECT waiting
+postgres  <span class="m">15610</span>  0.0  0.0  <span class="m">58772</span>  <span class="m">3056</span> ?        Ss   18:07   0:00 postgres: tgl regression <span class="o">[</span>local<span class="o">]</span> idle in transaction
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="统计收集器">统计收集器</h3>
+<p>PG 的统计收集器是一个支持收集和报告服务器活动信息的子系统。</p>
+<br/>
+<br/>
+<h4 id="统计收集配置">统计收集配置</h4>
+<p>因为统计收集给查询执行增加了一些负荷，系统可以被配置为收集或不收集信息。在配置文件中配置。</p>
+<p>统计收集器通过临时文件将收集到的信息传送给其他 PG 进程。</p>
+<br/>
+<br/>
+<h4 id="查看统计信息">查看统计信息</h4>
+<br/>
+<br/>
+<h3 id="查看锁">查看锁</h3>
+<p>另一个有用的工具是 <code>pg_locks</code> 系统表。可查看在锁管理器里面未解决的锁的信息。此功能可用于：</p>
+<ul>
+<li>查看当前所有未解决的锁、在一个特定数据库中的关系上所有的锁、在一个特定关系上所有的锁，或由一个特定 PG 会话持有的所有的锁。</li>
+<li>判断当前数据库中带有最多未授予锁的关系。</li>
+<li>判断锁定竞争给数据库总体性能带来的影响，以及锁竞争随着整个数据库流量的变化范围。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="过程上报">过程上报</h3>
+<p>PG 具有在命令执行过程中报告某些命令进度的能力。目前，支持进度报告的命令有 <code>ANALYZE</code>, <code>CLUSTER</code>, <code>CREATE INDEX</code>, <code>VACUUM</code>, <code>COPY</code> 和 <code>BASE_BACKUP</code>。</p>
+<br/>
+<br/>
+<h3 id="动态追踪">动态追踪</h3>
+<p>PG 提供了功能来支持数据库服务器的动态追踪。这样就允许在代码中的特定点上调用外部工具来追踪执行过程。</p>
+<p>一些探针或追踪点已被插入在源代码中。默认情况下，探针不被编译到 PG 中，用户需要显式地告诉配置脚本使探针可用。</p>
+<br/>
+<br/>
+<h2 id="监控磁盘使用">监控磁盘使用</h2>
+<p>监控 PG 数据库系统的磁盘使用量。</p>
+<br/>
+<br/>
+<h3 id="判断磁盘使用量">判断磁盘使用量</h3>
+<p>每个表都有一个主要的堆磁盘文件，大多数数据都存储在其中。</p>
+<p>如果一个表有很宽的列，则另外还有一个 TOAST 文件与这个表相关联，用于存储因为太宽而不能存储在主表里面的值。如果有这个附属文件，那么 TOAST 表上会有一个可用的索引。当然，同事还可能有索引和基表关联。每个表和索引都存放在单独的磁盘文件里——如果文件超过 1G，甚至可能多于一个文件。</p>
+<p>有三种方式监视磁盘空间：使用 SQL 函数；使用 oid2name 模块；人工观察系统目录。</p>
+<p>SQL 函数最容易，也是推荐的方法。</p>
+<br/>
+<p>查看任意表的磁盘用量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">pg_relation_filepath</span><span class="p">(</span><span class="n">oid</span><span class="p">),</span><span class="w"> </span><span class="n">relpages</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_class</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">relname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;customer&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"> </span><span class="n">pg_relation_filepath</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">relpages</span><span class="w">
+</span><span class="w"></span><span class="c1">----------------------+----------
+</span><span class="c1"></span><span class="w"> </span><span class="n">base</span><span class="o">/</span><span class="mi">16384</span><span class="o">/</span><span class="mi">16806</span><span class="w">     </span><span class="o">|</span><span class="w">       </span><span class="mi">60</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="p">)</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>每个页通常都是 8K 字节。如果相直接检查表的磁盘文件，那么文件路径名应该有用。</p>
+<br/>
+<p>要显示 TOAST 表使用的空间，可以使用一个类似的查询：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">relname</span><span class="p">,</span><span class="w"> </span><span class="n">relpages</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_class</span><span class="p">,</span><span class="w">
+</span><span class="w">     </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">reltoastrelid</span><span class="w">
+</span><span class="w">      </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_class</span><span class="w">
+</span><span class="w">      </span><span class="k">WHERE</span><span class="w"> </span><span class="n">relname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;customer&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ss</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ss</span><span class="p">.</span><span class="n">reltoastrelid</span><span class="w"> </span><span class="k">OR</span><span class="w">
+</span><span class="w">      </span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">indexrelid</span><span class="w">
+</span><span class="w">             </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_index</span><span class="w">
+</span><span class="w">             </span><span class="k">WHERE</span><span class="w"> </span><span class="n">indrelid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ss</span><span class="p">.</span><span class="n">reltoastrelid</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">relname</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">       </span><span class="n">relname</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">relpages</span><span class="w">
+</span><span class="w"></span><span class="c1">----------------------+----------
+</span><span class="c1"></span><span class="w"> </span><span class="n">pg_toast_16806</span><span class="w">       </span><span class="o">|</span><span class="w">        </span><span class="mi">0</span><span class="w">
+</span><span class="w"> </span><span class="n">pg_toast_16806_index</span><span class="w"> </span><span class="o">|</span><span class="w">        </span><span class="mi">1</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>显示索引的大小：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">relname</span><span class="p">,</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">relpages</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_class</span><span class="w"> </span><span class="k">c</span><span class="p">,</span><span class="w"> </span><span class="n">pg_class</span><span class="w"> </span><span class="n">c2</span><span class="p">,</span><span class="w"> </span><span class="n">pg_index</span><span class="w"> </span><span class="n">i</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">relname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;customer&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w">
+</span><span class="w">      </span><span class="k">c</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">indrelid</span><span class="w"> </span><span class="k">AND</span><span class="w">
+</span><span class="w">      </span><span class="n">c2</span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">indexrelid</span><span class="w">
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">relname</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span><span class="n">relname</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">relpages</span><span class="w">
+</span><span class="w"></span><span class="c1">-------------------+----------
+</span><span class="c1"></span><span class="w"> </span><span class="n">customer_id_index</span><span class="w"> </span><span class="o">|</span><span class="w">       </span><span class="mi">26</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>用下面的信息找出最大的表和索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">relname</span><span class="p">,</span><span class="w"> </span><span class="n">relpages</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_class</span><span class="w">
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">relpages</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">       </span><span class="n">relname</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">relpages</span><span class="w">
+</span><span class="w"></span><span class="c1">----------------------+----------
+</span><span class="c1"></span><span class="w"> </span><span class="n">bigtable</span><span class="w">             </span><span class="o">|</span><span class="w">     </span><span class="mi">3290</span><span class="w">
+</span><span class="w"> </span><span class="n">customer</span><span class="w">             </span><span class="o">|</span><span class="w">     </span><span class="mi">3144</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="磁盘满失败">磁盘满失败</h3>
+<p>一个写满了的数据磁盘可能不会导致数据的崩溃，但它肯定会让系统变得不可用。如果保存 WAL 文件的磁盘变满，会发生数据库服务器致命错误并且可能发生关闭。</p>
+<p>如果你不能通过删除一些其他的东西来释放一些磁盘空间，那么你可以通过使用表空间把一些数据库文件移动到其他文件系统上去。</p>
+<br/>
+<br/>
+<h2 id="可靠性和预写式日志">可靠性和预写式日志</h2>
+<p>解释预写式日志如何用于获得有效的、可靠的操作。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-03-17</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/postgresql/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/postgresql/" data-title="PostgreSQL" data-hashtags="Database,SQL,PostgreSQL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/postgresql/" data-title="PostgreSQL"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/postgresql/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/postgresql/" data-title="PostgreSQL"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/postgresql/" data-title="PostgreSQL"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/database/">database</a>,&nbsp;<a href="/tags/sql/">SQL</a>,&nbsp;<a href="/tags/postgresql/">PostgreSQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/apis/" class="prev" rel="prev" title="API相关范式"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>API相关范式</a>
+            <a href="/ai-for-beginners/" class="next" rel="next" title="人工智能">人工智能<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>API相关范式 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="API相关范式" />
+<meta property="og:description" content="参考：
+
+REST API
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/apis/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-09T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-03-09T00:00:00&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="API相关范式"/>
+<meta name="twitter:description" content="参考：
+
+REST API
+
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/apis/" /><link rel="prev" href="https://zhang21.cn/java_core/" /><link rel="next" href="https://zhang21.cn/postgresql/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "API相关范式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/apis\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "API, REST, RPC, GraphQL","wordcount":  2114 ,
+        "url": "https:\/\/zhang21.cn\/apis\/","datePublished": "2024-03-09T00:00:00+00:00","dateModified": "2024-03-09T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">API相关范式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/api/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>API</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-09">2024-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2114 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#rest">REST</a></li>
+    <li><a href="#rpc">RPC</a></li>
+    <li><a href="#graphql">GraphQL</a></li>
+    <li><a href="#websocket">WebSocket</a></li>
+    <li><a href="#webhook">Webhook</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>参考：</p>
+<ul>
+<li><a href="https://restfulapi.net/" target="_blank" rel="noopener noreffer ">REST API</a></li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="介绍">介绍</h1>
+<p>应用编程接口（API, Application Program Interface），是一组用于构建和集成应用软件的定义和协议，使不同的应用程序之间能够相互通信。</p>
+<p>API 架构通常从客户端和服务器的角度来解释。</p>
+<br/>
+<br/>
+<h1 id="rest">REST</h1>
+<p>REST 是数据作为资源可用。</p>
+<p>表述性状态传递（REST, REpresentational State Transfer），REST API（RESTful API）是指遵循某些 REST 体系结构约束的 API。</p>
+<p>它使用标准方法和 HTTP 协议。它基于无状态、客户端-服务器架构和可缓存等原则。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">格式</span><span class="p">:</span><span class="w"> </span><span class="l">XML, HTML, JSON 和纯文本</span><span class="w">
+</span><span class="w"></span><span class="nt">传输协议</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP/HTTPS</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>主要概念和特征：</p>
+<ul>
+<li>资源：一切都是资源，资源由 URI 标识。</li>
+<li>CURD 操作</li>
+<li>HTTP 方法</li>
+<li>状态码：
+<ul>
+<li>2xx：认可和成功</li>
+<li>3xx：重定向</li>
+<li>4xx：客户端错误</li>
+<li>5xx：服务器错误</li>
+</ul>
+</li>
+<li>无状态：客户端到服务器的每个请求必须包含理解和处理该请求所需的所有信息。服务器不应在请求之间存储有关客户端状态的任何信息。</li>
+<li>客户端-服务器</li>
+<li>可缓存</li>
+<li>分层系统</li>
+<li>HATEOAS</li>
+</ul>
+<br/>
+<p>满足下面那条件和原则的应用程序就是 REST 的：</p>
+<ul>
+<li>资源：一个 URI 就是一个资源。</li>
+<li>表现层：资源可以有多种展现方式，而把实体展现出来就是表现层。如一个文本信息，可以输出为 html, json 等。</li>
+<li>状态转化：HTTP 协议里，四个表示操作方式的动词 GET, PUT, POST, DELETE 它们分别表示四种基本操作。</li>
+</ul>
+<p>综上所述，REST 架构：</p>
+<ul>
+<li>每一个 URI 代表一种资源</li>
+<li>客户端和服务器之间，传递这种资源的某种表现层</li>
+<li>客户端通过四个 HTTP 动词，对服务器资源进行操作，实现表述性状态转化。</li>
+</ul>
+<br/>
+<p>API 要被视为 RESTful API，必须遵循以下标准：</p>
+<ul>
+<li>客户端-服务器由客户端、服务器和资源组成，并且通过 HTTP 管理请求。</li>
+<li>无状态客户端-服务器通信，即 GET 请求间隔期间，不会存储任何客户端信息。</li>
+<li>可缓存性数据：可简化客户端-服务器交互。</li>
+<li>组件间的统一接口：使信息以标准形式传输。这要求：
+<ul>
+<li>所请求的资源可识别并与发送给客户端的表述分离开。</li>
+<li>客户端可通过接收的表述操作资源，因为表述包含操作所需的充足信息。</li>
+<li>返回给客户端的自描述消息包含充足的信息，能够指明客户端应该如何处理所收到的信息。</li>
+<li>超文本/超媒体可用，是指在访问资源后，客户端应能够使用超链接查找其当前可采取的所有其他操作。</li>
+</ul>
+</li>
+<li>组织各种类型服务器的分层系统会参与将请求的信息检索到对客户端不可见的层次结构中。</li>
+<li>按需编码：能够根据请求将可执行代码从服务器发送到客户端，从而扩展客户端功能。</li>
+</ul>
+<br/>
+<p>REST 的优点：</p>
+<ul>
+<li>解耦客户端和服务器</li>
+<li>可发现性</li>
+<li>缓存友好</li>
+<li>多种格式支持</li>
+</ul>
+<br/>
+<p>REST 的缺点：</p>
+<ul>
+<li>没有单一的 REST 结构</li>
+<li>大的有效载荷</li>
+<li>过度和不足的问题</li>
+</ul>
+<br/>
+<p>REST 的用例：</p>
+<ul>
+<li>Web 服务</li>
+<li>简单的资源驱动应用</li>
+<li>单页应用程序</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="rpc">RPC</h1>
+<p>远程过程调用（RPC, Remote Procedure Call），为了让计算机能够根调用本地方法一样去调用远程方法。是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。</p>
+<p>RPC 跨越了传输层和应用层，使得开发网络分布式程序在内的应用程序更容易。</p>
+<p>RPC 只是一个概念，但有很多规范和具体的实现。如 gRPC, Dubbo, Thrift, JSON-RPC 等。</p>
+<p>业界普遍的做法是，内部系统之间调用使用 RPC，对外使用 REST。因为内部系统之间调用可能会很频繁，需要 RPC 的高性能支撑。对外使用 REST 更通用和易于理解。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">格式</span><span class="p">:</span><span class="w"> </span><span class="l">JSON, XML, Protobuf, Thrift, FlatBuffers</span><span class="w">
+</span><span class="w"></span><span class="nt">协议</span><span class="p">:</span><span class="w"> </span><span class="l">各种</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>主要概念和特征：</p>
+<ul>
+<li>定义：RPC 允许程序使子例程在另一个地址空间执行。这就像调用在与调用者不同的机器上执行的函数。</li>
+<li>存根</li>
+<li>默认同步</li>
+<li>语言中立</li>
+<li>紧耦合</li>
+</ul>
+<br/>
+<p>RPC 的优点：</p>
+<ul>
+<li>直接和简单的交互</li>
+<li>易于添加的功能</li>
+<li>高性能</li>
+</ul>
+<br/>
+<p>RPC 的缺点：</p>
+<ul>
+<li>与底层系统的紧密耦合</li>
+<li>可发现性低</li>
+<li>功能爆炸</li>
+</ul>
+<br/>
+<p>RPC 的用例：</p>
+<ul>
+<li>命令 API</li>
+<li>内部微服务和客户特定 API</li>
+<li>分布式系统</li>
+<li>网络文件系统：如 NFS</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="graphql">GraphQL</h1>
+<p>GraphQL 只查询需要的数据。</p>
+<p>GraphQL 是一种专门为 API 开发的查询语言。它只是为了优先为客户端提供锁清秋的确切数据。它旨在提高 API 速度和灵活性，并便于开发人员使用。作为 REST 的提代方案，GraphQL 为前端开发人员提供通过单一 GraphQL 端点查询多个数据库、微服务和 API 的功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">格式</span><span class="p">:</span><span class="w"> </span><span class="l">JSON</span><span class="w">
+</span><span class="w"></span><span class="nt">协议</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP/HTTPS</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>主要概念和特征：</p>
+<ul>
+<li>API 的查询语言：它允许客户端请求他们需要的数据，从而可以在单个请求中获取所有所需的信息。</li>
+<li>类型系统</li>
+<li>单一端点</li>
+<li>解析器</li>
+<li>通过订阅进行实时更新</li>
+<li>Introspective</li>
+</ul>
+<br/>
+<p>GraphQL 的优点：</p>
+<ul>
+<li>键入的架构</li>
+<li>非常适合图形数据</li>
+<li>没有版本控制</li>
+<li>详细的错误信息</li>
+<li>灵活的权限</li>
+</ul>
+<br/>
+<p>GraphQL 的缺点：</p>
+<ul>
+<li>性能问题</li>
+<li>缓存复杂度</li>
+<li>大量的前期开发教育</li>
+</ul>
+<br/>
+<p>GraphQL 的用例：</p>
+<ul>
+<li>灵活的前端：对于带宽至关重要的应用程序（尤其是移动应用程序），你希望最大限度地减少从服务器获取的数据。</li>
+<li>复杂的系统和微服务</li>
+<li>实时应用程序</li>
+<li>版本无关的 API</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="websocket">WebSocket</h1>
+<p>WebSocket 通过单个长期连接提供全双工通信通道，允许客户端和服务器之间进行实时数据交换。这使其成为交互式和高性能 Web 应用程序的理想选择。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">格式</span><span class="p">:</span><span class="w"> </span><span class="l">二进制</span><span class="w">
+</span><span class="w"></span><span class="nt">协议</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>主要概念和特征：</p>
+<ul>
+<li>持久连接</li>
+<li>升级握手：WS 作为 HTTP 请求启动，如果服务器支持，则将其升级为 WS 连接。通过 Upgrade 标头完成。</li>
+<li>帧：数据以帧的形式传输。</li>
+<li>更少的开销：在初始连接后，数据帧需要发送更少的字节，从而比重复建立 HTTP 连接更少的开销和更好的性能。</li>
+<li>低延迟：客户端和服务器之间直接通信，无需为每次交换打开新连接的开销。</li>
+<li>双向</li>
+<li>协议和扩展</li>
+</ul>
+<br/>
+<p>用例：</p>
+<ul>
+<li>在线游戏</li>
+<li>协作工具</li>
+<li>金融应用</li>
+<li>通知</li>
+<li>实时推送</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="webhook">Webhook</h1>
+<p>Webhook 是由特定 Web 应用程序事件触发的用户定义的 HTTP 回调，允许实时数据更新和不同系统之间的集成。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">格式</span><span class="p">:</span><span class="w"> </span><span class="l">XML, JSON, 纯文本</span><span class="w">
+</span><span class="w"></span><span class="nt">协议</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP/HTTPS</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>主要概念和特征：</p>
+<ul>
+<li>事件驱动</li>
+<li>回调机制</li>
+<li>Payoad</li>
+<li>实时</li>
+<li>可定制</li>
+</ul>
+<br/>
+<p>用例：</p>
+<ul>
+<li>持续集成和部署</li>
+<li>内部管理系统</li>
+<li>支付网关</li>
+<li>社交媒体集成</li>
+<li>IoT</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-03-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/apis/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/apis/" data-title="API相关范式" data-hashtags="API,REST,RPC,GraphQL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/apis/" data-title="API相关范式"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/apis/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/apis/" data-title="API相关范式"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/apis/" data-title="API相关范式"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/api/">API</a>,&nbsp;<a href="/tags/rest/">REST</a>,&nbsp;<a href="/tags/rpc/">RPC</a>,&nbsp;<a href="/tags/graphql/">GraphQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/java_core/" class="prev" rel="prev" title="Java核心技术"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java核心技术</a>
+            <a href="/postgresql/" class="next" rel="next" title="PostgreSQL">PostgreSQL<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

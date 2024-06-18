@@ -4,7 +4,60 @@
         <link>https://zhang21.cn/posts/</link>
         <description>所有文章 | 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 28 Jan 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 19 May 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>生成式人工智能</title>
+    <link>https://zhang21.cn/generative-ai/</link>
+    <pubDate>Sun, 19 May 2024 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/generative-ai/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://microsoft.github.io/generative-ai-for-beginners" target="_blank" rel="noopener noreffer ">generative-ai-for-beginners</a></li>
+<li><a href="https://github.com/Microsoft/generative-ai-for-beginners" target="_blank" rel="noopener noreffer ">github repo</a></li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>人工智能</title>
+    <link>https://zhang21.cn/ai-for-beginners/</link>
+    <pubDate>Sun, 31 Mar 2024 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/ai-for-beginners/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://microsoft.github.io/AI-For-Beginners/" target="_blank" rel="noopener noreffer ">MS AI for Beginners</a></li>
+<li>DeepL</li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>PostgreSQL</title>
+    <link>https://zhang21.cn/postgresql/</link>
+    <pubDate>Sun, 17 Mar 2024 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/postgresql/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="http://www.postgres.cn/docs/14/" target="_blank" rel="noopener noreffer ">PG14 中文文档</a></li>
+<li><a href="https://www.postgresql.org/docs/current/index.html" target="_blank" rel="noopener noreffer ">PG Docs</a></li>
+</ul>
+<br/>]]></description>
+</item>
+<item>
+    <title>API相关范式</title>
+    <link>https://zhang21.cn/apis/</link>
+    <pubDate>Sat, 09 Mar 2024 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/apis/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://restfulapi.net/" target="_blank" rel="noopener noreffer ">REST API</a></li>
+</ul>
+<br/>]]></description>
+</item>
+<item>
     <title>Java核心技术</title>
     <link>https://zhang21.cn/java_core/</link>
     <pubDate>Sun, 28 Jan 2024 00:00:00 &#43;0000</pubDate>
@@ -13,6 +66,7 @@
     <description><![CDATA[<p>参考：</p>
 <ul>
 <li>Java核心技术-卷一</li>
+<li><a href="https://junit.org/" target="_blank" rel="noopener noreffer ">JUnit</a></li>
 </ul>
 <br/>
 <hr>]]></description>
@@ -66,59 +120,6 @@
 <li><a href="https://www.hjenglish.com/yinbiao/guojiyinbiao/" target="_blank" rel="noopener noreffer ">48 个国际音标</a></li>
 <li><a href="https://www.zhihu.com/question/21726805" target="_blank" rel="noopener noreffer ">英文里 s 后面的清辅音是所谓「浊化」了吗？规律如何？为什么？</a></li>
 <li><a href="https://www.hjenglish.com/new/p629050/" target="_blank" rel="noopener noreffer ">美式英语发音规则，学美音入门必看（下）</a></li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>RHEL7-安全手册</title>
-    <link>https://zhang21.cn/rhel7-security-guide/</link>
-    <pubDate>Sun, 18 Jun 2023 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/rhel7-security-guide/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html/security_guide/index" target="_blank" rel="noopener noreffer ">RHEL7-安全手册</a></li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>Cloud-init</title>
-    <link>https://zhang21.cn/cloud-init/</link>
-    <pubDate>Sun, 04 Jun 2023 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/cloud-init/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://cloudinit.readthedocs.io/en/latest/" target="_blank" rel="noopener noreffer ">Cloud-init文档</a></li>
-</ul>
-<br/>]]></description>
-</item>
-<item>
-    <title>CentOS7升级Glibc到2.28</title>
-    <link>https://zhang21.cn/glibc-update/</link>
-    <pubDate>Mon, 22 May 2023 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/glibc-update/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://roy.wang/centos7-upgrade-glibc/" target="_blank" rel="noopener noreffer ">CentOS7 升级 Glibc 2.17 到2.28</a></li>
-<li><a href="https://blog.csdn.net/esdhhh/article/details/121196317?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-121196317-blog-107057646.235%5Ev36%5Epc_relevant_default_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1" target="_blank" rel="noopener noreffer ">centos7 glibc2.17升级到glibc2.28</a></li>
-<li><a href="https://www.cnblogs.com/jasondayee/p/13403245.html" target="_blank" rel="noopener noreffer ">https://www.cnblogs.com/jasondayee/p/13403245.html</a></li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>JavaScript权威指南</title>
-    <link>https://zhang21.cn/javascript-the-definitive-guide/</link>
-    <pubDate>Tue, 28 Feb 2023 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/javascript-the-definitive-guide/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://book.douban.com/subject/35396470/" target="_blank" rel="noopener noreffer ">豆瓣</a></li>
 </ul>
 <br/>
 <hr>]]></description>

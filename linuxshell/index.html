@@ -49,7 +49,7 @@ k-vim
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "shell, bash, linux, vim, iptables, awk, sed, grep","wordcount":  53391 ,
+                        }],"genre": "posts","keywords": "shell, bash, linux, vim, iptables, awk, sed, grep","wordcount":  53724 ,
         "url": "https:\/\/zhang21.cn\/linuxshell\/","datePublished": "2017-10-24T18:16:38+00:00","dateModified": "2017-10-24T18:16:38+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -123,8 +123,8 @@ k-vim
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Shell</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2017-10-24">2017-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 53391 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 107 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2017-10-24">2017-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 53724 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 108 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -235,13 +235,14 @@ k-vim
     <li><a href="#shell脚本">shell脚本</a>
       <ul>
         <li><a href="#介绍">介绍</a></li>
-        <li><a href="#编写一个shell脚本">编写一个shell脚本</a></li>
-        <li><a href="#shell脚本判断式">shell脚本判断式</a></li>
-        <li><a href="#shell脚本的默认变量">shell脚本的默认变量</a></li>
+        <li><a href="#编写脚本的技巧">编写脚本的技巧</a></li>
+        <li><a href="#脚本判断式">脚本判断式</a></li>
+        <li><a href="#脚本的默认变量">脚本的默认变量</a></li>
+        <li><a href="#单中括号和双多括号">单中括号和双多括号</a></li>
         <li><a href="#条件判断语句">条件判断语句</a>
           <ul>
-            <li><a href="#ifthen语句">if&hellip;then语句</a></li>
-            <li><a href="#caseesac语句">case&hellip;esac语句</a></li>
+            <li><a href="#if和then语句">if和then语句</a></li>
+            <li><a href="#case和esac语句">case和esac语句</a></li>
             <li><a href="#function功能">function功能</a></li>
           </ul>
         </li>
@@ -252,7 +253,7 @@ k-vim
             <li><a href="#for-do-done固定循环">for do done(固定循环)</a></li>
           </ul>
         </li>
-        <li><a href="#shell脚本的追踪与调试">shell脚本的追踪与调试</a></li>
+        <li><a href="#脚本的追踪与调试">脚本的追踪与调试</a></li>
       </ul>
     </li>
     <li><a href="#小试牛刀">小试牛刀</a>
@@ -3085,7 +3086,6 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 管道命令&quot; | &quot; 仅能处理经由前面一个命令传来的正确信息。所以对stderror没有直接处理能力。</p>
 <p>在每个管道后面接的第一个数据必定是命令，而且这个命令必须要能够接收standard input的数据才行，这样的命令才可以是管道命令。</p>
 <br>
-<br>
 <hr>
 <br/>
 <h1 id="bash特殊符号">Bash特殊符号</h1>
@@ -3101,87 +3101,87 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 </thead>
 <tbody>
 <tr>
-<td>#!</td>
+<td><code>#!</code></td>
 <td>shellban，申明脚本所使用的shell</td>
-<td>#!/bin/bash</td>
+<td><code>#!/bin/bash</code></td>
 </tr>
 <tr>
-<td>\</td>
+<td><code>\</code></td>
 <td>转义字符</td>
-<td>\n</td>
+<td><code>\n</code></td>
 </tr>
 <tr>
-<td>l</td>
+<td><code>l</code></td>
 <td>管道</td>
-<td>stdout l grep</td>
+<td><code>stdout l grep</code></td>
 </tr>
 <tr>
-<td>&gt;,&raquo;</td>
+<td><code>&gt;</code>, <code>&gt;&gt;</code></td>
 <td>输出定向</td>
-<td>&gt; 1.txt</td>
+<td><code>&gt; 1.txt</code></td>
 </tr>
 <tr>
-<td>&lt;,&laquo;</td>
+<td><code>&lt;</code>, <code>&lt;&lt;</code></td>
 <td>输入定向</td>
-<td>&lt; 1.txt</td>
+<td><code>&lt; 1.txt</code></td>
 </tr>
 <tr>
-<td>2&gt;</td>
+<td><code>2&gt;</code></td>
 <td>错误定向</td>
-<td>2&gt; error.txt</td>
+<td><code>2&gt; error.txt</code></td>
 </tr>
 <tr>
-<td>;</td>
+<td><code>;</code></td>
 <td>连续命令分隔符</td>
-<td>cmd1;cmd2</td>
+<td><code>cmd1;cmd2</code></td>
 </tr>
 <tr>
-<td>&amp;&amp;</td>
+<td><code>&amp;&amp;</code></td>
 <td>与，只有当前命令完成后才执行后一个命令</td>
-<td>cmd1 &amp;&amp; cmd2</td>
+<td><code>cmd1 &amp;&amp; cmd2</code></td>
 </tr>
 <tr>
-<td>ll</td>
+<td><code>ll</code></td>
 <td>或，或此或彼</td>
-<td>cmd1 ll cmd2</td>
+<td><code>cmd1 ll cmd2</code></td>
 </tr>
 <tr>
-<td>~</td>
+<td><code>~</code></td>
 <td>用户家目录</td>
-<td>cd ~</td>
+<td><code>cd ~</code></td>
 </tr>
 <tr>
-<td>#</td>
+<td><code>#</code></td>
 <td>注释符</td>
-<td>#comments</td>
+<td><code>#comments</code></td>
 </tr>
 <tr>
-<td>$</td>
+<td><code>$</code></td>
 <td>取用变量前导符</td>
-<td><code>$PATH</code>或<code>${PATH}</code></td>
+<td><code>$PATH</code>, <code>${PATH}</code></td>
 </tr>
 <tr>
-<td>&amp;</td>
+<td><code>&amp;</code></td>
 <td>工作控制，将命令放入后台(bg)</td>
-<td>command&amp;</td>
+<td><code>command&amp;</code></td>
 </tr>
 <tr>
-<td>* <br> ? <br/> [] <br/> [-] <br> [^]</td>
+<td><code>*</code> <br> <code>?</code> <br/> <code>[]</code> <br/> <code>[-]</code> <br> <code>[^]</code></td>
 <td>通配符</td>
-<td><em>.sh <br> ?.sh <br/> [a-z]</em>.txt <br/> [^zhang].txt</td>
+<td><code>*.sh</code> <br> <code>?.sh</code> <br/> <code>[a-z]*.txt</code> <br/> <code>[^zhang].txt</code></td>
 </tr>
 <tr>
-<td>!</td>
+<td><code>!</code></td>
 <td>逻辑非</td>
-<td>!=</td>
+<td><code>!=</code></td>
 </tr>
 <tr>
-<td>= 两边无空格</td>
+<td><code>=两边无空格</code></td>
 <td>赋值符号</td>
 <td><code>name=zhang</code></td>
 </tr>
 <tr>
-<td>= 两边有空格</td>
+<td><code>= 两边有空格</code></td>
 <td>比较符号</td>
 <td><code>if  [ $name  =  zhang ]</code></td>
 </tr>
@@ -3221,44 +3221,44 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 <td><code>echo $$</code></td>
 </tr>
 <tr>
-<td>&lsquo;单引号&rsquo;</td>
+<td><code>''</code></td>
 <td>单引号内特殊字符仅为一般字符</td>
-<td><code>echo '$host'--$host</code></td>
+<td><code>echo '$host'</code></td>
 </tr>
 <tr>
-<td>&ldquo;双引号&rdquo;</td>
+<td><code>&quot;&quot;</code></td>
 <td>双引号内特殊符号，可保有原本特性</td>
-<td><code>echo &quot;$host&quot; --localhost</code></td>
+<td><code>echo &quot;$host&quot;</code></td>
 </tr>
 <tr>
-<td>`反引号`</td>
+<td>反引号</td>
 <td>运行命令</td>
 <td>反引号内命令先执行</td>
 </tr>
 <tr>
-<td>()</td>
+<td><code>()</code></td>
 <td>以子shell方式执行</td>
-<td>$(date)</td>
+<td><code>$(date)</code></td>
 </tr>
 <tr>
-<td>{}</td>
+<td><code>{}</code></td>
 <td>命令区块的组合</td>
 <td></td>
 </tr>
 <tr>
-<td>PS1</td>
+<td><code>PS1</code></td>
 <td>命令提示符</td>
-<td>$PS1</td>
+<td><code>$PS1</code></td>
 </tr>
 <tr>
-<td>PS2</td>
+<td><code>PS2</code></td>
 <td>第二行以后的提示字符</td>
-<td>$PS2</td>
+<td><code>$PS2</code></td>
 </tr>
 <tr>
 <td><code>shift</code></td>
 <td>移动参数</td>
-<td>shift后面可以接数字，代表拿掉最前面的几个参数</td>
+<td>后面可以接数字，代表拿掉最前面的几个参数</td>
 </tr>
 <tr>
 <td><code>set</code></td>
@@ -3283,15 +3283,14 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 </tbody>
 </table>
 <br/>
-<br>
 <hr>
 <br/>
 <h1 id="shell脚本">shell脚本</h1>
-<p>shell脚本有点像早期的批处理程序，即将一些命令汇整起来一次执行.但shell脚本拥有更强大的功能，可以进行类似程序(program)的编写，并且不需要经过编译(compile)就能执行。</p>
+<p>shell 脚本有点像早期的批处理程序，即将一些命令汇整起来一次执行。但脚本拥有更强大的功能，可以进行类似程的编写，并且不需要经过编译就能执行。</p>
 <br/>
 <h2 id="介绍">介绍</h2>
-<p>shell脚本是利用shell的功能写的一个程序(program)。这个程序是使用纯文本文件，将一些shell的语法与命令(含外部命令)写在里面，搭配正则表达式、命令管道与数据流重定向等功能，还提供了数组、循环、条件与逻辑判断等重要功能， 以达到我们所想要的处理目的。</p>
-<p>shell脚本用在系统管理上面是很好的一项工具，但用在处理大量数值运算上就不够好。因为shell脚本的速度较慢，且使用的cpu资源较多，造成主机资源的分配不良。</p>
+<p>shell 脚本是利用 shell 的功能写的一个程序。这个程序是使用纯文本文件，将一些 shell 的语法与命令(含外部命令)写在里面，搭配正则表达式、命令管道与数据流重定向等功能，还提供了数组、循环、条件与逻辑判断等重要功能， 以达到我们所想要的处理目的。</p>
+<p>shell 脚本用在系统管理上面是很好的一项工具，但用在处理大量数值运算上就不够好。因为 shell 脚本的速度较慢，且使用的资源较多，造成主机资源的分配不良。</p>
 <br>
 <p>使用shell脚本的优势：</p>
 <ul>
@@ -3308,14 +3307,14 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 <li>命令的执行中：命令、参数间的多个空白都会被忽略掉</li>
 <li>空白行也将被忽略，tab按键所得的空白同样视为空格键</li>
 <li>读取到一个Enter符号(CR)，就尝试开始执行该行命令</li>
-<li>一行内容太多，则可以使用<code>\[Enter]</code>来扩展到下一行</li>
+<li>一行内容太多，则可以使用 <code>\[Enter]</code> 来扩展到下一行</li>
 <li>任何加在#后面的内容都将被视为注释而被忽略</li>
 </ul>
 <p>shell脚本文件的执行方式：</p>
 <ul>
 <li>直接命令执行
 <ul>
-<li><code>.sh</code>文件必须具有可读和可执行权限，使用绝对路径或相对路径来执行</li>
+<li><code>.sh</code> 文件必须具有可读和可执行权限，使用绝对路径或相对路径来执行</li>
 </ul>
 </li>
 <li>以bash进程来执行
@@ -3328,12 +3327,12 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 <p>shell脚本执行方式的区别：</p>
 <ul>
 <li>直接执行，脚本是在子进程的bash中执行的。当子进程完成后，子进程内的各项变量或操作将会结束而不会传回到父进程中。</li>
-<li>source来执行，在父进程中执行</li>
+<li><code>source</code> 来执行，在父进程中执行</li>
 </ul>
 <br/>
 <br>
-<h2 id="编写一个shell脚本">编写一个shell脚本</h2>
-<p>编写一个良好的shell脚本的技巧：</p>
+<h2 id="编写脚本的技巧">编写脚本的技巧</h2>
+<p>编写一个良好的脚本的技巧：</p>
 <ul>
 <li>脚本的功能</li>
 <li>脚本的版本信息</li>
@@ -3345,21 +3344,24 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 <li>在较为特殊的程序代码部分，建议务必要加上批注说明</li>
 <li>脚本的退出状态码</li>
 <li>对于一些字符串变量，使用括号引起来</li>
-<li><code>set -e</code>会让脚本出错就停止运行</li>
-<li><code>set -eu</code>会让脚本中有变量没有定义而退出</li>
-<li>可以给变量定义默认值，如<code>${FOO:-'default'}</code></li>
-<li>为脚本设置<code>-h</code>或<code>--help</code>来显示帮助信息，千万别把这两个参数作为功能</li>
-<li>使用<code>$()</code>而非反引号来获得命令行的输出，主要是易读</li>
-<li>一定要小心使用<code>rm -rf</code>这样的命令。比如<code>rm -rf $MYDIDR/*</code>，如果<code>$MYDIR</code>为空，结果是灾难性的</li>
-<li>考虑使用<code>find/while</code>而不是<code>for/find</code></li>
+<li><code>set -e</code> 会让脚本出错就停止运行</li>
+<li><code>set -eu</code> 会让脚本中有变量没有定义而退出</li>
+<li>可以给变量定义默认值（<code>:-</code>），如 <code>${FOO:-'default'}</code>。</li>
+<li>替换变量中的内容（<code>/原内容/替换内容</code>），如 <code>${1//[^a-zA-Z]/ }</code>，将 <code>$1</code> 中所有的(<code>/</code>)非字母替换为空格。</li>
+<li>将变量的字母转换为大写 <code>${1^^}</code>。</li>
+<li>计算变量的长度 <code>${#1}</code></li>
+<li>为脚本设置 <code>-h</code> 或 <code>--help</code> 来显示帮助信息，千万别把这两个参数作为功能。</li>
+<li>使用 <code>$()</code> 而非反引号来获得命令行的输出，主要是易读。</li>
+<li>一定要小心使用 <code>rm -rf</code> 这样的命令。比如 <code>rm -rf $MYDIDR/*</code>，如果 <code>$MYDIR</code> 为空，结果是灾难性的。</li>
+<li>考虑使用 <code>find/while</code> 而不是 <code>for/find</code>。</li>
 <li>防御式编程，在正式执行命令前，把相关的东西都检查好</li>
-<li>学会使用<code>grep/awk/sed</code>这些命令</li>
-<li>检查命令是否存在，不建议用<code>which</code>，因为它没有设置状态码。建议使用<code>hash/type</code>。</li>
+<li>学会使用 <code>grep/awk/sed</code> 这些命令</li>
+<li>检查命令是否存在，不建议用 <code>which</code>，因为它没有设置状态码。建议使用 <code>hash/type</code>。</li>
 </ul>
 <br>
 <br/>
-<h2 id="shell脚本判断式">shell脚本判断式</h2>
-<p>当我要检测系统上某些文件或相关属性时，使用<code>test</code>命令。</p>
+<h2 id="脚本判断式">脚本判断式</h2>
+<p>当我要检测系统上某些文件或相关属性时，使用 <code>test</code> 命令。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -3573,7 +3575,7 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 </ul>
 <br/>
 <br>
-<h2 id="shell脚本的默认变量">shell脚本的默认变量</h2>
+<h2 id="脚本的默认变量">脚本的默认变量</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -3587,10 +3589,10 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>执行文件的脚本名就是$0</li>
-<li>文件后接的第一个参数就是$1，以此类推</li>
-<li>$#，表示参数个数</li>
-<li>$@，表示&quot;$1&quot;, &ldquo;$2&rdquo;&hellip;</li>
+<li>执行文件的脚本名就是 <code>$0</code>。</li>
+<li>文件后接的第一个参数就是 <code>$1</code>，以此类推。</li>
+<li><code>$#</code>，表示参数个数。</li>
+<li><code>$@</code>，表示 <code>$1</code>, <code>$2</code> 等所有参数</li>
 <li><code>shift</code>，参数变量号码偏移
 <ul>
 <li><code>shift n</code>，代表拿掉前面几个参数的意思</li>
@@ -3599,9 +3601,61 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 </ul>
 <br>
 <br/>
+<h2 id="单中括号和双多括号">单中括号和双多括号</h2>
+<p>单中括号（<code>[]</code>）和双中括号（<code>[[]]</code>）在脚本中的含义有些不同。总的来说，双中括号功能更强大。一些旧的 shell 可能不支持双中括号的写法。</p>
+<br/>
+<p>单中括号（<code>[]</code>）：</p>
+<ul>
+<li>符号 POSIX 标准的测试语句，兼容性更强，几乎可以运行在所有的 shell 解释器中。</li>
+<li>它是 bash 内置命令，它和 <code>test</code> 命令是相等的。</li>
+<li>实现基本的条件测试，如数值比较、字符串比较和文件测试等。</li>
+<li>符号两边都要有空格。</li>
+<li>内部操作符和变量间要有空格。</li>
+<li>内部的字符串和变量尽量使用双引号括住，以避免值未定义引用而出错。</li>
+<li>内部使用 <code>-a</code> 和 <code>-o</code> 进行逻辑运算。</li>
+<li>内部 <code>&gt;</code>, <code>&lt;</code> 被识别为重定向符号，而不是比较符。</li>
+<li>内部 <code>==</code> 是字符匹配。</li>
+</ul>
+<br/>
+<p>双中括号（<code>[[]]</code>）：</p>
+<ul>
+<li>仅可运行再特定的某些 shell 解释器中（如 bash）。</li>
+<li>它是 bash 关键字。</li>
+<li>不仅可以实现单括号的功能，还可实现高级条件测试，如模式匹配和正则表达式等。</li>
+<li>符号两边都要有空格。</li>
+<li>内部操作符与变量之间要有空格。</li>
+<li>内部的字符串或变量尽量用引号括住，如未使用会进行模式和元字符匹配。</li>
+<li>内部使用 <code>&amp;&amp;</code> 和 <code>||</code> 进行逻辑运算。</li>
+<li>内部 <code>&gt;</code>, <code>&lt;</code> 是比较符号。</li>
+<li>内部 <code>==</code> 是模式匹配。</li>
+</ul>
+<br/>
+<p>一个示例代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="k">if</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">=</span>~ ^<span class="o">[</span>ACGT<span class="se">\?</span><span class="o">]</span>*$ <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">[[</span> <span class="nv">$2</span> <span class="o">=</span>~ ^<span class="o">[</span>ACGT<span class="se">\?</span><span class="o">]</span>*$ <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+	xxx
+<span class="k">fi</span>
+
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span><span class="o">=</span>0<span class="p">;</span> i&lt;<span class="si">${#</span><span class="nv">1</span><span class="si">}</span><span class="p">;</span> i++ <span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+    <span class="o">[[</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="p">:</span><span class="nv">i</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">2</span><span class="p">:</span><span class="nv">i</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">]]</span> <span class="o">||</span> <span class="o">((</span> distance++ <span class="o">))</span>
+<span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
 <h2 id="条件判断语句">条件判断语句</h2>
 <br>
-<h3 id="ifthen语句">if&hellip;then语句</h3>
+<h3 id="if和then语句">if和then语句</h3>
 <p>if&hellip;then 是最常见的条件判断式。</p>
 <p>单层条件判断：</p>
 <div class="highlight"><div class="chroma">
@@ -3655,7 +3709,7 @@ bash主要兼容于sh，并且依据一些用户的需求而加强shell 版本�
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<h3 id="caseesac语句">case&hellip;esac语句</h3>
+<h3 id="case和esac语句">case和esac语句</h3>
 <p>有多个既定变量内容，那么只需要针对这几个变量来设置状况就好。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3758,18 +3812,18 @@ status<span class="o">)</span>
 
 
 <span class="k">function</span> fname <span class="o">()</span> <span class="o">{</span>
-
 <span class="o">}</span>
 
+<span class="c1"># 或</span>
+fname2<span class="o">()</span> <span class="o">{</span>
+<span class="o">}</span>
 
-<span class="c1">####栗子</span>
 <span class="k">function</span> Zhang<span class="o">()</span> <span class="o">{</span>
 	<span class="nb">echo</span> <span class="nv">$1</span> <span class="nv">$2</span>
 <span class="o">}</span>
 
+Zhang <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
 Zhang <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span>
-
-
 
 <span class="c1">#执行</span>
 sh func.sh aaa bbb
@@ -3874,8 +3928,8 @@ sh func.sh aaa bbb
 </div>
 </div><br>
 <br/>
-<h2 id="shell脚本的追踪与调试">shell脚本的追踪与调试</h2>
-<p>最好在shell脚本执行之前先行调试。</p>
+<h2 id="脚本的追踪与调试">脚本的追踪与调试</h2>
+<p>最好在 shell 脚本执行之前先行调试。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -3896,7 +3950,7 @@ sh func.sh aaa bbb
 <span class="c1">#-n 仅查询语法问题</span>
 <span class="c1">#-x 边显示边执行</span>
 
-当然也可以把这几个调试参数写到shellbang中
+<span class="c1"># 当然也可以把这几个调试参数写到 shell bang</span>
 <span class="c1">#!/bin/bash -x</span>
 </code></pre></td></tr></table>
 </div>
