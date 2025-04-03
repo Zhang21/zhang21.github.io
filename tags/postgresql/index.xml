@@ -10,12 +10,7 @@
     <pubDate>Sun, 17 Mar 2024 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/postgresql/</guid>
-    <description><![CDATA[<p>参考：</p>
-<ul>
-<li><a href="http://www.postgres.cn/docs/14/" target="_blank" rel="noopener noreffer ">PG14 中文文档</a></li>
-<li><a href="https://www.postgresql.org/docs/current/index.html" target="_blank" rel="noopener noreffer ">PG Docs</a></li>
-</ul>
-<br/>]]></description>
+    <description><![CDATA[<p>PGSQL 文档笔记。</p>]]></description>
 </item>
 </channel>
 </rss>

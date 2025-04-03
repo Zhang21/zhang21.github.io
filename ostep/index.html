@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>操作系统导论 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="操作系统导论" />
-<meta property="og:description" content="参考： 操作系统导论 操作系统介绍 程序运行时会发生什么——执行指令。 处理器从内存中获取（fetch）一条指令，对其进行解码（decode），然后" />
+<meta property="og:description" content="操作系统导论笔记。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhang21.cn/ostep/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-12-10T00:00:00&#43;00:00" />
@@ -15,7 +15,7 @@
 <meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
 
 <meta name="twitter:title" content="操作系统导论"/>
-<meta name="twitter:description" content="参考： 操作系统导论 操作系统介绍 程序运行时会发生什么——执行指令。 处理器从内存中获取（fetch）一条指令，对其进行解码（decode），然后"/>
+<meta name="twitter:description" content="操作系统导论笔记。"/>
 <meta name="application-name" content="风继续吹">
 <meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -35,7 +35,7 @@
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "OperatingSystem, Guide","wordcount":  22010 ,
+                        }],"genre": "posts","keywords": "CS","wordcount":  24792 ,
         "url": "https:\/\/zhang21.cn\/ostep\/","datePublished": "2023-12-10T00:00:00+00:00","dateModified": "2023-12-10T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -108,9 +108,9 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">操作系统导论</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/operatingsystem/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OperatingSystem</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-10">2023-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 22010 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 44 分钟&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-10">2023-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 24792 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 50 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -321,14 +321,50 @@
         <li><a href="#获取并增加指令">获取并增加指令</a></li>
       </ul>
     </li>
+    <li><a href="#第三部分持久性">第三部分：持久性</a></li>
+    <li><a href="#io设备">IO设备</a>
+      <ul>
+        <li><a href="#系统架构">系统架构</a></li>
+        <li><a href="#标准设备">标准设备</a></li>
+        <li><a href="#标准协议">标准协议</a></li>
+        <li><a href="#利用中断减少cpu开销">利用中断减少CPU开销</a></li>
+        <li><a href="#利用dma进行更高效的数据传送">利用DMA进行更高效的数据传送</a></li>
+        <li><a href="#设备交互的方法">设备交互的方法</a></li>
+        <li><a href="#设备驱动程序">设备驱动程序</a></li>
+      </ul>
+    </li>
+    <li><a href="#磁盘驱动器">磁盘驱动器</a></li>
+    <li><a href="#廉价冗余磁盘阵列">廉价冗余磁盘阵列</a></li>
+    <li><a href="#文件和目录">文件和目录</a>
+      <ul>
+        <li><a href="#文件和目录详情">文件和目录详情</a></li>
+        <li><a href="#文件系统接口">文件系统接口</a></li>
+        <li><a href="#创建文件">创建文件</a></li>
+        <li><a href="#读写文件">读写文件</a></li>
+        <li><a href="#随机的读取和写入">随机的读取和写入</a></li>
+        <li><a href="#用fsync立即写入">用fsync立即写入</a></li>
+        <li><a href="#文件重命名">文件重命名</a></li>
+        <li><a href="#获取文件信息">获取文件信息</a></li>
+        <li><a href="#删除文件">删除文件</a></li>
+        <li><a href="#创建目录">创建目录</a></li>
+        <li><a href="#读取目录">读取目录</a></li>
+        <li><a href="#删除目录">删除目录</a></li>
+        <li><a href="#硬链接">硬链接</a></li>
+        <li><a href="#符号链接">符号链接</a></li>
+        <li><a href="#创建并挂载文件系统">创建并挂载文件系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件系统实现">文件系统实现</a></li>
+    <li><a href="#局部性和快速文件系统">局部性和快速文件系统</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>参考：</p>
+            </div><div class="content" id="content"><p>操作系统导论笔记。</p>
+<hr>
+<p>参考：</p>
 <ul>
 <li>操作系统导论</li>
 </ul>
 <br/>
-<hr>
 <br/>
 <h1 id="操作系统介绍">操作系统介绍</h1>
 <p>程序运行时会发生什么——执行指令。</p>
@@ -1320,7 +1356,237 @@
 <br/>
 <br/>
 <h2 id="获取并增加指令">获取并增加指令</h2>
-</div><div class="post-footer" id="post-footer">
+<br/>
+<hr>
+<br/>
+<h1 id="第三部分持久性">第三部分：持久性</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="io设备">IO设备</h1>
+<p>输入输出设备如何与操作系统交互？</p>
+<br/>
+<br/>
+<h2 id="系统架构">系统架构</h2>
+<p>一个典型的系统架构。分层的架构是因为物理布局和造价成本。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/operatingsystem/ostep/36-1.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/operatingsystem/ostep/36-1.png, https://raw.githubusercontent.com/zhang21/images/master/cs/operatingsystem/ostep/36-1.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/operatingsystem/ostep/36-1.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/operatingsystem/ostep/36-1.png"
+        title="原型系统架构" /></p>
+<br/>
+<br/>
+<h2 id="标准设备">标准设备</h2>
+<br/>
+<br/>
+<h2 id="标准协议">标准协议</h2>
+<br/>
+<br/>
+<h2 id="利用中断减少cpu开销">利用中断减少CPU开销</h2>
+<p>中断（interrupt）来减少 CPU 开销。当设备完成了自身操作，会抛出一个硬件中断，引发 CPU 跳转执行操作系统预先定义好的中断服务例程。或更为简单的中断处理程序，它是一小段操作系统代码，会结束之前的请求并且唤醒等待 IO 的进程继续运行。</p>
+<p>因此，中断允许计算与 IO 重叠，这是提高 CPU 利用率的关键。操作系统可以在等待磁盘操作时做其他事情。</p>
+<p>如果设备非常快，那么最好办法反而是轮询。如果设备比较慢，那么采用中断更好。如果设备的速度未知，或时快时慢，可以考虑混合策略。</p>
+<br/>
+<br/>
+<h2 id="利用dma进行更高效的数据传送">利用DMA进行更高效的数据传送</h2>
+<p>DMA（Direct Memory Access）是系统中的一个特殊设备，可以协调完成内存和设备间的数据传递，不需要 CPU 介入。</p>
+<br/>
+<br/>
+<h2 id="设备交互的方法">设备交互的方法</h2>
+<p>主要有两种方式实现与设备的交互。</p>
+<p>第一种方法是使用明确的 IO 指令。这些指令规定了操作系统将数据发送到特定设备寄存器的方法，从而允许构造上下文提到的协议。这些指令通常是特权指令，操作系统是唯一可以直接与设备交互的实体。</p>
+<p>设想如果任意程序都可以直接读写磁盘，那任何用户程序都可以利用这个漏洞来取得计算机的全部控制权。</p>
+<p>第二种方法是内存映射 IO，硬件将设备寄存器作为内存地址提供。当需要访问设备寄存器时，操作系统读写到该内存地址，然后硬件会将读写转移到设备上，而不是物理内存。</p>
+<br/>
+<br/>
+<h2 id="设备驱动程序">设备驱动程序</h2>
+<p>如何实现一个设备无关（各种各样的硬件设备）的操作系统？</p>
+<p>可以通过古老的抽象技术来解决。在最底层，操作系统的一部分软件清楚地直到设备如何工作，我们将这它们称之为驱动程序（device driver），所有设备交互的细节都封装在其中。</p>
+<p>有趣的是，因为所有需要插入系统的设备都需要安装对应的驱动程序，所以久而久之，驱动程序的代码在整个内核代码中的占比越来越大。如 Linux 内核代码中超过 70% 的代码都是各种驱动程序。</p>
+<p>令人沮丧的是，因为驱动程序的开发者大部分不是全职内核开发者，所以他们更容易写出缺陷，因此是内核崩溃的主要贡献者。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="磁盘驱动器">磁盘驱动器</h1>
+<p>磁盘驱动器（hard disk drive）一直是系统中持久数据存储的主要形式，文件系统技术的大部分发展都是基于它们的行为。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="廉价冗余磁盘阵列">廉价冗余磁盘阵列</h1>
+<p>如何得到大型、快速和可靠的磁盘？</p>
+<p>廉价冗余磁盘阵列（RAID, Redundant Array of Inexpensive Disks），使用多个磁盘一起构建更快、更大、更可靠的磁盘系统。</p>
+<p>类型：</p>
+<ul>
+<li>RAID 0：条带化，没有冗余。</li>
+<li>RAID 1：镜像。</li>
+<li>RAID 4：通过奇偶校验节省空间，从而克服由镜像系统付出的巨大空间损失。不过，这样做的代价是性能。</li>
+<li>RAID 5：旋转奇偶检验。</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="文件和目录">文件和目录</h1>
+<p>操作系统如何管理持久存储设备？</p>
+<br/>
+<br/>
+<h2 id="文件和目录详情">文件和目录详情</h2>
+<p>存储虚拟化有两个关键的抽象：</p>
+<ul>
+<li>文件（file）</li>
+<li>目录（directory）</li>
+</ul>
+<p>文件就是一个线性字节数组，每个字节都可以读写。每个文件都有某种低级名称，通常是某种数字。由于历史原因，通常称为 inode number。</p>
+<p>目录也有一个低级名字，但它的内容非常具体：包括一个对的列表。目录中的每个条目都指向文件或其它目录。</p>
+<p>目录的层次结构从根目录开始，并使用某种分隔符来命名后续子目录和文件。</p>
+<br/>
+<br/>
+<h2 id="文件系统接口">文件系统接口</h2>
+<br/>
+<br/>
+<h2 id="创建文件">创建文件</h2>
+<p>创建一个文件，通过 <code>open()</code> 系统调用文件。</p>
+<p>它的返回值是文件描述符（file descriptor），是一个整数，每个进程私有的，在 Unix 中用于访问文件。一旦文件被打开，就可以使用文件描述符来读写文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;foo&#34;</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_TRUNC</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="读写文件">读写文件</h2>
+<p><code>cat</code> 程序如何访问文件？可以使用 <code>strace</code> 工具来追踪程序运行时所做的系统调用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">strace cat foo
+...
+<span class="c1"># 打开文件</span>
+open<span class="o">(</span><span class="s2">&#34;foo&#34;</span>, O_RDONLY<span class="p">|</span>O_LARGEFILE<span class="o">)</span> <span class="o">=</span> <span class="m">3</span>
+<span class="c1"># 读取文件</span>
+read<span class="o">(</span>3, <span class="s2">&#34;hello\n&#34;</span>, 4096<span class="o">)</span> <span class="o">=</span> <span class="m">6</span>
+<span class="c1"># 写入标准输出</span>
+write<span class="o">(</span>1, <span class="s2">&#34;hello\n&#34;</span>, 6<span class="o">)</span> <span class="o">=</span> <span class="m">6</span>
+hello
+<span class="c1"># 已经读取了整个文件</span>
+read<span class="o">(</span>3, <span class="s2">&#34;&#34;</span>, 4096<span class="o">)</span> <span class="o">=</span> <span class="m">0</span>
+<span class="c1"># 关闭文件</span>
+close<span class="o">(</span>3<span class="o">)</span> <span class="o">=</span> <span class="m">0</span>
+close<span class="o">(</span>1<span class="o">)</span> <span class="o">=</span> <span class="m">0</span>
+close<span class="o">(</span>2<span class="o">)</span> <span class="o">=</span> <span class="m">0</span>
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>为什么返回的文件描述符是 3，而不是 0 或 1？事实证明，每个正在运行的进程已经打开了 3 个文件：标准输入（stdin），标准输出（stdout），以及标准错误（stderr），分别由 0, 1, 2 表示。因此，当你打开一个文件时，它几乎肯定是文件描述符 3.</p>
+<br/>
+<br/>
+<h2 id="随机的读取和写入">随机的读取和写入</h2>
+<p>顺序的读写文件：从头到尾。</p>
+<p>但有时需要通过文件中的特定偏移来读写文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// lseek() 系统调用
+</span><span class="c1"></span><span class="n">off_t</span> <span class="nf">lseek</span><span class="p">(</span><span class="kt">int</span> <span class="n">fildes</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">whence</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="用fsync立即写入">用fsync立即写入</h2>
+<p>大多数情况下，当程序调用 <code>write()</code> 时，只是告诉文件系统：请在将来的某个时刻，将此数据写入持久存储。出于性能的原因，文件系统会将这些写入在内存中缓冲（buffer）一段时间。在稍后的时间点，写入将实际发送到存储设备。从调用应用程序的角度来看，写入似乎很快完成，并且只有在极少数情况下数据会丢失。</p>
+<p>但有些程序可能需要能够强制写入磁盘。Unix 中提供了 <code>fsync()</code> 接口，文件系统通过强制将所有脏（dirty）数据（即尚未写入的）写入磁盘来响应。</p>
+<br/>
+<br/>
+<h2 id="文件重命名">文件重命名</h2>
+<p><code>mv</code> 命令使用了 <code>rename(char * old, char * new)</code> 系统调用，它是一个原子调用。</p>
+<br/>
+<br/>
+<h2 id="获取文件信息">获取文件信息</h2>
+<p>文件元数据（metadata），可使用 <code>stat()</code> 或 <code>fstat()</code> 系统调用。</p>
+<br/>
+<br/>
+<h2 id="删除文件">删除文件</h2>
+<p><code>rm</code> 命令使用了 <code>unlink()</code> 系统调用。</p>
+<p>为什么系统调用名为 unlink，而不是 remove 或 delete？</p>
+<br/>
+<br/>
+<h2 id="创建目录">创建目录</h2>
+<p><code>mdkir</code> 命令使用 <code>mkdir()</code> 系统调用。</p>
+<p>创建的空目录，包含两个条目：</p>
+<ul>
+<li>一个引用自身的条目（.）</li>
+<li>一个引用其父目录的条目（..）</li>
+</ul>
+<br/>
+<br/>
+<h2 id="读取目录">读取目录</h2>
+<p>使用了 <code>opendir()</code>, <code>readdir()</code> 和 <code>closedir()</code> 这 3 个调用。</p>
+<br/>
+<br/>
+<h2 id="删除目录">删除目录</h2>
+<p>调用 <code>rmdir()</code>。</p>
+<br/>
+<br/>
+<h2 id="硬链接">硬链接</h2>
+<p>文件系统树中创建条目通过 <code>link()</code> 系统调用。</p>
+<p>link 只是在创建链接的目录中创建了另一个名称，并将其指向原有文件的相同 inode 号。可通过 <code>ls -i</code> 查看。</p>
+<p>现在，你可能已经明白 <code>unlink()</code> 名称的由来。创建一个文件时，实际上做了两件事。首先，创建一个 inode，它跟踪几乎所有关于文件的信息。其次，将人类可读的名称链接到该文件，并将该链接放入目录中。</p>
+<p>因此，为了从文件系统删除一个文件，调用 <code>unlink()</code>，会删除人类可读的名称与给定 inode 号之间的链接，并减少引用次数。</p>
+<p>当文件系统取消链接文件时，它检查 inode 号中的引用次数。该引用次数允许文件系统跟踪有多少不同的文件名已链接到这个 inode。</p>
+<p>可以使用 <code>stat()</code> 来查看文件的引用计数。</p>
+<br/>
+<br/>
+<h2 id="符号链接">符号链接</h2>
+<p>符号链接（symbolic link）又称为软链接（soft link）。</p>
+<p>不能创建目录的硬链接（因为担心会在目录树中创建一个环）。不能硬链接到其它磁盘分区中的文件（因为 inode 号在特定文件系统中是唯一的，而不是跨文件系统）。</p>
+<p>符号链接与硬链接完全不同。</p>
+<ul>
+<li>符号链接本身实际上是一个不同类型的文件。</li>
+<li>可以看到符号链接的大小和指向的内容。</li>
+<li>符号链接有可能造成悬空引用（dangling reference）。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="创建并挂载文件系统">创建并挂载文件系统</h2>
+<p>如何从许多底层文件系统组件完整的目录树？实现是先制作文件系统，然后挂载它们，使其内容可以访问。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="文件系统实现">文件系统实现</h1>
+<p>文件系统是纯软件。</p>
+<ul>
+<li>文件系统的数据结构：文件系统在磁盘上使用哪些类型的结构来组织其数据和元数据。</li>
+<li>文件系统的访问方法：如何将进程发出的调用，映射到它的结构上？在执行特定系统调用期间读取哪些结构？改写哪些结构？执行效率如何？</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="局部性和快速文件系统">局部性和快速文件系统</h1></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -1331,13 +1597,13 @@
                             <a class="link-to-markdown" href="/ostep/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/ostep/" data-title="操作系统导论" data-hashtags="OperatingSystem,Guide"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/ostep/" data-title="操作系统导论"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/ostep/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/ostep/" data-title="操作系统导论"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/ostep/" data-title="操作系统导论"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/ostep/" data-title="操作系统导论" data-hashtags="CS"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/ostep/" data-title="操作系统导论"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/ostep/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/ostep/" data-title="操作系统导论"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/ostep/" data-title="操作系统导论"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/operatingsystem/">OperatingSystem</a>,&nbsp;<a href="/tags/guide/">Guide</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/cs/">cs</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
@@ -1351,7 +1617,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

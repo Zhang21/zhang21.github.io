@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ansistrano - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/ansistrano/</link>
+        <description>ansistrano - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Mar 2025 16:09:28 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/tags/ansistrano/" rel="self" type="application/rss+xml" /><item>
+    <title>Ansistrano</title>
+    <link>https://zhang21.cn/ansistrano/</link>
+    <pubDate>Sun, 16 Mar 2025 16:09:28 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/ansistrano/</guid>
+    <description><![CDATA[<p>Ansistrano 部署和回滚工具，基于 ansible。</p>
+<br/>]]></description>
+</item>
+</channel>
+</rss>

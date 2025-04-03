@@ -1,21 +1,25 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>SQL - 标签 - 风继续吹</title>
+        <title>sql - 标签 - 风继续吹</title>
         <link>https://zhang21.cn/tags/sql/</link>
-        <description>SQL - 标签 - 风继续吹</description>
+        <description>sql - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 17 Mar 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/sql/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 20 Jun 2024 16:37:20 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/tags/sql/" rel="self" type="application/rss+xml" /><item>
+    <title>高性能MySQL</title>
+    <link>https://zhang21.cn/hp-mysql/</link>
+    <pubDate>Thu, 20 Jun 2024 16:37:20 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/hp-mysql/</guid>
+    <description><![CDATA[<p>高性能 MySQL 一书笔记。</p>
+<br/>]]></description>
+</item>
+<item>
     <title>PostgreSQL</title>
     <link>https://zhang21.cn/postgresql/</link>
     <pubDate>Sun, 17 Mar 2024 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/postgresql/</guid>
-    <description><![CDATA[<p>参考：</p>
-<ul>
-<li><a href="http://www.postgres.cn/docs/14/" target="_blank" rel="noopener noreffer ">PG14 中文文档</a></li>
-<li><a href="https://www.postgresql.org/docs/current/index.html" target="_blank" rel="noopener noreffer ">PG Docs</a></li>
-</ul>
-<br/>]]></description>
+    <description><![CDATA[<p>PGSQL 文档笔记。</p>]]></description>
 </item>
 <item>
     <title>MySQL</title>

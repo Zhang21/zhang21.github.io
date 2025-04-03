@@ -4,7 +4,47 @@
         <link>https://zhang21.cn/categories/programming/</link>
         <description>programming - 分类 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 28 Feb 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/programming/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 30 Mar 2025 17:09:11 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/programming/" rel="self" type="application/rss+xml" /><item>
+    <title>整洁代码的艺术</title>
+    <link>https://zhang21.cn/clean-code/</link>
+    <pubDate>Sun, 30 Mar 2025 17:09:11 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/clean-code/</guid>
+    <description><![CDATA[<p>整洁代码的艺术的笔记。少即是多！</p>]]></description>
+</item>
+<item>
+    <title>数据结构和算法</title>
+    <link>https://zhang21.cn/datastructure-algorithm/</link>
+    <pubDate>Sun, 01 Dec 2024 15:14:26 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/datastructure-algorithm/</guid>
+    <description><![CDATA[<p>熟悉常见的数据结构和算法。</p>]]></description>
+</item>
+<item>
+    <title>代码大全</title>
+    <link>https://zhang21.cn/code-complete/</link>
+    <pubDate>Sat, 26 Oct 2024 16:54:05 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/code-complete/</guid>
+    <description><![CDATA[<p>代码大全2 一书笔记。</p>]]></description>
+</item>
+<item>
+    <title>Java核心技术</title>
+    <link>https://zhang21.cn/java_core/</link>
+    <pubDate>Sun, 28 Jan 2024 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/java_core/</guid>
+    <description><![CDATA[<p>Java 核心技术笔记。</p>]]></description>
+</item>
+<item>
+    <title>Lua语言</title>
+    <link>https://zhang21.cn/lua/</link>
+    <pubDate>Sun, 29 Oct 2023 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/lua/</guid>
+    <description><![CDATA[<p>Lua 文档笔记。</p>]]></description>
+</item>
+<item>
     <title>JavaScript权威指南</title>
     <link>https://zhang21.cn/javascript-the-definitive-guide/</link>
     <pubDate>Tue, 28 Feb 2023 00:00:00 &#43;0000</pubDate>
@@ -93,101 +133,6 @@
 </ul>
 <br/>
 <hr>]]></description>
-</item>
-<item>
-    <title>HTML和CSS</title>
-    <link>https://zhang21.cn/htmlcss/</link>
-    <pubDate>Fri, 11 Oct 2019 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/htmlcss/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>Head First HTML and CSS</li>
-<li><a href="https://www.w3school.com.cn/" target="_blank" rel="noopener noreffer ">w3cSchool</a></li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>Django</title>
-    <link>https://zhang21.cn/django/</link>
-    <pubDate>Wed, 25 Sep 2019 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/django/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>docs: <a href="https://docs.djangoproject.com/zh-hans/2.1/topics/">https://docs.djangoproject.com/zh-hans/2.1/topics/</a></li>
-</ul>
-<br>
-<p>版本:</p>
-<ul>
-<li>Django Version: v2.1</li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>Bootstrap</title>
-    <link>https://zhang21.cn/bootstrap/</link>
-    <pubDate>Tue, 18 Sep 2018 11:11:12 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/bootstrap/</guid>
-    <description><![CDATA[<p>参考：</p>
-<ul>
-<li>Bootstrap中文文档: <a href="https://v3.bootcss.com/">https://v3.bootcss.com/</a></li>
-</ul>
-<p>环境：</p>
-<ul>
-<li>CentOS7x86_64</li>
-<li>Bootstrap v3</li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>Python</title>
-    <link>https://zhang21.cn/python/</link>
-    <pubDate>Sun, 06 May 2018 16:11:16 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/python/</guid>
-    <description><![CDATA[<p>环境:</p>
-<ul>
-<li>rhel7</li>
-<li>Python3</li>
-</ul>
-<p>参考:</p>
-<ul>
-<li>Python教程: <a href="https://docs.python.org/3.5/tutorial/index.html">https://docs.python.org/3.5/tutorial/index.html</a></li>
-<li>Python术语: <a href="https://docs.python.org/3.5/glossary.html">https://docs.python.org/3.5/glossary.html</a></li>
-<li>Python语言参考: <a href="https://docs.python.org/3.5/reference/index.html">https://docs.python.org/3.5/reference/index.html</a></li>
-<li>Python HOWTOs: <a href="https://docs.python.org/3.5/howto/index.html">https://docs.python.org/3.5/howto/index.html</a></li>
-<li>Python标准库: <a href="https://docs.python.org/3.5/library/">https://docs.python.org/3.5/library/</a></li>
-<li>PyPI: <a href="https://pypi.org/">https://pypi.org/</a></li>
-<li>Awesome-Python
-<ul>
-<li><a href="https://github.com/vinta/awesome-python">https://github.com/vinta/awesome-python</a></li>
-<li><a href="https://github.com/jobbole/awesome-python-cn">https://github.com/jobbole/awesome-python-cn</a></li>
-</ul>
-</li>
-</ul>
-<br>
-<br/>
-<hr>]]></description>
-</item>
-<item>
-    <title>数据结构</title>
-    <link>https://zhang21.cn/datastructrue/</link>
-    <pubDate>Mon, 11 Dec 2017 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/datastructrue/</guid>
-    <description><![CDATA[<h1 id="数据结构">数据结构</h1>
-<p>在计算机科学中，<strong>数据结构(data structure)</strong> 是计算机中存储、组织数据的方式。
-大多数数据结构都有数列、记录、可辨识联合、引用等基本类型构成。</p>
-<p>数据结构意味着结构和封装，一个数据结构可被视为两个函数之间的接口，或是由数据类型联合组成的存储内容的访问方法和封装。
-数据结构可通过程序语言所提供的数据类型、引用及其它操作加以实现。不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计。
-一个涉及良好的数据结构，应该尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。</p>
-<p>正确选择数据结构可以提高算法的效率，在计算机程序设计里，选择适当的数据结构是一项重要工作。</p>
-<br/>]]></description>
 </item>
 </channel>
 </rss>

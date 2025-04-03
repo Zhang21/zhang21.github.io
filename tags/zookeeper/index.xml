@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Zookeeper - 标签 - 风继续吹</title>
+        <title>zookeeper - 标签 - 风继续吹</title>
         <link>https://zhang21.cn/tags/zookeeper/</link>
-        <description>Zookeeper - 标签 - 风继续吹</description>
+        <description>zookeeper - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
             <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 15 Mar 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/zookeeper/" rel="self" type="application/rss+xml" /><item>
     <title>ZooKeeper</title>

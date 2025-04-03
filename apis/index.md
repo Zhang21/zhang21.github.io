@@ -1,16 +1,15 @@
 # API相关范式
 
 
+<!--more-->
+
+---
+
 参考：
 
 - [REST API](https://restfulapi.net/)
 
 <br/>
-
-<!--more-->
-
----
-
 <br/>
 
 # 介绍

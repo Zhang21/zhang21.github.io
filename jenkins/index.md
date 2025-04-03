@@ -1,16 +1,20 @@
 # Jenkins
 
 
+Jenkins 学习笔记。
+
+<!--more-->
+
+<br/>
+
 参考:
 
-- [jenkins文档](https://www.jenkins.io/zh/doc/)
-
+- [Jenkins 文档](https://www.jenkins.io/zh/doc/)
+- [Jenkins 指南](https://www.tpointtech.com/jenkins)
 
 <br/>
 
 ---
-
-<!--more-->
 
 <br/>
 
@@ -20,26 +24,13 @@ Jenkins是一款开源的CICD软件，用于自动化各种任务。
 
 Jenkins有很多插件，可以帮助完成许多工作。
 
-
 <br/>
-
 
 ## 入门指南
 
-准备工作:
-
-- 机器要求
-  - 内存512MB+
-  - 磁盘10GB+
-- 软件要求
-  - Java8
-  - Docker
-
-<br/>
-
 下载并运行jenkins:
 
-```
+```sh
 mkdir /opt/jenkins
 cd /opt/jenkins
 wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
@@ -47,10 +38,8 @@ wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
 java -jar jenkins.war --httpPort=8080
 ```
 
-
 <br/>
 <br/>
-
 
 ## 创建第一个流水线
 
@@ -82,10 +71,8 @@ pipeline {
 }
 ```
 
-
 <br/>
 <br/>
-
 
 ## 执行多个步骤
 
@@ -167,10 +154,8 @@ pipeline {
 }
 ```
 
-
 <br/>
 <br/>
-
 
 ## 定义执行环境
 
@@ -193,10 +178,8 @@ pipeline {
 }
 ```
 
-
 <br/>
 <br/>
-
 
 ## 使用环境变量
 
@@ -213,10 +196,8 @@ pipeline {
 }
 ```
 
-
 <br/>
 <br/>
-
 
 ## 记录测试和构建结果
 
@@ -242,19 +223,15 @@ pipeline {
 }
 ```
 
-
 <br/>
 <br/>
-
 
 ## 清理和通知
 
 在`post`部分添加通知、清理或其它步骤。
 
-
 <br/>
 <br/>
-
 
 ## 部署
 
@@ -287,17 +264,11 @@ pipeline {
 }
 ```
 
-
-
-
 <br/>
 
 ---
 
 <br/>
-
-
-
 
 # 用户手册
 

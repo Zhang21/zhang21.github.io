@@ -5,7 +5,7 @@
         <description>redhat - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
             <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/redhat/" rel="self" type="application/rss+xml" /><item>
-    <title>RHEL7-安全手册</title>
+    <title>RHEL7安全手册</title>
     <link>https://zhang21.cn/rhel7-security-guide/</link>
     <pubDate>Sun, 18 Jun 2023 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>

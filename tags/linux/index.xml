@@ -4,8 +4,26 @@
         <link>https://zhang21.cn/tags/linux/</link>
         <description>linux - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/linux/" rel="self" type="application/rss+xml" /><item>
-    <title>RHEL7-安全手册</title>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 16 Aug 2024 15:59:13 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>Shell配置文件加载流程</title>
+    <link>https://zhang21.cn/shell-profile/</link>
+    <pubDate>Fri, 16 Aug 2024 15:59:13 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/shell-profile/</guid>
+    <description><![CDATA[<p>Linux 操作系统登录 Shell 时会加载哪些配置文件，它们的顺序和作用是什么。</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>性能之巅</title>
+    <link>https://zhang21.cn/systems-performance/</link>
+    <pubDate>Sun, 11 Aug 2024 10:08:24 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/systems-performance/</guid>
+    <description><![CDATA[<p>性能之巅一书的笔记。</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>RHEL7安全手册</title>
     <link>https://zhang21.cn/rhel7-security-guide/</link>
     <pubDate>Sun, 18 Jun 2023 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
@@ -109,19 +127,13 @@
 <br/>]]></description>
 </item>
 <item>
-    <title>Shell</title>
-    <link>https://zhang21.cn/linuxshell/</link>
+    <title>Linux使用总结</title>
+    <link>https://zhang21.cn/linux-faq/</link>
     <pubDate>Tue, 24 Oct 2017 18:16:38 &#43;0000</pubDate>
     <author>Zhang21</author>
-    <guid>https://zhang21.cn/linuxshell/</guid>
-    <description><![CDATA[<p>参考：</p>
-<ul>
-<li><a href="https://book.douban.com/subject/25791952/" target="_blank" rel="noopener noreffer ">Linux Shell脚本攻略</a></li>
-<li><a href="https://linux.vbird.org/" target="_blank" rel="noopener noreffer ">鸟哥的 Linux 私房菜</a></li>
-<li><a href="https://github.com/wklken/k-vim%3e" target="_blank" rel="noopener noreffer ">k-vim</a></li>
-</ul>
-<br/>
-<hr>]]></description>
+    <guid>https://zhang21.cn/linux-faq/</guid>
+    <description><![CDATA[<p>Linux 使用笔记</p>
+<br/>]]></description>
 </item>
 </channel>
 </rss>

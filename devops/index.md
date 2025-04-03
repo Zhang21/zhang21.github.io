@@ -1,53 +1,35 @@
 # DevOps
 
 
+DevOps 相关知识。
+
+<!--more-->
 
 参考:
 
-- 维基百科
-- GitLab
-- GitHub
+- [DevOps 指南](https://www.tpointtech.com/devops)
 
-
-
-<br/>
 <br/>
 
 ---
 
-<!--more-->
-
 <br/>
-<br/>
-
-
-
 
 # 介绍
 
-
-**DevOps**（Development和Operations的组合词）是一种重视 *软件开发人员（Dev）* 和 *IT运维技术人员（Ops）* 之间沟通合作的文化、运动或惯例。透过自动化 *软件交付* 和 *架构变更* 的流程，来使得构建、测试、发布软件能够更加地快捷、频繁和可靠。
+**DevOps** 是一种重视 *软件开发人员（Dev）* 和 *IT运维技术人员（Ops）* 之间沟通合作的文化、运动或惯例。透过自动化 *软件交付* 和 *架构变更* 的流程，来使得构建、测试、发布软件能够更加地快捷、频繁和可靠。
 
 ![](/images/DevOps/DevOps.png)
 
 ![](/images/DevOps/devops-loop-and-spans-small.png)
 
-
-
-
-<br/>
 <br/>
 
 ---
 
 <br/>
-<br/>
-
-
-
 
 # Auto DevOps
-
 
 GitLab Auto DevOps:
 
@@ -64,28 +46,17 @@ GitLab Auto DevOps:
 - Auto Browser Performance Testing
 - Auto Monitoring
 
-
-
-
-<br/>
 <br/>
 
 ---
 
 <br/>
-<br/>
-
-
-
 
 # DevOps工具
 
-
 下面介绍一些DevOps需要用到的工具，可能不够详细。
 
-
 <br/>
-
 
 ## 基础环境
 

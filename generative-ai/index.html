@@ -5,13 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>生成式人工智能 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="生成式人工智能" />
-<meta property="og:description" content="参考：
-
-generative-ai-for-beginners
-github repo
-
-
-" />
+<meta property="og:description" content="微软生成式人工智能课程的笔记。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhang21.cn/generative-ai/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-05-19T00:00:00&#43;00:00" />
@@ -21,17 +15,11 @@ github repo
 <meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
 
 <meta name="twitter:title" content="生成式人工智能"/>
-<meta name="twitter:description" content="参考：
-
-generative-ai-for-beginners
-github repo
-
-
-"/>
+<meta name="twitter:description" content="微软生成式人工智能课程的笔记。"/>
 <meta name="application-name" content="风继续吹">
 <meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/generative-ai/" /><link rel="prev" href="https://zhang21.cn/ai-for-beginners/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/generative-ai/" /><link rel="prev" href="https://zhang21.cn/ai-for-beginners/" /><link rel="next" href="https://zhang21.cn/hp-mysql/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -47,7 +35,7 @@ github repo
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "AI","wordcount":  5903 ,
+                        }],"genre": "posts","keywords": "AI","wordcount":  10384 ,
         "url": "https:\/\/zhang21.cn\/generative-ai\/","datePublished": "2024-05-19T00:00:00+00:00","dateModified": "2024-05-19T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -121,8 +109,8 @@ github repo
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">生成式人工智能</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>AI</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-05-19">2024-05-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5903 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-05-19">2024-05-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 10384 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 21 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -189,17 +177,107 @@ github repo
           </ul>
         </li>
         <li><a href="#为什么需要提示工程">为什么需要提示工程</a></li>
+        <li><a href="#提示工程案例">提示工程案例</a></li>
+        <li><a href="#提示语建设">提示语建设</a>
+          <ul>
+            <li><a href="#基本提示">基本提示</a></li>
+            <li><a href="#复杂提示">复杂提示</a></li>
+            <li><a href="#指令提示">指令提示</a></li>
+          </ul>
+        </li>
+        <li><a href="#主要内容">主要内容</a>
+          <ul>
+            <li><a href="#举例说明">举例说明</a></li>
+            <li><a href="#提示线索">提示线索</a></li>
+            <li><a href="#提示模板">提示模板</a></li>
+          </ul>
+        </li>
+        <li><a href="#辅助内容">辅助内容</a></li>
+        <li><a href="#提示最佳实践">提示最佳实践</a>
+          <ul>
+            <li><a href="#提示工程思维">提示工程思维</a></li>
+            <li><a href="#业内人员推荐的最佳实践">业内人员推荐的最佳实践</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#创建高级提示工程">创建高级提示工程</a>
+      <ul>
+        <li><a href="#提示工程">提示工程</a>
+          <ul>
+            <li><a href="#提示技巧">提示技巧</a>
+              <ul>
+                <li><a href="#零样本提示">零样本提示</a></li>
+                <li><a href="#少样本提示">少样本提示</a></li>
+                <li><a href="#思维链">思维链</a></li>
+                <li><a href="#生成的知识">生成的知识</a></li>
+                <li><a href="#从少的多">从少的多</a></li>
+                <li><a href="#自我完善">自我完善</a></li>
+                <li><a href="#多维度的提示">多维度的提示</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#改变你的数据">改变你的数据</a>
+          <ul>
+            <li><a href="#利用温度来改变输出">利用温度来改变输出</a></li>
+          </ul>
+        </li>
+        <li><a href="#高级提示的最佳实践">高级提示的最佳实践</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建文本生成应用">创建文本生成应用</a>
+      <ul>
+        <li><a href="#什么是文本生成应用">什么是文本生成应用</a></li>
+        <li><a href="#如何入门">如何入门</a></li>
+        <li><a href="#第一个-openai-应用">第一个 openai 应用</a></li>
+        <li><a href="#改进应用">改进应用</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建聊天应用">创建聊天应用</a></li>
+    <li><a href="#创建搜索应用">创建搜索应用</a>
+      <ul>
+        <li><a href="#什么是语义搜索">什么是语义搜索</a></li>
+        <li><a href="#什么是文本嵌入">什么是文本嵌入</a></li>
+        <li><a href="#嵌入索引是是如何创建的">嵌入索引是是如何创建的</a>
+          <ul>
+            <li><a href="#向量数据库">向量数据库</a></li>
+          </ul>
+        </li>
+        <li><a href="#理解余弦相似度">理解余弦相似度</a>
+          <ul>
+            <li><a href="#什么是余弦相似度">什么是余弦相似度</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#创建图像生成应用">创建图像生成应用</a>
+      <ul>
+        <li><a href="#dall-e和midjourney">DALL-E和Midjourney</a>
+          <ul>
+            <li><a href="#dall-e">DALL-E</a></li>
+            <li><a href="#midjourney">Midjourney</a></li>
+            <li><a href="#dall-e和midjourney如何运作">DALL-E和Midjourney如何运作</a></li>
+          </ul>
+        </li>
+        <li><a href="#构建第一个图像生成应用程序">构建第一个图像生成应用程序</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建低代码的人工智能应用">创建低代码的人工智能应用</a>
+      <ul>
+        <li><a href="#power-platform">Power Platform</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>参考：</p>
+            </div><div class="content" id="content"><p>微软生成式人工智能课程的笔记。</p>
+<hr>
+<p>参考：</p>
 <ul>
 <li><a href="https://microsoft.github.io/generative-ai-for-beginners" target="_blank" rel="noopener noreffer ">generative-ai-for-beginners</a></li>
 <li><a href="https://github.com/Microsoft/generative-ai-for-beginners" target="_blank" rel="noopener noreffer ">github repo</a></li>
 </ul>
 <br/>
-<hr>
 <br/>
 <h1 id="概述">概述</h1>
 <p><img
@@ -576,7 +654,515 @@ github repo
 <p>这种方法使用了 <strong>带人类反馈的强化学习</strong>（RLHF, Reinforcement Learning with Human Feedback）等技术，可以训练模型遵从指令并从反馈中学习，从而做出更适合的响应。</p>
 <br/>
 <br/>
-<h2 id="为什么需要提示工程">为什么需要提示工程</h2></div><div class="post-footer" id="post-footer">
+<h2 id="为什么需要提示工程">为什么需要提示工程</h2>
+<p>如果不在提示构建和优化方面下功夫，就很难实现可靠和一致性的完成。例如：</p>
+<ul>
+<li><strong>模型的响应是随机的</strong>。同样的提示在不同的模型和模型版本上可能会产生不同的响应。提示工程能最大限度地减小响应的误差。</li>
+<li><strong>模型可以编造响应</strong>。模型使用大量但有限的数据集预先训练出来的，这意味着它们缺乏训练范围之外的知识。因此，它们可能产生不准确、虚构或与事实相矛盾的完成。提示工程可以帮助识别并减少此类编造。</li>
+<li><strong>模型的功能各有差异</strong>。较新的模型将具有更丰富的功能，但也会带来独特的怪癖，并在成本和复杂性方面进行权衡。提示工程可帮助开发最佳实践和工作流程，以抽象化的方式消除差异，并以可扩展的无缝方式适应特定模型的要求。</li>
+</ul>
+<br/>
+<p>编造（fabrication）。</p>
+<p>提示 AI 为一个不存在的话题生成内容（确保在训练集中找不到这个主题），来了解编造是如何工作的。</p>
+<blockquote>
+<p>Prompt: generate a lesson plan on the Martian War of 2076.</p>
+</blockquote>
+<p>可以在不同的 LLM 中查看效果。</p>
+<br/>
+<br/>
+<h2 id="提示工程案例">提示工程案例</h2>
+<p>通过一个案例研究来了解提示工程在实际解决方案中的应用：GitHub Copilot。</p>
+<br/>
+<br/>
+<h2 id="提示语建设">提示语建设</h2>
+<p>了解提示语是如何构建的，以便评估不同的技术，从而更有效地设计提示语。</p>
+<br/>
+<br/>
+<h3 id="基本提示">基本提示</h3>
+<p>最基本的提示（basic prompt）：向模型发送一个没有其他上下文的文本输入。</p>
+<p>下面是一个例子，输入美国国歌的前几个词语，它生成了后面的内容。</p>
+<table>
+<thead>
+<tr>
+<th>Prompt(Input)</th>
+<th>Compeletion(output)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oh you can see</td>
+<td>It sounds like you&rsquo;re starting the lyrics to &ldquo;The Star-Spangled Banner,&rdquo; the national anthem of the United States. The full lyrics are &hellip;</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h3 id="复杂提示">复杂提示</h3>
+<p>复杂提示（complex prompt）：增加了上下文和说明的基本提示。</p>
+<br/>
+<br/>
+<h3 id="指令提示">指令提示</h3>
+<p>指令请求（instruction prompt），可以使用文本更详细地说明任务，为 AI 提供更好的指导。示例如下：</p>
+<table>
+<thead>
+<tr>
+<th>Prompt(Input)</th>
+<th>Completion(Output)</th>
+<th>Instruction Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Write a description of the Civil War</td>
+<td>returned a simple paragraph</td>
+<td>Simple</td>
+</tr>
+<tr>
+<td>Write a description of the Civil War. Provide key dates and events and describe their significance</td>
+<td>returned a paragraph followed by a list of key event dates with descriptions</td>
+<td>Complex</td>
+</tr>
+<tr>
+<td>Write a description of the Civil War in 1 paragraph. Provide 3 bullet points with key dates and their significance. Provide 3 more bullet points with key historical figures and their contributions. Return the output as a JSON file</td>
+<td>returns more extensive details in a text box, formatted as JSON that you can copy-paste to a file and validate as needed</td>
+<td>Complex. Formatted</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h2 id="主要内容">主要内容</h2>
+<p>上面的示例，提示语仍然具有相当的开放性，允许 LLM 决定其预训练数据集中哪些部分是相关的。在 <strong>主要内容（primary content）</strong> 设计模式中，输入文本被分为两部分：</p>
+<ul>
+<li>指令（动作）</li>
+<li>相关内容（影响动作）</li>
+</ul>
+<p>一个例子，指令是 “用两句话概括”。</p>
+<table>
+<thead>
+<tr>
+<th>Prompt(Input)</th>
+<th>Completion(Output)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass one-thousandth that of the Sun, but two-and-a-half times that of all the other planets in the Solar System combined. Jupiter is one of the brightest objects visible to the naked eye in the night sky, and has been known to ancient civilizations since before recorded history. It is named after the Roman god Jupiter.[19] When viewed from Earth, Jupiter can be bright enough for its reflected light to cast visible shadows,[20] and is on average the third-brightest natural object in the night sky after the Moon and Venus.</td>
+<td>Jupiter, the fifth planet from the Sun, is the largest in the Solar System and is known for being one of the brightest objects in the night sky. Named after the Roman god Jupiter, it&rsquo;s a gas giant whose mass is two-and-a-half times that of all other planets in the Solar System combined.</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<p>主要内容分段可以通过各种方式来推动更有效的指令：</p>
+<ul>
+<li><strong>举例说明</strong>：与其用明确的指令告诉模型该怎么做，不如举例说明，让模型去推断模式。</li>
+<li><strong>提示线索</strong>：在指令后面加一个提示，为完成指令打下基础，引导模型做出更相关的反应。</li>
+<li><strong>模板</strong>：可重复的提示，可针对特定用例使用数据进行定制。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="举例说明">举例说明</h3>
+<p>此方法是使用主要内容向模型投喂一些特定指令所需要输出示例，然后让模型推断出所需的输出模式。根据所提供示例的数量，有零样本提示、单样本提示和小样本提示。</p>
+<p>提示现在由三部分组成：</p>
+<ul>
+<li>任务描述</li>
+<li>几个所需的输出示例</li>
+<li>新示例的开始</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Learning Type</th>
+<th>Prompt(Input)</th>
+<th>Completion(Output)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero-shot</td>
+<td>&ldquo;The Sun is Shining&rdquo;. Translate to Spanish</td>
+<td>&ldquo;El Sol está brillando&rdquo;</td>
+</tr>
+<tr>
+<td>One-shot</td>
+<td>&ldquo;The Sun is Shining&rdquo; =&gt; &ldquo;&ldquo;El Sol está brillando&rdquo; <br> &ldquo;It&rsquo;s a Cold and Windy Day&rdquo; =&gt;</td>
+<td>&ldquo;It&rsquo;s a Cold and Windy Day&rdquo; =&gt;</td>
+</tr>
+<tr>
+<td>Few-shot</td>
+<td>The player ran the bases =&gt; Baseball <br/> The player hit an ace =&gt; Tennis <br/> The player hit a six =&gt; Cricket <br/> The player made a slam-dunk =&gt;</td>
+<td>Basketball</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h3 id="提示线索">提示线索</h3>
+<p>使用主要内容的另一种技巧是提供提示（cues）而不是示例。着这种情况下，用一个反映所需的格式的片段来启动模型，从而在正确的方向上给它一个提示。然后，模型就会接受提示，并继续沿着这个方向前进。</p>
+<table>
+<thead>
+<tr>
+<th>提示线索</th>
+<th>Prompt(Input)</th>
+<th>Completion(Output)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass one-thousandth that of the Sun, but two-and-a-half times that of all the other planets in the Solar System combined. Jupiter is one of the brightest objects visible to the naked eye in the night sky, and has been known to ancient civilizations since before recorded history. <br> Summarize This</td>
+<td>Jupiter is the largest planet in our Solar System and the fifth one from the Sun. It is a gas giant with a mass 1/1000th of the Sun&rsquo;s, but it is heavier than all the other planets combined. Ancient civilizations have known about Jupiter for a long time, and it is easily visible in the night sky..</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass one-thousandth that of the Sun, but two-and-a-half times that of all the other planets in the Solar System combined. Jupiter is one of the brightest objects visible to the naked eye in the night sky, and has been known to ancient civilizations since before recorded history. <br> Summarize This <br> What we learned is that Jupiter</td>
+<td>is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass one-thousandth that of the Sun, but two-and-a-half times that of all the other planets combined. It is easily visible to the naked eye and has been known since ancient times.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass one-thousandth that of the Sun, but two-and-a-half times that of all the other planets in the Solar System combined. Jupiter is one of the brightest objects visible to the naked eye in the night sky, and has been known to ancient civilizations since before recorded history. <br> Summarize This <br> Top 3 Facts We Learned</td>
+<td>1. Jupiter is the fifth planet from the Sun and the largest in the Solar System. <br> 2. It is a gas giant with a mass one-thousandth that of the Sun&hellip; <br> 3. Jupiter has been visible to the naked eye since ancient times &hellip;</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h3 id="提示模板">提示模板</h3>
+<p>提示模板是一个预定义的提示，可根据需要存储和重复使用。它的最简单形式就是一个提示示例的集合，以支持重复使用。</p>
+<p>在更复杂的形式中，模板包含的占位符可以用各种来源的数据替换。这样，我们就可以创建一个可重复使用的提示库，用于以编程方式大规模驱动一致的用户体验。</p>
+<br/>
+<br/>
+<h2 id="辅助内容">辅助内容</h2>
+<p>如果把提示构建看作是有一个指令（任务）和一个目标（主要内容），那么次要内容就像是提供的额外上下文，以某种方式影响输出。它可以是调整参数、格式化说明、主题分类法等，可以帮助模型调整响应，以适应用户的期望。</p>
+<p>例如给定一个课程目录，其中包含课程可用的大量元数据（名称、描述、级别、标签、老师等）：</p>
+<ul>
+<li>可以定义一条摘要课程目录的指令</li>
+<li>可以使用主要内容提供一些期望输出的示例</li>
+<li>可以使用次要内容来确定前 5个感兴趣的标签</li>
+</ul>
+<p>现在，该模型可以按照示例所示格式提供摘要。但如果一个结果有多个标签，它可以优先处理次要内容中确定的 5个标签。</p>
+<br/>
+<br/>
+<h2 id="提示最佳实践">提示最佳实践</h2>
+<br/>
+<h3 id="提示工程思维">提示工程思维</h3>
+<ul>
+<li>领域理解很重要。</li>
+<li>模型理解很重要。</li>
+<li>迭代和验证很重要。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="业内人员推荐的最佳实践">业内人员推荐的最佳实践</h3>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>评估最新模型</td>
+<td>新模型功能更强，但成本更高。</td>
+</tr>
+<tr>
+<td>分离指令和内容</td>
+<td>更清楚的区分指令、主要内容和次要内容。</td>
+</tr>
+<tr>
+<td>具体和明确</td>
+<td>详细地说明期望的内容、输出、长度和格式等。</td>
+</tr>
+<tr>
+<td>举例说明</td>
+<td>展示并讲述</td>
+</tr>
+<tr>
+<td>使用提示</td>
+<td>提供引导词或短语</td>
+</tr>
+<tr>
+<td>双倍下降</td>
+<td>有时，可能需要向模型重复自己的话。</td>
+</tr>
+<tr>
+<td>顺序很重要</td>
+<td>不同的顺序可能会影响输出结果。</td>
+</tr>
+<tr>
+<td>给模型一个出路</td>
+<td>如果模型无法完成任务，可以给他一个后备完成响应。这可以减少模型生成错误或捏造的响应的机会。</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<hr>
+<br/>
+<h1 id="创建高级提示工程">创建高级提示工程</h1>
+<br/>
+<h2 id="提示工程">提示工程</h2>
+<p>提示工程是创建将产生所需结果的提示的过程。</p>
+<br/>
+<br/>
+<h3 id="提示技巧">提示技巧</h3>
+<p>一些基本技巧：</p>
+<ul>
+<li>零样本提示</li>
+<li>少样本提示</li>
+<li>思维链</li>
+<li>生成的知识</li>
+<li>从最少的最多</li>
+<li>自我完善</li>
+<li>多维度提示</li>
+</ul>
+<br/>
+<br/>
+<h4 id="零样本提示">零样本提示</h4>
+<p>这种提示风格非常简单，它只有一个提示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">Prompt: &#34;What is Algebra?&#34;
+Answer: &#34;Algebra is a branch of mathematics that studies mathematical symbols and the rules for manipulating these symbols.&#34;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="少样本提示">少样本提示</h4>
+<p>这种提示方式通过在提出请求的同时提供一些示例来帮助模型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">Prompt: &#34;以莎士比亚的风格写一首诗。下面是一些莎士比亚十四行诗的例子：十四行诗第 18 首：&#34;我要把你比作夏日吗？你更可爱，更有节制......&#39;第 116 首十四行诗：&#34;让我不要为真正心灵的结合设置障碍。爱不是爱，当它发现改变时就会改变......&#39;十四行诗第 132 首：&#34;我爱你的眼睛，它们怜悯我，知道你的心在折磨我，对我不屑一顾......现在，请写一首关于月亮之美的十四行诗。&#34;
+Answer：&#34;在天空中，月亮闪烁着柔和的光芒，散发着温柔的光辉，......&#34;
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="思维链">思维链</h4>
+<p>这个想法以一种让 LLM 了解如何做某种事情的方式来指导 LLM。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">Prompt: &#34;Lisa has 7 apples, throws 1 apple, gives 4 apples to Bart and Bart gives one back: 7 -1 = 6 6 -4 = 2 2 +1 = 3
+Alice has 5 apples, throws 3 apples, gives 2 to Bob and Bob gives one back, how many apples does Alice have?&#34; Answer: 1
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="生成的知识">生成的知识</h4>
+<p>使用模板构建提示。</p>
+<br/>
+<br/>
+<h4 id="从少的多">从少的多</h4>
+<p>从最少到最多提示的想法是将一个更大的问题分解为多个子问题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">Prompt: How to perform data science in 5 steps?
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h4 id="自我完善">自我完善</h4>
+<p>你不能相信生成式人工智能，你需要验证一下。</p>
+<br/>
+<br/>
+<h4 id="多维度的提示">多维度的提示</h4>
+<p>要求 LLM 解释自己，减少 LLM 输出不一致，以确保得出正确的答案。</p>
+<br/>
+<br/>
+<h2 id="改变你的数据">改变你的数据</h2>
+<p>LLM 本质上是不确定的，这意味着每次运行相同的提示都会得到不同的结果。</p>
+<br/>
+<br/>
+<h3 id="利用温度来改变输出">利用温度来改变输出</h3>
+<p><strong>温度</strong>（temperature）是 0 到 1 之间的值。其中 0 最具确定性，1 最具变化性。值越高，输出越随机。默认值为 0.7。</p>
+<br/>
+<br/>
+<h2 id="高级提示的最佳实践">高级提示的最佳实践</h2>
+<p>一些好的做法：</p>
+<ul>
+<li>指定上下文</li>
+<li>限制输出</li>
+<li>指定内容和方式</li>
+<li>使用模板</li>
+<li>拼写正确</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="创建文本生成应用">创建文本生成应用</h1>
+<p>本章目标：</p>
+<ul>
+<li>解释什么是文本生成应用程序。</li>
+<li>使用 openai 构建文本生成应用程序。</li>
+<li>使用 prompt, temperature 和 tokens 等概念来构建文本生成应用程序。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="什么是文本生成应用">什么是文本生成应用</h2>
+<p>使用文本生成应用程序构建如：</p>
+<ul>
+<li>聊天机器人</li>
+<li>协同助手</li>
+<li>代码助手</li>
+</ul>
+<br/>
+<br/>
+<h2 id="如何入门">如何入门</h2>
+<p>需要找到一种与 LLMs 结合的方法，通常使用以下两种：</p>
+<ul>
+<li>使用 API: 第三方 AI 提供的服务接口</li>
+<li>使用库：openapi, Langchain, Semantic Kernel</li>
+</ul>
+<br/>
+<br/>
+<h2 id="第一个-openai-应用">第一个 openai 应用</h2>
+<p>安装 python 和 openai:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">pip install openai
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>准备 openai api key。</p>
+<br/>
+<p>文字生成和聊天补全。</p>
+<br/>
+<br/>
+<h2 id="改进应用">改进应用</h2>
+<ul>
+<li>将 key 与代码分离</li>
+<li>关于 token 长度。token 是需要花钱的，因此需要考虑使用多少 token 来生成内容。</li>
+<li>进行 temperature 调整实验。值越高，输出越随机。值越低，输出越可预测。</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="创建聊天应用">创建聊天应用</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="创建搜索应用">创建搜索应用</h1>
+<p>本章目标：</p>
+<ul>
+<li>语义搜索和关键字搜索</li>
+<li>什么是文本嵌入</li>
+<li>使用嵌入创建一个应用程序来搜索数据</li>
+</ul>
+<br/>
+<br/>
+<h2 id="什么是语义搜索">什么是语义搜索</h2>
+<p>语义搜索是一种使用查询中单词的语义或含义来返回相关结果的搜索技术。</p>
+<p>例如，你想买一辆汽车，你可能会搜索“我的梦想汽车”。语义搜索会理解你并不是在梦想一辆汽车，而是想购买你的理想的汽车。</p>
+<p>另一种方法是关键字搜索，他会逐字搜索有关汽车的梦想，但通常会返回不相关的结果。</p>
+<br/>
+<br/>
+<h2 id="什么是文本嵌入">什么是文本嵌入</h2>
+<p>文本嵌入是 NLP 中使用的文本表示技术。文本嵌入是文本的语义数字表示。嵌入用于以机器易于理解的方式表示数据。</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">Today we are going to learn about Azure Machine Learning.
+
+数字（向量）组成的嵌入。
+[-0.006655829958617687, 0.0026128944009542465, 0.008792596869170666, -0.02446001023054123, -0.008540431968867779, 0.022071078419685364, -0.010703742504119873, 0.003311325330287218, -0.011632772162556648, -0.02187200076878071, ...]
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="嵌入索引是是如何创建的">嵌入索引是是如何创建的</h2>
+<p>本章的嵌入索引是使用一系列 Python 脚本创建的。</p>
+<br/>
+<br/>
+<h3 id="向量数据库">向量数据库</h3>
+<p>在生产中，嵌入索引存储在向量数据库中。</p>
+<br/>
+<br/>
+<h2 id="理解余弦相似度">理解余弦相似度</h2>
+<p>如何使用文本嵌入来搜索数据，特别是使用余弦相似度找到与给定查询最相似的嵌入。</p>
+<br/>
+<br/>
+<h3 id="什么是余弦相似度">什么是余弦相似度</h3>
+<p>余弦相似度是两个向量之间相似度的度量（近邻搜索）。要执行余弦相似度搜索，需要使用 openai embedding api 对查询文本进行向量化。然后计算查询向量与嵌入索引中每个向量之间的余弦相似度。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="创建图像生成应用">创建图像生成应用</h1>
+<p>本章目标：</p>
+<ul>
+<li>图像生成及其有用的原因</li>
+<li>两种最流行的图像生成模型：DALL-E 和 Midjourney</li>
+<li>构建图像生成应用程序</li>
+</ul>
+<br/>
+<br/>
+<h2 id="dall-e和midjourney">DALL-E和Midjourney</h2>
+<p><a href="https://openai.com/index/dall-e-2/" target="_blank" rel="noopener noreffer ">DALL-E</a> 和 <a href="https://www.midjourney.com/" target="_blank" rel="noopener noreffer ">Midjourney</a> 是两种最流行的图像生成模型，它们允许你使用提示词生成图像。</p>
+<br/>
+<br/>
+<h3 id="dall-e">DALL-E</h3>
+<p>DALL-E 是一种生成式 AI 模型，可根据文本描述生成图像。它是 CLIP 和 attention 两种模型的组合。</p>
+<ul>
+<li>CLIP：是一种从图像和文本生成嵌入的模型，嵌入是数据的数字表示。</li>
+<li>diffused attention：是一种从嵌入生成图像的模型。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="midjourney">Midjourney</h3>
+<p>它根据文本提示生成图像。</p>
+<br/>
+<br/>
+<h3 id="dall-e和midjourney如何运作">DALL-E和Midjourney如何运作</h3>
+<p>DALL-E 是一种带有 autoregressive transformer 的 transformer 架构的生成式人工智能模型。</p>
+<p>autogressive transformer 定义了模型如何根据文本描述生成图像。它一次生成一个像素，然后使用生成的像素生成下一个像素。经过神经网络中的多个层，直到图像完整。</p>
+<br/>
+<br/>
+<h2 id="构建第一个图像生成应用程序">构建第一个图像生成应用程序</h2>
+<p>你需要以下库：</p>
+<ul>
+<li>python-dotenv</li>
+<li>openai</li>
+<li>pillow</li>
+<li>requests</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="创建低代码的人工智能应用">创建低代码的人工智能应用</h1>
+<p>本章内容：</p>
+<ul>
+<li>Power Platform</li>
+<li>Copilot</li>
+<li>AI Builder</li>
+</ul>
+<br/>
+<br/>
+<h2 id="power-platform">Power Platform</h2>
+<p>通过生成式 AI 增强低代码开发和应用是 Power Platform 的关注领域。目标是让每个人都能够构建人工智能驱动的应用程序、网站、仪表盘并利用人工智能实现流程自动化。</p>
+<p>Power Platform 包含五个关键产品：Power Apps、Power Automate、Power BI、Power Pages 和 Power Virtual Agent。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -593,20 +1179,21 @@ github repo
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ai/">AI</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ai/">ai</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/ai-for-beginners/" class="prev" rel="prev" title="人工智能"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>人工智能</a></div>
+    <div class="post-nav"><a href="/ai-for-beginners/" class="prev" rel="prev" title="人工智能"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>人工智能</a>
+            <a href="/hp-mysql/" class="next" rel="next" title="高性能MySQL">高性能MySQL<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

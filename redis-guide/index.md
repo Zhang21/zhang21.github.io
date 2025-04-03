@@ -1,17 +1,18 @@
 # Redis使用手册
 
 
+Redis 使用手册笔记。
+
+<!--more-->
+
+---
+
 参考：
 
 - [Redis 使用手册](https://book.douban.com/subject/34836750/)
 - [Redis 官方文档](https://redis.io/docs/)
 
 <br/>
-
----
-
-<!--more-->
-
 <br/>
 
 # 前言

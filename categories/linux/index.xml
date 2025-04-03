@@ -4,7 +4,25 @@
         <link>https://zhang21.cn/categories/linux/</link>
         <description>linux - 分类 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 24 Jun 2021 11:49:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/linux/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 01 Mar 2025 10:05:45 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/categories/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>负载均衡器</title>
+    <link>https://zhang21.cn/loadbalancer/</link>
+    <pubDate>Sat, 01 Mar 2025 10:05:45 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/loadbalancer/</guid>
+    <description><![CDATA[<p>常用的负载均衡器 Nginx, HAProxy 和 LVS 学习笔记。</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>Shell配置文件加载流程</title>
+    <link>https://zhang21.cn/shell-profile/</link>
+    <pubDate>Fri, 16 Aug 2024 15:59:13 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/shell-profile/</guid>
+    <description><![CDATA[<p>Linux 操作系统登录 Shell 时会加载哪些配置文件，它们的顺序和作用是什么。</p>
+<br/>]]></description>
+</item>
+<item>
     <title>Makefile</title>
     <link>https://zhang21.cn/makefile/</link>
     <pubDate>Thu, 24 Jun 2021 11:49:00 &#43;0000</pubDate>
@@ -123,33 +141,7 @@
     <pubDate>Tue, 09 Jan 2018 11:50:27 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE/</guid>
-    <description><![CDATA[<p>当你为你的产品签发许可，你就是在出让自己的权利。不过，你仍拥有版权和专利（如果申请了专利）。许可的目的，是向使用你产品的人提供一定的权利。</p>
-<p>不管产品是免费分发，还是出售，指定一份许可协议都非常有用。否则，对于免费，你相当于放弃了自己的所有权利，任何人都没有义务表明你的原始作者身份。对于出售，你将不得不花费比开发更多的精力用来处理授权问题。</p>
-<p>而开源许可协议是这些事情变得简单，开发者很容易向一个项目贡献自己的代码，它还可以保护你原始作者的身份，使你至少获得认可。开源许可协议还可以阻止其它人将某个产品据为己有。</p>
-<br>]]></description>
-</item>
-<item>
-    <title>Yum源</title>
-    <link>https://zhang21.cn/yum/</link>
-    <pubDate>Tue, 09 Jan 2018 11:46:21 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/yum/</guid>
-    <description><![CDATA[<p>参考：</p>
-<ul>
-<li><a href="http://blog.csdn.net/leshami/article/details/78133716" target="_blank" rel="noopener noreffer ">CentOS 7下配置本地yum源及yum客户端</a></li>
-<li><a href="http://blog.csdn.net/conling_/article/details/70399694" target="_blank" rel="noopener noreffer ">Centos7 配置本地源+阿里yum源/epel-yum+修改优先级</a></li>
-<li><a href="http://blog.csdn.net/kingfox/article/details/51233153" target="_blank" rel="noopener noreffer ">调整CentOS 7中yum仓库的优先级</a></li>
-<li><a href="https://segmentfault.com/a/1190000000375848" target="_blank" rel="noopener noreffer ">国内开源站点</a></li>
-</ul>]]></description>
-</item>
-<item>
-    <title>HTTP请求方法和状态码</title>
-    <link>https://zhang21.cn/http-method-status/</link>
-    <pubDate>Fri, 01 Dec 2017 00:00:00 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/http-method-status/</guid>
-    <description><![CDATA[<br/>
-<hr>]]></description>
+    <description><![CDATA[<p>开源许可协议介绍。</p>]]></description>
 </item>
 </channel>
 </rss>

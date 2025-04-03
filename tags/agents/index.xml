@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>agents - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/agents/</link>
+        <description>agents - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Feb 2025 11:40:49 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/tags/agents/" rel="self" type="application/rss+xml" /><item>
+    <title>AI Agents</title>
+    <link>https://zhang21.cn/ai-agents/</link>
+    <pubDate>Sun, 16 Feb 2025 11:40:49 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/ai-agents/</guid>
+    <description><![CDATA[<p>微软 AI Agents for Beginners 课程学习笔记。</p>
+<br/>]]></description>
+</item>
+</channel>
+</rss>

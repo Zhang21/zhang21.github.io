@@ -1,16 +1,18 @@
 # MongoDB权威指南
 
 
-参考:
-
-- [MongoDB权威指南](https://book.douban.com/subject/35688800/)
-
-<br/>
-
----
+MongoDB 相关笔记。
 
 <!--more-->
 
+---
+
+参考:
+
+- [MongoDB 权威指南](https://book.douban.com/subject/35688800/)
+- [MongoDB 官方文档](https://www.mongodb.com/zh-cn/docs/)
+
+<br/>
 <br/>
 
 # 简介
@@ -163,36 +165,137 @@ DBCollection.prototype.dropIndexes = no;
 
 # 增删查改
 
-数据库的CRUD操作。
+数据库的 CRUD 操作，详细的操作符请查看参考消息-操作符。
 
-MongoDB会对插入的数据进行最基本的检查，检查文档的基本结构，如果不存在`_id`字段，则自动添加一个。其中一项最基本的结构检查是文档大小，所有文档都必须小于16MB。可使用`Object.bsonsize(doc)`来查看文档的bson大小。
-
-为了让你对16MB的数据量有一个概念，以`《战争与和平》`为例，整部著作也只有3.14MB。
-
-不建议使用`insert()`，应该使用`insertOne()`或`insertMany()`。
-
-不建议使用`remove()`，应该使用`deleteOne()`或`deleteMany()`。
-
-使用`updateOnt()`或`updateMany()`。
-
-`replaceOne()`会用新文档完全替换匹配的文档，这对于大规模模式迁移的场景非常有用。
-
-`upsert()`是一种特殊类型的更新。如果找不到与筛选条件相匹配的文档，则会以这个条件和更新文档为基础来创建一个新文档；如果找到了匹配的文档，则进行正常的更新。
+- 不建议使用 `insert()`，应该使用 `insertOne()` 或 `insertMany()` 来创建文档。
+- 不建议使用 `remove()`，应该使用 `deleteOne()` 或 `deleteMany()` 来删除文档。
+- 使用 `updateOne()` 或 `updateMany()` 更新文档。
+- `replaceOne()` 会用新文档完全替换匹配的文档，这对于大规模模式迁移的场景非常有用。
+- `upsert()` 是一种特殊类型的更新。如果找不到与筛选条件相匹配的文档，则会以这个条件和更新文档为基础来创建一个新文档；如果找到了匹配的文档，则进行正常的更新。
+- 定位运算符 `$` 可以计算出查询文档匹配的数组元素并更新该元素。
 
 <br/>
+<br/>
 
-通常文档只会有一部分需要更新，可以使用原子的更新运算符更新文档中的特定字段。应该始终使用修饰符`$`来增加、修改或删除键。
+## 插入文档
 
-- `$inc`
-- `$set`, `$unset`
-- `$push`, `$pop`
-- `$sort`
-- `$slice`
-- `$ne`
-- ...
+MongoDB 会对插入的数据进行最基本的检查，检查文档的基本结构，如果不存在 `_id` 字段，则自动添加一个。其中一项最基本的结构检查是文档大小，所有文档都必须小于16MB。可使用 `Object.bsonsize(doc)` 来查看文档的 bson 大小。
+
+为了让你对16MB的数据量有一个概念，以 “《战争与和平》” 为例，整部著作也只有 3.14MB。
+
+```js
+// 插入单个文档
+db.movies.insertOne({"title": "Stand by Me"})
+
+// 插入多个文档
+db.movies.insertMany([{"title" : "Ghostbusters"}, {"title" : "E.T."}, {"title" : "Blade Runner"}]);
+
+// 如果中途某个文档发生了某种错误，那么接下来会发生什么取决于所选择的是有序操作还是无序操作。
+// 将 ordered 键指定为 true（默认值），可以确保文档按提供的顺序插入。为 false 则允许重新排列插入的顺序以提高性能。
+// 对于有序插入，产生插入错误后，数组中之后的文档不会被插入。对于无序插入，将尝试插入所有文档。
+db.movies.insertMany([
+  {"_id" : 3, "title" : "Sixteen Candles"},
+  {"_id" : 4, "title" : "The Terminator"},
+  {"_id" : 4, "title" : "The Princess Bride"},
+  {"_id" : 5, "title" : "Scarface"}],
+  {"ordered" : false})
+```
+
+<br/>
+<br/>
+
+## 删除文档
+
+删除数据是永久性的，没有任何方法可以撤回删除文档或者集合的操作，也无法恢复被删除的文档，请特别小心！
+
+```js
+// 删除一个文档
+// 如果筛选条件匹配多个文档，它将删除满足条件的第一个文档
+db.movies.deleteOne({"_id" : 4})
+
+// 删除满足筛选条件的所有文档
+ db.mailing.list.deleteMany({"opt-out" : true})
+ 
+ // 删除一个集合中的所有文档
+ db.movies.deleteMany({})
+ // 如果想清空集合，直接使用 drop 删除集合，然后在这个空集合重建各项索引会更快
+ db.movies.drop()
+```
+
+<br/>
+<br/>
+
+## 更新文档
+
+更新文档是原子操作：如果两个更新同时发生，那么首先到达服务器的更新会先被执行，然后再执行下一个更新。
+
+```js
+var joe = db.people.findOne({"name" : "joe", "age" : 20});
+joe.age++;
+db.people.replaceOne({"_id" : ObjectId("4b2b9f67a1f631733d917a7c")}, joe)
 
 
+// $inc 增加一个字段的值，只能用于数字（整型、长整型或双精度浮点），其它类型会失败。
+db.analytics.updateOne({"url" : "example-domain"}, {"$inc" : {"pageviews" : 1}})
+// $inc 在键不存在时创建它
+db.games.insertOne({"game" : "pinball", "user" : "joe"})
+db.games.updateOne({"game" : "pinball", "user" : "joe"}, {"$inc" : {"score" : 50}})
 
+
+// $set 设置一个字段的值
+ db.users.updateOne({"_id" : ObjectId("4b253b067525f35f94b60a31")}, {"$set" : {"favorite book" : "War and Peace"}})
+// $set 还可以修改键的类型
+db.users.updateOne({"name" : "joe"},
+  {"$set" : {"favorite book" : ["Cat's Cradle", "Foundation Trilogy", "Ender's Game"]}})
+
+// $unset 删除一个字段
+ db.users.updateOne({"name" : "joe"}, {"$unset" : {"favorite book" : 1}})
+
+
+// 操作数组的运算符
+// $push 向数组末尾添加元素，如果数组不存在则创建
+db.blog.posts.updateOne({"title" : "A blog post"},
+  {"$push" : {"comments" :
+    {"name" : "joe", "email" : "joe@example.com", "content" : "nice post."}}})
+
+// $each 在一次操作中添加多个值
+db.stock.ticker.updateOne({"_id" : "GOOG"},
+  {"$push" : {"hourly" : {"$each" : [562.776, 562.790, 559.123]}}})
+
+// $slice 防止数组的增长超过某个大小
+db.movies.updateOne({"genre" : "horror"},
+  {"$push" : {"top10" : {"$each" : ["Nightmare on Elm Street", "Saw"],
+  "$slice" : -10}}})
+
+// $addToSet 避免插入重复的邮件地址
+db.users.updateOne({"_id" : ObjectId("4b2d75476cc613d5ee930164")},
+  {"$addToSet" : {"emails" : "joe@hotmail.com"}})
+
+// 添加多个不重复的值
+db.users.updateOne({"_id" : ObjectId("4b2d75476cc613d5ee930164")},
+  {"$addToSet" : {"emails" : {"$each" : ["joe@php.net", "joe@example.com", "joe@python.org"]}}})
+
+// 如果将数组视为队列或栈，$pop 从任意一端删除元素
+// {"$pop" : {"key" : 1}} 会从数组末尾删除一个元素，{"$pop" : {"key" : -1}} 则会从头部删除它。
+
+// $pull 删除特定条件的数组元素
+db.lists.updateOne({}, {"$pull" : {"todo" : "laundry"}})
+
+
+// 基于位置的数组更改
+db.blog.updateOne({"post" : 20201011}, {"$inc" : {"comments.0.votes" : 1}})
+db.blog.updateOne({"comments.author" : "John"}, {"$set" : {"comments.$.author" : "Jim"}})
+
+
+// 使用数组过滤器进行更新， MongoDB 3.6 引入了 arrayFilters
+
+
+// $upsert
+db.analytics.updateOne({"url" : "/blog"}, {"$inc" : {"pageviews" : 1}}, {"upsert" : true})
+
+
+// $updateMany 更新多个文档，用法和 $updateOne 一样，只是更新的文档数量不同。
+```
 
 <br/>
 
@@ -200,76 +303,74 @@ MongoDB会对插入的数据进行最基本的检查，检查文档的基本结�
 
 <br/>
 
-
-
-
 # 查询
 
 涵盖以下方面:
 
-- 使用`$`条件进行范围查询、数据集合查询、不等式查询和其它查询；
+- 使用 `$` 条件进行范围查询、数据集合查询、不等式查询和其它查询；
 - 查询会返回一个数据库游标，其只会在需要时才惰性地进行批量返回；
 - 有很多可以针对游标执行的元操作，包括跳过一定数量的结果、限定返回结果的数量，以及对结果进行排序。
 
-
+<br/>
 <br/>
 
-
-## find
+## find介绍
 
 传递给数据库的查询文档的值必须是常量。
 
 ```js
-// 空查询条件会匹配所有内容
+// 空查询条件会匹配集合中的所有内容
 db.c.find()
 
 // age 27的所有文档
 db.users.find({"age": 27})
 
-// 返回指定的键
+// 返回指定的键，剔除不需要的键。_id 键会默认返回
 db.users.find({"name": "joe", "age": 27}, {"username": 1, "email": 1, "_id": 0})
 ```
 
-
 <br/>
 <br/>
-
 
 ## 查询条件
 
-更加复杂的条件。
+匹配更加复杂的条件。
 
-```javascript
-// $lt, $lte, $gt, $gte, $ne
+```js
+// 比较运算符: $lt, $lte, $gt, $gte, $ne
 db.users.find({"aget": {"$gte": 18, "$lte": 30}})
 
+// 日期范围
 start = new Date("01/01/2007")
 db.users.find({"registered": {"$lt": start}})
+
+// 不等于
+db.users.find({"username": {"$ne": "joe"}})
 
 // $in, $nin, $or, $not, $mod
 db.users.find({"user_id": {"$in": [123, 456]}})
 db.users.find({"$or": [{"name": {"$in": ["a", "b"]}}, {"winner": true}]})
+db.users.find({"id_num": {"$not": {"$mod": [5, 1]}}})
 ```
 
-
 <br/>
 <br/>
-
 
 ## 特定类型的查询
 
-null的行为有一些特别。
+`null` 的行为有一些特别，它可以与自身匹配，也会匹配不存在这个条件。
 
-```Javascript
+```js
 // 仅匹配值为null的文档
 db.c.find({"z": {"$eq": null, "$exists": true}})
 ```
 
 <br/>
 
-`$regex`可在查询中为字符串的模式匹配提供正则表达式功能。
+`$regex` 可在查询中为字符串的模式匹配提供正则表达式功能。MongoDB 使用 Perl 兼容的正则表达式（PCRE）库来匹配。
 
-```JavaScript
+```js
+// 不区分大小写
 db.users.find({"name": {"$regex": /joey?/i}})
 ```
 
@@ -277,8 +378,9 @@ db.users.find({"name": {"$regex": /joey?/i}})
 
 查询数组元素的方式与查询标量值相同。
 
-```Javascript
+```js
 db.food.insertOne({"fruit": ["apple", "banana", "peach"])
+
 // 查询其中一个内容也可以成功匹配到文档
 db.food.find({"fruit": "banana"})
 
@@ -291,40 +393,51 @@ db.food.find({"fruit.2": "peach"})
 // $size 查询特定长度的数组
 db.food.find({"fruit": {"$size": 3}})
 
-// $slice 返回数组中特定子集
-db.blog.posts.findOne(criteria, {"comments": {"$slice": -1}})
+// $slice 返回数组中特定子集，返回后 10 条评论
+db.blog.posts.findOne(criteria, {"comments": {"$slice": -10}})
+db.blog.posts.findOne(criteria, {"comments": {"$slice": [23, 10]}})
 
 // 返回查询条件匹配的任意数组元素
 db.blog.posts.find({"comments.name": "Bob"}, {"comments.$": 1})
+
+// 要正确指定一组条件而无须指定每个键，请使用`$elemMatch`。
+db.blog.find({"comments": {"$eleMatch": ... {"author": "joe", "score": {"$gte": 5}}}})
 ```
 
 <br/>
-
-要正确指定一组条件而无须指定每个键，请使用`$elemMatch`。
-
-
 <br/>
-<br/>
-
 
 ## $where查询
 
-`$where`字句允许在查询中执行任意的JavaScript代码。为了安全起见，应该严格限制或消除`$where`的使用。
+`$where` 子句允许在查询中执行任意的 js 代码。为了安全起见，应该严格限制或消除 `$where` 的使用，应该禁止终端用户随意使用 `$where` 子句。
 
+```js
+db.foo.find({"$where": function () {
+  for (var current in this) {
+    for (var other in this) {
+      if (current != other && this[current] == this[other]) {
+        rturn true;
+      }
+    }
+  }
+  return false;
+}});
+```
+
+除非必要，否则不应该使用 `$where` 查询：它们比常规查询慢得多。每个文档都必须从 BSON 转化为 js 对象。此外它也无法使用索引。
 
 <br/>
 <br/>
-
 
 ## 游标
 
-数据库会使用游标返回`find`的执行结果。游标的客户端实现通常能够在很大程度上对查询的最终输出进行控制。
+数据库会使用游标返回 `find` 的执行结果。游标的客户端实现通常能够在很大程度上对查询的最终输出进行控制。
 
 <br/>
 
-最常用的查询选项是限制(limit)返回结果的数量、略过(skip)一定数量的结果以及排序(sort)。所有这些选项必须在查询被发送到数据库之前指定。
+最常用的查询选项是限制、略过以及排序(sort)。所有这些选项必须在查询被发送到数据库之前指定。
 
-```Javascript
+```js
 db.c.find().limit(3)
 
 db.c.find().skip(3)
@@ -335,7 +448,7 @@ db.c.find().sort({"username": 1, "age": -1})
 
 <br/>
 
-略过大量的结果会导致性能问题。因为需要找到被略过的结果，然后再丢弃这些数据。
+略过大量的结果会导致性能问题。因为需要找到被略过的结果，然后再丢弃这些数据。应该避免略过大量的数据。
 
 <br/>
 
@@ -345,10 +458,7 @@ db.c.find().sort({"username": 1, "age": -1})
 
 如果10分钟没有被使用的话，数据库游标也将自动销毁。
 
-有时可能需要一个游标维持很长时间。这种情况下，许多驱动程序实现了一个称为`immportal`的函数，或者类似的机制。它告诉数据库不要让游标超时。如果关闭了游标超时，则必须遍历完所有结果或主动将其销毁以确保游标被关闭。否则，它会一直占用数据库的资源，知道服务器重新启动。
-
-
-
+有时可能需要一个游标维持很长时间。这种情况下，许多驱动程序实现了一个称为 `immportal` 的函数，或者类似的机制。它告诉数据库不要让游标超时。如果关闭了游标超时，则必须遍历完所有结果或主动将其销毁以确保游标被关闭。否则，它会一直占用数据库的资源，知道服务器重新启动。
 
 <br/>
 
@@ -356,32 +466,22 @@ db.c.find().sort({"username": 1, "age": -1})
 
 <br/>
 
-
-
-
 # 索引
 
-索引使你能够高效地执行查询。为集合选择正确的索引对性能至关重要。主要内容：
-
-- 什么是索引？为什么要使用索引？
-- 如何选择要创建索引的字段？
-- 如何强制使用索引？如何对索引的使用进行评估？
-- 创建及删除索引的管理细节。
-
+索引使你能够高效地执行查询。为集合选择正确的索引对性能至关重要。
 
 <br/>
 <br/>
-
 
 ## 索引简介
 
-数据库索引类似于图书索引。有了索引便不需要浏览整本书，而是可以采取一种快捷方式，只查看一个有内容引用的有序列表。这使得MongoDB的查找速度提高了好几个数量级。
+数据库索引类似于图书索引。有了索引便不需要浏览整本书，而是可以采取一种快捷方式，只查看一个有内容引用的有序列表。这使得 MongoDB 的查找速度提高了好几个数量级。
 
-不适用索引的查询称为**集合扫描(全表扫描)**，这意味着服务器端必须浏览整本书才能得到查询的结果。
+不使用索引的查询称为 **集合扫描**（全表扫描），这意味着服务器端必须 “浏览整本书” 才能得到查询的结果。
 
-栗子，创建一个包含百万文档的集合:
+一个示例，创建一个包含百万文档的集合:
 
-```Javascript
+```js
 for (i=0; i<1000000; 1++) {
 	db.users.insertOne(
     	{
@@ -396,64 +496,84 @@ for (i=0; i<1000000; 1++) {
 
 通过不使用索引和使用索引，研究这个集合中查询的性能差异。
 
-可以在查询中使用`explain`命令来产看MongoDB在执行查询时所需要做的事情。
+<br/>
 
-```Javascript
-db.users.find({"usename": "user101"}).explain("executionStats")
+可以使用 `explain` 命令来查看 MongoDB 在执行查询时所需要做的事情。此游标方法提供了 CRUD 操作执行的各种信息。使用 executionStats 模式有助于理解使用索引进行查询的效果。
 
-// 省略部分结果
+```js
+db.users.find({"username": "user101"}).explain("executionStats")
 {
-    ...
-    "executionStats" : {
-            "executionSuccess" : true,
-            "nReturned" : 1,
-            "executionTimeMillis" : 419,
-            "totalKeysExamined" : 0,
-            "totalDocsExamined" : 1000000,
-            "executionStages" : {
-                    "stage" : "COLLSCAN",
-                    "filter" : {
-                            "username" : {
-                                    "$eq" : "user101"
-                            }
-                    },
-                    "nReturned" : 1,
-                    "executionTimeMillisEstimate" : 375,
-                    "works" : 100002,
-                    "advanced" : 1,
-                    "needTime" : 1000000,
-                    "needYield" : 0,
-                    "saveState" : 7822,
-                    "restoreState" : 7822,
-                    "isEOF" : 1,
-                    "invalidates" : 0,
-                    "direction" : "forward",
-                    "docsExamined" : 1000000
-            }
+ "queryPlanner" : {
+   "plannerVersion" : 1,
+   "namespace" : "test.users",
+   "indexFilterSet" : false,
+   "parsedQuery" : {
+     "username" : {
+       "$eq" : "user101"
+     }
+   },
+   "winningPlan" : {
+     "stage" : "COLLSCAN",
+     "filter" : {
+       "username" : {
+         "$eq" : "user101"
+       }
     },
+    "direction" : "forward"
+    },
+   "rejectedPlans" : [ ]
+ },
+ "executionStats" : {
+   "executionSuccess" : true,
+   "nReturned" : 1,
+   "executionTimeMillis" : 419,
+   "totalKeysExamined" : 0,
+   "totalDocsExamined" : 1000000,
+   "executionStages" : {
+     "stage" : "COLLSCAN",
+     "filter" : {
+       "username" : {
+         "$eq" : "user101"
+       }
+     },
+     "nReturned" : 1,
+     "executionTimeMillisEstimate" : 375,
+     "works" : 1000002,
+     "advanced" : 1,
+     "needTime" : 1000000,
+     "needYield" : 0,
+     "saveState" : 7822,
+     "restoreState" : 7822,
+     "isEOF" : 1,
+     "invalidates" : 0,
+     "direction" : "forward",
+     "docsExamined" : 1000000
+     }
+   },
+   "ok" : 1
 }
 ```
 
-介绍下`executionStats`字段下的内嵌文档。
+<br/>
 
-`totalDocsExamined`是MongoDB在试图查询时查看的文档总数，可以看到，集合中的每个文档都被扫描过了。也就是说，MongoDB必须查看每个文档中的每个字段。
+介绍下 `executionStats` 字段下的内嵌文档。
 
-`executionTimeMills`字段显示了执行查询所用的毫秒数。
+`totalDocsExamined`是 MongoDB 在试图查询时查看的文档总数。可以看到，集合中的每个文档都被扫描过了。也就是说，MongoDB 必须查看每个文档中的每个字段。
 
-`nTeturned`字段显示返回的结果数是1，因为只有一个用户名为user101的用户。注意，MongoDB必须在集合的每个文档中查找匹配项，因为它不知道用户名是唯一的。
+`executionTimeMills` 字段显示了执行查询所用的毫秒数。
 
-为了使MongoDB高效地响应查询，应用程序中的所有查询模式都应该有索引支持。
+`nReturned`字段显示返回的结果数是 1，因为只有一个用户名为 "user101" 的用户。注意，MongoDB 必须在集合的每个文档中查找匹配项，因为它不知道用户名是唯一的。
 
+为了使 MongoDB 高效地响应查询，应用程序中的所有查询模式（指应用程序向数据库提出的不同类型的问题）都应该有索引支持。
 
 <br/>
 <br/>
-
 
 ### 创建索引
 
-使用`createIndex`方法在`username`字段上创建索引:
+在 `username` 字段上创建索引。
 
-```JavaScript
+```js
 db.users.createIndex({"username": 1})
 
 // 建索引过程会阻塞其它数据库操作，background可指定以后台方式创建索引
@@ -463,11 +583,13 @@ db.users.createIndex({"username": 1}, {"background": true})
 db.users.getIndexes()
 ```
 
-索引的创建时间和集合大小有关。可以使用`db.currentOp()`查看索引创建进度。
+索引的创建时间和集合大小有关。可以使用 `db.currentOp()` 查看索引创建进度。
 
-在此执行之前的查询：
+<br/>
 
-```Javascript
+有了索引之后，再次执行之前的查询。
+
+```js
 db.users.find({"username": "user101"}).explain("executionStats")
 
 {
@@ -540,26 +662,46 @@ db.users.find({"username": "user101"}).explain("executionStats")
 
 索引可以显著缩短查询时间。然而，使用索引是有代价的：修改索引字段的写操作（插入、更新和删除）会花费更长的时间。这是因为在更改数据时，除了更新字段，还必须更新索引。通常来说，这个代价是值得的。关键是要找出要索引的字段。
 
-要选择为哪些字段创建索引，可以查看常用的查询以及哪些需要快速执行的查询，并尝试从中找到一组通用的键。
+MongoDB 索引的工作原理与典型的关系型数据库索引几乎相同。
 
-如果这是一个很少用到的查询或是由管理员执行的不太关心时间消耗的查询，那么就不应该在此上面创建索引。
-
+要选择为哪些字段创建索引，可以查看常用的查询以及那些需要快速执行的查询，并尝试从中找到一组通用的键。然而，如果一个很少用到的查询或是由管理员执行的不太关心时间消耗的查询，那么就不应该在此上面创建索引。
 
 <br/>
 <br/>
-
 
 ### 复合索引
 
-对于很多查询模式来说，在两个或更多的键上创建索引是必要的。这称为**复合索引**(compound index)。如果查询中有多个排序方向或者查询条件中有多个键，那么这个索引会很有用。复合索引是创建在多个字段上的索引。
+索引的目的是使查询尽可能高效。对于许多查询模式来说，在两个或更多的键上创建索引是必要的。这称为 **复合索引**（compound index）。如果查询中有多个排序方向或者查询条件中有多个键，复合索引会很有用。复合索引是创建在多个字段上的索引。
 
-```Javascript
+例如，索引会将其所有值按顺序保存，因此按照索引键对文档进行排序的速度要快得多。然而，索引只有在作为排序的前缀时才有助于排序。
+
+```js
+// username 上的索引对这个排序就没有帮助
+// 这里先根据 age，再根据 username 进行排序，所以严格按照 username 排序并没有什么帮助。
+db.users.find().sort({"age": 1, "username": 1})
+
+// 要优化这种排序，可在 age 和 username 上创建复合索引
 db.users.createIndex({"age": 1, "username": 1}, {"background": true})
 ```
 
-上面的索引会是下面这个样子:
+<br/>
 
+假设有如下所示一个 users 集合，并且执行不带排序（称为自然顺序）的查询。
+
+```js
+db.users.find({}, {"_id" : 0, "i" : 0, "created" : 0})
+{ "username" : "user0", "age" : 69 }
+{ "username" : "user1", "age" : 50 }
+{ "username" : "user2", "age" : 88 }
+{ "username" : "user3", "age" : 52 }
+{ "username" : "user4", "age" : 74 }
+{ "username" : "user5", "age" : 104 }
+...
 ```
+
+如果使用 `{"age": 1, "username": 1}` 在集合中创建索引，那么这个索引会是如下这样：
+
+```js
 [0, "user100010"] -> 8623513776
 [0, "user1002"] -> 8599246768
 ...
@@ -571,50 +713,107 @@ db.users.createIndex({"age": 1, "username": 1}, {"background": true})
 ...
 ```
 
+每个索引项都包含了年龄和用户名，并指向一个记录标识符。存储引擎在内部使用记录标识符来定位文档数据。age 和 username 按升序排列。
+
 <br/>
 
-```Javascript
-db.users.find({"age": {"$gte": 21, "$lte": 30}})
+MongoDB 使用该索引的方式取决于所执行的查询类型。以下是 3 种最常见的方式。
+
+- 等值查询
+- 范围查询
+- 多值查询
+
+<br/>
+<br/>
+
+#### 等值查询
+
+等值查询，用于查找单个值。可能有多个文档具有该值。
+
+```js
+// 等值查询，用于查找单个值
+db.users.find({"age": 21}).sort({"username": -1})
+
+// 多亏了索引的第二个字段，结果已经按照正确的顺序排序
+// MongoDB 可从 {"age": 21} 的最后一个匹配项开始，然后依次遍历索引
+[21, "user100154"] -> 8623530928
+[21, "user100266"] -> 8623545264
+[21, "user100270"] -> 8623545776
+...
 ```
 
-这是范围查询，用于查找与多个值相匹配的文档（上例指21岁到30岁）。MongoDB会使用索引中的第一个键，即`age`，以返回匹配的文档。如下所示：
+这种类型的查询非常高效：MongoDB 可以直接跳转到正确的年龄，并且不需要对结果进行排序，因为只要遍历索引就会以正确的顺序返回数据。
 
-```
+注意，排序方向并不重要，MongoDB 可以在任意方向上遍历索引。
+
+<br/>
+<br/>
+
+#### 范围查询
+
+范围查询，用于查找与多个值相匹配的文档。
+
+```js
+db.users.find({"age" : {"$gte" : 21, "$lte" : 30}})
+
+// MongoDB 会使用索引中的第一个键 age，以返回匹配的文档
 [21, "user100154"] -> 8623530928
 ...
 [22, "user100017"] -> 8623513392
 ...
-[30, "user100098"] -> 8623532720
-...
 ```
 
-通常来说，如果MongoDB使用索引进行查询，那么它会按照索引顺序返回结果文档。
-
-在设计复合索引时，将排序键放在第一位通常是一个好策略。
-
+通常来说，如果 MongoDB 使用索引进行查询，那么它会按照索引顺序返回结果文档。
 
 <br/>
 <br/>
 
+#### 多值查询
+
+```js
+db.users.find({"age": {"$gte": 21, "$lte": 30}}).sort({"username" : 1})
+```
+
+MongoDB 使用索引来匹配查询条件。不过，索引不会按照顺序返回用户名，而查询要求按用户名对结果进行排序。这意味着 MongoDB 需要在返回结果前在内存中对结果进行排序，而不是简单地遍历已经按需排好序的索引。因此，这种类型的查询通常效率较低。
+
+当然，速度取决于有多少结果与查询条件相匹配。如果结果集中只有几个文档，那么 MongoDB 将不会耗费多少时间进行排序。如果结果非常多，那么速度会很慢或根本不能工作。如果结果超过了 32MB，MongoDB 就会报错，拒绝对这么多数据进行排序。
+
+```log
+Error: error: {
+ "ok" : 0,
+ "errmsg" : "Executor error during find command: OperationFailed:
+Sort operation used more than the maximum 33554432 bytes of RAM. Add
+an index, or specify a smaller limit.",
+ "code" : 96,
+ "codeName" : "OperationFailed"
+}
+```
+
+如果要避免这个问题，则必须创建一个支持此排序操作的索引，或将 `limit` 与 `sort` 结合使用以使结果低于 32MB。
+
+在设计复合索引时，将排序键放在第一位通常是一个好策略。这是在考虑如何兼顾等值查询、多值查询以及排序来构造复合索引时的最佳实践之一。
+
+<br/>
+<br/>
 
 ### 如何选择索引
 
-MongoDB是如何选择索引来满足查询的？
+MongoDB 是如何选择索引来满足查询。假设有 5个索引。当有查询进来时，MongoDB 会查看这个查询的 **形状**。这个形状与要搜索的字段和一些附加信息（比如是否有排序）有关。基于这些信息，系统会识别出一组可能用于满足查询的候选索引。
 
-假设有5个索引。当有查询进来时，MongoDB会查看这个查询的**形状**。这个形状与要搜索的字段和一些附加信息（比如是否有排序）有关。基于这些信息，系统会识别出一组可能用于满足查询的候选索引。
+假设有一个查询进入，5个索引中的 3个被标识为该查询的候选索引。然后，MongoDB 会创建 3个查询计划，分别为每个索引创建 1个，并在 3个并行线程中运行此查询，每个线程使用不同的索引。这样做的目的是看哪一个能够最快地返回结果。
 
-假设有一个查询进入，5个索引中的3个被标识为改查询的候选索引。然后，MongoDB会创建3个查询计划，分别为每个索引创建1个，并在3个并行线程中运行此查询，每个线程使用不同的索引。
-这样做的目的是看哪一个能够最快地返回结果。到达目标状态的第一个查询计划成为赢家。更重要的是，以后会选择它作为索引，用于具有相同形状的其他查询。
-每个计划会相互竞争一段时间（成为试用期），之后每一次的结果都会用来在总体上计算出一个获胜的计划。
+到达目标状态的第一个查询计划成为赢家。更重要的是，以后会选择它作为索引，用于具有相同形状的其他查询。每个计划会相互竞争一段时间（称为试用期），之后每一次的结果都会用来在总体上计算出一个获胜的计划。
 
-让多个查询计划相互竞争的真正价值在于，对于具有相同形状的后续查询，MongoDB会知道要选择哪个索引。服务器端维护了查询计划的缓存。一个获胜的计划存储在缓存中，以备在将来用于进行该形状的查询。随着时间的推移以及集合和索引的变化，查询计划可能会从缓存中被淘汰。而MongoDB会再次进行尝试，以找到最适合当前集合和索引集的查询计划。
+要赢得计划，查询线程必须首先返回所有查询结果或按排序顺序返回一些结果。考虑到在内存中执行排序的开销，其中排序的部分非常重要。
 
-其他会导致计划从缓存中被淘汰的事件有：重建特定的索引、添加或删除索引，显式清楚计划缓存。重启mongod进程也会导致查询计划缓存丢失。
+让多个查询计划相互竞争的真正价值在于，对于具有相同形状的后续查询，MongoDB 会知道要选择哪个索引。服务器端维护了查询计划的缓存。一个获胜的计划存储在缓存中，以备在将来用于进行该形状的查询。
 
+随着时间的推移以及集合和索引的变化，查询计划可能会从缓存中被淘汰。而 MongoDB 会再次进行尝试，以找到最适合当前集合和索引集的查询计划。其他会导致计划从缓存中被淘汰的事件有：重建特定的索引、添加或删除索引，显式清除计划缓存。重启 mongod 进程也会导致查询计划缓存丢失。
+
+![MongoDB如何选择索引](https://raw.githubusercontent.com/zhang21/images/master/cs/databases/mongodb/5-1.png)
 
 <br/>
 <br/>
-
 
 ### 使用复合索引
 
@@ -624,49 +823,58 @@ MongoDB是如何选择索引来满足查询的？
 
 <br/>
 
-示例，包含一百万条记录的学生数据集，内容就像下面这样:
+示例，包含一百万条记录的学生数据集，此数据集中的文档就像下面这样:
 
-```
+```json
 {
-	"_id": Object("585d817db4743f74e2da067c"),
-    "student_id": 0,
-    "scores": [
-    {
-    	"type": "exam",
-        "score": 38.05
-    },
-    {
-    	"type": "quiz",
-        "score": 79.45
-    },
-    {
-    	"type": "homework",
-        "score" 74.50
-    }
-    ],
-    "class_id:: 127
+ "_id" : ObjectId("585d817db4743f74e2da067c"),
+ "student_id" : 0,
+ "scores" : [
+ {
+ "type" : "exam",
+ "score" : 38.05000060199827
+ },
+ {
+ "type" : "quiz",
+ "score" : 79.45079445008987
+ },
+ {
+ "type" : "homework",
+ "score" : 74.50150548699534
+ },
+ {
+ "type" : "homework",
+ "score" : 74.68381684615845
+ }
+ ],
+ "class_id" : 127
 }
 ```
 
-我们将从两个索引开始，看看MongoDB如何使用（或不使用）这些索引来满足查询。
+<br/>
 
-```mongo
+我们将从两个索引开始，看看 MongoDB 如何使用（或不使用）这些索引来满足查询。
+
+```js
 db.students.createIndex({"class_id": 1})
 db.students.createIndex({"student_id": 1, class_id: 1})
 ```
 
 会围绕以下查询，因为这个查询可以说明在设计索引时必须考虑的几个问题。
 
-```mongo
+```js
 db.students.find({student_id: {$gt: 500000}, class_id: 54})
-.sort({student_id: 1})
-.explain("executionStats")
+  .sort({student_id: 1})
+  .explain("executionStats")
 ```
 
-此查询对`student_id`大于500000的所有记录进行了请求，这会有一半的记录。我们还将搜索限制在了`class_id`为54的记录中。最后，根据`student_id`按升序进行排序。
-通过查看explain方法提供的执行统计信息，来说明MongoDB如何使用索引来完成这个查询。
+此查询对 `student_id` 大于五十万的所有记录进行了请求，这会有一半的记录。我们还将搜索限制在了 `class_id` 为 54 的记录中。最后，根据 `student_id` 按升序进行排序。
 
-```json
+通过查看 explain 方法提供的执行统计信息，来说明 MongoDB 如何使用索引来完成这个查询。
+
+```js
+// 为了定位 9903 个匹配文档，一共检查了 850 477 个索引键。
+// 这表示完成此查询的索引选择性比较低。运行时间超过了 4.3 秒。
 {
   ...
   "executionStats": {
@@ -682,12 +890,9 @@ db.students.find({student_id: {$gt: 500000}, class_id: 54})
 }
 ```
 
-在`executionStats`中，先看一下`totalKeysExamined`。这个字段描述的是，为了生成结果集，MongoDB在索引中遍历了多少个键。
-可以将`totalKeysExamined`与`nReturned`进行比较，以了解MongoDB必须遍历多少索引才能找到与查询匹配的文档。在本例中，为了定位9903个索引，一共检查了850477个索引键。这表示用于完成此查询的索引选择性比较低。
+输出的前面部分是获胜的查询计划（winningPlan 字段）。查询计划描述了 MongoDB 用来满足查询的步骤。我们尤其对使用了哪个索引以及 MongoDB 必须在内存中进行排序感兴趣。
 
-explain输出的前面部分是获胜的查询计划（参见`winningPlan`字段）。查询计划描述了MongoDB用来满足查询的步骤。我们尤其对使用了哪个索引以及MongoDB必须在内存中进行排序感兴趣。
-
-```json
+```js
 "winningPlan": {
   "stage": "FETCH",
   "inputStage": {
@@ -703,14 +908,11 @@ explain输出的前面部分是获胜的查询计划（参见`winningPlan`字段
 }
 ```
 
-expalin的输出查询计划显示为一颗包含各个阶段的树。一个阶段可以有一个或多个输入阶段，这取决于它有多少个子阶段。输入阶段向其父阶段提供文档或索引键。
-本例中有一个输入阶段，即索引扫描。该扫描阶段向其父阶段`FETCH`提供了哪些匹配查询的文档的记录ID。然后，`FETCH`阶段会获取文档本身，并将其分批返回给发出请求的客户端。
+expalin 的输出查询计划显示为一颗包含各个阶段的树。一个阶段可以有一个或多个输入阶段，这取决于它有多少个子阶段。输入阶段向其父阶段提供文档或索引键。本例中有一个输入阶段，即索引扫描。该扫描阶段向其父阶段 “FETCH” 提供了哪些匹配查询的文档的记录 ID。然后，FETCH 阶段会获取文档本身，并将其分批返回给发出请求的客户端。
 
-<br/>
+失败的查询计划（本例只有一个）则会使用基于 `class_id` 的索引，但之后它必须进行内存排序。当在查询计划中看到 SORT 阶段时，意味着 MongoDB 将无法使用索引对数据库中的结果集进行排序，而必须执行内存排序。
 
-失败的查询计划（本例只有一个）则会使用基于`class_id`的索引，但之后它必须进行内存排序。当在查询计划中看到`SORT`阶段时，意味着MongoDB将无法使用索引对数据库中的结果集进行排序，而必须执行内存排序。
-
-```
+```js
 "rejectedPlans": [
   {
     "stage": "SORT",
@@ -721,28 +923,27 @@ expalin的输出查询计划显示为一颗包含各个阶段的树。一个阶�
 ]
 ```
 
-对于这个查询，获胜的索引是能够返回排序输出的索引。要获胜，只需要获取测试数量的已排序结果文档。而对于另一个计划，这个查询线程必须要返回整个结果集（将近10000个文档），因为需要将这些结果在内存中进行排序。
+对于这个查询，获胜的索引是能够返回排序输出的索引。要获胜，只需要获取测试数量的已排序结果文档。而对于另一个计划，这个查询线程必须要返回整个结果集（将近十万个个文档），因为需要将这些结果在内存中进行排序。
 
 <br/>
 
-上面运行的这个查询，同时包含了多值部分和等值部分。`class_id`再植行查询时更具选择性，它经结果集限制在了10000条以下，而不是多值部分所定位到的850000多条。
+上面运行的这个查询，同时包含了多值部分和等值部分。等值部分要求所有记录中 "class_id" 等于 54。这个数据集中只有大约 500 个班级，虽然这些班级中有大量学生，但 "class_id" 在执行此查询时更具选择性。这是这个值将结果集限制在了十万条以下，而不是多值部分所定位到的八十五万多条。
 
-换句话说，在当前情况下，如果可以使用基于`calss_id`的索引则会比较好。
+换句话说，在当前情况下，如果可以使用基于 `calss_id` 的索引（失败查询计划中的索引）则会比较好。MongoDB 提供了两种强制数据库使用特定索引的方法。不过，使用这些方法来覆盖查询计划器的结果时应该非常谨慎，也不应该在生成环境中使用。
 
 <br/>
 
-游标的`hint`方法能够通过索引的形状或名称来指定要使用的特定索引。
+游标的 `hint` 方法能够通过索引的形状或名称来指定要使用的特定索引。
 
-如下所示，如果使用`hint`稍微更改以下查询，那么`explain`的输出结果会完全不同。
+如下所示，如果使用 hint 稍微更改以下查询，那么 explain 的输出结果会完全不同。
 
-```
+```js
 db.students.find({student_id: {$gt: 500000}, class_id: 54})
-.sort({{student_id: 1}})
-.hint({class_id: 1})
-.explain("executionStats")
-```
+  .sort({{student_id: 1}})
+  .hint({class_id: 1})
+  .explain("executionStats")
 
-```
+// 扫描了两万个索引键，执行时间为 272 毫秒
 "executionStats": [
   "nReturned": 9903,
   "executionTimeMillis": 272,
@@ -752,117 +953,310 @@ db.students.find({student_id: {$gt: 500000}, class_id: 54})
 ]
 ```
 
-结果显示，为了得到略少于一万条的结果集，从扫描大约850000个索引键降低到了大约20000个。此外，执行时间仅为272毫秒，而不是之前使用另一个索引时那个查询的4.3秒。
+然而，我们真正希望看到的是 nReturned 与 totalKeysExamined 非常接近。此外，为了更有效地执行此查询，我们希望可以不使用 hint。解决这两个问题的方法是设计一个更好的索引。
 
-然而，我们真正希望看到的是`nReturned`与`totalKeysExamined`非常接近。此外，为了更有效地执行此查询，我们希望可以不使用`hint`。解决这两个问题的方法是设计一个更好的索引。
+对于这里所讨论的查询模式，更好的索引应该基于 "class_id" 和 "student_id"，两个键的顺序不能变。以 "class_id" 作为前缀，在查询中使用等值过滤来限制索引需要考虑的键。这是查询中最具选择性的部分，从而有效限制了 MongoDB 完成此查询所需考虑的键的数量。
 
-对于这里所讨论的查询模式，更好的索引应该基于`class_id`和`student_id`，两个键的顺序不能变。以`class_id`作为前缀，在查询中使用等值过滤来限制索引需要考虑的键。这是查询中最具选择性的部分，从而有效限制了MongoDB完成此查询所需考虑的键的数量。
-
-创建如下索引：
-
-```
+```js
 db.students.createIndex({class_id: 1, student_id: 1})
 ```
 
-<br/>
-
 虽然不是所有数据集都这样，但通常在设计复合索引时，应将等值过滤字段排在多值过滤字段之前。
 
-有了新索引之后，重新执行查询时就不需要提示了。可从explain的输出结果中的`executionStats`字段看到，查询速度非常快（37毫秒），其中返回的结果数(`nReturned`)等于索引所扫描的键数(`totalKeysExamined`)。还可以看到，这个结果是因为`executionStages`所对应的获胜的查询计划包含了一个索引扫描，它使用了新创建的索引。
+有了新索引之后，重新执行查询时就不需要提示了。可从 explain 的输出结果中的 executionStats 字段看到，查询速度非常快（37毫秒），其中返回的结果数（nReturned）等于索引所扫描的键数（totalKeysExamined）。还可以看到，这个结果是因为 executionStages 所对应的获胜的查询计划包含了一个索引扫描，它使用了新创建的索引。
 
-```
+```js
+...
 "executionStats": {
-  "executionSucess": true,
-  "nReturned": 9903,
-  "executionTimeMills": 37,
-  "totalKeysExamined": 9903,
-  "totalDocsExamined": 9903,
-  ...
-}
+ "executionSuccess": true,
+ "nReturned": 9903,
+ "executionTimeMillis": 37,
+ "totalKeysExamined": 9903,
+ "totalDocsExamined": 9903,
+ "executionStages": {
+ "stage": "FETCH",
+ "nReturned": 9903,
+ "executionTimeMillisEstimate": 36,
+ "works": 9904,
+ "advanced": 9903,
+ "needTime": 0,
+ "needYield": 0,
+ "saveState": 81,
+ "restoreState": 81,
+ "isEOF": 1,
+ "invalidates": 0,
+ "docsExamined": 9903,
+ "alreadyHasObj": 0,
+ "inputStage": {
+ "stage": "IXSCAN",
+ "nReturned": 9903,
+ "executionTimeMillisEstimate": 0,
+ "works": 9904,
+ "advanced": 9903,
+ "needTime": 0,
+ "needYield": 0,
+ "saveState": 81,
+ "restoreState": 81,
+ "isEOF": 1,
+ "invalidates": 0,
+ "keyPattern": {
+ "class_id": 1,
+ "student_id": 1
+ },
+ "indexName": "class_id_1_student_id_1",
+ "isMultiKey": false,
+ "multiKeyPaths": {
+ "class_id": [ ],
+ "student_id": [ ]
+ },
+ "isUnique": false,
+ "isSparse": false,
+ "isPartial": false,
+ "indexVersion": 2,
+ "direction": "forward",
+ "indexBounds": {
+ "class_id": [
+ "[54.0, 54.0]"
+ ],
+ "student_id": [
+ "(500000.0, inf.0]"
+ ]
+ },
+ "keysExamined": 9903,
+ "seeks": 1,
+ "dupsTested": 0,
+ "dupsDropped": 0,
+ "seenInvalidated": 0
+ }
+ }
+},
 ```
 
 <br/>
 
-如果思考以下创建索引的原理，就能明白为什么会有这样的结果。`[class_id, student_id]`索引由如下一对对键组成。由于学生ID在其中是有序的，因此为了满足排序要求，MongoDB只需从`class_id`为54的第一对键开始全部进行遍历。
+如果思考一下创建索引的原理，就能明白为什么会有这样的结果。"[class_id, student_id]" 索引由如下一对对键组成。由于学生 ID 在其中是有序的，因此为了满足排序要求，MongoDB只需从 class_id 为 54 的第一对键开始全部进行遍历。
 
-```
+```js
 ...
 [53, 999617]
 [53, 999916]
-[54, 500001],
+[54, 500001]
 [54, 500048]
 ...
 ```
 
-在考虑复合索引的设计时，需要知道对于利用索引的通用查询模式，如何处理其**等值过滤**、**多值过滤**以及**排序**这些部分。对于所有复合索引都必须考虑这3个因素，而且如果在设计索引时可以正确地平衡这些关注点，那么你的查询就会从MongoDB中获得最佳的性能。
+在考虑复合索引的设计时，需要知道对于利用索引的通用查询模式，如何处理其 **等值过滤**、**多值过滤** 以及 **排序** 这些部分。对于所有复合索引都必须考虑这 3个因素，而且如果在设计索引时可以正确地平衡这些关注点，那么你的查询就会从 MongoDB 中获得最佳的性能。
 
 <br/>
 
-为了消除这个例子中的特殊情况，我们改为按照最终成绩进行排序，更改后的查询如下。
+虽然 "[class_id, student_id]" 索引已经处理了全部 3 个要素，但要进行排序的字段同样是其中一个需要过滤的字段，而这样的查询是复合索引问题的一种特殊情况。
 
-```
+为了消除这个特殊情况，我们改为按照成绩进行排序，更改后的查询如下。
+
+```js
 db.statudents.find({student_id: {$gt: 500000}, class_id: 54})
 .sort({final_grade: 1})
 .explain("executionStats")
 ```
 
-运行这个查询并查看explain输出，就会发现这里使用了内存排序。虽然查询速度仍然很快（136毫秒），但由于使用了内存排序，因此比在`student_id`上排序慢了一个数量级。可以看到，在进行内存排序时，获胜的查询计划包含一个`SORT`阶段。
+运行这个查询并查看 explain 输出，就会发现这里使用了内存排序。虽然查询速度仍然很快（136ms），但由于使用了内存排序，因此比在 student_id 上排序慢了一个数量级。可以看到，在进行内存排序时，获胜的查询计划包含一个 "SORT" 阶段。
 
-```
+```js
 ...
 "executionStats": {
-  "executionSuccess": true,
-  "nReturned": 9903,
-  "executionTimeMillis": 136,
-  "totalKeysExamined": 9903,
-  "totalDocsExamined": 9903,
-  "executionStages": {
-    "stage": "SORT",
-    ...
-  }
-}
+ "executionSuccess": true,
+ "nReturned": 9903,
+ "executionTimeMillis": 136,
+ "totalKeysExamined": 9903,
+ "totalDocsExamined": 9903,
+ "executionStages": {
+ "stage": "SORT",
+ "nReturned": 9903,
+ "executionTimeMillisEstimate": 36,
+ "works": 19809,
+ "advanced": 9903,
+ "needTime": 9905,
+ "needYield": 0,
+ "saveState": 315,
+ "restoreState": 315,
+ "isEOF": 1,
+ "invalidates": 0,
+ "sortPattern": {
+ "final_grade": 1
+ },
+ "memUsage": 2386623,
+ "memLimit": 33554432,
+ "inputStage": {
+ "stage": "SORT_KEY_GENERATOR",
+ "nReturned": 9903,
+ "executionTimeMillisEstimate": 24,
+ "works": 9905,
+ "advanced": 9903,
+ "needTime": 1,
+ "needYield": 0,
+ "saveState": 315,
+ "restoreState": 315,
+ "isEOF": 1,
+ "invalidates": 0,
+ "inputStage": {
+ "stage": "FETCH",
+ "nReturned": 9903,
+ "executionTimeMillisEstimate": 24,
+ "works": 9904,
+ "advanced": 9903,
+ "needTime": 0,
+ "needYield": 0,
+ "saveState": 315,
+ "restoreState": 315,
+ "isEOF": 1,
+ "invalidates": 0,
+ "docsExamined": 9903,
+ "alreadyHasObj": 0,
+ "inputStage": {
+ "stage": "IXSCAN",
+ "nReturned": 9903,
+ "executionTimeMillisEstimate": 12,
+ "works": 9904,
+ "advanced": 9903,
+ "needTime": 0,
+ "needYield": 0,
+ "saveState": 315,
+ "restoreState": 315,
+ "isEOF": 1,
+ "invalidates": 0,
+ "keyPattern": {
+ "class_id": 1,
+ "student_id": 1
+ },
+ "indexName": "class_id_1_student_id_1",
+ "isMultiKey": false,
+ "multiKeyPaths": {
+ "class_id": [ ],
+ "student_id": [ ]
+ },
+ "isUnique": false,
+ "isSparse": false,
+ "isPartial": false,
+ "indexVersion": 2,
+ "direction": "forward",
+ "indexBounds": {
+ "class_id": [
+ "[54.0, 54.0]"
+ ],
+ "student_id": [
+ "(500000.0, inf.0]"
+ ]
+ },
+ "keysExamined": 9903,
+ "seeks": 1,
+ "dupsTested": 0,
+ "dupsDropped": 0,
+ "seenInvalidated": 0
+ }
+ }
+ }
+ }
+},
+...
 ```
+
+<br/>
 
 如果可以的话，应该用更好的索引设计来避免内存排序。这样便能从数据集大小和系统负载两个方面更容易地进行扩展。
 
 但要做到这一点，必须做出权衡。这在设计复合索引时是很常见的情况。
 
-为了避免内存排序，需要检查比返回的文档数量更多的键，这对于复合索引来说往往是必需的。为了使用索引进行排序，MongoDB应该能够按顺序遍历索引键。这意味着需要在复合索引键中包含排序字段。
-
-新的复合索引中的键应该按照如下顺序排列：`[class_id, final_grade, student_id]`。注意，我们在等值过滤之后立即包含了排序部分，但这是在多值过滤之前。这个索引在缩小此查询所涉及的键的集合时具有非常多的选择性。之后，通过遍历与等值过滤匹配的那些索引，MongoDB可以识别出与多值过滤部分匹配的纪律。并且这些记录将正确地按照最终成绩升序排序。
+为了避免内存排序，需要检查比返回的文档数量更多的键，这对于复合索引来说往往是必需的。为了使用索引进行排序，MongoDB 应该能够按顺序遍历索引键。这意味着需要在复合索引键中包含排序字段。
 
 <br/>
 
-这个复合索引会迫使MongoDB检查比结果集中文档数量更多的键。不过，通过使用索引来确保对文档排序的方式节省了执行时间。
+新的复合索引中的键应该按照如下顺序排列："[class_id, final_grade, student_id]"。注意，我们在等值过滤之后立即包含了排序部分，但这是在多值过滤之前。这个索引在缩小此查询所涉及的键的集合时具有非常多的选择性。之后，通过遍历与等值过滤匹配的那些索引，MongoDB 可以识别出与多值过滤部分匹配的记录。并且这些记录将正确地按照最终成绩升序排序。
 
-创建新索引：
+这个复合索引会迫使 MongoDB 检查比结果集中文档数量更多的键。不过，通过使用索引来确保对文档排序的方式节省了执行时间。
 
-```
+```js
+db.students.createIndex({class_id:1, final_grade:1, student_id:1})
+
 db.students.find({student_id: {$gt: 500000}, class_id: 54})
 .sort({final_grade: 1})
 .explain("executionStats")
 ```
 
-在explain的输出中查看`executionStats`，具体细节和硬件以及系统的其它因素有关，但可以看到获胜的计划中不再包含内存排序，而是使用刚刚创建的索引来满足查询，其中也包括了排序的部分。
+在输出中查看 executionStats，具体细节和硬件以及系统的其它因素有关，但可以看到获胜的计划中不再包含内存排序，而是使用刚刚创建的索引来满足查询，其中也包括了排序的部分。
 
-```
+```js
 "executionStats": {
-  "executionSuccess": true,
-  "nReturnd": 9903,
-  "executionTimeMillis": 42,
-  "totalKeysExamined": 9905,
-  "totalDocsExamined": 9903,
-  "executionStages": {
-    "stage": "FETCH",
-    ...
-  }
-}
+ "executionSuccess": true,
+ "nReturned": 9903,
+ "executionTimeMillis": 42,
+ "totalKeysExamined": 9905,
+ "totalDocsExamined": 9903,
+ "executionStages": {
+ "stage": "FETCH",
+ "nReturned": 9903,
+ "executionTimeMillisEstimate": 34,
+ "works": 9905,
+ "advanced": 9903,
+ "needTime": 1,
+ "needYield": 0,
+ "saveState": 82,
+ "restoreState": 82,
+ "isEOF": 1,
+ "invalidates": 0,
+ "docsExamined": 9903,
+ "alreadyHasObj": 0,
+ "inputStage": {
+ "stage": "IXSCAN",
+ "nReturned": 9903,
+ "executionTimeMillisEstimate": 24,
+ "works": 9905,
+ "advanced": 9903,
+ "needTime": 1,
+ "needYield": 0,
+ "saveState": 82,
+ "restoreState": 82,
+ "isEOF": 1,
+ "invalidates": 0,
+ "keyPattern": {
+ "class_id": 1,
+ "final_grade": 1,
+ "student_id": 1
+ },
+ "indexName": "class_id_1_final_grade_1_student_id_1",
+ "isMultiKey": false,
+ "multiKeyPaths": {
+ "class_id": [ ],
+ "final_grade": [ ],
+ "student_id": [ ]
+ },
+ "isUnique": false,
+ "isSparse": false,
+ "isPartial": false,
+ "indexVersion": 2,
+ "direction": "forward",
+ "indexBounds": {
+ "class_id": [
+ "[54.0, 54.0]"
+ ],
+ "final_grade": [
+ "[MinKey, MaxKey]"
+ ],
+ "student_id": [
+ "(500000.0, inf.0]"
+ ]
+ },
+ "keysExamined": 9905,
+ "seeks": 2,
+ "dupsTested": 0,
+ "dupsDropped": 0,
+ "seenInvalidated": 0
+ }
+ }
+},
 ```
 
-
 <br/>
 <br/>
-
 
 ### 复合索引的最佳实践
 
@@ -871,99 +1265,358 @@ db.students.find({student_id: {$gt: 500000}, class_id: 54})
 - 等值过滤的键应该在最前面
 - 用于排序的键应该在多值字段之前
 - 多值过滤的键应该在最后面
+- 复合索引字段顺序类似于：等值字段、排序字段，多值字段（范围字段）
 
 在设计复合索引时应遵循这些准则，然后在实际的工作负载下进行测试，这样就可以确定索引所支持的查询模式都有哪些。
 
-
 <br/>
 <br/>
-
 
 #### 选择键的方向
 
-到目前为止，我们的所有索引都是升序的。
+注意，相互反转的索引是等价的，如 `{"age" 1, "username": -1}` 使用的查询与 `{"age": -1, "username": 1}` 完全一样。
 
-注意，相互反转的索引是等价的，如`{"age" 1, "username": -1}`使用的查询与`{"age": -1, "username": 1}`完全一样。
+只有基于多个查询条件进行排序时，索引方向才是重要的。如果只是基于一个键进行排序，那么 MongoDB 可以简单地从反方向读取索引。
 
-只有基于多个查询条件进行排序时，索引方向才是重要的。如果只是基于一个键进行排序，那么MongoDB可以简单地从反方向读取索引。只有在基于多建排序时，方向才重要。
-
+如果有一个在 `{"age": -1}` 上的排序和基于 `{"age": 1}` 的索引，那么 MongoDB 会在使用索引时进行优化，就如同存在一个 `{"age": -1}` 索引一样。
 
 <br/>
 <br/>
-
 
 #### 使用覆盖查询
 
-在上面的例子中，索引都是用来查找正确的文档，然后跟随指针去获取实际的文档。然而，如果查询只需要查询索引中包含的字段，那么就没哟u必要去获取实际的文档。
+在上面的例子中，索引都是用来查找正确的文档，然后跟随指针去获取实际的文档。然而，如果查询只需要查找索引中包含的字段，那么就没必要去获取实际的文档。
 
-当一个索引包含用户请求的所有字段时，这个索引就**覆盖**了本次查询。只要切实可行，就应该优先使用覆盖查询，而不是去获取实际的文档，这样可以使工作集大幅减少。
+当一个索引包含用户请求的所有字段时，这个索引就 **覆盖** 了本次查询。只要切实可行，就应该优先使用覆盖查询，而不是去获取实际的文档，这样可以使工作集大幅减少。
 
-为了确保查询只是用索引就可以完成，应该使用**投射**（只返回查询中指定的字段）来避免返回`_id`字段（除非它是索引的一部分）。
+为了确保查询只使用索引就可以完成，应该使用 **投射**（只返回查询中指定的字段）来避免返回 `_id` 字段（除非它是索引的一部分）。可能还需要对不做查询的字段就行索引，因此在编写的时候就要在所需的查询速度和这种方式带来的开销之间做好权衡。
 
+如果对一个被覆盖的查询运行 explain，那么结果中会有一个并不处于 FETCH 阶段之下的 IXSCAN 阶段，并且在 executionStats 中，totalDocsExamined 的值是 0。
+
+```js
+// 比如 username 是索引的一个字段，查询只请求返回 username 字段，这个就是覆盖查询了。
+// _id 字段会默认返回
+db.users.find({"username": "user1010"}, {"_id": 0, "username": 1})
 ```
-db.users.find({"username": "user1010"}, {"_id": 0, "username": 1, "email": 1})
-```
-
-如果对一个被覆盖的查询运行explain，那么结果中会有一个并不处于`FETCH`阶段之下的`IXSCAN`阶段，并且在`executionStats`中，`totalDocsExamined`的值是0。
-
 
 <br/>
 <br/>
-
 
 #### 隐式索引
 
-复合索引具有双重功能，而且针对不同的查询可以充当不同的功索引。
+复合索引具有双重功能，而且针对不同的查询可以充当不同的索引。
 
-如果有一个在`{age: 1, username: 1}`上的索引，那么`age`字段的排序方式就和在`{age: 1}`上的索引相同。因此，这个复合索引就可以当作`{age: 1}`索引一样使用。
+如果有一个在 `{"age": 1, "username": 1}` 上的索引，那么 `age` 字段的排序方式就和在 `{age: 1}` 上的索引相同。因此，这个复合索引就可以当作 `{age: 1}` 索引一样使用。
 
-这可以推广到所需的任意多个键：如果一个拥有N个键的索引，那么你同时免费得到了所有这些键的前缀所组成的索引。如果有一个类似`{a: 1, b: 1, c: 1, ..., z: 1}`的索引，那么实际上也等于有了`{a: 1}`, `{a: 1, b:1}`, `{a: 1, b: 1, c: 1}`等一系列索引。
+这可以推广到所需的任意多个键：如果一个拥有 N个键的索引，那么你同时免费得到了所有这些键的前缀所组成的索引。如果有一个类似 `{a: 1, b: 1, c: 1, ..., z: 1}` 的索引，那么实际上也等于有了 `{a: 1}`, `{a: 1, b: 1}`, `{a: 1, b: 1, c: 1}` 等一系列左前缀索引。
 
-注意，这一点并不适用与这些键的任意子集。如`{b: 1}`, `{a: 1, c: 1}`作为索引的查询是不是被优化的。只有能够使用索引前缀的查询才能从中受益。
-
+注意，这并不适用与这些键的任意子集。如 `{b: 1}`, `{a: 1, c: 1}` 作为索引的查询是不是被优化的。只有能够使用索引左前缀的查询才能从中受益。
 
 <br/>
 <br/>
-
 
 ### $运算符如何使用索引
 
+有些查询可以比其他查询更高效地使用索引，有些查询则根本不能使用索引。
 
+<br/>
+<br/>
 
+#### 低效的运算符
 
+通常来说，取反的效率是比较低的。`$ne` 查询可以使用索引，但不是很有效。由于必须查看所有索引项，而不只是 `$ne` 指定的索引项，因此基本上必须扫描整个索引。
 
+`$not` 有时能够使用索引，但通常它并不知道要如何使用。它可以对基本的范围和正在表达式进行反转。然而，大多数使用 `$not` 的查询会退化为全表扫描。而 `$nin` 总是使用全表扫描。
 
+如果需要快速地执行这些类型的查询，可以尝试是否能找到另一个使用索引的语句，将其添加到查询中。这样就可以在 MongoDB 进行无索引匹配时先将结果集的文档数量减少到一个比较小的数量。
 
+<br/>
+<br/>
 
+#### 范围
 
+当设计基于多个字段的索引时，应该将用于精确匹配的字段放在最前面，将范围字段放在最后面。这样可以使查询先用第一个索引键进行精确匹配，然后再用第二个索引范围在这个结果集内部进行搜索。
 
+<br/>
+<br/>
 
+#### OR查询
 
+MongoDB 在一次查询中仅能使用一个索引。如在 `{"x": 1}` 上有一个索引，在 `{"y": 1}` 上有另一个索引，然后在 `{"x": 123, "y": 456}` 上进行查询时，MongoDB 只会使用其中一个索引，而不是两个一起使用。唯一的例外是 `$or`，每个 `$or` 子句都可以使用一个索引，因为实际上 `$or` 是执行两次查询后将结果集合并。
 
+```js
+db.foo.find({"$or" : [{"x" : 123}, {"y" : 456}]}).explain()
 
+{
+ "queryPlanner" : {
+ "plannerVersion" : 1,
+ "namespace" : "foo.foo",
+ "indexFilterSet" : false,
+ "parsedQuery" : {
+ "$or" : [
+ {
+ "x" : {
+ "$eq" : 123
+ }
+ },
+ {
+ "y" : {
+ "$eq" : 456
+ }
+ }
+ ]
+ },
+ "winningPlan" : {
+ "stage" : "SUBPLAN",
+ "inputStage" : {
+ "stage" : "FETCH",
+ "inputStage" : {
+ "stage" : "OR",
+ "inputStages" : [
+ {
+ "stage" : "IXSCAN",
+ "keyPattern" : {
+ "x" : 1
+ },
+ "indexName" : "x_1",
+ "isMultiKey" : false,
+ "multiKeyPaths" : {
+ "x" : [ ]
+ },
+ "isUnique" : false,
+ "isSparse" : false,
+ "isPartial" : false,
+ "indexVersion" : 2,
+ "direction" : "forward",
+ "indexBounds" : {
+ "x" : [
+ "[123.0, 123.0]"
+ ]
+ }
+ },
+ {
+ "stage" : "IXSCAN",
+ "keyPattern" : {
+ "y" : 1
+ },
+ "indexName" : "y_1",
+ "isMultiKey" : false,
+ "multiKeyPaths" : {
+ "y" : [ ]
+ },
+ "isUnique" : false,
+ "isSparse" : false,
+ "isPartial" : false,
+ "indexVersion" : 2,
+ "direction" : "forward",
+ "indexBounds" : {
+ "y" : [
+ "[456.0, 456.0]"
+ ]
+ }
+ }
+ ]
+ }
+ }
+ },
+ "rejectedPlans" : [ ]
+ },
+ "serverInfo" : {
+ ...,
+ },
+ "ok" : 1
+}
+```
 
+可以看到，这里的 explain 需要发你别对两个索引进行两次单独的查询。通常来说，执行两次查询再将结果合并的效率不如单次查询高，因此应该尽可能使用 `$in` 而不是 `$or`。
 
+如果不得不使用 `$or`，则要记住 MongoDB 需要检查两次查询的结果集并从中移除重复的文档。
 
+除非使用排序，否则在用 `$in` 查询时无法控制返回文档的顺序。如 `{"x": {"$in": [1, 2, 3]}}` 与 `{"x": {"$in": [3, 2, 1}}` 返回的文档顺序是相同的。
 
+<br/>
+<br/>
 
+### 索引对象和数组
 
+MongoDB 允许深入文档内部，对内嵌字段和数组创建索引。内嵌对象和数组字段可以和顶级字段一起在复合索引中使用。
 
+<br/>
+<br/>
 
+#### 索引内嵌文档
 
+示例内嵌文档：
 
+```js
+{
+ "username" : "sid",
+ "loc" : {
+ "ip" : "1.2.3.4",
+ "city" : "Springfield",
+ "state" : "NY"
+ }
+}
+```
 
+可在 "loc" 的其中一个子字段上创建索引，以提高这个字段的查询速度。
 
+```js
+// 可用这种方式创建任意深层次的字段 （如 "x.y.z.w.a.b.c"）创建索引
+db.users.createIndex({"loc.city" : 1})
+```
 
+注意，对内嵌文档本身（如 "loc"）创建索引的行为与对内嵌文档的某个字段（如 "loc.city"）创建索引的行为非常不同。对整个文档创建索引只会提高对整个文档进行查询的速度。只有在进行与子文档字段顺序完全匹配的查询时，查询优化其才能使用 "loc" 上的索引。
 
+<br/>
+<br/>
 
+#### 索引数组
 
+也可以对数组创建索引，这样就能高效地查找特定数组元素。
 
+```js
+// 如一个博客文章的评论数组字段
+db.blog.createIndex({"comments.date" : 1})
+```
 
+对数组创建索引实际上就是对数组的每一个元素创建一个索引项，所以如果一篇文字有 20个评论，那么它就会有 20个索引项。这使得数组索引的代价比单值索引更高：对于单次的插入、更新或删除，每一个数组项可能都需要更新，非常庞大。
 
+整个数组是无法作为一个实体创建索引的：对数组创建索引就是对数组中的每个元素创建索引。
 
+数组元素上的索引并不包含任何位置信息：要查找特定位置的数组元素（如 "comments.4"），查询时无法使用索引的。
 
+<br/>
+<br/>
 
+#### 多键索引的影响
 
+如果一个索引有被索引的数组字段，则该索引会被立即标记为多键索引（explain 中的 isMultikey 为 true）。多键索引无法变成非多键索引，唯一方法是删除并重建这个索引。
+
+多键索引可能会比非多键索引慢一些。可能会有许多索引项指向同一个文档，因此 MongoDB 在返回结果之前可能需要做一些删除重复数据的操作。
+
+<br/>
+<br/>
+
+### 索引基数
+
+**基数**（cardinality）是指集合中某个字段有多少个不同的值。有些字段，比如 "gender" 可能只有两个值，这类键的基数就非常低。其他一些字段，如 "username" 或 "email" 可能每个值都不相同，这类键的基数就非常高。还有一些字段介于两者之间，比如 "age" 或 "zip code"。
+
+通常来说，一个字段的基数越高，这个字段上的索引就越有用。因为索引能够迅速将搜索范围缩小到一个比较小的结果集。对于基数比较低的字段，索引通常无法排查大量可能的匹配项。
+
+根据经验来说，应该在基数比较高的键上创建索引，或者至少应该把基数比较高的键放在复合索引的前面（在低基数的键之前）。
+
+<br/>
+<br/>
+
+## explain输出
+
+对于慢查询来说，`explain` 是最重要的诊断工具，可以了解查询都使用了哪些索引以及是如何使用的。对于任何查询，都可以在默认添加一个 explain 调用，它必须是最后一个调用。
+
+最常见的 explain 数据有两种类型：使用索引的查询和未使用索引的查询。特殊类型的索引可能会创建有不同的查询计划，但大多数字段应该是相似的。此外，分片返回的是多个 expalin 集合，因为查询会在多个服务器上执行。
+
+如果一个查询不使用索引，则是因为它使用了 "COLLSCAN"。
+
+expalin 输出的一些重要字段的详细介绍：
+
+- **isMultiKey**：本次查询是否使用了多键索引。
+- **nReturned**：本次查询返回的文档数量。
+- **totalKeyExamined**：查找过的索引条目数量。。
+- **totalDocsExamined**：按照指针索引在磁盘上查找实际文档的次数。
+- **executionTimeMillis**：本次查询所花费的毫秒数。
+- **stage**：是否可以使用索引完成本次查询。
+- **needYield**：为了让写请求顺利进行，本次查询所做的让步（暂停）的次数。
+- **indexBounds**：索引是如何被使用的，并给出了索引的遍历范围。
+- **rejectedPlans**：拒绝的计划
+
+<br/>
+<br/>
+
+## 何时不使用索引
+
+索引在提取较小的子数据集时是最高效的，而有些查询在不适用索引时会更快。结果集在原集合中所占的百分比越大，索引就会越低效，因为使用索引需要进行两次查找：一次是查找索引项，一次是根据索引的指针去查找其指向的文档。而全表扫描只需查找文档。在最坏的情况下，使用索引进行查找的次数会是全表扫描的两边，通常会明显比全表扫描满。
+
+| 索引通常适合的情况 | 全表扫描通常适合的情况 |
+| - | - |
+| 比较大的集合 | 比较小的集合 |
+| 比较大的文档 | 比较小的文档 |
+| 选择性查询 | 非选择性查询 |
+
+<br/>
+<br/>
+
+## 索引类型
+
+<br/>
+<br/>
+
+### 唯一索引
+
+**唯一索引** 确保每个值最多只会在索引中出现一次（比如默认的 "_id"）。
+
+<br/>
+<br/>
+
+### 部分索引
+
+<br/>
+<br/>
+
+## 索引管理
+
+每个集合只需要创建一次索引，如果再次尝试创建相同的索引，则不会执行任何操作。
+
+关于数据库索引的所有信息都存储在 `system.indexes` 集合中。这是一个保留集合，因此不能修改或删除其中的文档。只能通过 `createIndex`, `createIndexes` 和 `dropIndexes` 命令来对它进行操作。
+
+创建一个索引后，可以在 `system.indexes` 中看到它的云信息。也可以执行 `db.collectionName.getIndexes()` 来查看集合的所有索引的信息。
+
+```js
+// 查看集合的索引信息
+db.users.getIndexes()
+```
+
+<br/>
+
+创建新的索引既费时又耗费资源。在 MongoDB 4.2 之前，它会尽可能快地创建索引，阻塞数据库上的所有读写操作，直到索引创建完成。
+
+如果希望数据库对读写保持一定的响应，那么可以在创建索引时使用 `background` 选项。这会迫使索引创建时不时让步于读写操作，但仍可能对应用程序的性能造成严重影响。后台创建索引也会比前台创建索引慢得多。
+
+MongoDB 4.2 引入了一种新的方式，即混合索引创建，它只在索引创建的开始和结束时持有排他锁。创建过程的其余部分会交错地让步于读写操作。这种方式同时替换了前台和后台类型的索引创建。
+
+如果可以选择，在现有文档中创建索引要比先创建索引然后插入所有文档中稍微快一些。
+
+<br/>
+<br/>
+
+### 标识索引
+
+集合中的每个索引都有一个可用于标识该索引的名称，默认形式是 `key1_dir1_key2_dir2_...keyN_dirN`（索引的键和方向）。可以自己指定索引名称，名称有字符数限制。
+
+```js
+db.users.createIndex({"username": 1, "age": 1}, {"background": true})
+
+db.soup.createIndex({"a" : 1, "b" : 1, "c" : 1, ..., "z" : 1}, {"name" : "alphabet"})
+```
+
+<br/>
+<br/>
+
+### 修改索引
+
+可以先创建新索引，然后删除旧索引。
+
+```js
+// 删除索引
+db.people.dropIndex("x_1_y_1")
+```
+
+<br/>
+
+---
+
+<br/>
+
+# 特殊类型的索引和集合类型
 
 
 
@@ -1002,9 +1655,6 @@ db.users.find({"username": "user1010"}, {"_id": 0, "username": 1, "email": 1})
 ---
 
 <br/>
-
-
-
 
 # 副本集
 
@@ -1235,8 +1885,8 @@ rs.add({"host": "server-4:27017", "priority": 1.5})
 
 只有优先级为0的成员才能被隐藏，不能隐藏主节点。将hidden设置为true即可隐藏节点，要将隐藏成员设置非隐藏，只需将配置中的hidden设为false，或删除此选项。
 
-```mongo
-var config = rs.confg()
+```js
+var config = rs.config()
 config.members[3].priority = 0
 config.members[3].hidden = true
 
@@ -3074,7 +3724,7 @@ mongostat的输出内容:
 
 
 
-# MongoDB安全介绍
+# 安全介绍
 
 为了保护MongoDB集群及其中的数据，可以采用一下安全措施：
 
@@ -3372,7 +4022,7 @@ logappend: 在使用日志文件的前提下，日志追加
 
 
 
-# 监控MongoDB
+# 监控
 
 包括:
 
@@ -3516,7 +4166,7 @@ IO等待处于100%，表明磁盘正在超载。
 
 
 
-# 备份
+# 备份和恢复
 
 定期对系统进行备份很重要。本章涵盖了几种常用的备份选项：
 
@@ -3526,82 +4176,150 @@ IO等待处于100%，表明磁盘正在超载。
 
 只有在紧急情况下有信心迅速完成对备份的部署时，备份才是有用的。因此，对于选择任何备份技术，都要确保同时对备份和恢复的操作进行练习，知道恢复过程为止。
 
-
 <br/>
 <br/>
-
 
 ## 对服务器进行备份
 
 有多种方法可以创建备份。但无论那种方法，备份操作都会对系统造成压力，因此，备份应该在从节点上空闲时进行。
 
-
 <br/>
 <br/>
-
 
 ### 文件系统快照
 
 文件系统快照使用系统级别的工具创建MongoDB数据文件设备的副本。此方式耗时很短，并且很可靠。
 
-
 <br/>
 <br/>
-
 
 ### 磁盘快照
 
 直接给整个磁盘定期打快照。
 
-
 <br/>
 <br/>
-
 
 ### 复制数据文件
 
 单机服务器，复制数据目录中的所有内容。因为没有文件系统支持的情况下无法同时复制所有文件，所以在进行复制时必须防止数据文件发生变化。此方法很慢。
 
-```
+```js
+// 将写入刷新到磁盘并锁定数据库，从而防止后续写入。
 db.fsyncLock();
-复制
+
+// 执行 创建快照 中描述的备份操作
+
+// 创建快照后，解锁数据库。
 db.fsyncUnlock();
 ```
 
+<br/>
+<br/>
+
+## MongoDB工具进行备份
+
+使用 `mongodump` 和 `mongorestore` 备份和恢复数据。
+
+此工具与 BSON 数据转储配合，可用于创建小型部署的备份。要实现弹性、无中断的备份，请使用文件系统快照或磁盘快照。
+
+此工具会与 mongod 实例交互来进行操作，会影响当前数据库的性能，会很慢（无论是创建还是恢复），并且在处理副本集时也存在一些问题。
+
+<br/>
+
+实践：
+
+- 为文件添加标签，以便你能够识别备份的内容以及备份对应的时间点。
+- 有性能影响，请注意。
+- 为确保能对副本集进行一致备份，必须使用 `--oplog` 选项捕获备份操作过程中接收到的写入。
+- 试着将备份恢复到一个测试实例，来确保备份数据的可用性。
+- 为了帮助减少分片集群备份中出现的不一致的可能性，你必须停止均衡器，停止所有写入操作，并在备份期间停止任何模式转换。
+
+<br/>
+
+使用实例：
+
+```sh
+# 备份 test 库
+mongodump -h="host:port" -u="xx" -p='xx' --authenticationDatabase="admin" --db="test" --out test-bak
+
+# 一些有用参数:
+# --query: 指定查询条件
+# --oplog: 拷贝源数据库中的所有数据以及从备份过程开始到结束的所有 oplog 条目
+
+# 恢复 test 库
+mongorestore -h="host:port" -u="xx" -p='xx' --authenticationDatabase="admin" test-bak/
+```
 
 <br/>
 <br/>
 
+## 备份恢复副本集
 
-### mongodump工具
-
-单机服务器，此方式也很慢（无论是创建还是恢复），并且在处理副本集时也存在一些问题。
-
+> 你无法将单个数据集恢复为三个新的 mongod 实例，然后创建副本集。如果你将数据集复制到每个 mongod 实例，然后创建副本集，MongoDB 将强制从节点执行初始同步。
 
 <br/>
-<br/>
-
-
-## 副本集的特殊注意事项
 
 在备份副本集时，除了所需数据之外，还需要获取副本集的状态，以确保生成整个部署集群的准确时间点快照。
 
 通常，应该在从节点上进行备份。建议使用快照的方式。
 
-当启用复制时，mongodump的使用就不那么简单了。必须使用`--oplog`选项，以获得某个时间点的快照。否则备份的状态会与集群中任何其他成员的状态都不匹配。恢复时，还必须创建一份oplog，否则被恢复的成员就不知道它被同步到哪里了。
+当启用复制时，`mongodump` 的使用就不那么简单了。必须使用 `--oplog` 选项，以获得某个时间点的快照。否则备份的状态会与集群中任何其他成员的状态都不匹配。恢复时，还必须创建一份 oplog ，否则被恢复的成员就不知道它被同步到哪里了。
 
-要从mongodump备份恢复副本集成员，需要将目标副本集成员作为单机服务器启动，并使用`--oplogReplay`选项在其上运行mongorestore。
-
+要从 `mongodump` 备份恢复副本集成员，需要将目标副本集成员作为单机服务器启动，并使用 `--oplogReplay`选 项在其上运行 `mongorestore`。
 
 <br/>
 <br/>
 
+### 使用快照和oplog恢复数据
 
-## 分片集群的特殊注意事项
+比如，需要通过全量的快照加上增量的 oplog 恢复部分被删除的数据。
+
+步骤：
+
+- 导出需要的 oplog。
+- 使用最近的快照在测试机器上恢复数据。
+- 使用 oplog 恢复特定时间的增量数据。
+- 找到缺少的数据，然后恢复到需要的环境中。
+
+<br/>
+
+```js
+// 找到 test 库的特定时间 oplog，注意将时间戳转换为 unix 原子时间，注意时区
+use local;
+db.oplog.rs.findOne({
+  "ns": /^test\\..+/,
+  "ts": {
+    "$gte": Timestamp(1688166000, 0), // 2023-07-01 00:00:00
+    "$lte": Timestamp(1690758000, 0)  // 2023-07-31 23:59:59
+  }
+})
+```
+
+```sh
+# 通过 mongodump 导出 oplog
+mongodump -h="host:port" -u="xx" -p='xx' --authenticationDatabase="admin" --query='{"ns": /^test\\..+/, "ts": {"$gte": Timestamp(1688166000, 0), "$lte": Timestamp(1690758000, 0)}}' --out test-oplog
+
+# 重放 oplog，找到删除之前的时间点
+# 需要一个空目录
+mkdir empty
+mongorestore -h="host:port" -u="xx" -p='xx' --authenticationDatabase="admin" --oplogReplay --oplogFile="test-oplog/oplog.rs.bson" --oplogLimit "具体时间戳:1" empty/
+```
+
+<br/>
+<br/>
+
+## 备份恢复分片集群
 
 在处理分片集群时，我们会将重点放在对部分组件的备份上：单独备份配置服务器和副本集。
 
 在分片集群上执行任何备份或恢复操作之前都需要先关闭均衡器。
+
+方法包括：
+
+- 使用快照
+- 使用数据库转储
+- 注意配置集和副本集
 
 <br/>
 
@@ -3609,7 +4327,7 @@ db.fsyncUnlock();
 
 <br/>
 
-# 部署MongoDB
+# 部署
 
 生产环境部署的相关建议：
 
@@ -3675,7 +4393,7 @@ echo "never" > /sys/kernel/mm/transparent_hugepage/defrag
 
 <br/>
 
-# MongoDB日志分析
+# 日志分析
 
 参考文档:
 
@@ -3699,13 +4417,22 @@ MongoDB 主要包括四种日志，这些日志记录着不同的信息。
 
 ## 系统日志
 
-系统日志记录了 MongoDB 的启动和停止的操作，以及服务运行过程中发生的任何异常的信息。
+系统日志记录了 MongoDB 的启动和停止的操作，以及服务运行过程中发生的任何异常的信息。通常，日志可用于诊断问题、监控部署和调优性能。
 
 ```yml
 # 系统日志
 systemLog:
   path: /var/log/mongodb/mongod.log
 ```
+
+<br/>
+<br/>
+
+### 结构化日志
+
+文档: <https://www.mongodb.com/zh-cn/docs/v6.0/reference/log-messages/>
+
+mongod/mongos 实例以结构化 json 格式输出所有日志消息。日志条目以一系列键值对的形式编写。
 
 <br/>
 <br/>
@@ -3824,11 +4551,11 @@ o: 具体的操作内容
 
 MongoDB 中使用系统分析器(profiler) 来查找耗时过长的操作。分析器将记录的慢日志写入 `system.profile` 固定集合中，但相应的整体性能也会有所下降。
 
-
 ```js
 // 默认情况下，分析器处于关闭状态，不会进行任何记录。
 // 0=off 1=slow 2=all
 // 第一个参数指定级别，第二个参数自定义耗时过长的标准，单位毫秒
+// 默认是 100ms，也就是查询超过 100ms 才会写入到系统日志中。
 db.setProfilingLevel(level,<slowms>)
 ```
 
@@ -4143,4 +4870,667 @@ mplotqueries 是一个可视化 MongoDB 日志文件的工具。
 ## mtransfer工具
 
 mtransfer 工具允许 WiredTiger 数据库从一个 MongoDB 实例导出并导入到另一个实例中。
+
+<br/>
+
+---
+
+<br/>
+
+# 参考信息
+
+<br/>
+<br/>
+
+## 错误代码
+
+发生错误时，MongoDB 将返回以下代码之一。
+
+错误码：<https://www.mongodb.com/zh-cn/docs/v6.0/reference/error-codes/>
+
+<br/>
+<br/>
+
+## 限制和阈值
+
+MongoDB 系统的硬件限制和软限制。
+
+<br/>
+<br/>
+
+### BSON文档
+
+BSON 文档的大小限制为 16MB。确保单个文档不会使用过多的内存，或传输过程中不会使用过多的带宽。MongoDB 提供了 GridFS API 来存储超过最大大小的文档。
+
+BSON 文档的嵌套级别不超过 100 个。每个对象或数组都会添加一个级别。
+
+<br/>
+<br/>
+
+### 命名限制
+
+数据库区分大小写，请勿依靠大小写来区分数据库。
+
+Windows 数据库名称不得包含以下字符：`/\. "$*<>:|?`。Unix 和 Linux 上名称不能包含 `/\. "$`。 名称还不能包含 null 字符。
+
+数据库名称长度不能为空且必须小于 64 字节。
+
+集合名称应以下划线或字母开头，并且不能：
+
+- 为空
+- 包含 `$`
+- 包含 null 字符
+- 以 `system.` 前缀开头
+
+未分片集合和视图的命名空间长度限制为 255 字节，分片集合的命名空间长度限制为 235 字节。对于集合或视图，命名空间包括 `db.collection`。
+
+字段名称不能包含 null 字符，允许包含 `.` 和 `$` 符号。
+
+字段 `_id` 保留用作主键，其值在集合中必须是唯一的、不可变的，并且可以是除数组或正则之外的任何类型。如果它包含子字段，则子字段名称不能以 `$` 符号开头。
+
+<br/>
+<br/>
+
+### 命名警告
+
+请注意，本节讨论的问题可能会导致数据丢失或损坏。
+
+不支持重复的字段名称。
+
+带 `$` 和 `.` 字符的字段名称，`mongoimport` 和 `mongoexport` 在某些情况下可能无法按预期运行。在插入和更新时，驱动程序可能会有问题，也有可能导致数据丢失。
+
+<br/>
+<br/>
+
+### 索引限制
+
+每个集合最多可以有 64 个索引。
+
+复合索引中字段数量不能超过 32 个。
+
+查询无法同时使用文本索引和地理空间索引。
+
+具有 2dsphere 索引的字段只能保存几何图形。2dsphere 索引键的有限数量。
+
+WiredTiger 存储引擎从涵盖查询返回的 NaN 值始终为双精度类型。
+
+多键索引的键索引多。
+
+地理空间索引不能覆盖查询。
+
+索引构建中的内存使用情况。`createIndexes` 使用磁盘上的内存和临时文件的组合来完成索引构建，它默认的内存使用限制为 200 MB，内存在使用单个 `createIndexes` 命令构建的所有索引之间共享。达到内存限制后，它将使用 `_tmp` 目录中名为 `--dbpath` 的子目录中的临时磁盘文件来完成构建。
+
+可以通过设置 `maxIndexBuildMemoryUsageMegabytes` 参数来覆盖内存限制。设置更高的值可能会加快索引构建过程。但设置太高可能导致内存耗尽。
+
+以下索引只支持简单的二进制比较，不支持排序规则：文本索引、2d 索引和 geoHaystack 索引。
+
+无法隐藏 `_id` 索引。
+
+<br/>
+<br/>
+
+### 排序限制
+
+排序键的最大数量是 32 个键。
+
+<br/>
+<br/>
+
+### 数据限制
+
+固定大小集合的最大文档数，如果指定，必须小于 $2^{31}$ 个文档。如果未指定最大文档数，则没有限制。
+
+<br/>
+<br/>
+
+### 副本集限制
+
+副本集最多可以有 50 个节点。
+
+一个副本集最多可以有 7 个投票成员。对于成员数量超过 7 的副本集，请设置无投票权的成员。
+
+如果没有显式指定 oplog 大小，MongoDB 将创建一个不大于 50GB 的 oplog。
+
+<br/>
+<br/>
+
+### 分片集群限制
+
+分片环境中的不可用操作：不支持 `geoSearch` 命令，`$where` 不允许从 `db` 函数引用 `$where` 对象。
+
+在 mongos 上运行时，如果索引包含分片键，则索引只能覆盖对分片集合的查询。
+
+MongoDB 不支持跨分片的唯一索引，除非唯一索引包含完整分片键作为索引的前缀。在这些情况下，将在整个键上强制执行唯一性，而不是单个字段。
+
+默认情况下，如果一个范围中的文档数大于配置的范围大小除以平均文档大小的结果的 2倍，则 MongoDB 无法移动该范围。`db.collection.status()` 中 `avgObjSize` 字段，表示集合中的平均文档大小。
+
+分片键索引可为分片键的升序索引、以分片键开头并指定分片键升序的复合索引或是哈希索引。
+
+分片键索引不能为：
+
+- 分片键的降序索引
+- 部分索引
+- 以下任何类型：地址空间、多键、文本、通配符。
+
+分片键的选择，从 MongoDB 5.0 开始，你可以通过更改文档的分片键对集合重新分片。可以通过向现有分片键添加后缀字段或字段来优化分片键。
+
+对于插入量较高的集群，具有单调递增和递减键的分片键可能会影响插入吞吐量。当使用单调递增的分片键插入文档时，所有插入内容都属于单个分片上的同一个数据段。系统最终会划分接收所有写入操作的数据段范围并迁移其内容，从而更均匀地分布数据。然而，集群数据只将插入操作定向到单个分片，这会造成插入吞吐量瓶颈。
+
+要避免此约束，请使用哈希分片键或选择不单调增加或减少的字段。哈希分片键和哈希索引存储具有升序值的键的哈希值。
+
+<br/>
+<br/>
+
+### 操作限制
+
+如果 MongoDB 无法使用一个或多个索引来获取排序顺序，则它必须对数据执行阻塞排序操作。阻塞是指要求 `SORT` 阶段在返回任何输出文档之前读取所有输入文档，从而阻止改特定查询的数据流。
+
+如果 MongoDB 需要使用超过 100MB 的系统内存进行阻塞排序操作，则它将返回错误，除非查询指定了 `allowDiskUse()` 允许使用磁盘上的临时文件来存储超过 100MB 系统内存限制的数据。
+
+对于多文档事务：
+
+- 可在事务中创建集合和索引。
+- 事务中使用的集合可以位于不同的数据库中。
+- 无法在跨分片事务中创建新集合。
+- 不能写入固定大小集合。
+- 从集合读取时不能使用读关注。
+- 不能在 config, admin 或 local 库中读写集合。
+- 不能写入 `system.*` 集合。
+- 不能使用 `explain` 执行查询计划。
+- 对于在 ACID 事务外部创建的游标，无法在 ACID 事务内部调用 `getMore`。
+- 对于在事务中创建的游标，无法在事务外部调用 `getMore`。
+- 不能将 `killCursors` 指定为事务。
+
+<br/>
+<br/>
+
+### 会话限制
+
+会话空闲超时，连续 30 分钟未收到读写操作或未使用 `refreshSessions` 进行刷新的会话将被标记为已过期，并可由 MongoDB Server 随时将其关闭。关闭会话时会终止所有进行中的操作并打开与该会话关联的游标。
+
+<br/>
+<br/>
+
+## 客户端方法
+
+`mongo` shell 在 MongoDB v5.0 中已被弃用，替换为 `mongosh`。
+
+尽管这些方法使用 JavaScript，但与 MongoDB 的大多数交互并不使用 JavaScript，而是使用交互程序语言中的惯用驱动程序。
+
+<br/>
+<br/>
+
+### 集合方法
+
+使用集合方法 `db.collection.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `aggregate()` | 提供聚合管道 |
+| `bulkWrite()` | 提供批量写入操作 |
+| `count()` | 返回集合或视图中文档的计数 |
+| `countDocuments()` | 使用 `$sum` 表达式和 `$group` 聚合阶段，返回集合或视图中文档的计数 |
+| `createIndex()` | 在集合上创建索引 |
+| `createIndexes()` | 为集合创建一个或多个索引 |
+| `dataSize()` | 返回集合的大小 |
+| `deleteOne()` | 删除集合中的单个文档 |
+| `deleteMany()` | 删除集合中的多个字段 |
+| `distinct()` | 返回具有指定字段的不同值的文档数组 |
+| `drop()` | 从数据库中删除指定的集合 |
+| `dropIndex()` | 删除集合中的指定索引 |
+| `dropIndexes()` | 删除集合上的所有索引 |
+| `explain()` | 返回各种方法的查询执行信息 |
+| `find()` | 对集合或视图执行查询，并返回游标对象 |
+| `findAndModify()` | 以原子方式修改并返回单个文档 |
+| `findOne()` | 执行查询并返回单个文档 |
+| `findOneAndDelete()` | 查找并删除单个文档 |
+| `findOneAndReplace()` | 查找并替换单个文档 |
+| `findOneAndUpdate()` | 查找并更新单个文档 |
+| `getIndexes()` | 返回说明集合上现有索引的一组文档 |
+| `getShardDistribution()` | 报告分片集群中数据段分布的数据 |
+| `getShardVersion()` | 分片集群的内部诊断方法 |
+| `hideIndex()` | 在查询规划器中隐藏索引 |
+| `insertOne()` | 将新文档插入集合 |
+| `insertMany()` | 将多份文档插入集合 |
+| `isCapped()` | 报告集合是否为固定大小集合 |
+| `latencyStats()` | 返回集合的延迟统计信息 |
+| `mapReduce()` | 执行 map-reduce 样式的数据聚合 |
+| `reIndex()` | 重新构建集合上的所有现有索引 |
+| `remove()` | 从集合删除文档 |
+| `renameCollection()` | 更改集合的名称 |
+| `replaceOne()` | 替换集合中的单个文档 |
+| `stats()` | 报告集合的状态 |
+| `storageSize()` | 报告集合使用的总大小（以字节为单位）|
+| `totalIndexSize()` | 报告集合上索引使用的总大小 |
+| `totalSize()` | 报告集合的总大小，其中包括集合中所有文档和所有索引的大小 |
+| `unhideIndex()` | 从查询规划器中取消隐藏索引 |
+| `updateOne()` | 修改集合中的单个文档 |
+| `updateMany()` | 修改集合中的多个文档 |
+| `watch()` | 在集合上建立变更流 |
+| `validate()` | 对集合执行诊断操作 |
+
+<br/>
+<br/>
+
+### 游标方法
+
+使用游标方法：`cursor.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `addOption()` | 添加可修改查询行为的特殊传输协议标志 |
+| `allowDiskUse()` | 允许在处理阻塞排序操作时使用磁盘上的临时文件来存储超过 100 MB 系统内存限制的数据 |
+| `allowPartialResults()` | 如果一个或多个查询的分片不可用，则允许对分片集合进行 find 操作，以返回部分结果，而不是错误 |
+| `batchSize()` | 控制将在单个网络消息中返回到客户端的文档数量 |
+| `close()` | 关闭游标并释放关联的服务器资源 |
+| `isClosed()` | 游标是否关闭 |
+| `collation()` | 指定 `db.collection.find()` |
+| `comment()` | 将注释附加到查询，以允许在日志和 system.profile 集合中进行跟踪 |
+| `count()` | 修改游标，以返回结果集中的文档数量，而不是文档本身 |
+| `explain()` | 报告游标的查询执行计划 |
+| `forEach()` | 对游标中的每个文档应用 JavaScript 函数 |
+| `hasNext()` | 游标是否包含文档且可迭代 |
+| `hint()` | 强制对查询使用特定索引 |
+| `isExhausted()` | 游标是否已关闭并批处理中没有剩余对象 |
+| `itcount()` | 通过获取和迭代结果集，计算游标客户端中的文档总数 |
+| `limit()` | 限制游标结果集的大小 |
+| `map()` | 将函数应用于游标中的每个文档，并收集数组中的返回值 |
+| `max()` | 指定游标的独占索引上限 |
+| `maxTimeMS()` | 指定在游标上处理操作的累计时间限制（毫秒）|
+| `min()` | 指定游标的包含式索引下限 |
+| `next()` | 返回游标中的下一个文档 |
+| `noCursorTimeout()` | 指示服务器避免在一段时间不活动后自动关闭游标 |
+| `objsLeftInBatch()` | 返回当前游标批处理中剩余文档的数量 |
+| `pretty()` | 将游标配置为以易于阅读的格式显示结果 |
+| `readConcern()` | 为游标指定读关注 |
+| `readPref()` | 为游标指定读偏好 |
+| `returnKey()` | 修改游标以返回索引键而不是文档 |
+| `showRecordId()` | 向游标返回的每个文档添加内部存储引擎 ID 字段 |
+| `size()` | 返回游标中文档的计数 |
+| `skip()` | 返回一个游标，该游标仅在传递或跳过多个文档后才开始返回结果 |
+| `sort()` | 根据排序规范返回排序的结果 |
+| `tailable()` | 将游标标记为循环式。仅对超过固定大小集合的游标有效 |
+| `toArray()` | 返回一个数组，其中包含游标返回的所有文档 |
+
+<br/>
+<br/>
+
+### 数据库方法
+
+数据库方法使用：`db.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `adminCommand()` | 对 admin 库运行命令 |
+| `aggregate()` | 运行不需要底层集合的管理/诊断管道 |
+| `commandHelp()` | 返回数据库命令 |
+| `createCollection()` | 创建新的集合或视图。通常用于创建固定大小集合 |
+| `createView()` | 创建视图 |
+| `currentOp()` | 报告当前正在进行的操作 |
+| `dropDatabase()` | 删除当前数据库，慎重！|
+| `fsyncLock()` | 刷新写入磁盘并锁定数据库，以防止写入操作并协助备份操作 |
+| `fsyncUnlock()` | 解锁数据库 |
+| `getCollection()` | 返回集合或视图对象 |
+| `getCollectionInfos()` | 返回当前数据库中所有集合和视图的集合信息 |
+| `getCollectionNames()` | 列出当前数据库中的所有集合和视图 |
+| `getLogComponents()` | 返回该日志消息详细程度 |
+| `getMongo()` | 返回当前连接的 Mongo 连接对象 |
+| `getName()` | 返回当前数据库的名称 |
+| `getProfilingStatus()` | 返回反映当前分析级别和分析阈值的文档 |
+| `getReplicationInfo()` | 返回包含复制统计数据的文档 |
+| `getSiblingDB()` | 提供对指定数据库的访问权限 |
+| `hello()` | 返回报告副本集状态的文档 |
+| `help()` | 帮助信息 |
+| `hostInfo()` | 系统信息 |
+| `killOp()` | 终止指定的操作 |
+| `listCommands()` | 显示常用数据库命令列表 |
+| `printCollectionStats()` | 打印每个集合的统计信息 |
+| `printReplicationInfo()` | 从主节点的角度打印副本集的状态报告 |
+| `printSecondaryReplicationInfo()` | 从从节点的角度打印副本集的状态 |
+| `printShardingStatus()` | 打印分片配置和数据段范围的报告 |
+| `rotateCertificates()` | 执行在线 TLS 证书轮换 |
+| `runCommand()` | 运行数据库命令 |
+| `serverBuildInfo()` | 返回显示 mongod 实例的编译参数的文档 |
+| `serverCmdLineOpts()` | 返回一个文档，其中包含有关用于启动 MongoDB 实例的运行时的信息 |
+| `serverStatus()` | 返回体现数据库进程状态概况的文档 |
+| `setLogLevel()` | 设置单个日志消息详细级别 |
+| `setProfilingLevel()` | 修改数据库分析的当前级别 |
+| `shutdownServer()` | 安全彻底地关闭当前实例 |
+| `stats()` | 返回报告当前数据库状态的文档 |
+| `version()` | 返回实例的版本 |
+| `watch()` | 打开变更流游标，以便数据库报告其所有非 system 集合的情况。无法在 admin、local 或 config 数据库中打开 |
+
+<br/>
+<br/>
+
+### 查询计划缓存方法
+
+查询计划缓存方法使用：`PlanCache.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `db.collection.getPlanCache()` | 返回一个接口，用于访问查询计划缓存对象和集合的相关 PlanCache 方法 |
+| `PlanCache.clear()` | 清除集合的所有缓存查询计划 |
+| `clearPlansByQuery()` | 清除指定查询结构的缓存查询计划 |
+| `list()` | 返回集合的计划缓存信息 |
+
+<br/>
+<br/>
+
+### 批量写入操作方法
+
+批量写入操作方法使用：`Bulk.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `db.collection.initializeOrderedBulkOp()` | 为有序的操作列表初始化 `Bulk()` 操作构建器 |
+| `db.collection.initializeUnorderedBulkOp()` | 为无序的操作列表初始化 `Bulk()` 操作构建器 |
+| `Bulk()` | 批量操作构建器 |
+| `execute()` | 批量执行操作列表 |
+| `find()` | 指定更新或删除操作的查询条件 |
+| `find.arrayFilters()` | 指定筛选器，确定要为 update 或 updateOne 操作更新数组的哪些元素 |
+| `find.collation()` | 指定查询条件的排序规则 |
+| `find.delete()` | 将多文档删除操作添加到操作列表中 |
+| `find.deleteOne()` | 将单个文档删除操作添加到操作列表中 |
+| `find.hint()` | 指定用于更新/替换操作的索引 |
+| `find.replaceOne()` | 将单个文档替换操作添加到操作列表中 |
+| `find.updateOne()` | 将单文档更新操作添加到操作列表中 |
+| `find.update()` | 将多个更新操作添加到操作列表中 |
+| `find.upsert()` | 为更新操作指定 `upsert: true` |
+| `getOperations()` | 返回在 Bulk 操作对象中执行的写入操作数组 |
+| `insert()` | 将插入操作添加到操作列表中 |
+| `toJSON()` | 返回 JSON 文档，其中包含 Bulk 操作对象中的操作和批次数 |
+| `toString()` | 以字符串形式返回 toJSON 结果 |
+
+<br/>
+<br/>
+
+### 用户管理方法
+
+用户管理方法使用：`db.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `auth()` | 验证数据库的用户身份 |
+| `changeUserPassword()` | 更改现有用户的密码 |
+| `createUser()` | 创建新用户 |
+| `dropUser()` | 删除单个用户 |
+| `dropAllUsers()` | 删除与数据库关联的所有用户 |
+| `getUser()` | 返回指定用户的信息 |
+| `getUsers()` | 返回与数据库关联的所有用户的信息 |
+| `grantRolesToUser()` | 向用户分配角色及其特权 |
+| `revokeRolesFromUser()` | 从用户中删除角色 |
+| `updateUser()` | 更新用户数据 |
+
+<br/>
+<br/>
+
+### 角色管理方法
+
+角色管理方法使用：`db.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `createRole()` | 创建角色并指定其特权 |
+| `dropRole()` | 删除用户定义的角色 |
+| `dropAllRoles()` | 删除与数据库关联的所有用户定义的角色 |
+| `getRole()` | 返回指定角色的信息 |
+| `getRoles()` | 返回数据库中所有用户定义角色的信息 |
+| `grantPrivilegesToRole()` | 为用户定义的角色分配特权 |
+| `revokePrivilegesFromRole()` | 从用户定义的角色中删除指定特权 |
+| `grantRolesToRole()` | 指定用户定义角色继承相关特权的角色 |
+| `revokeRolesFromRole()` | 从角色中删除继承的角色 |
+| `updateRole()` | 更新用户定义的角色 |
+
+<br/>
+<br/>
+
+### 副本集方法
+
+副本集方法使用：`rs.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `add()` | 将节点添加到副本集 |
+| `addArb()` | 将仲裁节点添加到副本集 |
+| `conf()` | 返回副本集配置文档 |
+| `freeze()` | 阻止当前节点在一段时间内寻求选举为主节点 |
+| `help()` | 帮助信息 |
+| `initiate()` | 初始化新的副本集 |
+| `isMaster()` | 是否为主节点 |
+| `printReplicationInfo()` | 从主节点的角度打印副本集状态的格式化报告 |
+| `printSecondaryReplicationInfo()` | 从从节点的角度打印副本集状态的格式化报告 |
+| `reconfig()` | 通过应用新的副本集配置对象来重新配置副本集 |
+| `remove()` | 从副本集中删除节点 |
+| `secondaryOk()` | 允许在从节点上查询数据 |
+| `status()` | 返回包含副本集状态信息的文档 |
+| `stepDown()` | 导致当前的主节点变为强制选举 |
+| `syncFrom()` | 设置该副本集节点与哪个节点进行同步，复写默认的同步目标选择逻辑 |
+
+<br/>
+<br/>
+
+### 分片方法
+
+分片方法使用：`sh.method()`。
+
+| 方法名称 | 说明 |
+| - | - |
+| `abortReshardCollection()` | 中止重新分片操作 |
+| `addShard()` | 将分片添加到分片集群 |
+| `addShardTag()` | 将分片与标签相关联 |
+| `addShardToZone()` | 将分片与区域关联 |
+| `addTagRange()` | 将一系列分片键值附加到使用 addShardTag 方法创建的分片标签 |
+| `balancerCollectionStatus()` | 返回有关分片集合的数据段是否均衡的信息 |
+| `commitReshardCollection()` | 强制重分区操作以阻止写入并完成 |
+| `disableBalancing()` | 禁用分片数据库中单个集合的均衡。不影响分片集群中其他集合的均衡 |
+| `enableBalancing()` | 启用单个集合的均衡 |
+| `disableAutoSplit()` | 禁用分片集群自动分割 |
+| `enableAutoSplit()` | 启用分片集群自动分割 |
+| `enableSharding()` | 创建数据库，在数据库上启用分片 |
+| `getBalancerState()` | 是否启用均衡器 |
+| `getShardedDataDistribution()` | 返回分片集合的数据分布信息 |
+| `getShouldAutoSplit()` | 是否启用自动分割 |
+| `help()` | 帮助信息 |
+| `isBalancerRunning()` | 返回均衡器状态 |
+| `moveChunk()` | 迁移分片集群中的数据段 |
+| `removeTagRange()` | 从定义的分片键值范围中删除指定的分片标签 |
+| `removeRangeFromZone()` | 删除一系列分片键值与区域之间的关联 |
+| `removeShardTag()` | 删除标签和分片之间的关联 |
+| `removeShardFromZone()` | 删除分片与区域之间的关联 |
+| `reshardCollection()` | 启动重新分片操作以更改集合的分片键，从而更改数据的分布 |
+| `setBalancerState()` | 启用或禁用在分片之间迁移数据段的均衡器 |
+| `shardCollection()` | 为集合启用分片 |
+| `splitAt()` | 使用分片键的特定值作为分界点，将现有数据段分成两个数据段 |
+| `splitFind()` | 将包含与查询匹配的文档的现有数据段分成两个大致相等的数据段 |
+| `startBalancer()` | 启用均衡器并等待均衡开始 |
+| `status()` | 分片集群状态 |
+| `stopBalancer()` | 禁用均衡器并等待任何正在进行的均衡轮次完成 |
+| `waitForBalancer()` | 内部。等待均衡器状态发生变化 |
+| `waitForBalancerOff()` | 内部。等待均衡器停止运行 |
+| `waitForPingChange()` | 内部。等待分片集群中一个 mongos 的 ping 状态发生变化 |
+| `updateZoneKeyRange()` | 将一系列分片键与一个区域关联 |
+
+<br/>
+<br/>
+
+### 构造函数
+
+| 方法名称 | 说明 |
+| - | - |
+| `BinData()` | 返回二进制数据对象 |
+| `BulkWriteResult()` | 封装器，包含 `Bulk.execute()` 方法的结果 |
+| `Date()` | 创建日期对象。默认情况下，创建一个包含当前日期的日期对象 |
+| `ObjectId()` | 返回对象标识符 |
+| `ObjectId.getTimestamp()` | 返回对象标识符 |
+| `ObjectId.toString()` | 返回对象标识符 |
+| `ObjectId.valueOf()` | 以十六进制字符串形式显示对象标识符的 str 属性 |
+| `UUID()` | 将 32 字节十六进制字符串转换为 UUID BSON 子类型 |
+| `WriteResult()` | 来自写入方法的副本集的封装器 |
+| `WriteResult.hasWriteError()` |
+| `WriteResult.hasWriteConcernError()` |
+
+<br/>
+<br/>
+
+### 连接方法
+
+| 方法名称 | 说明 |
+| - | - |
+| `connect()` | 连接到实例上的指定数据库 |
+| `Mongo()` | 创建新连接对象 |
+| `Mongo.getDB()` | 返回数据库对象 |
+| `Mongo.getReadPrefMode()` | 返回连接的当前读取偏好模式 |
+| `Mongo.getReadPrefTagSet()` | 返回为该连接设置的读取偏好标签集 |
+| `Mongo.setCausalConsistency()` | 启用或禁用连接对象的因果一致性 |
+| `Mongo.setReadPref()` | 设置该连接的读取偏好 |
+| `Mongo.startSession()` | 对该连接对象启动会话 |
+| `Mongo.watch()` | 打开部署的变更流游标，以报告其所有数据库中的所有非 system 集合，不包括内部 admin、local 和 config 数据库 |
+| `Session()` | 会话对象 |
+| `SessionOptions()` | 会话的选项对象 |
+
+<br/>
+<br/>
+
+## 操作符
+
+查询、更新、投影和聚合框架操作符的文档。
+
+<br/>
+<br/>
+
+### 查询操作符
+
+比较操作符
+
+| 名称 | 说明 |
+| - | - |
+| `$eq` | 等于 |
+| `$gt` | 大于 |
+| `$gte` | 大于等于 |
+| `$in` | 匹配数组中指定的值 |
+| `$lt` | 小于 |
+| `$lte` | 小于等于 |
+| `$ne` | 不等于 |
+| `$nin` | 不匹配数组中指定的值 |
+
+<br/>
+
+逻辑操作符
+
+| 名称 | 说明 |
+| - | - |
+| `$and` | 返回与两个子句的条件匹配的所有文档 |
+| `$not` | 不匹配的文档 |
+| `$nor` | 返回无法匹配这两个子句的所有文档 |
+| `$or` | 返回符合任一子句条件的所有文档 |
+
+<br/>
+
+元素操作符
+
+| 名称 | 说明 |
+| - | - |
+| `$exists` | 匹配具有指定字段的文档 |
+| `$type` | 如果字段为指定类型，则选择文档 |
+
+<br/>
+
+评估操作符
+
+| 名称 | 说明 |
+| - | - |
+| `$expr` | 允许在查询语言中使用聚合表达式 |
+| `$jsonSchema` | 根据给定的 JSON 模式验证文档 |
+| `$mod` | 对字段值执行模运算，并选择具有指定结果的文档 |
+| `$regex` | 选择值匹配指定正则表达式的文档 |
+| `$text` | 执行文本搜索 |
+| `$where` | 匹配满足 js 表达式的文档 |
+
+<br/>
+
+数组操作符
+
+| 名称 | 说明 |
+| - | - |
+| `$all` | 匹配包含查询中指定的所有元素的数组 |
+| `$elemMatch` | 如果数组字段中的元素与所有指定的条件均匹配，则选择文档 |
+| `$size` | 如果数组字段达到指定大小，则选择文档 |
+
+<br/>
+
+其他查询操作符
+
+| 名称 | 说明 |
+| - | - |
+| `$comment` | 为查询谓词添加注释 |
+| `$rand` | 生成介于 0 和 1 之间的随机浮点数 |
+| `$natural` | 可通过 sort 和 hint 方法提供的特殊提示，用于强制执行正向或反向集合扫描 |
+
+<br/>
+<br/>
+
+### 更新操作符
+
+语法：
+
+```js
+{
+  <operator1>: { <field1>: <value1>, ...},
+  <operator2>: { <field2>: <value2>, ...},
+  ...
+}
+```
+
+<br/>
+
+字段更新运算符
+
+| 名称 | 说明 |
+| - | - |
+| `$currentDate` | 将字段的值设置为当前日期 |
+| `$inc` | 将字段的值按指定量递增 |
+| `$min` | 仅当指定值小于现有字段值时才更新字段 |
+| `$max` | 仅当指定值大于现有字段值时才更新字段 |
+| `$mul` | 将字段的值乘以指定量 |
+| `$rename` | 重命名字段 |
+| `$set` | 设置文档中字段的值 |
+| `$setOnInsert` | 如果某一更新操作导致插入文档，则设置字段的值 |
+| `$unset` | 从文档中删除指定的字段 |
+
+<br/>
+
+数组更新运算符
+
+| 名称 | 说明 |
+| - | - |
+| `$` | 充当占位符，用于更新与查询条件匹配的第一个元素 |
+| `$[]` | 充当占位符，以更新数组中与查询条件匹配的文档中的所有元素 |
+| `$[<identifier>]` | 充当占位符，以更新与查询条件匹配的文档中所有符合条件的元素 |
+| `$addToSet` | 仅向数组中添加尚不存在于该数组的元素 |
+| `$pop` | 删除数组的第一项或最后一项 |
+| `$pull` | 删除与指定查询匹配的所有数组元素 |
+| `$push` | 向数组添加一项 |
+| `$pushAll` | 从数组中删除所有匹配值 |
+| `$each` | 修改 push 和 addToSet 运算符，以在数组更新时追加多个项目 |
+| `$position` | 修改 push 运算符，以指定在数组中添加元素的位置 |
+| `$slice` | 修改 push 运算符以限制更新后数组的大小 |
+| `$sort` | 修改 push 运算符，以对存储在数组中的文档重新排序 |
+
+<br/>
+
+按位更新运算符
+
+| 名称 | 说明 |
+| - | - |
+| `$bit` | 对整数值执行按位 AND、OR 和 XOR 更新 |
+
+<br/>
+<br/>
+
+### 聚合管道阶段
+
+文档: <https://www.mongodb.com/zh-cn/docs/v6.0/reference/operator/aggregation-pipeline/>
+
+在 `aggregate()` 方法中，管道阶段出现在数组中。
 

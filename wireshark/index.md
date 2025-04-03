@@ -1,19 +1,17 @@
-# Wireshark
+# Wireshark网络分析工具
 
 
-<br>
-
-Wireshark是一个网络数据包分析工具。
-
----
+Wireshark 是一个网络数据包分析工具。
 
 <!--more-->
 
+<br>
+
+---
+
 <br/>
 
-
 # 过滤语法
-
 
 wireshark过滤分为两种:
 
@@ -27,26 +25,24 @@ wireshark过滤分为两种:
 <br/>
 <br/>
 
-
 ## 抓包过滤
 
-
-**类型**
+类型：
 
 - host
 - net
 - port
 
-<br>
+<br/>
 
-**方向**
+方向：
 
 - src
 - dst
 
 <br>
 
-**协议**
+协议：
 
 - ether
 - ip/arp
@@ -56,7 +52,7 @@ wireshark过滤分为两种:
 
 <br>
 
-**逻辑运算符**
+逻辑运算符：
 
 - `&&`
 - `||`
@@ -67,36 +63,36 @@ wireshark过滤分为两种:
 栗子：
 
 ```
-#主机
+# 主机
 host www.xx.com
 src host 192.168.1.1 && dst port 80
 host 193.168.1.1 || host 192.168.1.2
 
 
-#广播包
+# 广播包
 !broadcast
 
 
-#MAC
+# MAC
 ether host 00:88:ab:56:12:0d
 src ether host 00:88:ab:56:12:0d
 
 
-#IP
+# IP
 host 192.168.1.1
 dst host 192.168.1.1
 
 
-#net
+# net
 net 192.168.1.0/24
 src net 192.168.1.0/24
 
 
-#vlan
+# vlan
 vlan 11
 
 
-#Port
+# Port
 port 80
 ! port 443
 dst port 80
@@ -105,16 +101,12 @@ portrange 1-80
 
 ```
 
-
-
 <br/>
 <br/>
-
 
 ## 显示过滤
 
-
-**比较操作符**
+比较操作符：
 
 - `==`
 - `!=`
@@ -125,17 +117,16 @@ portrange 1-80
 
 <br>
 
-**逻辑操作符**
+逻辑操作符：
 
 - `and`
 - `or`
 - `xor`
 - `not`
 
-
 <br>
 
-**IP**
+IP：
 
 - `ip.addr`
 - `ip.src`
@@ -143,7 +134,7 @@ portrange 1-80
 
 <br>
 
-**Port**
+Port：
 
 - `tcp.port`
 - `tcp.srcport`
@@ -153,7 +144,7 @@ portrange 1-80
 
 <br>
 
-**Protocol**
+Protocol：
 
 - `arp`
 - `ip`
@@ -168,25 +159,22 @@ portrange 1-80
 栗子：
 
 ```
-#ip
+# ip
 ip.addr == 1.1.1.1
 ip.src == 1.1.1.1 and ip.dst == 2.2.2.2
 
 
-#port
+# port
 tcp.port == 80
 tcp.dstport == 80
 tcp.flag.syn == 1
 
 
-#pro
+# pro
 arp
 not icmp
 
 ```
-
-
-
 
 <br/>
 <br/>
@@ -196,33 +184,9 @@ not icmp
 <br/>
 <br/>
 
-
-
-
 # HTTPS
 
+Wireshark 也可以分析HTTPS加密的包，但你需要用证书将包先解密。
 
-Wireshark也可以分析HTTPS加密的包，但你需要用证书将包先解密。
-在Edit->Preferences->Protocol->SSL选项填写相关信息进行解密。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+在 `Edit->Preferences->Protocol->SSL` 选项填写相关信息进行解密。
 

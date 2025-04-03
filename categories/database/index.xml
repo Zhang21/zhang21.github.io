@@ -1,21 +1,34 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>database - 分类 - 风继续吹</title>
+        <title>Database - 分类 - 风继续吹</title>
         <link>https://zhang21.cn/categories/database/</link>
-        <description>database - 分类 - 风继续吹</description>
+        <description>Database - 分类 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 17 Mar 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/database/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 22 Dec 2024 11:04:50 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/categories/database/" rel="self" type="application/rss+xml" /><item>
+    <title>ClickHouse文档</title>
+    <link>https://zhang21.cn/clickhouse/</link>
+    <pubDate>Sun, 22 Dec 2024 11:04:50 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/clickhouse/</guid>
+    <description><![CDATA[<p>ClickHouse 文档总结。</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>高性能MySQL</title>
+    <link>https://zhang21.cn/hp-mysql/</link>
+    <pubDate>Thu, 20 Jun 2024 16:37:20 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/hp-mysql/</guid>
+    <description><![CDATA[<p>高性能 MySQL 一书笔记。</p>
+<br/>]]></description>
+</item>
+<item>
     <title>PostgreSQL</title>
     <link>https://zhang21.cn/postgresql/</link>
     <pubDate>Sun, 17 Mar 2024 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/postgresql/</guid>
-    <description><![CDATA[<p>参考：</p>
-<ul>
-<li><a href="http://www.postgres.cn/docs/14/" target="_blank" rel="noopener noreffer ">PG14 中文文档</a></li>
-<li><a href="https://www.postgresql.org/docs/current/index.html" target="_blank" rel="noopener noreffer ">PG Docs</a></li>
-</ul>
-<br/>]]></description>
+    <description><![CDATA[<p>PGSQL 文档笔记。</p>]]></description>
 </item>
 <item>
     <title>Redis使用手册</title>
@@ -23,10 +36,18 @@
     <pubDate>Wed, 04 Oct 2023 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/redis-guide/</guid>
-    <description><![CDATA[<p>参考：</p>
+    <description><![CDATA[<p>Redis 使用手册笔记。</p>]]></description>
+</item>
+<item>
+    <title>Doris</title>
+    <link>https://zhang21.cn/doris/</link>
+    <pubDate>Tue, 20 Sep 2022 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/doris/</guid>
+    <description><![CDATA[<p>参考:</p>
 <ul>
-<li><a href="https://book.douban.com/subject/34836750/" target="_blank" rel="noopener noreffer ">Redis 使用手册</a></li>
-<li><a href="https://redis.io/docs/" target="_blank" rel="noopener noreffer ">Redis 官方文档</a></li>
+<li><a href="https://doris.apache.org/docs/summary/basic-summary/" target="_blank" rel="noopener noreffer ">Doris文档</a></li>
+<li><a href="https://github.com/apache/doris/" target="_blank" rel="noopener noreffer ">Dorish官方仓库</a></li>
 </ul>
 <br/>
 <hr>]]></description>
@@ -37,11 +58,69 @@
     <pubDate>Fri, 29 Apr 2022 10:49:26 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/mongodb-definitive-guide/</guid>
+    <description><![CDATA[<p>MongoDB 相关笔记。</p>]]></description>
+</item>
+<item>
+    <title>Etcd</title>
+    <link>https://zhang21.cn/etcd/</link>
+    <pubDate>Fri, 10 Dec 2021 10:49:26 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/etcd/</guid>
     <description><![CDATA[<p>参考:</p>
 <ul>
-<li><a href="https://book.douban.com/subject/35688800/" target="_blank" rel="noopener noreffer ">MongoDB权威指南</a></li>
+<li><a href="https://etcd.io/docs" target="_blank" rel="noopener noreffer ">etcd文档</a></li>
 </ul>
 <br/>
+<p>环境:</p>
+<ul>
+<li>RHEL 7</li>
+<li>etcd v3.5</li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>MySQL</title>
+    <link>https://zhang21.cn/mysql/</link>
+    <pubDate>Tue, 16 Jan 2018 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/mysql/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/" target="_blank" rel="noopener noreffer ">MySQL5.7文档</a></li>
+<li>MySQL必知必会</li>
+</ul>
+<br/>
+<p>环境：</p>
+<ul>
+<li>RHEL7x86_64</li>
+<li>MySQL5.7</li>
+</ul>
+<br/>
+<hr>]]></description>
+</item>
+<item>
+    <title>MongoDB</title>
+    <link>https://zhang21.cn/mongodb/</link>
+    <pubDate>Mon, 11 Dec 2017 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/mongodb/</guid>
+    <description><![CDATA[<p>参考：</p>
+<ul>
+<li><a href="https://docs.mongodb.com/" target="_blank" rel="noopener noreffer ">MongoDB官方文档</a></li>
+<li><a href="http://www.mongoing.com/docs" target="_blank" rel="noopener noreffer ">MongoDB中文文档</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/MongoDB">https://zh.wikipedia.org/wiki/MongoDB</a></li>
+<li><a href="http://www.ywnds.com/?p=5635">http://www.ywnds.com/?p=5635</a></li>
+<li><a href="https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/">https://www.centos.bz/2017/08/mongodb-secure-intro-user-auth/</a></li>
+<li><a href="http://www.03sec.com/3176.shtml">http://www.03sec.com/3176.shtml</a></li>
+<li><a href="http://www.ywnds.com/?p=6502">http://www.ywnds.com/?p=6502</a></li>
+<li><a href="http://wiki.jikexueyuan.com/project/the-little-mongodb-book/">http://wiki.jikexueyuan.com/project/the-little-mongodb-book/</a></li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>RHEL7x86_64；</li>
+<li>MongoDB3.4；</li>
+</ul>
 <hr>]]></description>
 </item>
 </channel>

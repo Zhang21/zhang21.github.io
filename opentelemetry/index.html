@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>OpenTelemetry - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="OpenTelemetry" />
+<meta property="og:description" content="OpenTelemetry 学习。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/opentelemetry/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-01-12T15:45:05&#43;08:00" />
+<meta property="article:modified_time" content="2025-01-12T15:45:05&#43;08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="OpenTelemetry"/>
+<meta name="twitter:description" content="OpenTelemetry 学习。
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/opentelemetry/" /><link rel="prev" href="https://zhang21.cn/nginx-cookbook/" /><link rel="next" href="https://zhang21.cn/cybersecurity/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "OpenTelemetry",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/opentelemetry\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "OpenTelemetry, Obversing","wordcount":  3775 ,
+        "url": "https:\/\/zhang21.cn\/opentelemetry\/","datePublished": "2025-01-12T15:45:05+08:00","dateModified": "2025-01-12T15:45:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">OpenTelemetry</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/monitor/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>monitor</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-01-12">2025-01-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3775 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#概念">概念</a>
+      <ul>
+        <li><a href="#可观测性入门">可观测性入门</a>
+          <ul>
+            <li><a href="#什么是可观测性">什么是可观测性</a></li>
+            <li><a href="#分布式链路">分布式链路</a></li>
+          </ul>
+        </li>
+        <li><a href="#上下文传播">上下文传播</a></li>
+        <li><a href="#信号">信号</a>
+          <ul>
+            <li><a href="#追踪">追踪</a></li>
+            <li><a href="#指标">指标</a></li>
+            <li><a href="#日志">日志</a></li>
+            <li><a href="#行李">行李</a></li>
+          </ul>
+        </li>
+        <li><a href="#仪器化">仪器化</a>
+          <ul>
+            <li><a href="#零代码的方案">零代码的方案</a></li>
+            <li><a href="#基于代码的方案">基于代码的方案</a></li>
+            <li><a href="#库的方案">库的方案</a></li>
+          </ul>
+        </li>
+        <li><a href="#组件">组件</a></li>
+      </ul>
+    </li>
+    <li><a href="#演示">演示</a></li>
+    <li><a href="#api和sdk仪器化">API和SDK仪器化</a></li>
+    <li><a href="#零代码仪器化">零代码仪器化</a></li>
+    <li><a href="#collector">Collector</a>
+      <ul>
+        <li><a href="#端口信息">端口信息</a></li>
+        <li><a href="#快速开始">快速开始</a>
+          <ul>
+            <li><a href="#先决条件">先决条件</a></li>
+            <li><a href="#配置环境">配置环境</a></li>
+            <li><a href="#生成并收集数据">生成并收集数据</a></li>
+          </ul>
+        </li>
+        <li><a href="#安装收集器">安装收集器</a>
+          <ul>
+            <li><a href="#docker安装">Docker安装</a></li>
+            <li><a href="#docker-compose安装">Docker-Compose安装</a></li>
+            <li><a href="#k8s安装">K8S安装</a></li>
+            <li><a href="#linux安装">Linux安装</a></li>
+          </ul>
+        </li>
+        <li><a href="#部署">部署</a>
+          <ul>
+            <li><a href="#无收集器">无收集器</a></li>
+            <li><a href="#使用收集器">使用收集器</a></li>
+            <li><a href="#网关模式">网关模式</a></li>
+          </ul>
+        </li>
+        <li><a href="#配置">配置</a>
+          <ul>
+            <li><a href="#配置文件结构">配置文件结构</a></li>
+            <li><a href="#receivers">Receivers</a></li>
+            <li><a href="#processors">Processors</a></li>
+            <li><a href="#exporters">Exporters</a></li>
+            <li><a href="#connectors">Connectors</a></li>
+            <li><a href="#extensions">Extensions</a></li>
+            <li><a href="#service">Service</a></li>
+            <li><a href="#其他信息">其他信息</a></li>
+            <li><a href="#覆盖配置">覆盖配置</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>OpenTelemetry 学习。</p>
+<br/>
+<br/>
+<p>参考：</p>
+<ul>
+<li><a href="https://opentelemetry.io/zh/docs/what-is-opentelemetry/" target="_blank" rel="noopener noreffer ">OpenTelemetry</a></li>
+</ul>
+<br/>
+<h1 id="概述">概述</h1>
+<p>OpenTelemetry 是一个可观测性框架和工具包， 旨在创建和管理遥测数据，如链路、 指标和日志。它可以与各种可观测性后端一起使用，如 Jaeger 和 Prometheus。</p>
+<p>OpenTelemetry 专注于遥测数据的生成、采集、管理和导出。重要的是，遥测数据的存储和可视化是有意留给其他工具处理的。</p>
+<p>可观测性是通过检查系统输出来理解系统内部状态的能力。在软件的背景下，这意味着能够通过检查遥测数据来理解系统的内部状态。</p>
+<p>要使系统可观测，必须对其进行仪表化。也就是说，代码必须发出链路、指标或日志。 然后，仪表化的数据必须发送到可观测性后端。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="概念">概念</h1>
+<br/>
+<br/>
+<h2 id="可观测性入门">可观测性入门</h2>
+<br/>
+<br/>
+<h3 id="什么是可观测性">什么是可观测性</h3>
+<p>可观测性让你能够从外部理解一个系统，它允许你在不了解系统内部运作的情况下，对该系统提出问题。更重要的是， 它能帮你轻松排查和处理新出现的问题。</p>
+<p>要对你的系统提出这些问题，你的应用程序必须进行适当的插桩。也就是说，应用程序代码必须能够发出信号， 例如链路、 指标和日志。</p>
+<p>OpenTelemetry 就是一种为应用程序代码进行插桩的机制，它的目的是帮助使系统变得可观测。</p>
+<br/>
+<br/>
+<h3 id="分布式链路">分布式链路</h3>
+<p>分布式链路，通常简称为链路，记录了请求在多服务架构中传播的路径。</p>
+<br/>
+<br/>
+<h2 id="上下文传播">上下文传播</h2>
+<p>上下文是一个对象，它包含发送和接收服务用于将一个信号与另一个信号关联起来的信息。</p>
+<p>传播是上下文在服务和进程之间移动的机制。</p>
+<p>通过上下文传播，信号可以相互关联。</p>
+<br/>
+<br/>
+<h2 id="信号">信号</h2>
+<p>信号是系统输出，描述了系统和平台上运行的应用程序的底层活动。</p>
+<p>OpenTelemetry 支持以下信号：</p>
+<ul>
+<li>追踪（Trace）</li>
+<li>指标（Metric）</li>
+<li>日志（Log）</li>
+<li>行李（Baggage）</li>
+</ul>
+<br/>
+<br/>
+<h3 id="追踪">追踪</h3>
+<p>追踪是请求经过应用程序的路径，可以了解向应用程序发出请求时发生了什么。</p>
+<br/>
+<p>TracerProvider 通常是使用 OT 追踪的第一步。</p>
+<p>Tracer 可创建 span，包含有关操作所发生情况的更多信息。</p>
+<p>Trace exporter 将追踪信息发送到消费者（标准输出、OT collector 或开源后端）。</p>
+<br/>
+<p>Span 表示一个操作单元，它是追踪的组成部分。包括如下信息：</p>
+<ul>
+<li>name</li>
+<li>pid</li>
+<li>scontext</li>
+<li>timestamp</li>
+<li>attribute</li>
+<li>event</li>
+<li>link</li>
+<li>status</li>
+</ul>
+<p>一个示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;/v1/sys/health&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;context&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;trace_id&#34;</span><span class="p">:</span> <span class="s2">&#34;7bba9f33312b3dbb8b2c2c62bb7abe2d&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;span_id&#34;</span><span class="p">:</span> <span class="s2">&#34;086e83747d0e381e&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;parent_id&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;start_time&#34;</span><span class="p">:</span> <span class="s2">&#34;2021-10-22 16:04:01.209458162 +0000 UTC&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;end_time&#34;</span><span class="p">:</span> <span class="s2">&#34;2021-10-22 16:04:01.209514132 +0000 UTC&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;status_code&#34;</span><span class="p">:</span> <span class="s2">&#34;STATUS_CODE_OK&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;status_message&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;attributes&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;net.transport&#34;</span><span class="p">:</span> <span class="s2">&#34;IP.TCP&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;net.peer.ip&#34;</span><span class="p">:</span> <span class="s2">&#34;172.17.0.1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;net.peer.port&#34;</span><span class="p">:</span> <span class="s2">&#34;51820&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;net.host.ip&#34;</span><span class="p">:</span> <span class="s2">&#34;10.177.2.152&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;net.host.port&#34;</span><span class="p">:</span> <span class="s2">&#34;26040&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http.method&#34;</span><span class="p">:</span> <span class="s2">&#34;GET&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http.target&#34;</span><span class="p">:</span> <span class="s2">&#34;/v1/sys/health&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http.server_name&#34;</span><span class="p">:</span> <span class="s2">&#34;mortar-gateway&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http.route&#34;</span><span class="p">:</span> <span class="s2">&#34;/v1/sys/health&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http.user_agent&#34;</span><span class="p">:</span> <span class="s2">&#34;Consul Health Check&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http.scheme&#34;</span><span class="p">:</span> <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http.host&#34;</span><span class="p">:</span> <span class="s2">&#34;10.177.2.152:26040&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http.flavor&#34;</span><span class="p">:</span> <span class="s2">&#34;1.1&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;events&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;OK&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;timestamp&#34;</span><span class="p">:</span> <span class="s2">&#34;2021-10-22 16:04:01.209512872 +0000 UTC&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="指标">指标</h3>
+<p>指标是运行时捕获的测量值（包括时间和相关元数据）。</p>
+<br/>
+<p>MeterProvider 通常是使用 OT 计量的第一步。</p>
+<p>Meter 创建指标，它由 MeterProvider 创建。</p>
+<p>Metric Exporter 发送指标到消费者。</p>
+<br/>
+<p>指标定义如下：</p>
+<ul>
+<li>name</li>
+<li>kind
+<ul>
+<li>counter</li>
+<li>gauge</li>
+<li>histogram</li>
+</ul>
+</li>
+<li>unit（可选）</li>
+<li>description（可选）</li>
+</ul>
+<br/>
+<br/>
+<h3 id="日志">日志</h3>
+<p>日志是事件的记录。</p>
+<br/>
+<br/>
+<h3 id="行李">行李</h3>
+<p>行李是信号之间传递的上下文信息，它是键值存储。</p>
+<br/>
+<br/>
+<h2 id="仪器化">仪器化</h2>
+<p>要使系统可观测，必须对其进行仪器化：也就是说，系统组件必须发出追踪、指标和日志。</p>
+<p>使用 OT，要使代码仪器化，有两种主要方式：</p>
+<ul>
+<li>基于代码的方案（通过 API 或 SDK）</li>
+<li>零代码的方案</li>
+</ul>
+<br/>
+<br/>
+<h3 id="零代码的方案">零代码的方案</h3>
+<p>在无需编写代码的情况下，为应用程序添加可观测性。</p>
+<p>通常作为一个代理或类似代理的安装。从字节码操作、猴子补丁或 eBPF 将 OT API 和 SDK 的调用注入应用程序。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/zero-code.svg"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/zero-code.svg, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/zero-code.svg 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/zero-code.svg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/zero-code.svg"
+        title="零代码" /></p>
+<br/>
+<br/>
+<h3 id="基于代码的方案">基于代码的方案</h3>
+<p>基于代码的仪器化。</p>
+<ul>
+<li>导入 OT API 和 SDK。</li>
+<li>配置 OT API。</li>
+<li>配置 OT SDK。</li>
+<li>创建 Telemetry 数据。</li>
+<li>导出数据。
+<ul>
+<li>直接从进程导出：依赖一个或多个探针，将信息转换为特定类型，来适配如 Jaeger 或 Prometheus 等分析工具。</li>
+<li>通过 OT Collector 代理导出：所有 OT SDK 都支持 OTLP 协议，该协议可向 OT Collector 发送数据。</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h3 id="库的方案">库的方案</h3>
+<p>OT 为许多库提供了仪器化库，这通常是通过库钩子或猴子补丁来实现的。</p>
+<br/>
+<br/>
+<h2 id="组件">组件</h2>
+<p>OT 主要由以下主要部分构成：</p>
+<ul>
+<li>规范</li>
+<li>Collector：接收、处理和遥测数据。</li>
+<li>API 和 SDK
+<ul>
+<li>插桩库</li>
+<li>导出器</li>
+<li>零代码插桩</li>
+<li>资源检测器</li>
+<li>跨服务传输器</li>
+<li>采样器</li>
+</ul>
+</li>
+<li>K8s Operator</li>
+<li>FaaS</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="演示">演示</h1>
+<p>演示：<a href="https://opentelemetry.io/zh/docs/demo/">https://opentelemetry.io/zh/docs/demo/</a></p>
+<br/>
+<hr>
+<br/>
+<h1 id="api和sdk仪器化">API和SDK仪器化</h1>
+<p>参考: <a href="https://opentelemetry.io/zh/docs/languages/">https://opentelemetry.io/zh/docs/languages/</a></p>
+<p>OpenTelemetry 代码仪器化支持多种编程语言。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-txt" data-lang="txt">                                          -----&gt; Jaeger/其它 (trace)
+App + SDK ---&gt; OpenTelemetry Collector ---|
+                                          -----&gt; Prometheus (metrics)
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="零代码仪器化">零代码仪器化</h1>
+<p>参考: <a href="https://opentelemetry.io/zh/docs/zero-code/">https://opentelemetry.io/zh/docs/zero-code/</a></p>
+<br/>
+<p>一些示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># opentelemetry-特定语言-instrument 软件，程序在启动时指定相关参数</span>
+<span class="c1"># 运行 OT Go Auto 需要 root 权限</span>
+sudo <span class="nv">OTEL_GO_AUTO_TARGET_EXE</span><span class="o">=</span>/home/bin/service_executable <span class="nv">OTEL_SERVICE_NAME</span><span class="o">=</span>my_service <span class="nv">OTEL_EXPORTER_OTLP_ENDPOINT</span><span class="o">=</span>http://localhost:4318 ./otel-go-instrumentation
+
+
+<span class="c1"># java agent</span>
+java -javaagent:path/to/opentelemetry-javaagent.jar -Dotel.service.name<span class="o">=</span>your-service-name -jar myapp.jar
+
+
+<span class="c1"># nodejs</span>
+npm install --save @opentelemetry/api
+npm install --save @opentelemetry/auto-instrumentations-node
+env <span class="nv">OTEL_TRACES_EXPORTER</span><span class="o">=</span>otlp <span class="nv">OTEL_EXPORTER_OTLP_TRACES_ENDPOINT</span><span class="o">=</span>your-endpoint <span class="se">\
+</span><span class="se"></span>node --require @opentelemetry/auto-instrumentations-node/register app.js
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="collector">Collector</h1>
+<p>收集器接收、处理和导出遥测数据。它具有更好的扩展性，支持向一个或多个后端发送可观测性数据格式（如 Jaeger, Prometheus 等）。</p>
+<p>虽然可以直接将数据发送给后端，但建议使用收集器。因为它可以让你快速卸取数据，还可进行重试、批处理等功能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-collector.svg"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-collector.svg, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-collector.svg 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-collector.svg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-collector.svg"
+        title="收集器" /></p>
+<br/>
+<br/>
+<h2 id="端口信息">端口信息</h2>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>协议</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4317</td>
+<td>gRPC</td>
+<td>接收 OTLP 遥测数据（traces, metrics, logs）</td>
+</tr>
+<tr>
+<td>4318</td>
+<td>http</td>
+<td>接收 OTLP 遥测数据</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h2 id="快速开始">快速开始</h2>
+<br/>
+<br/>
+<h3 id="先决条件">先决条件</h3>
+<ul>
+<li>docker 或其他容器运行时</li>
+<li>Go 对应版本</li>
+<li>GOBIN 环境变量</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">GOBIN</span><span class="o">=</span><span class="si">${</span><span class="nv">GOBIN</span><span class="k">:-$(</span>go env GOPATH<span class="k">)</span><span class="p">/bin</span><span class="si">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="配置环境">配置环境</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 拉取镜像</span>
+docker pull otel/opentelemetry-collector-contrib:0.118.0
+
+<span class="c1"># 安装 telemetrygen，用于生成遥测数据，做测试</span>
+go install github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen@latest
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="生成并收集数据">生成并收集数据</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 启动收集器</span>
+docker run <span class="se">\
+</span><span class="se"></span>  -p 127.0.0.1:4317:4317 <span class="se">\
+</span><span class="se"></span>  -p 127.0.0.1:4318:4318 <span class="se">\
+</span><span class="se"></span>  -p 127.0.0.1:55679:55679 <span class="se">\
+</span><span class="se"></span>  otel/opentelemetry-collector-contrib:0.118.0 <span class="se">\
+</span><span class="se"></span>  2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee collector-output.txt
+
+<span class="c1"># 生成一些追踪数据</span>
+<span class="nv">$GOBIN</span>/telemetrygen traces --otlp-insecure --traces <span class="m">3</span>
+
+<span class="c1"># 查看日志中的收集活动</span>
+grep -E <span class="s1">&#39;^Span|(ID|Name|Kind|time|Status \w+)\s+:&#39;</span> ./collector-output.txt
+
+<span class="c1"># 通过浏览器查看数据</span>
+curl http://localhost:55679/debug/tracez
+
+<span class="c1"># 退出收集器容器</span>
+ctrl-c
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="安装收集器">安装收集器</h2>
+<br/>
+<br/>
+<h3 id="docker安装">Docker安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">docker pull otel/opentelemetry-collector-contrib:0.118.0
+docker run otel/opentelemetry-collector-contrib:0.118.0
+
+<span class="c1"># 指定配置</span>
+docker run -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/config.yaml:/etc/otelcol-contrib/config.yaml otel/opentelemetry-collector-contrib:0.118.0
+<span class="c1"># 映射端口</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="docker-compose安装">Docker-Compose安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># docker-compose.yaml</span><span class="w">
+</span><span class="w"></span><span class="nt">otel-collector</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">otel/opentelemetry-collector-contrib</span><span class="w">
+</span><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">./otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml</span><span class="w">
+</span><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="m">1888</span><span class="p">:</span><span class="m">1888</span><span class="w"> </span><span class="c"># pprof extension</span><span class="w">
+</span><span class="w">    </span>- <span class="m">8888</span><span class="p">:</span><span class="m">8888</span><span class="w"> </span><span class="c"># Prometheus metrics exposed by the Collector</span><span class="w">
+</span><span class="w">    </span>- <span class="m">8889</span><span class="p">:</span><span class="m">8889</span><span class="w"> </span><span class="c"># Prometheus exporter metrics</span><span class="w">
+</span><span class="w">    </span>- <span class="m">13133</span><span class="p">:</span><span class="m">13133</span><span class="w"> </span><span class="c"># health_check extension</span><span class="w">
+</span><span class="w">    </span>- <span class="m">4317</span><span class="p">:</span><span class="m">4317</span><span class="w"> </span><span class="c"># OTLP gRPC receiver</span><span class="w">
+</span><span class="w">    </span>- <span class="m">4318</span><span class="p">:</span><span class="m">4318</span><span class="w"> </span><span class="c"># OTLP http receiver</span><span class="w">
+</span><span class="w">    </span>- <span class="m">55679</span><span class="p">:</span><span class="m">55679</span><span class="w"> </span><span class="c"># zpages extension</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="k8s安装">K8S安装</h3>
+<p>yaml 、helm chart 或 OpenTelemetry Operator。</p>
+<br/>
+<br/>
+<h3 id="linux安装">Linux安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># deb 或 rpm 包安装</span>
+wget https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.118.0/otelcol_0.118.0_linux_amd64.rpm
+sudo rpm -ivh otelcol_0.118.0_linux_amd64.rpm
+
+
+<span class="c1"># 二进制安装</span>
+curl --proto <span class="s1">&#39;=https&#39;</span> --tlsv1.2 -fOL https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.118.0/otelcol_0.118.0_linux_amd64.tar.gz
+tar -xvf otelcol_0.118.0_linux_amd64.tar.gz
+
+
+<span class="c1"># 源码安装</span>
+git clone https://github.com/open-telemetry/opentelemetry-collector.git
+<span class="nb">cd</span> opentelemetry-collector
+make install-tools
+make otelcorecol
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="部署">部署</h2>
+<br/>
+<br/>
+<h3 id="无收集器">无收集器</h3>
+<p>最简单的模式是不使用收集器，直接向后端输出遥测数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-sdk.svg"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-sdk.svg, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-sdk.svg 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-sdk.svg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-sdk.svg"
+        title="无收集器" /></p>
+<br/>
+<br/>
+<h3 id="使用收集器">使用收集器</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-agent-sdk.svg"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-agent-sdk.svg, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-agent-sdk.svg 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-agent-sdk.svg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-agent-sdk.svg"
+        title="使用收集器" /></p>
+<br/>
+<p>示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">OTEL_EXPORTER_OTLP_ENDPOINT</span><span class="o">=</span>http://collector.example.com:4318
+
+</code></pre></td></tr></table>
+</div>
+</div><p>配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w"> </span><span class="c"># the OTLP receiver the app is sending traces to</span><span class="w">
+</span><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">4318</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># trace</span><span class="w">
+</span><span class="w"></span><span class="nt">processors</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">batch</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">exporters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp/jaeger</span><span class="p">:</span><span class="w"> </span><span class="c"># Jaeger supports OTLP directly</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">https://jaeger.example.com:4317</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">traces/dev</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp/jaeger]</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="网关模式">网关模式</h3>
+<p>向一个或多个收集器实例提供的单个 OTLP 端点地址发送遥测数据。一般是使用负载均衡器。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-sdk.svg"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-sdk.svg, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-sdk.svg 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-sdk.svg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-sdk.svg"
+        title="负载均衡" /></p>
+<br/>
+<p>nginx 代理负载的示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># grpc 4317
+server {
+    listen 4317 http2;
+    server_name _;
+
+    location / {
+            grpc_pass      grpc://collector4317;
+            grpc_next_upstream     error timeout invalid_header http_500;
+            grpc_connect_timeout   2;
+            grpc_set_header        Host            $host;
+            grpc_set_header        X-Real-IP       $remote_addr;
+            grpc_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+# http 4318
+server {
+    listen 4318;
+    server_name _;
+
+    location / {
+            proxy_pass      http://collector4318;
+            proxy_redirect  off;
+            proxy_next_upstream     error timeout invalid_header http_500;
+            proxy_connect_timeout   2;
+            proxy_set_header        Host            $host;
+            proxy_set_header        X-Real-IP       $remote_addr;
+            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+upstream collector4317 {
+    server collector1:4317;
+    server collector2:4317;
+}
+
+upstream collector4318 {
+    server collector1:4318;
+    server collector2:4318;
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>将收集器作为代理和网关进行部署。</p>
+<p>在部署多个收集器时，通常既要作为网关，又要作为代理。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-arch.svg"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-arch.svg, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-arch.svg 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-arch.svg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/monitor/opentelemetry/otel-gateway-arch.svg"
+        title="网关架构" /></p>
+<br/>
+<br/>
+<h2 id="配置">配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 验证配置文件</span>
+otelcol validate --config<span class="o">=</span>config.yaml
+
+<span class="c1"># 使用配置文件启动</span>
+otelcol --config<span class="o">=</span>env:MY_CONFIG_IN_AN_ENVVAR --config<span class="o">=</span>https://server/config.yaml
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="配置文件结构">配置文件结构</h3>
+<p>配置文件由四类管道组件组成：</p>
+<ul>
+<li>receivers</li>
+<li>processors</li>
+<li>exporters</li>
+<li>connectors</li>
+</ul>
+<p>配置每个组件后，必须在 service 的 pipeline 中启动它。</p>
+<p>还可以配置 extensions 组件来扩展功能，如添加诊断工具等。扩展不需要直接访问遥测数据。</p>
+<p>一般来说，最好绑定到 localhost，下面使用 <code>0.0.0.0</code> 是出于测试方便使用。</p>
+<p>请注意，管道是通过组件标识符定义的（<code>type[/name]</code>），如 otlp 和 otlp/2。只要标识符唯一，就可以多次定义给定类型的组件。</p>
+<br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">4317</span><span class="w">
+</span><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">4318</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp/2</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">55690</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">processors</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">batch</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">batch/test</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">exporters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">otelcol:4317</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp/2</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">otelcol2:4317</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">extensions</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">health_check</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">pprof</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">zpages</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">extensions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">health_check, pprof, zpages]</span><span class="w">
+</span><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span><span class="w">    </span><span class="nt">traces/2</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp/2]</span><span class="w">
+</span><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch/test]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp/2]</span><span class="w">
+</span><span class="w">    </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span><span class="w">    </span><span class="nt">logs</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>配置文件同样可以包含其他文件，收集器会将整体配置合并到内存中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">4317</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="l">${file:exporters.yaml}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">extensions</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="receivers">Receivers</h3>
+<p>receivers 从一个或多个源收集遥测数据。可以是 pull 或 push 模式。</p>
+<p>默认是程序主动推送 OTLP 遥测数据到收集器。OTLP 协议没有原生的 pull 模式，要通过其他方式来实现，有些麻烦。</p>
+<p>许多接收器都带有默认配置项，因此只需指定接收器名称即可。</p>
+<p>配置了 receivers 并没有启用它，需要在 service 中启用。</p>
+<p>收集器需要一个或多个接收器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: logs</span><span class="w">
+</span><span class="w">  </span><span class="nt">fluentforward</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">8006</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces</span><span class="w">
+</span><span class="w">  </span><span class="nt">jaeger</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">4317</span><span class="w">
+</span><span class="w">      </span><span class="nt">thrift_binary</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">thrift_compact</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">thrift_http</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces, metrics, logs</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">4317</span><span class="w">
+</span><span class="w">        </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">cert_file</span><span class="p">:</span><span class="w"> </span><span class="l">cert.pem</span><span class="w">
+</span><span class="w">          </span><span class="nt">key_file</span><span class="p">:</span><span class="w"> </span><span class="l">cert-key.pem</span><span class="w">
+</span><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">4318</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: metrics</span><span class="w">
+</span><span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">otel-collector</span><span class="w">
+</span><span class="w">          </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">          </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">localhost:8888]</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces</span><span class="w">
+</span><span class="w">  </span><span class="nt">zipkin</span><span class="p">:</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="processors">Processors</h3>
+<p>processsors 获取接收器收集的数据，并对其进行修改或转换，然后发送给 exporters。管道中处理器的顺序决定了收集器对数据进行操作的顺序。</p>
+<p>此部分配置是可选的。</p>
+<p>配置 processors 不会启用它，需要在 service 管道中启用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">processors</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces</span><span class="w">
+</span><span class="w">  </span><span class="nt">attributes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">environment</span><span class="w">
+</span><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">production</span><span class="w">
+</span><span class="w">        </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">insert</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">db.statement</span><span class="w">
+</span><span class="w">        </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">delete</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">email</span><span class="w">
+</span><span class="w">        </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">hash</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces, metrics, logs</span><span class="w">
+</span><span class="w">  </span><span class="nt">batch</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: metrics, metrics, logs</span><span class="w">
+</span><span class="w">  </span><span class="nt">filter</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">error_mode</span><span class="p">:</span><span class="w"> </span><span class="l">ignore</span><span class="w">
+</span><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">span</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;attributes[&#34;container.name&#34;] == &#34;app_container_1&#34;&#39;</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;resource.attributes[&#34;host.name&#34;] == &#34;localhost&#34;&#39;</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;name == &#34;app_3&#34;&#39;</span><span class="w">
+</span><span class="w">      </span><span class="nt">spanevent</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;attributes[&#34;grpc&#34;] == true&#39;</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;IsMatch(name, &#34;.*grpc.*&#34;)&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">metric</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;name == &#34;my.metric&#34; and resource.attributes[&#34;my_label&#34;] == &#34;abc123&#34;&#39;</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;type == METRIC_DATA_TYPE_HISTOGRAM&#39;</span><span class="w">
+</span><span class="w">      </span><span class="nt">datapoint</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;metric.type == METRIC_DATA_TYPE_SUMMARY&#39;</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;resource.attributes[&#34;service.name&#34;] == &#34;my_service_name&#34;&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">logs</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">log_record</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;IsMatch(body, &#34;.*password.*&#34;)&#39;</span><span class="w">
+</span><span class="w">        </span>- <span class="s1">&#39;severity_number &lt; SEVERITY_NUMBER_WARN&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces, metrics, logs</span><span class="w">
+</span><span class="w">  </span><span class="nt">memory_limiter</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">check_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">    </span><span class="nt">limit_mib</span><span class="p">:</span><span class="w"> </span><span class="m">4000</span><span class="w">
+</span><span class="w">    </span><span class="nt">spike_limit_mib</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces</span><span class="w">
+</span><span class="w">  </span><span class="nt">resource</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">attributes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">cloud.zone</span><span class="w">
+</span><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">zone-1</span><span class="w">
+</span><span class="w">        </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">upsert</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">k8s.cluster.name</span><span class="w">
+</span><span class="w">        </span><span class="nt">from_attribute</span><span class="p">:</span><span class="w"> </span><span class="l">k8s-cluster</span><span class="w">
+</span><span class="w">        </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">insert</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">redundant-attribute</span><span class="w">
+</span><span class="w">        </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">delete</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces</span><span class="w">
+</span><span class="w">  </span><span class="nt">probabilistic_sampler</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">hash_seed</span><span class="p">:</span><span class="w"> </span><span class="m">22</span><span class="w">
+</span><span class="w">    </span><span class="nt">sampling_percentage</span><span class="p">:</span><span class="w"> </span><span class="m">15</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces</span><span class="w">
+</span><span class="w">  </span><span class="nt">span</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">to_attributes</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="l">^\/api\/v1\/document\/(?P&lt;documentId&gt;.*)\/update$</span><span class="w">
+</span><span class="w">      </span><span class="nt">from_attributes</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">db.svc, operation]</span><span class="w">
+</span><span class="w">      </span><span class="nt">separator</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;::&#39;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="exporters">Exporters</h3>
+<p>Exporters 将数据发送到一个或多个后端，可以是 pull 或 push 模式。</p>
+<p>配置 exporters 并没有启用它，需要在 service 的管道中启用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">exporters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces, metrics, logs</span><span class="w">
+</span><span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">./filename.json</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp/jaeger</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">jaeger-server:4317</span><span class="w">
+</span><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">cert_file</span><span class="p">:</span><span class="w"> </span><span class="l">cert.pem</span><span class="w">
+</span><span class="w">      </span><span class="nt">key_file</span><span class="p">:</span><span class="w"> </span><span class="l">cert-key.pem</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces, metrics, logs</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">otelcol2:4317</span><span class="w">
+</span><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">cert_file</span><span class="p">:</span><span class="w"> </span><span class="l">cert.pem</span><span class="w">
+</span><span class="w">      </span><span class="nt">key_file</span><span class="p">:</span><span class="w"> </span><span class="l">cert-key.pem</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces, metrics</span><span class="w">
+</span><span class="w">  </span><span class="nt">otlphttp</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">https://otlp.example.com:4318</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: metrics</span><span class="w">
+</span><span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">8889</span><span class="w">
+</span><span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: metrics</span><span class="w">
+</span><span class="w">  </span><span class="nt">prometheusremotewrite</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">http://prometheus.example.com:9411/api/prom/push</span><span class="w">
+</span><span class="w">    </span><span class="c"># When using the official Prometheus (running via Docker)</span><span class="w">
+</span><span class="w">    </span><span class="c"># endpoint: &#39;http://prometheus:9090/api/v1/write&#39;, add:</span><span class="w">
+</span><span class="w">    </span><span class="c"># tls:</span><span class="w">
+</span><span class="w">    </span><span class="c">#   insecure: true</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="c"># Data sources: traces</span><span class="w">
+</span><span class="w">  </span><span class="nt">zipkin</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">http://zipkin.example.com:9411/api/v2/spans</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="connectors">Connectors</h3>
+<p>Connectors 连接两个管道，同时充当 exporter 和 reciever。可使用连接器汇总消费数据、复制数据或路由数据。</p>
+<p>配置 connectors 并没有启用，需要在 service 管道中启用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">foo</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">exporters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">bar</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">connectors</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">count</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">spanevents</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">my.prod.event.count</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">The number of span events from my prod environment.</span><span class="w">
+</span><span class="w">        </span><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="s1">&#39;attributes[&#34;env&#34;] == &#34;prod&#34;&#39;</span><span class="w">
+</span><span class="w">          </span>- <span class="s1">&#39;name == &#34;prodevent&#34;&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">foo]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">count]</span><span class="w">
+</span><span class="w">    </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">count]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">bar]</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="extensions">Extensions</h3>
+<p>extensions 扩展收集器的功能，是可选的，以完成与处理遥测数据不直接相关的任务。如，为收集器健康检查和服务发现等添加扩展。</p>
+<p>配置 extensions 没有启用，需要在 service 的管道中启用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">extensions</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">health_check</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">pprof</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">zpages</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="service">Service</h3>
+<p>service 部分用于配置在收集器中启用哪些组件。</p>
+<p>service 有以下三部分：</p>
+<ul>
+<li>extensions</li>
+<li>pipelines</li>
+<li>telemetry</li>
+</ul>
+<br/>
+<p>extensions 表示启用哪些扩展。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">extensions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">health_check, pprof, zpages]</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>pipelines 是配置管道的地方，可配置以下类型的管道：</p>
+<ul>
+<li>trace：收集和处理追踪数据</li>
+<li>metrics：收集和处理指标数据</li>
+<li>logs：收集和处理日志数据</li>
+</ul>
+<p>管道由一组 receivers, processors 和 exporters 组成，也就是启用哪些。</p>
+<p>可以在多个管道中使用同一个 receiver, processor 或 exporter。当一个处理器在多个管道中被引用时，每个管道都会获得处理器的一个单独实例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">opencensus, prometheus]</span><span class="w">
+</span><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">opencensus, prometheus]</span><span class="w">
+</span><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">opencensus, jaeger]</span><span class="w">
+</span><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch, memory_limiter]</span><span class="w">
+</span><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">opencensus, zipkin]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>telemetry 部分，可设置收集器自身的可观测性。它包括：</p>
+<ul>
+<li>logs</li>
+<li>metrics</li>
+</ul>
+<br/>
+<br/>
+<h3 id="其他信息">其他信息</h3>
+<p>使用环境变量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">processors</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">attributes/example</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">${env:DB_KEY}</span><span class="w">
+</span><span class="w">        </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">${env:OPERATION}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>代理。</p>
+<br/>
+<p>收集器中的认证机制通过扩展来实现。</p>
+<br/>
+<p>配置证书。</p>
+<br/>
+<br/>
+<h3 id="覆盖配置">覆盖配置</h3>
+<p>使用 <code>--set</code> 配置项覆盖已有配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">otelcol --set &#34;exporters::debug::verbosity=detailed&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-01-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/opentelemetry/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/opentelemetry/" data-title="OpenTelemetry" data-hashtags="OpenTelemetry,Obversing"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/opentelemetry/" data-title="OpenTelemetry"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/opentelemetry/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/opentelemetry/" data-title="OpenTelemetry"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/opentelemetry/" data-title="OpenTelemetry"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/opentelemetry/">OpenTelemetry</a>,&nbsp;<a href="/tags/obversing/">Obversing</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nginx-cookbook/" class="prev" rel="prev" title="Nginx指南"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Nginx指南</a>
+            <a href="/cybersecurity/" class="next" rel="next" title="Cybersecurity">Cybersecurity<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

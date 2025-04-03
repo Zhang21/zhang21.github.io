@@ -12,17 +12,13 @@
     <guid>https://zhang21.cn/consul/</guid>
     <description><![CDATA[<p>参考：</p>
 <ul>
+<li>Consul v1.2.0</li>
 <li><a href="https://www.consul.io/intro/index.html">https://www.consul.io/intro/index.html</a></li>
 <li><a href="https://www.consul.io/docs/">https://www.consul.io/docs/</a></li>
-<li>Consul Template: <a href="https://www.hashicorp.com/blog/introducing-consul-template">https://www.hashicorp.com/blog/introducing-consul-template</a></li>
-</ul>
-<p>环境：</p>
-<ul>
-<li>RHEL7x86_64</li>
-<li>Consul v1.2.0</li>
+<li><a href="https://www.hashicorp.com/blog/introducing-consul-template" target="_blank" rel="noopener noreffer ">Consul Template</a></li>
 </ul>
 <br/>
-<hr>]]></description>
+<p>Consul 介绍。</p>]]></description>
 </item>
 </channel>
 </rss>

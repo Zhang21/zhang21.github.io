@@ -4,7 +4,16 @@
         <link>https://zhang21.cn/categories/devops/</link>
         <description>devops - 分类 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 04 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/devops/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Mar 2025 16:09:28 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/categories/devops/" rel="self" type="application/rss+xml" /><item>
+    <title>Ansistrano</title>
+    <link>https://zhang21.cn/ansistrano/</link>
+    <pubDate>Sun, 16 Mar 2025 16:09:28 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/ansistrano/</guid>
+    <description><![CDATA[<p>Ansistrano 部署和回滚工具，基于 ansible。</p>
+<br/>]]></description>
+</item>
+<item>
     <title>Cloud-init</title>
     <link>https://zhang21.cn/cloud-init/</link>
     <pubDate>Sun, 04 Jun 2023 00:00:00 &#43;0000</pubDate>
@@ -35,12 +44,7 @@
     <pubDate>Mon, 09 May 2022 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/jenkins/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li><a href="https://www.jenkins.io/zh/doc/" target="_blank" rel="noopener noreffer ">jenkins文档</a></li>
-</ul>
-<br/>
-<hr>]]></description>
+    <description><![CDATA[<p>Jenkins 学习笔记。</p>]]></description>
 </item>
 <item>
     <title>Terraform</title>
@@ -76,19 +80,8 @@
     <pubDate>Thu, 26 Dec 2019 17:40:11 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/ansible/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>Ansible docs: <a href="https://docs.ansible.com">https://docs.ansible.com</a></li>
-</ul>
-<br>
-<p>环境:</p>
-<ul>
-<li>RHELx86_64</li>
-<li>Ansible v2.9</li>
-</ul>
-<br/>
-<br/>
-<hr>]]></description>
+    <description><![CDATA[<p>ansible 学习笔记。</p>
+<br/>]]></description>
 </item>
 <item>
     <title>DevOps</title>
@@ -96,15 +89,7 @@
     <pubDate>Wed, 13 Feb 2019 05:22:15 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/devops/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>维基百科</li>
-<li>GitLab</li>
-<li>GitHub</li>
-</ul>
-<br/>
-<br/>
-<hr>]]></description>
+    <description><![CDATA[<p>DevOps 相关知识。</p>]]></description>
 </item>
 </channel>
 </rss>

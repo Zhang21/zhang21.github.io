@@ -1,78 +1,40 @@
 # Ansible
 
 
+ansible 学习笔记。
+
+<br/>
+
+<!--more-->
+
 参考:
 
-- Ansible docs: <https://docs.ansible.com>
+- [ansible docs](https://docs.ansible.com)
 
 <br>
 
 环境:
 
-- RHELx86_64
 - Ansible v2.9
-
-<br/>
-<br/>
-
----
-
-<!--more-->
 
 <br/>
 <br/>
 
 # 介绍
 
-About Ansible: <https://docs.ansible.com/ansible/latest/index.html>
-
 Ansible是一个IT自动化工具。它可以配置系统，部署软件和编排更先进的IT任务。Ansible的主要目标是简单和易于使用。它也专注于安全性和可靠性。
 
 Ansible以无代理(agent-less)方式管理机器。Ansible是分散的，它依赖于现有操作系统的平局来控制访问到远程主机。如果需要，Ansible可以很容易地使用Kerberos, LDAP等集中认证管理系统连接。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
 
 <br/>
-<br/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 词汇表
 
 [Glossary](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html)
-
-
 
 - **Action**
 动作(action)是任务的一部分，用于指定要运行的模块和传递给该模块的参数。每个任务只能有一个动作，但也可能有其它参数。
@@ -91,7 +53,6 @@ Ansible以无代理(agent-less)方式管理机器。Ansible是分散的，它依
 
 - **Connection Plugin**
 默认情况下，Ansible通过pluggable libraries与远程计算机通信。Ansible支持原生OpenSSH或称为paramiko的Python实现。如果您使用的是最新版本，则首选OpenSSH，并启用Kerberos和jump host等功能。还有其它连接类型，如`accelerate`模式，必须通过一种基于SSH的连接类型进行引导，但速度非常快，而本地模式则作用于本地系统。用户还可以编写自己的连接插件。
-
 
 - **Conditionals**
 条件是一个表达式，其计算结果为`true`或`false`，用于决定给定任务是否在给定计算机上执行。
@@ -240,98 +201,17 @@ Ansible使用`term:`连接插件来定以可用传输的类型。
 - **YAML**
 Ansible不想强迫人们编写程序代码来自动化基础设施，因此使用YAML来定义剧本配置语言和变量文件。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
 
 <br/>
-<br/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 安装指南
 
 Installtion Guide: <https://docs.ansible.com/ansible/latest/installation_guide/index.html>
 
-
 <br>
-
 
 ## 安装Ansible
 
@@ -339,31 +219,16 @@ Installing Ansible: <https://docs.ansible.com/ansible/latest/installation_guide/
 
 Ansible是一个默认通过SSH协议管理机器的无代理(agentless)的自动化工具。一旦安装，Ansible不添加数据库，并且不需要启动守护进程。你只需要在一台机器上安装它，它可以从该中心点管理远程所有机器。
 
-
-
-
-
-<br>
-
 <br/>
-
-
-
-
+<br/>
 
 ### 先决条件
 
-Prerequisite
-
 在控制节点上安装Ansible，然后使用SSH(默认)与管理的节点通信。
-
 
 <br>
 
-
-
 **控制节点的依赖**
-Control node requirements
 
 目前，Ansible可以从任何安装了Python2.7或Python3.5+的机器上运行。不支持Windows。
 
@@ -371,20 +236,12 @@ Control node requirements
 
 **被管理节点的依赖**
 
-Managed node requirements
-
 在被管理的节点上，你需要一种方法来通信（通常是SSH）。
 
-
-
 <br/>
 <br/>
-
-
 
 ### 选择版本
-
-Selecting an Ansible version to install
 
 选择自己需要的Ansible版本进行安装，可选择一下几种方式：
 
@@ -392,32 +249,20 @@ Selecting an Ansible version to install
 - 使用pip进行安装
 - 使用源码进行安装
 
-
 <br/>
 <br/>
-
-
 
 ### 在RHEL上安装
 
-Installing Ansible on RHEL, CentOS, or Fedora
-
 ```sh
-yum search ansible
-
 sudo yum install ansible
+
 ```
 
-
-
 <br/>
 <br/>
-
-
 
 ### 使用pip安装
-
-Installing Ansible with pip
 
 使用Python的包管理工具pip来安装Ansible。
 
@@ -427,15 +272,13 @@ Installing Ansible with pip
 # source ansible/bin/activate
 pip install --user ansible
 pip install --user paramiko
+
 ```
 
-
 <br/>
 <br/>
 
-
-
-### Ansible command shell completion
+### 命令行工具
 
 Ansible 2.9的命令行工具由称为`argcomplete`的依赖提供。
 
@@ -476,13 +319,8 @@ eval $(register-python-argcomplete ansible-pull)
 eval $(register-python-argcomplete ansible-vault)
 ```
 
-
-
 <br/>
 <br/>
-<br/>
-
-
 
 ## 配置Ansible
 
@@ -491,8 +329,6 @@ Configuring Ansible: <https://docs.ansible.com/ansible/latest/installation_guide
 <br>
 
 ### 配置文件
-
-Configuration file
 
 Ansible将按照一下顺序搜索配置文件：
 
@@ -505,74 +341,30 @@ Ansible将按照一下顺序搜索配置文件：
 
 [Ansible配置参考](https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings)
 
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
 
 <br/>
-<br/>
-
-
-
-
 
 # Ansible移植指南
 
 Ansible Porting Guides: <https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html>
 
-
-
-
-
-
-
-
-
-<br/>
 <br/>
 
 ---
 
 <br/>
-<br/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 用户指南
 
 User Guide: <https://docs.ansible.com/ansible/latest/user_guide/index.html>
 
-
 本指南介绍如何使用Ansible工作，包括CLI, invetory, playbooks。
 
-
-
 <br/>
 <br/>
-
-
 
 ## Quickstart
 
@@ -581,12 +373,9 @@ Ansible Quickstart Guide: <https://docs.ansible.com/ansible/latest/user_guide/qu
 <br/>
 <br/>
 
-
-
 ## 概念
 
 Ansible concepts: <https://docs.ansible.com/ansible/latest/user_guide/basic_concepts.html>
-
 
 - **Controle node**：按照Ansible的任意机器。Windows机器无法作为控制节点。可以有多个控制节点。
 - **Managed nodes**：使用Ansible管理的网络设备。通常称为主机，Ansible未安装在管理节点上。
@@ -595,17 +384,12 @@ Ansible concepts: <https://docs.ansible.com/ansible/latest/user_guide/basic_conc
 - **Tasks**：Ansible中的动作单元。可使用`ad-hoc`命令执行单一任务一次。
 - **Playbooks**：任务的有序列表。可按照顺序反复执行这些任务。剧本可以包含变量和任务。它以YAML格式编写。
 
-
-
 <br/>
 <br/>
-
-
 
 ## 入门
 
 Getting Started: <https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html>
-
 
 一个基本的Ansible命令或playbooks：
 
@@ -613,37 +397,29 @@ Getting Started: <https://docs.ansible.com/ansible/latest/user_guide/intro_getti
 - 连接到这些机器（通常是SSH）
 - 复制一个或多个模块到远程机器，并执行
 
-
 Ansible可以做很多事。一旦你理解了Ansible是如何工作的，你可以阅读有关的`ad-hoc`命令的详细信息，使用清单组织你的基础架构，并利用Ansible强大的playbooks。
 
-
-
 <br/>
 <br/>
-
-
 
 ### 从清单选择机器
 
 Ansible从你的清单中读取管理的机器的信息。虽然你可以通过IP地址和`ad-hoc`命令，你也需要清单来增加Ansible的灵活性和重复性。
 
-```
+```sh
 # 创建一个基本的清单
 # 在此文件中添加远程系统
 vim /etc/ansible/hosts
 192.0.2.50
 aserver.example.org
 bserver.example.org
+
 ```
 
 也可以使用别名(aliases)，主机变量(host vars)，组变量(group vars)。
 
-
-
 <br>
 <br/>
-
-
 
 ### 连接到远程节点
 
@@ -654,13 +430,11 @@ Ansible与远程机器通过SSH协议进行通信。默认情况下，Ansible使
 <br>
 <br>
 
-
-
 ### 复制和执行模块
 
 一旦建立连接，Ansible传输你的命令或剧本需要的模块到远程机器。
 
-```
+```sh
 # 运行第一个ansible命令
 ansible all -m ping
 
@@ -669,31 +443,19 @@ ansible all -m ping
 ansible all -a "/bin/echo hell"
 ```
 
-
-
 <br>
 <br>
-
 
 ## 如何构建清单
 
-How to build your inventory: <https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html>
-
 Ansible对多个被管理的节点使用被称为清单的列表或组列表。一旦清单定义，你可以选择主机或组来运行。
-
 
 清单的默认位置是`/etc/ansible/hosts`。可以通过`-i`选项来指定不同的清单文件。也可以同时使用多个清单文件。从动态或云拉取清单。
 
-
-
 <br>
 <br>
-
-
 
 ### 清单基本
-
-formats, hosts, groups。
 
 清单文件有多种形式。最常用的是INI和YAML。
 
@@ -711,6 +473,8 @@ db1.example.com
 db2.example.com
 db3.example.com
 ```
+
+<br/>
 
 ```yaml
 # YAML格式
@@ -735,7 +499,6 @@ all:
 
 - `all`：包含每个主机
 - `ungrouped`：all中没有组的主机
-
 
 <br>
 
@@ -784,29 +547,17 @@ all:
       db-[a:f].example.com
 ```
 
-
 <br>
 <br>
-
-
 
 ### 添加变量到清单
 
-Adding variables to inventory
-
-
 可以在清单中存储涉及到特定主机或组的变量值。
 
-
 <br/>
 <br/>
-
-
 
 ### 主机变量
-
-Assigning a variable to one machine: host variables
-
 
 ```yaml
 atlanta:
@@ -830,11 +581,8 @@ atlanta:
       ansible_host: 192.0.2.50
 ```
 
-
 <br/>
 <br/>
-
-
 
 ### 组变量
 
@@ -852,12 +600,9 @@ atlanta:
     proxy: proxy.atlanta.example.com
 ```
 
-
 <br>
 
-
-继承变量值(Inheriting variable values: group variables for groups of groups)。可使用`children:`(yaml)来构建组的组，同样，可使用`vars:`来构建组变量的组变量。
-
+继承变量值。可使用`children:`(yaml)来构建组的组，同样，可使用`vars:`来构建组变量的组变量。
 
 ```yaml
 all:
@@ -891,30 +636,19 @@ all:
 - 组可以有多个父亲和孩子
 - 主机可以在多个组，但只会有一台主机实例，合并来自多个组的数据
 
-
 <br/>
 <br/>
-
-
 
 ### 组织主机和组变量
-
-Organizing host and group variables
 
 尽管你可以将变量存储在清单文件，但存储独立的主机和组变量可以帮助您更轻松地阻止你的变量值。主机和组变量文件必须使用YAML语法。
 
 Ansible通过搜索清单文件或剧本文件的路径来载入主机和组变量文件。
 
-
-
 <br/>
 <br/>
-
-
 
 ### 变量如何合并
-
-How variables are merged
 
 默认情况下，在play运行前变量被合并到特定的主机。这使Ansible集中在主机和任务，因此组并没有真正生存在清单和主机匹配之外。Ansible覆盖变量的顺序：
 
@@ -923,9 +657,9 @@ How variables are merged
 - child group
 - host
 
+<br/>
 
 默认情况下Ansible在相同的父/子级按字母顺序合并组，并在最后一组加载覆盖前面的组。你可以通过设置组变量`ansible_group_priority`来改变同级组合并顺序的行为。数字越大，优先级就越高。默认值是1。
-
 
 ```yaml
 # testvar == a
@@ -936,15 +670,10 @@ b_group:
   testvar: b
 ```
 
-
 <br/>
 <br/>
-
-
 
 ### 使用多个清单源
-
-Using multiple inventory sources
 
 可通过在命令行中或配置`ANSIBLE_INVENTORY`通过给定多个清单参数在同一时间目标多个清单源（目录，动态清单脚本，清单插件...）。
 
@@ -955,7 +684,7 @@ ansible-playbook get_logs.yml -i staging -i production
 
 <br>
 
-**以一个目录组合多个清单源(Aggregating inventory sources with a directory)**
+**以一个目录组合多个清单源**
 
 还可以通过一个目录下结合多个清单源和原类型来创建清单。这对于动静结合主机和管理它们为一体化清单很有用。
 
@@ -968,40 +697,28 @@ inventory/
     all.yml              # assign variables to all hosts
 ```
 
-
 ```sh
 # target inventory
 ansible-playbook example.yml -i inventory
 ```
 
-
 <br/>
 <br/>
-
-
 
 ### 清单参数
 
-Connecting to hosts: behavioral inventory parameters
-
 以下变量控制与远程主机如何与Ansible相互作用。
 
-
 <br/>
 <br/>
-
-
 
 ### 清单配置样例
-
-Inventory setup examples
 
 - 每个环境一个清单(One inventory per environment)
 - 通过功能分组(Group by function)
 - 通过地址分组(Group by location)
 
-
-```
+```ini
 # Example: One inventory per environment
 # inventory_test
 [dbservers]
@@ -1009,6 +726,7 @@ db01.test.example.com
 db02.test.example.com
 ```
 
+<br/>
 
 ```yaml
 # Example: Group by function
@@ -1021,85 +739,32 @@ db02.test.example.com
       source: 10.0.0.1
 ```
 
-```
+<br/>
+
+```ini
 # Example: Group by location
 [dc1]
 db01.test.example.com
 app01.test.example.com
 ```
 
-
-
 <br/>
 <br/>
-<br/>
-
-
 
 ## 动态清单
 
 Working with dynamic inventory: <https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html>
 
-
-<br/>
-
-
-### cobbler
-
-
 <br/>
 <br/>
-
-
-### AWS ec2
-
-
-
-<br/>
-<br/>
-
-
-
-### OpenStack
-
-
-
-<br/>
-<br/>
-
-
-
-### 其它清单脚本
-
-Other inventory scripts
-
-
-
-
-
-<br/>
-<br/>
-<br/>
-
-
-
-
 
 ## 模式
 
-Patterns: targeting hosts and groups: <https://docs.ansible.com/ansible/latest/user_guide/intro_patterns.html>
-
 当你通过`ad-hoc`或`playbook`执行Ansible时，你必须选择要对哪些节点或组执行。模式可以让你针对清单中的特定主机或组执行。一个Ansible Pattern可以指定单个主机、IP地址、清单组、一组组、所有主机...模式非常灵活，可以排除需要的主机子集、使用通配符、正则表达式...Ansible将在包含在模式上的所有清单主机上执行。
-
-
 
 <br/>
 
-
-
 ### 模式使用
-
-Using patterns
 
 ```sh
 # ad-hoc
@@ -1107,6 +772,7 @@ Using patterns
 ansible webservers -m service -a "name=httpd state=restarted"
 ```
 
+<br/>
 
 ```yaml
 # palybook
@@ -1117,17 +783,10 @@ ansible webservers -m service -a "name=httpd state=restarted"
   hosts: webservers
 ```
 
-
-
 <br/>
 <br/>
-
-
 
 ### 常见模式
-
-Common patterns
-
 
 | 描述 | 模式 | 目标 |
 | - | - | - |
@@ -1139,51 +798,36 @@ Common patterns
 | Excluding groups | g1:!g2 | all hosts in g1 except those in g2 |
 | Intersection of groups | g1:&g2 | g1和g2的交集 |
 
-
-
 <br/>
 <br/>
-
-
 
 ### 模式的局限性
 
-Limitations of patterns
-
 模式依赖于清单。如果主机或组不在清单中，则不能使用模式来目标它。如果模式中包含清单中不存在的IP地址或主机名，会报错。模式必须匹配清单语法。
 
-
-
 <br/>
 <br/>
-
-
 
 ### 高级的模式选项
 
-Advanced pattern options
-
 常用的模式将满足你的大部分需求，但Ansible提供了几种方法来定义你需要定位(target)的主机和组。
 
-
 **在模式中使用环境变量**
-Using variables in patterns
 
-
-```
+```ini
 # playbook
 webservers:!{{ excluded }}:&{{ required }}
 ```
 
-**在模式中使用组位置**
-Using group position in patterns
+<br/>
 
-```
+**在模式中使用组位置**
+
+```ini
 [g1]
 aa
 bb
 cc
-
 
 g1[0]
 g1[-1]
@@ -1191,21 +835,16 @@ g1[0:2]
 g1[1:]
 ```
 
+<br/>
+
 **在模式中使用正则**
-Using regexes in patterns
 
 以`~`符号开始使用模式的正则: `~(web|db).*\.example\.com`
 
-
-
 <br/>
 <br/>
-
-
 
 ### playbook标志
-
-Patterns and ansible-playbook flags
 
 可以使用命令行选项改变playbook中定义的行为。
 
@@ -1213,18 +852,10 @@ Patterns and ansible-playbook flags
 ansible-playbook site.yml --limit datacenter2
 ```
 
-
-
 <br/>
 <br/>
-<br/>
-
-
-
 
 ## ad-hoc
-
-Introduction to ad-hoc commands: <https://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html>
 
 一个Ansible的`ad-hoc`命令使用ansible命令行工具在一个或多个管理节点上执行单一任务。`ad-hoc`命令是快速和容易的，但却无法重复使用。那么为什么首先学习`ad-hoc`命令呢？它表明Ansible的简单和功能。在这学的内容可直接到playbook里。在执行前，请先阅读构建清单。
 
@@ -1232,15 +863,10 @@ Introduction to ad-hoc commands: <https://docs.ansible.com/ansible/latest/user_g
 
 如果像重复一个命令，可使用playbook中的template module。
 
-
-
+<br/>
 <br/>
 
-
-
 ### 为什么使用它
-
-Why use ad-hoc commands?
 
 `ad-hoc`命令针对的是很少会重复的任务。
 
@@ -1249,15 +875,10 @@ Why use ad-hoc commands?
 ansible [pattern] -m [module] -a "[module options]"
 ```
 
-
 <br/>
 <br/>
-
-
 
 ### 用例
-
-Use cases for ad-hoc tasks
 
 `ad-hoc`任务可用来重启服务器、复制文件、管理包和用户...可在`ad-hoc`任务中使用任意Ansible模块。Ad-hoc tasks与playbooks类似，使用一个声明模型，计算并执行以达到规定的最终状态所需的操作。
 
@@ -1271,19 +892,14 @@ Use cases for ad-hoc tasks
 # rebooting servers
 ansible host1 -a "/sbin/reboot"
 
-
 # 默认是5并发进程
 ansible host1 -a "/sbin/reboot" -f 10
-
 
 # ansible将默认为你的用户账户
 ansible host1 -a "/sbin/reboot" -f 10 -u username
 
-
-
 # 重启服务器可能需要特权提升，如从user到root
 ansible host1 -a "/sbin/reboot" -f 10 -u username --become [--ask-become-pass]
-
 
 # 使用不同的模块
 ansible host1 -m shell -a 'echo ${TERM}'
@@ -1348,18 +964,14 @@ ansible all -m user -a "name=foo state=absent"
 # 确保服务已启动
 ansible webservers -m service -a "name=httpd state=started"
 
-
 # 重启服务
 ansible webservers -m service -a "name=httpd state=restarted"
-
 
 # 确保服务已停止
 ansible webservers -m service -a "name=httpd state=stopped"
 ```
 
-
 <br>
-
 
 **收集事实**
 
@@ -1370,42 +982,22 @@ ansible webservers -m service -a "name=httpd state=stopped"
 ansible all -m setup
 ```
 
-
-
-
 <br/>
 <br/>
-<br/>
-
-
-
-
 
 ## 连接方法和详情
 
-Connection methods and details: <https://docs.ansible.com/ansible/latest/user_guide/connection_details.html>
-
-
-
 <br/>
-
-
+<br/>
 
 ### ControlPersist和paramiko
 
 默认情况下，Ansible使用原生的OpenSSH，因为它支持ControlPersist（一个性能特点），Kerberos，和`~/.ssh/config`中的配置。如果你的控制机使用的旧版本OpenSSH不支持ControlPersist，Ansible将回退到称为`paramiko`的一个Python实现的OpenSSH。
 
-
-
 <br/>
 <br/>
-
-
 
 ### ssh-key配置
-
-SSH key setup
-
 
 默认情况下，Ansible假定您使用SSH keys连接到远程主机。推荐使用key，但可使用`--ask-pass`选项来使用密码。使用`--ask-become-pass`选项来使用特权提升。
 
@@ -1415,29 +1007,19 @@ ssh-agent bash
 ssh-add ~/.ssh/id_rsa
 ```
 
-
 <br/>
 <br/>
-
-
 
 ### 本地运行
-
-Running against localhost
 
 ```sh
 ansible localhost -m ping -e 'ansible_python_interpreter="/usr/bin/env python"'
 ```
 
-
-
 <br/>
 <br/>
-
 
 ### 主机密钥检查
-
-Host key checking
 
 Ansible默认启用主机密钥检查。如果主机重装并在`known_hosts`中有不同的密钥，这将导致一个错误消息，知道纠正。
 
@@ -1450,34 +1032,17 @@ host_key_checking = False
 
 或设置环境变量: `export ANSIBLE_HOST_KEY_CHECKING=False`
 
-
-
 <br/>
 <br/>
-
-
 
 ### 其它连接方法
 
-Other connection methods
-
 除了SSH之外，Ansible还可以使用许多连接方法。
 
-
-
-
-
 <br/>
 <br/>
-<br/>
-
-
-
-
 
 ## 命令行工具
-
-Working with command line tools: <https://docs.ansible.com/ansible/latest/user_guide/command_line_tools.html>
 
 大多数用户对`ansible`和`ansilbe-playbook`比较熟悉，但它们不是Ansible提供的唯一实用工具。下面是完整的Ansible使用工具列表。
 
@@ -1491,19 +1056,10 @@ Working with command line tools: <https://docs.ansible.com/ansible/latest/user_g
 - [ansible-pull](https://docs.ansible.com/ansible/latest/cli/ansible-pull.html): 从仓库拉playbook并为本地主机执行
 - [ansible-valut](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html): Ansible数据文件的加解密工具
 
-
-
 <br/>
 <br/>
-<br/>
-
-
-
-
 
 ## playbook
-
-Working With Playbooks: <https://docs.ansible.com/ansible/latest/user_guide/playbooks.html>
 
 Playbooks是Ansible的配置(configuration)、部署(deployment)和编排(orchestration)语言。它可以描述你希望你的远程系统强制执行的策略，或在IT流程的步骤。
 
@@ -1513,15 +1069,10 @@ playbook被设计为人类可读的和基于文本语言开发。有多种方式
 
 你应该看一看[Example Playbooks](https://github.com/ansible/ansible-examples)，并与playbook文档一起阅读。这些说明的最佳实践，以及如何把众多的各种概念混合在一起。
 
-
-
+<br/>
 <br/>
 
-
-
 ### 介绍
-
-Intro to Playbooks: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html>
 
 playbook是比在`ad-hoc`任务执行模式下的一个完全不同的使用ansible的方式，并且特别强大。
 
@@ -1531,12 +1082,10 @@ playbook可以声明配置，但它也可以通过编排任意手动排序进程
 
 虽然你为`ad-hoc`任务运行主要的`/usr/bin/ansible`程序，playbook更可能被保持在原控制和用于推送配置或保证远程系统上的配置。palybook example中有许多栗子，建议去看一看。
 
-
-
+<br/>
 <br/>
 
-
-#### playbook language
+#### playbook语法
 
 playbook以YAML语法格式表示，故意不设计成一种编程语言或脚本，而是过程或配置的模型。
 
@@ -1895,8 +1444,6 @@ Other playbook verification options
 
 ### 可重复使用的playbook
 
-Creating Reusable Playbooks: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse.html>
-
 虽然可以在一个非常大的文件里编写playbook，最终你会想重新使用文件和整理东西。在Ansible中，有三种方式可以做到这一点：
 
 - includes
@@ -1907,11 +1454,9 @@ includes和imports允许用户将大型playbook分解为小型文件，可跨多
 roles允许不仅仅是任务可以打包在一起，可以包括变量(variables)，处理程序(handlers)，甚至模块(modules)和其它插件(plugins)。不同于includes和imports，roles也可上传并经由Ansible Galaxy共享。
 
 <br>
+<br>
 
-
-#### including和importing
-
-Including and Importing: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_includes.html>
+#### include和import
 
 include和import语句相似，但Ansible执行引擎处理它们却非常不同。
 
@@ -1985,24 +1530,17 @@ handlers:
 - import_tasks: more_handlers.yml
 ```
 
-
 <br>
 <br>
-
 
 #### Roles
 
-roles: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html>
-
 角色(role)是基于已知的文件架构自动加载某些变量文件、任务和处理程序的方式。按角色分组的内容还可以方便地与其他用户共享。
 
-
+<br>
 <br>
 
-
 ##### 角色目录结构
-
-Role Directory Structure
 
 栗子：
 
@@ -2062,10 +1600,8 @@ roles/
 
 角色还可以包含模块和其它插件类型。
 
-
 <br>
 <br>
-
 
 ##### 角色使用
 
@@ -2142,14 +1678,10 @@ roles/
         - bbb
 ```
 
-
 <br>
 <br>
-
 
 ##### 角色副本和扩展
-
-Role Duplication and Execution
 
 Ansible只允许一个角色执行一次，即使多次定义：
 
@@ -2179,25 +1711,17 @@ Ansible只允许一个角色执行一次，即使多次定义：
 allow_duplicates: true
 ```
 
-
 <br>
 <br>
-
 
 ##### 角色默认变量
 
-Role Default Variables
-
 角色的默认变量允许你为角色设定默认变量。在角色目录中添加`defaults/main.yml`文件。这些变量具有最低优先级，可以轻易被覆盖。
 
-
 <br>
 <br>
-
 
 ##### 角色依赖
-
-Role Dependencies
 
 角色依赖让你在其它角色使用角色时自动拉取。角色依赖存储在角色目录的`meta/main.yml`文件。此文件应包含角色和参数列表在指定角色之前插入：
 
@@ -2217,19 +1741,13 @@ dependencies:
       other_parameter: 12
 ```
 
-
 <br>
 <br>
-
 
 ##### 角色中的嵌入模块和插件
 
-Embedding Modules and Plugins In Roles
-
-
 <br>
 <br>
-
 
 ##### 角色搜索路径
 
@@ -2238,10 +1756,8 @@ Ansible将按以下方式为角色搜索：
 - 相对于playbook文件的`roles/`目录
 - 默认情况下，在`/etc/ansible/roles`
 
-
 <br>
 <br>
-
 
 ##### Galaxy
 
@@ -2249,14 +1765,10 @@ Ansible Galaxy是一个用于查找、下载、评级、审查各种社区ansibl
 
 `ansible-galaxy`客户端包含在Ansible中。可使用它从Ansible Galaxy下载角色。
 
-
 <br>
 <br>
-
 
 #### 动态与静态
-
-Dynamic vs. Static
 
 Ansible有两种操作模式用于可重用内容：动态与静态。
 
@@ -2276,10 +1788,8 @@ Ansible有两种操作模式用于可重用内容：动态与静态。
 - 动态包含仅适用于动态的任务，不会复制到子任务
 - 静态导入，将被复制到所有子任务
 
-
 <br>
 <br>
-
 
 #### 两者比较
 
@@ -2296,26 +1806,18 @@ Ansible有两种操作模式用于可重用内容：动态与静态。
 - 静态导入内不能从库存源使用变量
 - 静态导入内当通知它们的名字时，使用处理程序将不会触发
 
-
-
 <br>
 <br>
-
 
 
 ### 使用变量
 
-Using Variables: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html>
-
 Ansible中使用变量可以更好地帮助处理各系统之间的差异。
 
-
+<br>
 <br>
 
-
 #### 创建有效的变量名
-
-Creating valid variable names
 
 有效的变量名是很重要的。变量名应该是字母 、数字和下划线，且总是以字母开头。
 
@@ -2341,14 +1843,10 @@ foo.field2
 add, append, count, decode...
 ```
 
-
 <br>
 <br>
-
 
 #### 在清单中定义变量
-
-Defining variables in inventory
 
 通常，你需要为单独的主机或组设置变量。你可以在清单文件(如hosts)中定义所需的变量：
 
@@ -2368,14 +1866,10 @@ east:
     port: 80
 ```
 
-
 <br>
 <br>
-
 
 #### 在playbook中定义变量
-
-Defining variables in a playbook
 
 你可以直接在playbook中定义变量：
 
@@ -2385,14 +1879,10 @@ Defining variables in a playbook
     port: 80
 ```
 
-
 <br>
 <br>
-
 
 #### 在文件和角色中定义变量
-
-Defining variables in included files and roles
 
 ```yaml
 - hosts: xxx
@@ -2405,14 +1895,10 @@ Defining variables in included files and roles
         dir: '/opt/b'
 ```
 
-
 <br>
 <br>
-
 
 #### 在Jinja2中使用变量
-
-Using variables with Jinja2
 
 一旦你定义了变量，便可以在Jinja2的模板系统中引用它：
 
@@ -2420,28 +1906,20 @@ Using variables with Jinja2
 Ma amp goes to {{ max_amp_value }}
 ```
 
-
 <br>
 <br>
-
 
 #### 使用Jinja2过滤器转换变量
-
-Transforming variables with Jinja2 filters
 
 Jinja2 filters 让你在模板表达式内转换变量的值。如`capitalize`大写过滤器，`to_yaml`和`to_json`过滤器来转换成对应格式。
 
 Jinja2包含了许多内置过滤器： <https://jinja.palletsprojects.com/en/2.11.x/templates/#builtin-filters>
 Ansible也支持许多过滤器： <https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters>
 
-
 <br>
 <br>
-
 
 #### YAML疑难杂症
-
-Hey wait, a YAML gotcha
 
 YAML语法要求，如果你使用`{{ foo }}`值引用整行，它要确保你不是想开始一个YAML字典。所以记得使用双引号。
 
@@ -2456,14 +1934,10 @@ vars:
   path: "{{ dir }}/22"
 ```
 
-
 <br>
 <br>
-
 
 #### 系统facts中的变量
-
-Variables discovered from systems: Facts
 
 facts是从远程系统获得的信息。你可以从`ansible_facts`变量中找到。
 
@@ -2502,14 +1976,10 @@ facts通常都是由Ansible setup模块自动发现。用户也可以编写自�
 
 如果远程管理系统有`/etc/ansible/facts.d`目录，该目录中的所有`.fact`文件（JSON, INI...）。可使用`fact_path` paly 关键字作为可选目录。
 
-
 <br>
 <br>
-
 
 #### 注册变量
-
-Registering variables
 
 另一个主要使用的变量是正在运行一个命令和将此命令的返回的结果注册为一个变量，供其它地方使用。
 
@@ -2523,14 +1993,10 @@ Registering variables
       when: foo_result.rc == 5
 ```
 
-
 <br>
 <br>
-
 
 #### 访问复杂的变量数据
-
-Accessing complex variable data
 
 有些提供的facts，如网络信息，包含了复杂的嵌套结构。取值会稍微麻烦一些：
 
@@ -2544,14 +2010,10 @@ Accessing complex variable data
 {{ foo[0] }}
 ```
 
-
 <br>
 <br>
-
 
 #### 使用magic变量访问其它主机的信息
-
-Accessing information about other hosts with magic variables
 
 无论你是否定义变量，你也可以利用特殊的Ansible变量访问有关主机的信息，包括magic, facts, connection变量。magic变量名称被保留，所以不要使用这些名称来设置变量。`enviroment`变量也同样被保留。
 
@@ -2566,7 +2028,7 @@ Accessing information about other hosts with magic variables
 `ansible_playbook_python`是python执行调用ansible命令行工具的路径。
 `role_path`返回当前角色的路径名。这仅在角色里工作。
 
-```
+```jinja2
 {{ hostvars['test.example.com']['ansible_facts']['distribution'] }}
 
 {% for host in groups['app_servers'] %}
@@ -2578,14 +2040,10 @@ Accessing information about other hosts with magic variables
 {% endif %}
 ```
 
-
 <br>
 <br>
-
 
 #### 在文件中定义变量
-
-Defining variables in files
 
 让playbook使用版本控制是很好的想法，但你可能希望让playbook 源公开化，但同时又保证一定的重要的私有变量。
 
@@ -2609,14 +2067,10 @@ password: xxxx
 
 这消除了分享playbook但避免分享数据的风险。
 
-
 <br>
 <br>
-
 
 #### 在命令行上传递参数
-
-Passing variables on the command line
 
 可在命令行上使用`--extra-vars`参数来设置变量：
 
@@ -2631,14 +2085,10 @@ ansible-playbook arcade.yml --extra-vars '{"pacman":"mrs","ghosts":["inky","pink
 ansible-playbook release.yml --extra-vars "@some_file.json"
 ```
 
-
 <br>
 <br>
 
-
-#### 变量的优先级：我应该把变量放在哪
-
-Variable precedence: Where should I put a variable?
+#### 变量的优先级
 
 同一名称的变量如果在多个地方被定义，则它们会以特定的顺序发生覆盖，所需需要知道Ansible变量的优先级，以及它们的放置位置。下面是从小到大的优先级：
 
@@ -2665,33 +2115,23 @@ Variable precedence: Where should I put a variable?
 21. include params
 22. extra vars (always win precedence)
 
-
-
 <br>
 <br>
-
-
 
 ### Jinja2模板
-
-Templating (Jinja2): <https://docs.ansible.com/ansible/latest/user_guide/playbooks_templating.html>
 
 Ansible使用Jinja2模板化来实现动态表达式和访问变量。Ansilbe大大扩展的filters和tests数量，以及新增了一个插件类型：lookups。
 
 请注意，所有模板发生在Ansible控制器上，在任务发送和执行在目标主机之前。
 
-
 <br>
-
 
 #### Filters
 
 Filters: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html>
 
-
 <br>
 <br>
-
 
 #### Tests
 
@@ -2703,10 +2143,8 @@ Jinja中的测试是评估模板表达式并返回True或False。许多内置测
 
 与所有模板一样，测试始终在Ansible控制器上执行，而不是任务的目标主机。除了这些Jinja2的测试，Ansible支持用户轻松创建自己的测试。
 
-
 <br>
 <br>
-
 
 #### Lookups
 
@@ -2722,38 +2160,26 @@ Lookups: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_lookups.h
 > 可以传递`wantlist=True`给lookups来使用Jinja2中的for循环；
 > 查找是一个高级的功能，你应该对Ansible有足够的了解。
 
-
 <br>
 <br>
 
-
-#### Python版本和模板
-
-Python Version and Templating: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_python_version.html>
+#### Python版本
 
 Jinja2模板利用Python数据类型和标准函数。这使得可对数据进行丰富的操作。然而，这也意味着潜在的Python的某些细节对模板编写者可见。由于Ansible playbook使用Jinja2用于模板与变量，这意味着playbook作者需要了解这些细节。
 
 除了这些，请注意在Python2和Python3上运行Ansible的不同。
 
-
-
 <br>
 <br>
-
-
 
 ### 条件语句
-
-Conditionals: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html>
 
 经常的一个play的结果可能依赖于一个变量的值，或之前的任务的结果。在某些情况下，变量的值可能依赖于其它变量。本主题介绍如何在playbook中使用条件语句。
 
 <br>
-
+<br>
 
 #### When语句
-
-The When Statement
 
 有时你会想在某个特定主机上跳过特定的步骤。
 
@@ -2767,6 +2193,8 @@ tasks:
       - ansible_facts['distribution'] == "CentOS"
       - ansible_facts['distribution_major_version'] == "6"
 ```
+
+<br/>
 
 许多Jinja2的测试器和过滤器都可在`when`子句中使用，其中某些是由Ansible单独提供的。
 
@@ -2787,11 +2215,15 @@ tasks:
     when: result is skipped
 ```
 
+<br/>
+
 ```yaml
 tasks:
     - shell: echo "This certainly is epic!"
       when: epic or monumental|bool
 ```
+
+<br/>
 
 ```yaml
 tasks:
@@ -2802,14 +2234,10 @@ tasks:
       when: bar is undefined
 ```
 
-
 <br>
 <br>
-
 
 #### 循环和条件
-
-Loops and Conditionals
 
 `when`和`loops`结合使用，请注意when语句是根据每个项分别处理。
 
@@ -2820,14 +2248,10 @@ tasks:
       when: item > 5
 ```
 
-
 <br>
 <br>
-
 
 #### 在自定义facts中载入
-
-Loading in Custom Facts
 
 如果你想提供自己的facts也很简单。要运行它们，只需要在任务顶部调用你自己定义的模块，这里返回的变量将能访问未来的任务：
 
@@ -2839,12 +2263,10 @@ tasks:
       when: my_custom_fact_just_retrieved_from_the_remote_system == '1234'
 ```
 
-
 <br>
 <br>
 
-
-#### Applying when to roles,imports,and includes
+#### when语句使用
 
 在roles, imports, includes中使用when语句：
 
@@ -2855,14 +2277,10 @@ tasks:
        when: ansible_facts['os_family'] == 'Debian'
 ```
 
-
 <br>
 <br>
-
 
 #### 有条件的导入
-
-Conditional Imports
 
 一个剧本适用于多个平台和操作系统是很好的栗子。
 
@@ -2878,10 +2296,8 @@ Conditional Imports
     service: name={{ apache }} state=started
 ```
 
-
 <br>
 <br>
-
 
 #### 基于变量来选择文件和模板
 
@@ -2902,14 +2318,10 @@ Selecting Files And Templates Based On Variables
     mypaths: ['search_location_one/somedir/', '/opt/other_location/somedir/']
 ```
 
-
 <br>
 <br>
-
 
 #### 注册变量
-
-Register Variables
 
 存储一个给定命令的结果，以便后面来访问它，在playbook中可能很有用。
 
@@ -2923,7 +2335,6 @@ Register Variables
   hosts: all
 
   tasks:
-
       - name: list contents of directory
         command: ls mydir
         register: contents
@@ -2934,16 +2345,12 @@ Register Variables
         when: contents.stdout == ""
 ```
 
-
 <br>
 <br>
-
 
 #### 常用facts
 
-Commonly Used Facts
-
-```
+```ini
 ansible_facts[‘distribution’]
 
 ansible_facts[‘distribution_major_version’]
@@ -2951,16 +2358,10 @@ ansible_facts[‘distribution_major_version’]
 ansible_facts[‘os_family’]
 ```
 
-
-
 <br>
 <br>
-
-
 
 ### 循环
-
-Loops: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html>
 
 常见的Ansible循环包括改变多个文件/目录的权限、创建多个用户、重复轮询...Ansible提供了两个关键字来创建循环：
 
@@ -2969,18 +2370,15 @@ Loops: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html>
 
 <br>
 
-> 注意：
+> 注意：<br/>
 > We added loop in Ansible 2.5. It is not yet a full replacement for `with_<lookup>`, but we recommend it for most use cases.
 > We have not deprecated the use of `with_<lookup>`
 > We are looking to improve loop syntax
 
-
+<br>
 <br>
 
-
 #### 两者比较
-
-Comparing `loop` and `with_*`
 
 - `with_<lookup>`关键字依赖于Lookup插件，即便`items`也是查找；
 - `loop`关键字等于`with_list`，它是简单循环的最佳选择；
@@ -2998,20 +2396,15 @@ with_items:
 loop: "{{ [1, [2,3] ,4] | flatten(1) }}"
 ```
 
-
 <br>
 <br>
-
 
 #### 标准循环
 
-Standard loops
-
+<br>
 <br>
 
 ##### 遍历一个简单列表
-
-Iterating over a simple list
 
 ```yaml
 - name: add several users
@@ -3025,10 +2418,9 @@ Iterating over a simple list
 ```
 
 <br>
+<br>
 
 ##### 遍历一个散列列表
-
-Iterating over a list of hashes
 
 ```yaml
 - name: add several users
@@ -3069,8 +2461,6 @@ Iterating over a dictionary
 
 #### 循环与注册变量
 
-Registering variables with a loop
-
 你可以将循环的输出注册为变量：
 
 ```yaml
@@ -3081,20 +2471,14 @@ Registering variables with a loop
   register: echo
 ```
 
-
 <br>
 <br>
-
 
 #### 复杂循环
-
-Complex loops
 
 <br>
 
 ##### 遍历嵌套的列表
-
-Iterating over nested lists
 
 你可以使用Jinja2的表达式来遍历复杂的列表：
 
@@ -3112,8 +2496,6 @@ Iterating over nested lists
 
 ##### 重试任务直到满足条件
 
-Retrying a task until a condition is met
-
 可以使用`until`关键字来重试任务直到满足特定条件：
 
 ```yaml
@@ -3127,8 +2509,6 @@ Retrying a task until a condition is met
 <br>
 
 ##### 循环清单
-
-Looping over inventory
 
 遍历资产清单：
 
@@ -3155,10 +2535,8 @@ Looping over inventory
   loop: "{{ query('inventory_hostnames', 'all:!www') }}"
 ```
 
-
 <br>
 <br>
-
 
 #### query与lookup
 
@@ -3171,22 +2549,16 @@ loop: "{{ query('inventory_hostnames', 'all') }}"
 loop: "{{ lookup('inventory_hostnames', 'all', wantlist=True) }}"
 ```
 
-
 <br>
 <br>
-
 
 #### 循环控制
-
-Adding controls to loops
 
 `loop_control`关键字让你可以以有效的方式管理自己的循环。
 
 <br>
 
 ##### 限制循环输出
-
-Limiting loop output with label
 
 当遍历复杂的数据结构，你的任务的控制台输出可能是巨大的。为了限制显示的输出，在`loop_control`中使用`label`。
 
@@ -3212,8 +2584,6 @@ Limiting loop output with label
 
 ##### 暂停循环
 
-Pausing within a loop
-
 要控制每个项的执行之间的时间(seconds)，在`loop_control`中使用`pause`。
 
 ```yaml
@@ -3233,8 +2603,6 @@ Pausing within a loop
 
 ##### 追踪流程
 
-Tracking progress through a loop with `index_var`
-
 要追踪你在循环的位置，在`loop_control`中使用`index_var`。
 
 ```yaml
@@ -3252,8 +2620,6 @@ Tracking progress through a loop with `index_var`
 <br>
 
 ##### inner and outer variable names
-
-Defining inner and outer variable names with `loop_var`
 
 可使用`include_tasks`嵌套两个循环任务。然而，默认情况下Ansible为每个循环`item`设置循环变量。This means the inner, nested loop will overwrite the value of item from the outer loop.你可以在`loop_control`中使用`loop_var`来为每个循环指定变量名。
 
@@ -3279,8 +2645,6 @@ Defining inner and outer variable names with `loop_var`
 
 ##### 扩展的循环变量
 
-Extended loop variables
-
 在循环控制中使用`extended`选项来获取扩展的循环信息：
 
 ```yaml
@@ -3302,14 +2666,10 @@ ansible_loop.previtem	The item from the previous iteration of the loop. Undefine
 ansible_loop.nextitem	The item from the following iteration of the loop. Undefined during the last iteration.
 ```
 
-
 <br>
 <br>
-
 
 #### 从with_x迁移到loop
-
-Migrating from with_X to loop
 
 从Ansible 2.5开始，执行循环的推荐的方式是使用新的`loop`关键字来取代`with_x`格式的循环。
 
@@ -3483,16 +2843,10 @@ Migrating from with_X to loop
   tags: random
 ```
 
-
-
 <br>
 <br>
-
-
 
 ### Block
-
-Blocks: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_blocks.html>
 
 块允许任务的逻辑分组，并在play中错误处理。大多数可以适用于单任务的也可适用于块(block)，这使得它很容易设置数据或常见指令到任务。这并不意味着该指令影响块自身，而是有一个块包围的任务继承。
 
@@ -3526,13 +2880,9 @@ tasks:
 
 块中的任务名在Ansible 2.3时可用。建议在所有任务中使用名称，无论是块还是其它地方。
 
-
 <br>
 
-
 #### 块错误处理
-
-Blocks error handling
 
 块同样介绍了类似于大多数编程语言的异常处理的错误处理的方法。块仅处理任务的失败(failed)状态。一个糟糕的任务定义或主机不可达不是rescuable错误。
 
@@ -3570,33 +2920,22 @@ tasks:
          msg: "This always executes, :-)"
 ```
 
-
-
 <br>
 <br>
-
-
 
 ### 高级的playbook功能
 
-Advanced Playbooks Features: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_special_topics.html>
-
 下面有许多playbook功能不需要每个人都去学习，但可以为特定应用提供有用的功能。浏览这些话题，因为你可能找有一些有用的技巧。
 
-
 <br>
-
+<br>
 
 #### 特权晋升
 
-
 <br>
 <br>
-
 
 #### 异步操作和轮询
-
-Asynchronous Actions and Polling: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html>
 
 默认情况下，playbook块中的任务，直到任务在每个节点上完成后连接才会断开。这可能不总是可取的，或者你需要运行超过ssh timeout的操作。
 
@@ -3661,24 +3000,15 @@ ansible web1.example.com -m async_status -a "jid=488359678239.2844"
     poll: 0
 ```
 
-
 <br>
 <br>
-
 
 #### 检查模式
 
-Check Mode: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_checkmode.html>
-
-
-
 <br>
 <br>
-
 
 #### Debugger
-
-Playbook Debugger
 
 Ansible包含了debugger作为策略插件的一部分。此调试器允许你调试任务。你可以在任务的上下文中访问所有的调试器的功能，以帮助解决失败的问题。
 
@@ -3796,23 +3126,17 @@ u'bash'
  u'msg': u"No package matching 'not_exist' is available"}
 ```
 
-
 <br>
 <br>
-
 
 #### 滚动升级
 
 Delegation, Rolling Updates, and Local Actions: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_delegation.html>
 
-
 <br>
 <br>
-
 
 #### 设置环境
-
-Setting the Environment: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_environment.html>
 
 `environment`关键字可以允许你为远程目标主机设置环境变量。例如，需要为http请求设置一个代理。获取其它工具需要的环境变量。
 
@@ -3845,14 +3169,10 @@ Setting the Environment: <https://docs.ansible.com/ansible/latest/user_guide/pla
       environment: "{{ proxy_env }}"
 ```
 
-
 <br>
 <br>
-
 
 #### 特定语言版本管理器
-
-Working With Language-Specific Version Managers
 
 一些特定语言版本管理器(如nvm)要求，而这些工具在使用中都要求环境变量。挡手动使用这些工具，通常需要在配置文件中添加一些环境变量，在Ansible中，你可使用enviroment代替：
 
@@ -3892,14 +3212,10 @@ Working With Language-Specific Version Managers
     when: packagejson.stat.exists
 ```
 
-
 <br>
 <br>
-
 
 #### 错误处理
-
-Error Handling In Playbooks: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_error_handling.html>
 
 Ansible通常有默认值来确保检查命令和模块的返回码和是否失败，进行错误处理，除非你做了决定。
 
@@ -4242,13 +3558,10 @@ Controlling playbook execution: strategies and more: <https://docs.ansible.com/a
 
 默认情况下，Ansible在使用5forks任意主机上开始下一个任务之前在所有被play影响的主机上运行每个任务。如果你想要改变此默认的行为，你可以使用不同的策略插件，改变fork数，或应用几个play级别的关键字（如`serial`）。
 
-
+<br>
 <br>
 
-
 #### 选择策略
-
-Selecting a strategy
 
 - linear strategy: <https://docs.ansible.com/ansible/latest/plugins/strategy/linear.html#linear-strategy>
 - debug strategy: <https://docs.ansible.com/ansible/latest/plugins/strategy/debug.html#debug-strategy>
@@ -4261,44 +3574,31 @@ Selecting a strategy
   ...
 ```
 
-
 <br>
 <br>
-
 
 #### 设置fork数
 
-Setting the number of forks
-
-```
+```ini
 # ansible.cfg
 [defaults]
 forks = 30
-
 
 # or cli
 ansible-playbook -f 30 my_playbook.ym
 ```
 
-
 <br>
 <br>
-
 
 #### 使用关键字控制执行
-
-Using keywords to control execution
 
 [play level](https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html#playbook-keywords)的关键字会影响paly的执行。
 
 最常见的是`serial`，还有`throttle`, `ignore_errors`, `ignore_unreachable`, `any_errors_fatal`。
 
-
-
 <br>
 <br>
-
-
 
 ### 最佳实践
 
@@ -4308,21 +3608,17 @@ Best Practices: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_be
 
 你可以在[ansible-examples](https://github.com/ansible/ansible-examples)仓库中找到最佳用法。
 
-
+<br>
 <br>
 
-
 #### 内容组织
-
-Content Organization
 
 下面将介绍组织Playbook内容的多种方式。你的ansible的使用应该适合你的需求，因此你可以按需组合各种方法。
 
 组织ansible playbook内容的一个关键方式是role。你应该理解它。
 
-
 <br>
-
+<br>
 
 ##### 目录布局
 
@@ -4629,51 +3925,33 @@ Deployment vs Configuration Organization
 
 #### 测试与生产
 
-Staging vs Production
-
 如上所述，让staging(testing)和production环境分离是为不同的环境使用单独的清单文件。你的环境不一定是相同的大小，你可以使用变量来控制它们。
 
-
 <br>
 <br>
-
 
 #### 滚动更新
 
-Rolling Updates
-
 理解`serial`关键字。
 
-
 <br>
 <br>
-
 
 #### 注意状态
 
-Always Mention The State
-
 `state`参数对许多模块是可选的。如`state=present`或`state=absent`。
 
-
 <br>
 <br>
-
 
 #### 通过角色分组
 
-Group By Roles
-
 一个系统可以在多个组。这使得playbook基于角色来选择目标主机。以及使用该组变量系统来分配角色特定的变量。
 
-
 <br>
 <br>
-
 
 #### 操作系统和发行版本
-
-Operating System and Distribution Variance
 
 当在两个不同的操作系统之间处理一个参数时，处理它的一个好方法是使用`group_by`模块。
 
@@ -4703,128 +3981,66 @@ Operating System and Distribution Variance
         var: asdf
 ```
 
-
 <br>
 <br>
-
 
 #### 使用playbook捆绑ansible模块
 
-Bundling Ansible Modules With Playbooks
-
 如果playbook有相对于其它YAML文件的`./library`目录，此目录可以用来添加ansible module，它会自动在ansible模块路径。这是一个保持模块与playbook在一起的好方法。
 
-
 <br>
 <br>
-
 
 #### 空白和注释
 
-Whitespace and Comments
-
 空白和注释有利于文件可读性，值得使用。
 
-
 <br>
 <br>
-
 
 #### 任务命名
 
-Always Name Tasks
-
 给任务建立一个正在做什么的名称。在运行时，playbook显示此名称。
 
-
 <br>
 <br>
-
 
 #### 使它简单
 
-Keep It Simple
-
 当你能够简单地做事，那就简单地做。不要为了达到使用所有ansible功能而一起使用它们。使用你需要的。把复杂的事情简单化。
 
-
 <br>
 <br>
-
 
 #### 版本控制
 
-Version Control
-
 使用版本控制来管理playbook。
 
-
 <br>
 <br>
-
 
 #### 变量和拱顶
-
-Variables and Vaults
 
 当运行playbook，Ansible在未加密的文件中查找变量，并且所有敏感的变量来自加密文件。
 
 一个最佳实践方法是在组下开始一个`group_vars`子目录。在此子目录内，创建两个名为`vars`和`vault`的文件。`vars`文件内定义所有需要的变量，包括敏感的。接下来，复制所有的敏感变量到`vault`文件或以`vault_`开头的文件。你应该在`vars`文件内使用Jinja2语法调整变量指向匹配的`vault_`文件，并确保`vault`文件是vault encrypted。
 
-
-
 <br>
 <br>
-
-
 
 ### 持续交付和滚动更新
 
 Playbook Example: Continuous Delivery and Rolling Upgrades: <https://docs.ansible.com/ansible/latest/user_guide/guide_rolling_upgrade.html>
 
-
-<br>
-
-
-#### 什么是持续交付
-
-What is continuous delivery
-
-Continuous delivery(CD)是指经常更新你的软件应用程序。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <br>
 <br>
-<br>
-
-
 
 ## 特权晋升
 
-Understanding privilege escalation: become: <https://docs.ansible.com/ansible/latest/user_guide/become.html>
-
 Ansible使用现有的权限升级系统来执行具有root或其它权限的任务。此功能允许你成为(`become`)其它用户，与登录到远程机器不同，我们称之为`become`。become关键字利用现有的权限提升工具（如`sudo`, `su`, `pfexec`, `doas`, `pbrun`, `dzdo`, `ksu`, `runas`）。
 
-
 <br>
-
+<br>
 
 ### 使用
 
@@ -4832,9 +4048,7 @@ Ansible使用现有的权限升级系统来执行具有root或其它权限的任
 
 所有become plugins完整的列表: <https://docs.ansible.com/ansible/latest/plugins/become.html#become-plugin-list>
 
-
 <br>
-
 
 **become**
 
@@ -4853,7 +4067,7 @@ become_flags: xxx
 
 栗子：
 
-```
+```yml
 - name: Ensure the httpd is running
   become: yes
   service:
@@ -4876,8 +4090,6 @@ become_flags: xxx
 <br>
 
 **连接变量**
-
-Become connection variables
 
 你可以定义不同的选型来管理node或group。你可以在资产中定义这些变量，或将其作为正常的变量使用。
 
@@ -4902,14 +4114,10 @@ webserver ansible_user=manager ansible_become=yes
 --become-user=BECOME_USER
 ```
 
-
 <br>
 <br>
-
 
 ### 风险和局限性
-
-Risks and limitations of become
 
 虽然权限提升是很直观的，但它如何工作也有一些限制。用户应该知道这些，以避免意外。
 
@@ -4942,46 +4150,26 @@ Only one method may be enabled per host
 Privilege escalation must be general
 
 你不能限制权限提升某些命令的权限。
-
-
-
 <br>
 <br>
-<br>
-
-
 
 ## Vault
-
-Ansible Vault: <https://docs.ansible.com/ansible/latest/user_guide/vault.html>
 
 Ansible Vault是Ansible的一个功能，可以让你在加密的文件中保存敏感数据（如密码、密钥），而不是像普通文本或playbooks或roles中。这些vault文件可以分布或放置在版本控制中。
 
 要启用此功能，使用命令行选型`-ansible-vault`，和`--vault-password-file`。
 
-
-
-
-
-
 <br>
 <br>
-<br>
-
-
 
 ## Modules
-
-Ansible Modules: <https://docs.ansible.com/ansible/latest/user_guide/modules.html>
 
 Ansible包含了大量的模块(module library)，可以直接在远程主机或通过playbook执行。
 
 用户也可以编写自己的模块。这些模块可以控制系统资源（服务、包、文件...），或执行系统命令。
 
-
 <br>
 <br>
-
 
 ### 模块介绍
 
@@ -5000,16 +4188,10 @@ ansible webservers -m service -a "name=httpd state=started"
     state: restarted
 ```
 
-
-
 <br>
 <br>
-
-
 
 ### 返回值
-
-Return Values: <https://docs.ansible.com/ansible/latest/reference_appendices/common_return_values.html>
 
 Ansible模块通常正常返回一个可以注册为一个变量的数据结构，或直接看到由ansible程序输出。每个模块都可选的记录自己唯一的返回值。
 
@@ -5036,44 +4218,14 @@ Ansible模块通常正常返回一个可以注册为一个变量的数据结构�
   - warning
   - deprecations
 
-
-
 <br>
 <br>
-
-
 
 ### 模块索引
 
 Module Index: <https://docs.ansible.com/ansible/latest/modules/modules_by_category.html>
-
-
-
-
-
 <br>
 <br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## 插件
 
@@ -5083,16 +4235,8 @@ Working With Plugins: <https://docs.ansible.com/ansible/latest/plugins/plugins.h
 
 Ansible附带了一些方便的插件，你也可以很容易地编写自己的插件。
 
-
-
-
-
-<br>
-<br>
-<br>
-
-
-
+<br/>
+<br/>
 
 ## collections
 
@@ -5100,139 +4244,21 @@ collections: <https://docs.ansible.com/ansible/latest/user_guide/collections_usi
 
 Collections是Ansible的内容分发格式，可以包括playbooks, roles, modules, plugins。你可以通过Ansible Galaxy安装和使用collections。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br>
 <br>
 
 ---
 
 <br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 开发指南
 
 Developer Guide: <https://docs.ansible.com/ansible/latest/dev_guide/index.html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br>
 <br>
 
 ---
 
 <br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Ansible Galaxy
 
@@ -5240,21 +4266,11 @@ Ansible Galaxy: <https://docs.ansible.com/ansible/latest/galaxy/user_guide.html>
 
 Ansible Galaxy是一个查找、分享、下载社区开发的roles的网站。
 
+```sh
+# 管理角色
+ansible-galaxy role [import|init|install|login|remove|...]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# 管理集合
+ansible-galaxy collection [import|init|install|login|remove|...]
+```
 

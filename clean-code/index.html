@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>整洁代码的艺术 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="整洁代码的艺术" />
+<meta property="og:description" content="整洁代码的艺术的笔记。少即是多！" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/clean-code/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-03-30T17:09:11&#43;00:00" />
+<meta property="article:modified_time" content="2025-03-30T17:09:11&#43;00:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="整洁代码的艺术"/>
+<meta name="twitter:description" content="整洁代码的艺术的笔记。少即是多！"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/clean-code/" /><link rel="prev" href="https://zhang21.cn/ansistrano/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "整洁代码的艺术",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/clean-code\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "cs, programming","wordcount":  1563 ,
+        "url": "https:\/\/zhang21.cn\/clean-code\/","datePublished": "2025-03-30T17:09:11+00:00","dateModified": "2025-03-30T17:09:11+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">整洁代码的艺术</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/programming/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>programming</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-30">2025-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1563 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#复杂性">复杂性</a></li>
+    <li><a href="#八二原则">八二原则</a></li>
+    <li><a href="#最小可行产品">最小可行产品</a></li>
+    <li><a href="#编写整洁和简单的代码">编写整洁和简单的代码</a></li>
+    <li><a href="#避免过早优化">避免过早优化</a></li>
+    <li><a href="#心流">心流</a></li>
+    <li><a href="#做好一件事">做好一件事</a>
+      <ul>
+        <li><a href="#有用的unix原则">有用的Unix原则</a></li>
+      </ul>
+    </li>
+    <li><a href="#设计中的少即是多">设计中的少即是多</a></li>
+    <li><a href="#专注">专注</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>整洁代码的艺术的笔记。少即是多！</p>
+<br/>
+<p>参考：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/36421158/" target="_blank" rel="noopener noreffer ">整洁代码的艺术</a></li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="复杂性">复杂性</h1>
+<p>选择语言、项目、库、技术、编辑器等等，都带来了复杂性，造成了巨大的混乱。<strong>我如何开始</strong> 成了初学者的常见问题。</p>
+<p>最好的方式是找个实际代码项目，边做边学，而不是先学后做。不要给自己增加复杂性，让自己陷入了无穷无尽的混乱中。</p>
+<p>复杂性无处不在，常常带来隐性成本，让人望而却步。在编程的各个阶段都追求简单和专注，来简化事项。</p>
+<p>复杂性损坏生产力，降低注意力。</p>
+<br/>
+<p>以下方法：</p>
+<ul>
+<li>梳理一天的工作，少做一些事，把精力集中在重要的任务上。</li>
+<li>对于单个项目，摒弃所有非必要特性，专注于最小可行产品。完成并发布它，高效、快速地验证。</li>
+<li>尽量编写简单精炼的代码。</li>
+<li>少花时间与精力在过早优化上。</li>
+<li>锁定用于编程的大块时间，避免分心。</li>
+<li>实践 Unix 哲学，代码功能只针对一个目标（做好一件事）。</li>
+<li>在设计方案中贯彻简化原则。</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="八二原则">八二原则</h1>
+<p>80/20 原则，大部分效果出自少数起因。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="最小可行产品">最小可行产品</h1>
+<p>最小可行产品只做最必要的特性，剥离其他所有特性，快速测试和验证假设，而不会浪费大量时间来实现用户最终可能不会使用的特性。</p>
+<p>少即是多，与其着急于动手实现每个特性，不如花时间想清楚要实现什么特性。</p>
+<p>不写非必要的代码是写出整洁和简单代码的最牢靠手段。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="编写整洁和简单的代码">编写整洁和简单的代码</h1>
+<p>整洁代码易于阅读、理解和修改。</p>
+<p>程序员为了写新代码，得花费大部分时间阅读旧代码。如果旧代码易于阅读，则将大大加快阅读进程。</p>
+<p>太长的代码会导致许多其他复杂性问题。</p>
+<p>改进代码、减少复杂度就是所谓的 <strong>重构</strong>。</p>
+<br/>
+<p>一些原则：</p>
+<ul>
+<li>所有文件和模块都是必需的吗？能否做强其中一些，减少代码中的相互依赖关系？</li>
+<li>可以将巨大、复杂的文件切分为两个简单的文件吗？</li>
+<li>可以采用既有库，从而移除多行代码吗？</li>
+<li>可以利用缓存机制来避免重复计算同一个结果吗？</li>
+<li>站在巨人的肩膀上，避免重复造轮子。</li>
+<li>为人写代码，而不是为机器。</li>
+<li>正确命名。</li>
+<li>遵循标准。</li>
+<li>使用注释。</li>
+<li>避免非必要注释。</li>
+<li>避免编写重复的代码。</li>
+<li>单一权责原则，每个函数都应该承担一件主要工作。</li>
+<li>测试。</li>
+<li>小即是美。</li>
+<li>应当尽量减少代码对象之间的依赖关系。</li>
+<li>不需要的代码就应该删掉。</li>
+<li>不要使用太多的缩进层级。</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="避免过早优化">避免过早优化</h1>
+<p>优化没有问题，但过早优化会将宝贵的资源（时间、精力、代码行）投入到非必要的代码优化上。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="心流">心流</h1>
+<p>心流体验是一种完全沉浸于手头工作的状态：专注。你忘记时间，进入超意识状态。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="做好一件事">做好一件事</h1>
+<p>Unix 哲学：</p>
+<ul>
+<li>编写只做一件事，并且把那件事做好的程序；</li>
+<li>编写能一起工作的程序；</li>
+<li>编写处理文本流的程序，因为文本流是通用接口。</li>
+</ul>
+<br/>
+<p>Unix 是一种设计哲学，它启发了包括 Linux 和 macOS 在内的流行操作系统。</p>
+<p>只做一件事，做好这件事（do one thing and do it well）。</p>
+<p>Unix 哲学的基本概念是打造易于扩展和维护的简明、精炼、模块化代码。</p>
+<p>通过让每个函数聚焦于只实现一个目的，改进了代码的可维护性和可扩展性。</p>
+<p>对然单个子程序看上去太小甚至太细碎，但你能将这些子程序组合起来，创建更为复杂却易于调试的程序。</p>
+<br/>
+<br/>
+<h2 id="有用的unix原则">有用的Unix原则</h2>
+<p>一些有用的 Unix 原则：</p>
+<ul>
+<li>每个函数做好一件事</li>
+<li>简单胜于复杂</li>
+<li>小即是美
+<ul>
+<li>降低复杂度</li>
+<li>改进可维护性</li>
+<li>改进可测试性</li>
+</ul>
+</li>
+<li>尽快打造原型</li>
+<li>可移植性胜于效率</li>
+<li>在纯文本中保存数据
+<ul>
+<li>如常见的 CSV 文件</li>
+</ul>
+</li>
+<li>使用软件杠杆获得优势</li>
+<li>避免使用强制式用户界面</li>
+<li>把每个程序都写成过滤器</li>
+<li>在有限资源限制的世界中，先发布差的一些东西，常常更有效率。</li>
+<li>整洁代码胜于机灵代码</li>
+<li>将程序设计成能与其他程序相连接</li>
+<li>编写健壮的代码：让代码不易被破坏。
+<ul>
+<li>使用版本控制系统，保证能恢复之前的代码</li>
+<li>定期备份数据，使其可恢复</li>
+<li>使用分布式，避免单点故障</li>
+</ul>
+</li>
+<li>尽量修复——但尽早暴露失败</li>
+<li>避免手工操作——尽量编写能写程序的程序</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="设计中的少即是多">设计中的少即是多</h1>
+<p>如何实现极简设计：</p>
+<ul>
+<li>留白</li>
+<li>去除设计元素</li>
+<li>移除特性</li>
+<li>减少字体和颜色</li>
+<li>一以贯之</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="专注">专注</h1>
+<p>熵在热力学和信息论等领域中广为人知。熵定义了系统中随机性、无序性和不确定性的程度。熵增意味着增加了随机性和混乱，熵减意味着秩序和可预测性。</p>
+<p>热力学第二定律，系统的熵随时间推移而增加，从而导致高熵状态。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-03-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/clean-code/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/clean-code/" data-title="整洁代码的艺术" data-hashtags="cs,programming"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/clean-code/" data-title="整洁代码的艺术"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/clean-code/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/clean-code/" data-title="整洁代码的艺术"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/clean-code/" data-title="整洁代码的艺术"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/cs/">cs</a>,&nbsp;<a href="/tags/programming/">programming</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ansistrano/" class="prev" rel="prev" title="Ansistrano"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Ansistrano</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

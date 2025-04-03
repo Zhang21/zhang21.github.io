@@ -1,186 +1,30 @@
 # Nginx
 
 
-
-参考：
-
-- [Nginx官方文档](https://nginx.org/en/docs/)
-- [Nginx-Wikipedia](https://zh.wikipedia.org/wiki/Nginx)
-- [Nginx-repo](http://nginx.org/packages/)
-
-环境：
-
-- CentOS7x86_64;
-- Nginx1.12.1
-
-
-<br/>
-<br/>
-
----
-
-<br/>
-
-# Nginx介绍
-
-
-Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 `HTTP, HTTPS, SMTP, POP3, IMAP` 的协议连接。
-基于BSD-like协议发行，支持多种操作系统。
+Nginx 笔记。
 
 <!--more-->
 
-作为HTTP服务软件的后起之秀，Nginx有很多优点：
+---
 
-- 在性能上，Nginx占用的系统资源更少，支持更多的并发连接（特别是小静态文件场景下），达到更高的访问效率；
-- 在功能上，Nginx不仅是一个优秀的*Web服务软件*，还可以作为*反向代理* *负载均衡*及*缓存*使用。它类似于*LVS负载均衡*及*HAProxy*等专业代理软件，又类似于*Squid*等专业缓存服务软件；
-- 在安装配置上，Nginx方便、简单、灵活。
+参考：
 
-Nginx功能丰富，可作为HTTP服务器、反向代理服务器、邮件服务器。支持*FastCGI, SSL, Virtual Host, URL Rewrite, Gzip*等功能，并支持很多第三方模块扩展。
-
+- [Nginx 官方文档](https://nginx.org/en/docs/)
+- [Nginx Wiki](https://zh.wikipedia.org/wiki/Nginx)
+- [Nginx Repo](http://nginx.org/packages/)
 
 <br/>
+<br/>
 
-## 与PHP的集成
+# 介绍
 
-自PHP-5.3.3起，PHP-FPM加入到了PHP核心，编译时加上--enable-fpm即可提供支持。
-PHP-FPM以守护进程在后台运行，Nginx响应请求后，自行处理静态请求，PHP请求则经过fastcgi_pass交由PHP-FPM处理，处理完毕后返回。
-Nginx和PHP-FPM的组合，是一种稳定、高效的PHP运行方式，效率要比传统的Apache和mod_php高出不少。
-
-**Nginx的重要特性：**
-
-> 可针对静态资源高速高并发访问及缓存；
-> 可使用反向代理加速，并且可进行数据缓存；
-> 具有简单负载均衡、节点健康检查和容错功能；
-> 支持远程FastCGI、Uwsgi、SCGI、Memcached Servers的加速和缓存；
-> 支持SSL、TLS、SNI；
-> 具有模块化的架构：过滤器包括gzip压缩、ranges支持、chunked响应、XSLT、SSI及图像缩放等功能。在SSI过滤器中，一个包含多个SSI的页面，如果FastCGI或反向代理处理，可被并行处理；
-> 它具备的其他WWW服务特性：
-> 支持基于名字、端口及IP的多虚拟主机站点；
-> 支持Keep-alived和pipelined连接；
-> 可进行修改Nginx配置，并且在代码上线时，可平滑重启，不中断业务访问；
-> 可自定义访问日志格式，临时缓冲些日志操作，快速日志轮询及通过rsyslog处理日志；
-> 可利用信号控制Nginx进程；
-> 支持 3xx-5xx HTTP状态码重定向；
-> 支持rewrite模块，支持URI重写及正则表达式匹配；
-> 支持基于客户端IP地址和HTTP基本认证的访问控制；
-> 支持PUT、DELETE、MKCOL、COPY及MOVE等较特殊的HTTP请求方法；
-> 支持FLV流和MP4流技术产品应用；
-> 支持HTTP响应速率限制；
-> 支持同一IP地址的并发连接或请求数连接；
-> 支持邮件服务器代理；
+Nginx 是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议连接。基于BSD-like协议发行，支持多种操作系统。
 
 
 <br>
-
-## Nginx常用功能
-
-### http代理于反向代理
-
-Nginx在做反向代理时，提供性能稳定，并且能够提供配置灵活的转发功能。Nginx可以根据不同的正则匹配，采取不同的转发策略，比如图片文件结尾的走文件服务器，动态页面走web服务器，只要你正则写的没问题，又有相对应的服务器解决方案，你就可以随心所欲的玩。并且Nginx对返回结果进行错误页跳转，异常判断等。如果被分发的服务器存在异常，他可以将请求重新转发给另外一台服务器，然后自动去除异常服务器。
-
-![Nginx代理与反向代理](/images/Nginx/Nginx001.jpg)
-
-
-<br/>
-
-
-### 负载均衡
-
-Nginx提供的负载均衡策略有2种：内置策略和扩展策略。内置策略为轮询，加权轮询，Ip hash。扩展策略，就天马行空，只有你想不到的没有他做不到的啦，你可以参照所有的负载均衡算法，给他一一找出来做下实现。
-
-![](/images/Nginx/Nginx002.jpg)
-
-
-<br>
-
-
-### web缓存
-
-Nginx可以对不同的文件做不同的缓存处理，配置灵活，并且支持FastCGI_Cache，主要用于对FastCGI的动态程序进行缓存。配合着第三方的ngx_cache_purge，对制定的URL缓存内容可以的进行增删管理。
-
-
-<br>
-
-
-### web服务
-
-Nginx作为Web服务器的主要应用场景包括：
-
-- 使用Nginx运行HTML、JS、CSS、小图片等静态数据；
-- 结合FastCGI运行PHP等动态程序（如fastcgi_pass）；
-- 结合Tomcat/Resin等支持Java动态程序（如proxy_pass）。
-
-
-
-
-<br/>
-
 ---
 
 <br>
-
-
-# Nginx安装
-
-## RPM源安装:
-
-```
-yum install -y gcc gcc-c++ make libtool zlib zlib-devel openssl openssl-devel pcre pcre-devel    安装依赖
-rpm -ivm http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm 安装RPM源
-
-#安装Nginx
-yum install -y nginx
-
-#查询安装
-rpm -q nginx
-```
-
-
-<br>
-
-
-## 添加Nginx yum repository安装
-
-```
-vim /etc/yum.repos.d/nginx.repo
-
-
-#必须唯一
-[nginx]
-
-name=nginx-repo
-baseurl=http://nginx.org/packages/$OS/$OSRELEASE/$basearch/
-gpgcheck=0
-enabled=1
-```
-
-
-<br>
-
-
-## 源码安装
-
-```
-#建议解压于此目录
-cd /usr/local/src
-
-wget http://xxx.xx.com/nginx.tar.gz
-tar -zxvf nginx.tar.gz
-
-cd ./nginx
-./configure --prefix=/usr/local
-
-make&&make install
-```
-
-
-
-
-<br>
-
----
-
-<br/>
 
 
 # Nginx配置
@@ -303,17 +147,17 @@ ngx_http_stub_status_module | 记录Nginx基本访问状态信息扥的模块
 
 Nginx的日志时自动切割，并且一行可以记录多个日志格式。
 
-Nginx日志格式 | 说明
-- | -
-$remote_addr | 客户端ip地址
-$http_x_forward_for | 当前端有代理服务器时，设置web节点记录web节点记录客户端地址的配置
-$remote_user | 客户端用户名称
-$time_local | 访问时间和时区
-$request | 请求的http协议和URL
-$status | 请求状态，如200
-$body_bytes_sent | 发送给客户端文件主体内容大小
-$http_referer | 从哪个页面链接访问过来
-$http_user_agent | 客户端浏览器信息
+| Nginx日志格式 | 说明
+| - | -
+| $remote_addr | 客户端ip地址
+| $http_x_forward_for | 当前端有代理服务器时，设置web节点记录web节点记录客户端地址的配置
+| $remote_user | 客户端用户名称
+| $time_local | 访问时间和时区
+| $request | 请求的http协议和URL
+| $status | 请求状态，如200
+| $body_bytes_sent | 发送给客户端文件主体内容大小
+| $http_referer | 从哪个页面链接访问过来
+| $http_user_agent | 客户端浏览器信息
 
 
 
@@ -363,13 +207,13 @@ location / {
 
 location的使用方法：
 
-符号 | 含义 | 优先级 | 用法
-- | - | - | -
-= | 精确匹配 | 最高 | location =
-~ | 区分大小写的正则匹配 | 次次之 | location ~
-~* | 不区分大小写的正则匹配 | 次次之 | location ~*
-^~ | 常规字符串匹配 | 次之 | location ^~
-/ | 通用匹配 | 最低 | location /
+| 符号 | 含义 | 优先级 | 用法
+| - | - | - | -
+| = | 精确匹配 | 最高 | location =
+| ~ | 区分大小写的正则匹配 | 次次之 | location ~
+| ~* | 不区分大小写的正则匹配 | 次次之 | location ~*
+| ^~ | 常规字符串匹配 | 次之 | location ^~
+| / | 通用匹配 | 最低 | location /
 
 **优先级：**
 
@@ -551,35 +395,35 @@ if ($invalid_referer) {
 
 常用作`if`判断的全局变量：
 
-变量 | 描述 | 备注
-- | - | -
-$args | 等于请求行中的参数 | 同$query_string
-$body_bytes_sent | 响应是发送的body字节数 | xxx
-$content_length | Request Header中的Content-Length字段 | 内容长度
-$content_type | Request Header中的Content-Type字段 | 内容类型
-$document_root | 当前根路径 | xxx
-$host | 请求主机头字段，否则为服务器名称 | xxx
-$hostname | 主机名 | xxx
-$http_user_agent | 客户端agent信息 | xxx
-$http_cookie | 客户端cookie信息 | xxx
-$is_args | 如果有$args参数，这个变量等于"?"，否则等于空 | xxx
-$limit_rate | 限制连接数度 | xxx
-$remote_addr | 客户端IP地址 | xxx
-$remote_port | 客户端端口 | xxx
-$remote_user | 经过Auth Basic Module验证的用户名 | 要先开启Nginx认证
-$request | 用户请求信息 | xxx
-$request_method | 客户端请求方法 | 通常为POST或GET
-$request_body | 记录POST过来的数据信息 | xxx
-$request_filename | 当前请求的文件路径 | 由root或alias指令与URI请求生成
-$request_completion | 如果请求结束，设置为OK。否则为空 | xxx
-$scheme | HTTP方法 | 如http, https
-$server_protocol | 请求使用的协议 | 通常为HTTP/1.0或HTTP/1.1
-$server_addr | 服务器地址 | 在完成一次系统调用后可以确定这个值
-$server_name | 服务器名称 | xxx
-$server_port | 请求到达服务器的端口号 | xxx
-$status | 请求的响应状态码 | 如200
-$request_uri | 包含请求参数的原始URI，不包含主机名 | 如"/foo/bar.php?arg=abc"
-$uri | 不带请求参数的当前URI，不包含主机名 | 如"/foo/bar.html"
+| 变量 | 描述 | 备注
+| - | - | -
+| $args | 等于请求行中的参数 | 同$query_string
+| $body_bytes_sent | 响应是发送的body字节数 | xxx
+| $content_length | Request Header中的Content-Length字段 | 内容长度
+| $content_type | Request Header中的Content-Type字段 | 内容类型
+| $document_root | 当前根路径 | xxx
+| $host | 请求主机头字段，否则为服务器名称 | xxx
+| $hostname | 主机名 | xxx
+| $http_user_agent | 客户端agent信息 | xxx
+| $http_cookie | 客户端cookie信息 | xxx
+| $is_args | 如果有$args参数，这个变量等于"?"，否则等于空 | xxx
+| $limit_rate | 限制连接数度 | xxx
+| $remote_addr | 客户端IP地址 | xxx
+| $remote_port | 客户端端口 | xxx
+| $remote_user | 经过Auth Basic Module验证的用户名 | 要先开启Nginx认证
+| $request | 用户请求信息 | xxx
+| $request_method | 客户端请求方法 | 通常为POST或GET
+| $request_body | 记录POST过来的数据信息 | xxx
+| $request_filename | 当前请求的文件路径 | 由root或alias指令与URI请求生成
+| $request_completion | 如果请求结束，设置为OK。否则为空 | xxx
+| $scheme | HTTP方法 | 如http, https
+| $server_protocol | 请求使用的协议 | 通常为HTTP/1.0或HTTP/1.1
+| $server_addr | 服务器地址 | 在完成一次系统调用后可以确定这个值
+| $server_name | 服务器名称 | xxx
+| $server_port | 请求到达服务器的端口号 | xxx
+| $status | 请求的响应状态码 | 如200
+| $request_uri | 包含请求参数的原始URI，不包含主机名 | 如"/foo/bar.php?arg=abc"
+| $uri | 不带请求参数的当前URI，不包含主机名 | 如"/foo/bar.html"
 
 
 栗子：

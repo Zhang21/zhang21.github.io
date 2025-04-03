@@ -84,19 +84,8 @@
     <pubDate>Thu, 26 Dec 2019 17:40:11 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/ansible/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>Ansible docs: <a href="https://docs.ansible.com">https://docs.ansible.com</a></li>
-</ul>
-<br>
-<p>环境:</p>
-<ul>
-<li>RHELx86_64</li>
-<li>Ansible v2.9</li>
-</ul>
-<br/>
-<br/>
-<hr>]]></description>
+    <description><![CDATA[<p>ansible 学习笔记。</p>
+<br/>]]></description>
 </item>
 <item>
     <title>DevOps</title>
@@ -104,15 +93,7 @@
     <pubDate>Wed, 13 Feb 2019 05:22:15 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/devops/</guid>
-    <description><![CDATA[<p>参考:</p>
-<ul>
-<li>维基百科</li>
-<li>GitLab</li>
-<li>GitHub</li>
-</ul>
-<br/>
-<br/>
-<hr>]]></description>
+    <description><![CDATA[<p>DevOps 相关知识。</p>]]></description>
 </item>
 </channel>
 </rss>

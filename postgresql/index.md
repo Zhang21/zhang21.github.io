@@ -1,15 +1,18 @@
 # PostgreSQL
 
 
+PGSQL 文档笔记。
+
+<!--more-->
+
+---
+
 参考：
 
 - [PG14 中文文档](http://www.postgres.cn/docs/14/)
 - [PG Docs](https://www.postgresql.org/docs/current/index.html)
 
 <br/>
-
-<!--more-->
-
 <br/>
 
 # 前言

@@ -35,7 +35,7 @@
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "CICD, Jenkins","wordcount":  1243 ,
+                        }],"genre": "posts","keywords": "CICD, Jenkins","wordcount":  1216 ,
         "url": "https:\/\/zhang21.cn\/jenkins\/","datePublished": "2022-05-09T00:00:00+00:00","dateModified": "2022-05-09T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -109,7 +109,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Jenkins</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>devops</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-09">2022-05-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1243 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-09">2022-05-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1216 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -133,9 +133,12 @@
     <li><a href="#用户手册">用户手册</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>参考:</p>
+            </div><div class="content" id="content"><p>Jenkins 学习笔记。</p>
+<br/>
+<p>参考:</p>
 <ul>
-<li><a href="https://www.jenkins.io/zh/doc/" target="_blank" rel="noopener noreffer ">jenkins文档</a></li>
+<li><a href="https://www.jenkins.io/zh/doc/" target="_blank" rel="noopener noreffer ">Jenkins 文档</a></li>
+<li><a href="https://www.tpointtech.com/jenkins" target="_blank" rel="noopener noreffer ">Jenkins 指南</a></li>
 </ul>
 <br/>
 <hr>
@@ -145,22 +148,6 @@
 <p>Jenkins有很多插件，可以帮助完成许多工作。</p>
 <br/>
 <h2 id="入门指南">入门指南</h2>
-<p>准备工作:</p>
-<ul>
-<li>机器要求
-<ul>
-<li>内存512MB+</li>
-<li>磁盘10GB+</li>
-</ul>
-</li>
-<li>软件要求
-<ul>
-<li>Java8</li>
-<li>Docker</li>
-</ul>
-</li>
-</ul>
-<br/>
 <p>下载并运行jenkins:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -171,11 +158,11 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /opt/jenkins
-cd /opt/jenkins
+<pre class="chroma"><code class="language-sh" data-lang="sh">mkdir /opt/jenkins
+<span class="nb">cd</span> /opt/jenkins
 wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
 
-java -jar jenkins.war --httpPort=8080
+java -jar jenkins.war --httpPort<span class="o">=</span><span class="m">8080</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
@@ -567,7 +554,7 @@ java -jar jenkins.war --httpPort=8080
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

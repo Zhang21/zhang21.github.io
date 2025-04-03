@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Cybersecurity - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Cybersecurity" />
+<meta property="og:description" content="微软 Cybersecurity for Beginners 课程学习笔记。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/cybersecurity/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-02-16T11:33:46&#43;08:00" />
+<meta property="article:modified_time" content="2025-02-16T11:33:46&#43;08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Cybersecurity"/>
+<meta name="twitter:description" content="微软 Cybersecurity for Beginners 课程学习笔记。
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/cybersecurity/" /><link rel="prev" href="https://zhang21.cn/opentelemetry/" /><link rel="next" href="https://zhang21.cn/ai-agents/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Cybersecurity",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/cybersecurity\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "network, security","wordcount":  6048 ,
+        "url": "https:\/\/zhang21.cn\/cybersecurity\/","datePublished": "2025-02-16T11:33:46+08:00","dateModified": "2025-02-16T11:33:46+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cybersecurity</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-02-16">2025-02-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6048 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础安全概念">基础安全概念</a>
+      <ul>
+        <li><a href="#保密性完整性可用性">保密性完整性可用性</a></li>
+        <li><a href="#常见的网络安全威胁">常见的网络安全威胁</a>
+          <ul>
+            <li><a href="#什么是网络安全威胁">什么是网络安全威胁</a></li>
+            <li><a href="#为什么恶意行为者想要破坏数据和系统">为什么恶意行为者想要破坏数据和系统</a></li>
+            <li><a href="#常见的网络安全威胁有哪些">常见的网络安全威胁有哪些</a></li>
+            <li><a href="#什么是attck-框架">什么是ATT&amp;CK 框架</a></li>
+            <li><a href="#在哪里了解网络安全威胁">在哪里了解网络安全威胁</a></li>
+          </ul>
+        </li>
+        <li><a href="#风险管理">风险管理</a>
+          <ul>
+            <li><a href="#常用安全术语的定义">常用安全术语的定义</a></li>
+            <li><a href="#安全控制类型">安全控制类型</a></li>
+            <li><a href="#评估安全风险">评估安全风险</a></li>
+          </ul>
+        </li>
+        <li><a href="#安全实践">安全实践</a>
+          <ul>
+            <li><a href="#安全策略">安全策略</a></li>
+            <li><a href="#安全标准">安全标准</a></li>
+            <li><a href="#安全基线">安全基线</a></li>
+            <li><a href="#安全准则">安全准则</a></li>
+            <li><a href="#安全处理流程">安全处理流程</a></li>
+            <li><a href="#网络安全方面法律法规">网络安全方面法律法规</a></li>
+          </ul>
+        </li>
+        <li><a href="#零信任">零信任</a></li>
+        <li><a href="#分担责任模式">分担责任模式</a></li>
+      </ul>
+    </li>
+    <li><a href="#iam基础">IAM基础</a>
+      <ul>
+        <li><a href="#iam概念">IAM概念</a></li>
+        <li><a href="#iam零信任架构">IAM零信任架构</a></li>
+        <li><a href="#iam能力">IAM能力</a>
+          <ul>
+            <li><a href="#目录服务">目录服务</a></li>
+            <li><a href="#确保身份安全">确保身份安全</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#网络安全基础">网络安全基础</a>
+      <ul>
+        <li><a href="#网络概念">网络概念</a>
+          <ul>
+            <li><a href="#ip地址">IP地址</a></li>
+            <li><a href="#osi模型">OSI模型</a></li>
+            <li><a href="#tcpudp">TCP/UDP</a></li>
+            <li><a href="#端口号">端口号</a></li>
+            <li><a href="#静态和传输中加密">静态和传输中加密</a></li>
+          </ul>
+        </li>
+        <li><a href="#网络零信任">网络零信任</a>
+          <ul>
+            <li><a href="#网络分段">网络分段</a></li>
+            <li><a href="#网络分段帮助实现零信任">网络分段帮助实现零信任</a></li>
+            <li><a href="#端到端加密">端到端加密</a></li>
+            <li><a href="#安全接入服务边缘">安全接入服务边缘</a></li>
+          </ul>
+        </li>
+        <li><a href="#网络防护能力">网络防护能力</a>
+          <ul>
+            <li><a href="#防火墙">防火墙</a></li>
+            <li><a href="#waf">WAF</a></li>
+            <li><a href="#云安全组">云安全组</a></li>
+            <li><a href="#cdn">CDN</a></li>
+            <li><a href="#负载均衡器">负载均衡器</a></li>
+            <li><a href="#堡垒机">堡垒机</a></li>
+            <li><a href="#vpn">VPN</a></li>
+            <li><a href="#ddos保护工具">DDoS保护工具</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#安全运维基础">安全运维基础</a>
+      <ul>
+        <li><a href="#安全运维概念">安全运维概念</a>
+          <ul>
+            <li><a href="#企业内部的安全运维职能">企业内部的安全运维职能</a></li>
+            <li><a href="#安全运维可采取的形式">安全运维可采取的形式</a></li>
+            <li><a href="#安全运维与传统运维">安全运维与传统运维</a></li>
+            <li><a href="#事件响应工作流程">事件响应工作流程</a></li>
+          </ul>
+        </li>
+        <li><a href="#安全运维零信任">安全运维零信任</a></li>
+        <li><a href="#安全运维能力">安全运维能力</a>
+          <ul>
+            <li><a href="#安全信息和事件管理工具">安全信息和事件管理工具</a></li>
+            <li><a href="#xdr">XDR</a></li>
+            <li><a href="#加强安全运维的能力">加强安全运维的能力</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#应用安全基础">应用安全基础</a>
+      <ul>
+        <li><a href="#应用安全概念">应用安全概念</a>
+          <ul>
+            <li><a href="#应用安全的关键原则">应用安全的关键原则</a></li>
+          </ul>
+        </li>
+        <li><a href="#应用安全能力">应用安全能力</a></li>
+      </ul>
+    </li>
+    <li><a href="#基础设施安全">基础设施安全</a>
+      <ul>
+        <li><a href="#基础设施">基础设施</a></li>
+        <li><a href="#基础设施安全能力">基础设施安全能力</a>
+          <ul>
+            <li><a href="#漏洞管理">漏洞管理</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>微软 Cybersecurity for Beginners 课程学习笔记。</p>
+<br/>
+<p>参考：</p>
+<ul>
+<li><a href="https://microsoft.github.io/Security-101/#/" target="_blank" rel="noopener noreffer ">Cybersecurity for Beginners</a></li>
+</ul>
+<br/>
+<br/>
+<h1 id="基础安全概念">基础安全概念</h1>
+<br/>
+<h2 id="保密性完整性可用性">保密性完整性可用性</h2>
+<p>网络安全（cybersecurity），又称信息安全，指保护计算机系统、网络、设备和数据免受数字攻击、未经授权的访问、破坏或盗窃。它的主要目标是保护数字资产和信息的保密性(confidentiality)、完整性(intergrity)和可用性(availability)。</p>
+<p>保密性，是保护数据和信息免遭未经授权访问的过程。</p>
+<p>完整性，指保护环境中所含数据的准确性和可信度，不允许未经授权的个人修改数据。</p>
+<p>可用性，是整个运营系统要考虑的问题，保证业务可用。</p>
+<p>真实性（authenticity），保证与你互动的信息或实体是真实的，没有被未经授权的各方篡改。</p>
+<p>不可抵赖性（nonrepudiation），确保一方无法否认其参与或通信的真实性。</p>
+<p>隐私性（privacy），保护敏感信息不被未经授权的访问、使用、披露或篡改。</p>
+<br/>
+<br/>
+<h2 id="常见的网络安全威胁">常见的网络安全威胁</h2>
+<br/>
+<h3 id="什么是网络安全威胁">什么是网络安全威胁</h3>
+<p>网络安全威胁是指有可能损害数据或 IT 系统的保密性、完整性和可用性的任何潜在风险。这些威胁是由恶意行为者造成的，他们试图利用漏洞获得未经授权的访问、窃取敏感信息、破坏运营，对个人、组织等造成伤害。</p>
+<br/>
+<br/>
+<h3 id="为什么恶意行为者想要破坏数据和系统">为什么恶意行为者想要破坏数据和系统</h3>
+<p>通常是出于个人利益、意识形态或造成破坏的愿望。了解这些动机有助于更好地抵御网络威胁。有助于更好地抵御网络威胁。</p>
+<p>恶意攻击者的一些常见原因：</p>
+<ul>
+<li>经济收益</li>
+<li>间谍活动</li>
+<li>干扰和破坏</li>
+<li>意识形态动机</li>
+<li>无意行动</li>
+</ul>
+<br/>
+<br/>
+<h3 id="常见的网络安全威胁有哪些">常见的网络安全威胁有哪些</h3>
+<ul>
+<li>网络钓鱼（Phishing）：指发送看似来自合法来源的欺骗性信息，以诱骗收件人泄露敏感信息。</li>
+<li>恶意软件
+<ul>
+<li>勒索软件</li>
+<li>木马</li>
+<li>病毒</li>
+<li>蠕虫</li>
+</ul>
+</li>
+<li>DoS/DDoS</li>
+<li>SQL 注入</li>
+<li>XSS</li>
+<li>社会工程学：利用人的心理，操作个人泄露机密信息。</li>
+<li>零日漏洞：针对软件或硬件中尚未被公众所知的漏洞。</li>
+<li>凭证攻击：包括暴力破解和凭证填充攻击（从一个网站获取的密码来尝试另一个网站）。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="什么是attck-框架">什么是ATT&amp;CK 框架</h3>
+<p>对抗战术、技术和常识 （ATT&amp;CK Adversarial Tactics, Techniques, and Common Knowledge）是一个对对手在网络攻击中使用的战术、技术和程序进行编目和分类的框架。由 MITRE 公司创建。</p>
+<ul>
+<li>了解敌对行为：该框架记录了真实世界的攻击行为，概述了攻击者从最初进入到实现目标的步骤。</li>
+<li>规划和实施防御策略</li>
+<li>事件响应和威胁猎取</li>
+</ul>
+<br/>
+<br/>
+<h3 id="在哪里了解网络安全威胁">在哪里了解网络安全威胁</h3>
+<ul>
+<li><a href="https://owasp.org/Top10/" target="_blank" rel="noopener noreffer ">Open Web Application Security Project (OWASP) top 10 vulnerabilities</a></li>
+<li><a href="https://cve.mitre.org/" target="_blank" rel="noopener noreffer ">Common Vulnerabilities and Exposures (CVEs)</a></li>
+<li><a href="https://msrc.microsoft.com/blog/" target="_blank" rel="noopener noreffer ">Microsoft Security Response Center blogs</a></li>
+<li><a href="https://www.dhs.gov/topics/cybersecurity" target="_blank" rel="noopener noreffer ">National Institute of Standards and Technology (NIST)</a></li>
+<li><a href="https://www.cisa.gov/resources-tools/resources/free-cybersecurity-services-and-tools" target="_blank" rel="noopener noreffer ">Cybersecurity and Infrastructure Security Agency (CISA)</a></li>
+</ul>
+<br/>
+<br/>
+<h2 id="风险管理">风险管理</h2>
+<br/>
+<h3 id="常用安全术语的定义">常用安全术语的定义</h3>
+<ul>
+<li>Threat Agent：威胁代理指有可能利用系统或网络漏洞造成危害或破坏的个人、团体或系统。</li>
+<li>Threat：威胁是一种可能利用系统漏洞并对资产造成损害的潜在事件或行为。</li>
+<li>Vulnerability：漏洞是系统中的缺陷，可被威胁者利用来破坏系统的安全性。</li>
+<li>Risk：风险是指威胁与漏洞之间的相互作用可能造成的损失或破坏。</li>
+<li>Asset：资产是指组织寻求保护的任何有价值的东西。</li>
+<li>Exposure：暴露是指容易受到潜在威胁的状态。</li>
+<li>Control：控制是为了降低与漏洞和威胁相关的风险而采取的措施。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="安全控制类型">安全控制类型</h3>
+<ul>
+<li>Administrative Controls</li>
+<li>Technical Controls</li>
+<li>Physical Controls</li>
+<li>Operational Controls</li>
+<li>Legal and Regulatory Controls</li>
+</ul>
+<br/>
+<br/>
+<h3 id="评估安全风险">评估安全风险</h3>
+<p>组织必须不断评估安全风险，并决定针对业务采取什么行动。</p>
+<ul>
+<li>识别资产和威胁</li>
+<li>评估漏洞</li>
+<li>可能性评估</li>
+<li>影响评估</li>
+<li>风险计算</li>
+<li>确定优先次序和决策</li>
+<li>风险处理</li>
+<li>持续监测和审查</li>
+</ul>
+<br/>
+<br/>
+<h2 id="安全实践">安全实践</h2>
+<br/>
+<h3 id="安全策略">安全策略</h3>
+<p>安全策略是一份高级文件，概述了组织的总体安全目标、原则和知道方针。</p>
+<br/>
+<br/>
+<h3 id="安全标准">安全标准</h3>
+<p>安全标准是一份更详细、更具体的文件，为在组织内实施安全控制和措施提供指导和要求。</p>
+<br/>
+<br/>
+<h3 id="安全基线">安全基线</h3>
+<p>安全基线是一套最低限度的安全配置，被认为是系统或程序在某一时刻的必要条件。</p>
+<br/>
+<br/>
+<h3 id="安全准则">安全准则</h3>
+<p>安全准则是在特定安全标准不适用时提供建议和指导的文件。</p>
+<br/>
+<br/>
+<h3 id="安全处理流程">安全处理流程</h3>
+<p>安全处理流程是一份详细的分步骤指南，概述了执行安全相关流程或任务时需要执行的具体操作和任务。</p>
+<br/>
+<br/>
+<h3 id="网络安全方面法律法规">网络安全方面法律法规</h3>
+<br/>
+<br/>
+<h2 id="零信任">零信任</h2>
+<p>零信任（zero trust），是一种网络安全方法，它对传统的 “信任但要验证” 的概念提出了挑战，认为任何实体，无论是组织内部还是外部，都不应该被固有地信任。相反，零信任主张对试图访问资源的每个用户、设备和应用程序都进行验证。零信任的核心原则是尽量减少攻击面，降低安全漏洞的潜在影响。</p>
+<p>零信任模型强调以下原则：</p>
+<ul>
+<li>验证身份</li>
+<li>最小权限</li>
+<li>微分段：将网络资源划分为较小的网段，以便在发生漏洞时限制网络内的横向移动。</li>
+<li>持续监测</li>
+<li>数据加密</li>
+<li>严格的访问控制</li>
+</ul>
+<br/>
+<br/>
+<h2 id="分担责任模式">分担责任模式</h2>
+<br/>
+<hr>
+<br/>
+<h1 id="iam基础">IAM基础</h1>
+<p>IAM（Identity access management），身份和访问管理。</p>
+<br/>
+<br/>
+<h2 id="iam概念">IAM概念</h2>
+<p>身份和访问管理，是一整套流程、技术和政策，实施这些流程、技术和政策是为了确保正确的个人能够适当地访问组织数字环境中的资源。IAM 主要目标是提高安全性，简化用户访问，并确保符合政策和法规。</p>
+<p>最小权限原则，主张只授予用户和系统执行其预定任务或角色所需的最低权限。</p>
+<p>职责分离，旨在通过在组织内不同个人之间分配关键任务和职责，防止利益冲突，降低欺诈和错误风险。</p>
+<p>身份认证（authentication），是对试图访问系统或特定资源的用户或实体的身份进行验证的过程。</p>
+<p>授权（authorization），是在验证用户的身份后，授予或拒绝其特定权限的过程。</p>
+<br/>
+<br/>
+<h2 id="iam零信任架构">IAM零信任架构</h2>
+<br/>
+<br/>
+<h2 id="iam能力">IAM能力</h2>
+<br/>
+<h3 id="目录服务">目录服务</h3>
+<p>目录服务（directory service），是一种专门的数据库，用于存储和管理有关网络资源的信息，包括用户、组、设备、应用程序和其他对象。它是身份和访问相关数据库的集中存储库，允许企业有效管理和控制用户身份验证、授权和其他安全相关的任务。</p>
+<p>目录服务为 IAM 解决方案奠定了基础。最著名的目录服务之一是 MS Active Diretory 和 LDAP。</p>
+<p>在网络安全方面，目录服务的主要功能：</p>
+<ul>
+<li>用户认证</li>
+<li>用户授权</li>
+<li>组管理</li>
+<li>密码策略</li>
+<li>SSO（Single Sign-On）</li>
+<li>集中用户管理</li>
+<li>审计和日志</li>
+</ul>
+<br/>
+<br/>
+<h3 id="确保身份安全">确保身份安全</h3>
+<p>什么样的能力能够确保身份安全：</p>
+<ul>
+<li>Multi-Factor Authentication (MFA)：要求用户在允许访问前提供多种形式的验证。</li>
+<li>Single Sign-On (SSO)：允许用户使用一套凭证访问多个应用程序和系统。</li>
+<li>Role-Based Access Control (RBAC)：根据预定义的角色分配权限。</li>
+<li>Adaptive Authentication：自适应身份验证可评估位置、设备、访问时间和用户行为等风险因素，从而动态调整所需的身份验证级别。</li>
+<li>Biometric Authentication：生物识别身份验证利用独特的生物特征（如指纹、面容等）进行身份验证。</li>
+<li>Privileged Access Management (PAM)：重点是通过对账户实施严格控制，确保对关键系统和数据的访问安全。</li>
+<li>Identity Governance and Administration (IGA)：身份治理和管理在整个生命周期内管理用户身份及其对资源的访问。</li>
+<li>Behavioral Analytics：行为分析可监控用户行为并建立基线模式。偏离正常模式的行为会触发警报，以便进一步调整。</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="网络安全基础">网络安全基础</h1>
+<br/>
+<h2 id="网络概念">网络概念</h2>
+<br/>
+<h3 id="ip地址">IP地址</h3>
+<p>IP 地址/协议，是分配个连接到使用互联网协议进行通信的计算机网络的每台设备的数字标签。有两个版本：IPv4 和 IPv6。</p>
+<br/>
+<h3 id="osi模型">OSI模型</h3>
+<p>OSI（Open Systems Interconnection）模型，是一个概念框架，它将通信系统的功能标准化为七个层。每一层都执行特定任务，并于相邻层通信，以确保网络设备之间高效可靠的数据通信。</p>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3">层</th>
+      <th>功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="4">Host layers</td>
+      <td>7</td>
+      <td>Application</td>
+      <td>高级协议，如资源共享或远程文件访问，如 HTTP</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Presentation</td>
+      <td>在网络服务和应用间传输数据，包括字符编码、数据压缩和加解密等</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Session</td>
+      <td>管理通信会话</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Transport</td>
+      <td>网络上端点之间数据段的可靠传输，包括段和 ACK</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Media layers</td>
+      <td>3</td>
+      <td>Network</td>
+      <td>网络寻址、路由和流量控制</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Data Link</td>
+      <td>物理层连接的两个节点之间的数据帧的传输</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Physical</td>
+      <td>通过物理媒介传输和解析原始比特流</td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<br/>
+<h3 id="tcpudp">TCP/UDP</h3>
+<p>TCP（Transmission Control Protocol）和 UDP（User Datagram Protocol）是计算机网络中使用的两个基本传输层协议，用于促进互联网或本地网络设备之间的通信。</p>
+<p>TCP 是一种面向连接的协议，可在设备之间提供可靠、有序的数据传输。它在数据交换开始之前在发送方和接收方之间建立连接。它可确保数据包按正常顺序到达，并处理丢失数据包的重传，以确保数据的完整性和完备性。如网页浏览、电子邮件、文件传输和数据库通信等。</p>
+<p>UDP 是一种无连接的协议，数据传输更快，但可靠性不如 TCP。它在发送数据前不建立正式连接，也不包括确认和重传丢失数据包的机制。它适用于速度和效率比保证交付更重要的应用，如实时通信、流媒体、在线游戏和 DNS 查询等。</p>
+<p>总之，TCP 优先考虑可靠性和有序传送，因此适用于要求数据准确的应用。而 UDP 则强调速度和效率，因此适用于可以接受少量数据丢失以换取延迟的应用。</p>
+<br/>
+<br/>
+<h3 id="端口号">端口号</h3>
+<p>在网络中，端口号是一种数字标识符，用于区分网络中单个设备上运行的不同应用程序。端口有助于将数据的输入路由到响应的应用程序。端口号是 16-bit 无符号整数（0-65535），分为三个范围：</p>
+<ul>
+<li>常用端口（0-1023）：为标准服务保留，如 HTTP 80。</li>
+<li>注册端口（1024-49151）：用于不属于知名范围但以正式注册的应用程序。</li>
+<li>动态/私有端口（49152-65535）：可供临时和私有使用。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="静态和传输中加密">静态和传输中加密</h3>
+<p>静态加密（encryption at rest）：包括对存储在设备、服务器或存储器系统中的数据进行加密。</p>
+<p>传输加密（encryption in transit）：包括在数据在设备间或网络上传输时对其进行加密。可防止数据在传输过程中被窃听和未经授权的截取。传输过程中加密的常用协议包括 HTTPS、TLS/SSL。</p>
+<br/>
+<br/>
+<h2 id="网络零信任">网络零信任</h2>
+<br/>
+<h3 id="网络分段">网络分段</h3>
+<p>网络分段是将网络划分为更小、更孤立的网段。每个网段与其他网段隔离，网段之间的访问根据特定的安全策略进行控制和限制。通过控制潜在漏洞的影响和限制攻击者在网络内的横向移动来提高安全性。</p>
+<p>通过实施网络分段，企业可以创建区域，将不同类型的用户、应用程序和数据分开。这样可以减少攻击面、最大限度地降低安全事故可能造成的损失。</p>
+<br/>
+<br/>
+<h3 id="网络分段帮助实现零信任">网络分段帮助实现零信任</h3>
+<p>网络分段与零信任模式的原则密切相关。有助于执行最小权限原则，实施严格的访问控制、隔离关键资产并防止攻击者横向移动。</p>
+<br/>
+<br/>
+<h3 id="端到端加密">端到端加密</h3>
+<p>端到端加密（E2E, end-to-end），可确保数据从发送发到接收方的整个过程中保持加密。数据在发送端加密、只有接收方才有解密的密钥。可为数据传输提供高水平的保密性和安全性。</p>
+<br/>
+<br/>
+<h3 id="安全接入服务边缘">安全接入服务边缘</h3>
+<p>安全接入服务边缘（SASE, Secure Access Service Edge），将网络安全和广域网整合到一个基于云的服务中。</p>
+<p>SASE 的关键特点：</p>
+<ul>
+<li>基于云</li>
+<li>安全和网络一体化</li>
+<li>零信任</li>
+<li>以身份为中心</li>
+<li>可扩展性和灵活性</li>
+</ul>
+<br/>
+<br/>
+<h2 id="网络防护能力">网络防护能力</h2>
+<br/>
+<h3 id="防火墙">防火墙</h3>
+<p>传统防火墙（Firewalls），是根据预定义安全规则和监控出入网络流量的安全设备。它们是受信任的内部网络与不受信任的外部网络之间的屏障，可过滤流量，防止未经授权的访问和潜在威胁。</p>
+<br/>
+<br/>
+<h3 id="waf">WAF</h3>
+<p>WAF（Web Application Firewalls），旨在保护网络应用免受各种攻击，如 SQL 注入、跨站脚本和其他漏洞。它们分析 HTTP 请求和响应，以识破和阻止针对网络应用程序的恶意流量。</p>
+<br/>
+<br/>
+<h3 id="云安全组">云安全组</h3>
+<p>安全组是云服务提供商提供的一项基本网络安全功能，可充当虚拟防火墙，控制云资源的出入站流量。</p>
+<br/>
+<br/>
+<h3 id="cdn">CDN</h3>
+<p>内容分发网络（CDN），是由位于不同地址位置的服务器组成的分布式网络，可通过缓存内容并从更靠近用户的服务器提供服务，帮助提高网站的性能和可用性。</p>
+<br/>
+<br/>
+<h3 id="负载均衡器">负载均衡器</h3>
+<p>负载均衡器将进入的网络流量分配给多个服务器，以优化资源利用率、确保高可用性并提高应用性能。</p>
+<br/>
+<br/>
+<h3 id="堡垒机">堡垒机</h3>
+<p>堡垒机（Bastion Hosts）是高度安全和隔离的服务器，提供从外部不信任网络对网络的受控访问。</p>
+<br/>
+<br/>
+<h3 id="vpn">VPN</h3>
+<p>VPN 在用户和远程服务器之间创建加密隧道，确保在互联网等潜在不安全的网络上进行安全、私密的通信。VPN 通常用于提供对内部网络的远程访问。</p>
+<br/>
+<br/>
+<h3 id="ddos保护工具">DDoS保护工具</h3>
+<p>DDoS 防护工具和服务旨在减轻 DDoS 攻击的影响，它可识别并过滤掉恶意流量，确保合法流量仍能达到预定的目的地。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="安全运维基础">安全运维基础</h1>
+<p>SecOps</p>
+<br/>
+<h2 id="安全运维概念">安全运维概念</h2>
+<br/>
+<h3 id="企业内部的安全运维职能">企业内部的安全运维职能</h3>
+<p>企业内的安全运维职能，是指负责监控、检测、调查和应对网络安全威胁和事件的专门团队。团队通过主动识别和降低安全风险以及有效应对安全事件，确保企业数字资产的机密性、完整性和可用性。</p>
+<br/>
+<br/>
+<h3 id="安全运维可采取的形式">安全运维可采取的形式</h3>
+<ul>
+<li>安全运维中心：负责全天候监控、分析和响应安全事件的团队。</li>
+<li>事件应急小组</li>
+<li>威胁猎杀小组</li>
+<li>红队/蓝队</li>
+<li>托管的安全服务提供商</li>
+</ul>
+<br/>
+<br/>
+<h3 id="安全运维与传统运维">安全运维与传统运维</h3>
+<br/>
+<br/>
+<h3 id="事件响应工作流程">事件响应工作流程</h3>
+<br/>
+<br/>
+<h2 id="安全运维零信任">安全运维零信任</h2>
+<p>现代IT环境中的安全运维的最佳实践：</p>
+<ul>
+<li>集中收集日志</li>
+<li>持续监控</li>
+<li>威胁情报</li>
+<li>用户培训</li>
+<li>事件响应计划</li>
+<li>安全自动化</li>
+<li>备份和恢复</li>
+</ul>
+<br/>
+<br/>
+<h2 id="安全运维能力">安全运维能力</h2>
+<br/>
+<h3 id="安全信息和事件管理工具">安全信息和事件管理工具</h3>
+<p>安全信息和时间管理工具，用于分析整个组织 IT 环境中生成的安全警报。</p>
+<br/>
+<br/>
+<h3 id="xdr">XDR</h3>
+<p>扩展检测和响应（XDR, Extended Detection and Response）是一种技术，扩展了川端端点检测的功能，并将其与来自各种来源的更广泛的安全遥测数组相结合，以提供更全面的组织安全态势视图。</p>
+<br/>
+<br/>
+<h3 id="加强安全运维的能力">加强安全运维的能力</h3>
+<ul>
+<li>机器学习和人工智能</li>
+<li>用户和实体行为分析</li>
+<li>威胁情报反馈</li>
+<li>安全协调、自动化和响应</li>
+<li>欺骗技术</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="应用安全基础">应用安全基础</h1>
+<p>AppSec</p>
+<br/>
+<h2 id="应用安全概念">应用安全概念</h2>
+<p>应用程序安全，指保护应用程序免受安全威胁、漏洞和攻击的实践。包括在应用程序的整个开发、部署和维护生命周期中用于识别、减轻和预防安全风险的流程、技术和工具。</p>
+<p>应用程序安全至关重要，因为应用程序是网络攻击的常见目标。</p>
+<br/>
+<br/>
+<h3 id="应用安全的关键原则">应用安全的关键原则</h3>
+<ul>
+<li>设计安全：从一开始就将安全性融入到应用程序的设计和架构中。</li>
+<li>输入验证：所有用户输入都应进行验证，确保复合预期，不含恶意代码或数据。</li>
+<li>输出编码：发送到客户端的数据应正确编码，以防出现跨站脚本等漏洞。</li>
+<li>认证和授权</li>
+<li>数据保护</li>
+<li>会话管理</li>
+<li>安全依赖</li>
+<li>错误处理和记录</li>
+<li>安全测试</li>
+<li>安全软件开发生命周期</li>
+</ul>
+<br/>
+<br/>
+<h2 id="应用安全能力">应用安全能力</h2>
+<p>应用安全关键能力和工具：</p>
+<ul>
+<li>静态应用安全测试
+<ul>
+<li>功能：分析源代码、字节码或二进制，找出漏洞。</li>
+<li>工具：Fortify, Checkmarx, 和 Veracode。</li>
+</ul>
+</li>
+<li>动态应用安全测试
+<ul>
+<li>功能：通过发送输入请求和分期响应，扫描运行中的应用程序以识别漏洞。</li>
+<li>工具：ZAP, Burp Suite, 和 Qualys Web Application Scanning。</li>
+</ul>
+</li>
+<li>交互式应用程序安全测试
+<ul>
+<li>功能：结合静态和动态的元素，在运行时分析代码，提供更准确的结果。</li>
+<li>工具：Contrast Security 和 HCL AppScan。</li>
+</ul>
+</li>
+<li>运行时应用程序自我保护
+<ul>
+<li>功能：实时监控和保护应用程序，在出现安全时及时发现并作出响应。</li>
+<li>工具：Veracode Runtime Protection and F5 Advanced WAF with RASP.</li>
+</ul>
+</li>
+<li>WAF
+<ul>
+<li>功能：在应用程序和互联网之间提供一个保护层，过滤流量并阻止恶意请求。</li>
+<li>工具：ModSecurity, AWS WAF, and Akamai Kona Site Defender.</li>
+</ul>
+</li>
+<li>依赖扫描
+<ul>
+<li>功能：识别应用程序中使用的第三方库和组件中的漏洞。</li>
+<li>工具：OWASP Dependency-Check and Snyk.</li>
+</ul>
+</li>
+<li>渗透测试
+<ul>
+<li>功能：模拟真实世界的攻击，以发现漏洞并评估安全性。</li>
+<li>工具：Metasploit and Nmap</li>
+</ul>
+</li>
+<li>安全扫描和分析
+<ul>
+<li>功能：扫描已知漏洞、配置错误和安全配置错误。</li>
+<li>工具：Nessus, Qualys Vulnerability Management, and OpenVAS.</li>
+</ul>
+</li>
+<li>容器安全工具
+<ul>
+<li>功能：确保容器环境的安全。</li>
+<li>工具：Docker Security Scanning and Aqua Security.</li>
+</ul>
+</li>
+<li>安全开发培训
+<ul>
+<li>能力：为开发团队提供安全培训。</li>
+</ul>
+</li>
+<li>安全测试框架
+<ul>
+<li>工具：OWASP Amass, OWASP OWTF and FrAppSec.</li>
+</ul>
+</li>
+<li>安全代码审查
+<ul>
+<li>功能：审查源代码中的漏洞和编码</li>
+<li>工具：SonarQube and Checkmarx.</li>
+</ul>
+</li>
+<li>安全API和微服务工具
+<ul>
+<li>功能：确保 API 和微服务的安全</li>
+<li>工具：Apigee, AWS API Gateway, and Istio.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="基础设施安全">基础设施安全</h1>
+<br/>
+<h2 id="基础设施">基础设施</h2>
+<p>安全卫生：</p>
+<ul>
+<li>预防攻击</li>
+<li>保护数据</li>
+<li>维护信任</li>
+<li>合规性</li>
+<li>降低风险</li>
+</ul>
+<p>安全态势管理，是指对一个组织的整体网络安全态势进行评估、监控和管理的做法。</p>
+<p>补丁，是指对软件、操作系统和应用程序软件更新的过程。</p>
+<p>容器安全：</p>
+<ul>
+<li>镜像安全</li>
+<li>运行时安全</li>
+<li>网络安全</li>
+<li>访问控制</li>
+<li>日志和监控</li>
+<li>编排安全</li>
+<li>机密管理</li>
+</ul>
+<br/>
+<br/>
+<h2 id="基础设施安全能力">基础设施安全能力</h2>
+<br/>
+<h3 id="漏洞管理">漏洞管理</h3></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-02-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/cybersecurity/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/cybersecurity/" data-title="Cybersecurity" data-hashtags="network,security"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/cybersecurity/" data-title="Cybersecurity"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/cybersecurity/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/cybersecurity/" data-title="Cybersecurity"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/cybersecurity/" data-title="Cybersecurity"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/network/">network</a>,&nbsp;<a href="/tags/security/">security</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/opentelemetry/" class="prev" rel="prev" title="OpenTelemetry"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>OpenTelemetry</a>
+            <a href="/ai-agents/" class="next" rel="next" title="AI Agents">AI Agents<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

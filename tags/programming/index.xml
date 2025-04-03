@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>programming - 标签 - 风继续吹</title>
+        <link>https://zhang21.cn/tags/programming/</link>
+        <description>programming - 标签 - 风继续吹</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 30 Mar 2025 17:09:11 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/programming/" rel="self" type="application/rss+xml" /><item>
+    <title>整洁代码的艺术</title>
+    <link>https://zhang21.cn/clean-code/</link>
+    <pubDate>Sun, 30 Mar 2025 17:09:11 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/clean-code/</guid>
+    <description><![CDATA[<p>整洁代码的艺术的笔记。少即是多！</p>]]></description>
+</item>
+</channel>
+</rss>

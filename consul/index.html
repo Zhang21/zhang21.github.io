@@ -7,17 +7,13 @@
         <title>Consul - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Consul" />
 <meta property="og:description" content="参考：
 
+Consul v1.2.0
 https://www.consul.io/intro/index.html
 https://www.consul.io/docs/
-Consul Template: https://www.hashicorp.com/blog/introducing-consul-template
-
-环境：
-
-RHEL7x86_64
-Consul v1.2.0
+Consul Template
 
 
-" />
+Consul 介绍。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhang21.cn/consul/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2018-04-05T00:00:00&#43;00:00" />
@@ -29,17 +25,13 @@ Consul v1.2.0
 <meta name="twitter:title" content="Consul"/>
 <meta name="twitter:description" content="参考：
 
+Consul v1.2.0
 https://www.consul.io/intro/index.html
 https://www.consul.io/docs/
-Consul Template: https://www.hashicorp.com/blog/introducing-consul-template
-
-环境：
-
-RHEL7x86_64
-Consul v1.2.0
+Consul Template
 
 
-"/>
+Consul 介绍。"/>
 <meta name="application-name" content="风继续吹">
 <meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -59,7 +51,7 @@ Consul v1.2.0
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "Consul, 配置中心, 服务发现","wordcount":  17749 ,
+                        }],"genre": "posts","keywords": "Consul, 配置中心, 服务发现","wordcount":  18183 ,
         "url": "https:\/\/zhang21.cn\/consul\/","datePublished": "2018-04-05T00:00:00+00:00","dateModified": "2018-04-05T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -132,9 +124,9 @@ Consul v1.2.0
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Consul</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>中间件</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-04-05">2018-04-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 17749 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 36 分钟&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/middleware/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Middleware</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-04-05">2018-04-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 18183 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 37 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -161,9 +153,11 @@ Consul v1.2.0
         </li>
         <li><a href="#注册服务">注册服务</a>
           <ul>
-            <li><a href="#定义一个服务">定义一个服务</a></li>
+            <li><a href="#定义服务">定义服务</a></li>
+            <li><a href="#通过api注册服务">通过API注册服务</a></li>
             <li><a href="#查询服务">查询服务</a></li>
             <li><a href="#更新服务">更新服务</a></li>
+            <li><a href="#注销服务">注销服务</a></li>
           </ul>
         </li>
         <li><a href="#consul集群">Consul集群</a>
@@ -173,6 +167,7 @@ Consul v1.2.0
         </li>
         <li><a href="#加入集群">加入集群</a>
           <ul>
+            <li><a href="#手动加入集群">手动加入集群</a></li>
             <li><a href="#在启动时自动加入集群">在启动时自动加入集群</a></li>
             <li><a href="#查询节点">查询节点</a></li>
             <li><a href="#离开集群">离开集群</a></li>
@@ -306,27 +301,24 @@ Consul v1.2.0
 </nav></div>
             </div><div class="content" id="content"><p>参考：</p>
 <ul>
+<li>Consul v1.2.0</li>
 <li><a href="https://www.consul.io/intro/index.html">https://www.consul.io/intro/index.html</a></li>
 <li><a href="https://www.consul.io/docs/">https://www.consul.io/docs/</a></li>
-<li>Consul Template: <a href="https://www.hashicorp.com/blog/introducing-consul-template">https://www.hashicorp.com/blog/introducing-consul-template</a></li>
-</ul>
-<p>环境：</p>
-<ul>
-<li>RHEL7x86_64</li>
-<li>Consul v1.2.0</li>
+<li><a href="https://www.hashicorp.com/blog/introducing-consul-template" target="_blank" rel="noopener noreffer ">Consul Template</a></li>
 </ul>
 <br/>
+<p>Consul 介绍。</p>
 <hr>
 <br/>
 <h1 id="简介">简介</h1>
-<p>介绍consul是什么，它可以解决哪些问题，以及如何开始使用它。</p>
+<br>
 <br>
 <h2 id="consul是什么">Consul是什么</h2>
-<p>Consule有多个组件，但总体而言，它是发现(discovery)和配置(config)基础架构(infrastructure)服务的工具。它提供几个关键特点：</p>
+<p>Consul 有多个组件，但总体而言，它是发现(discovery)和配置(config)基础架构(infrastructure)服务的工具。它提供几个关键特点：</p>
 <ul>
 <li>服务发现(service discovery)
 <ul>
-<li>Consul客户端可提供一个服务，如API或mysql，其它客户端能够使用Consul来发现给定服务的提供者。使用DNS或HTTP，应用程序可以轻松找到他们所依赖的服务</li>
+<li>Consul客户端可提供一个服务，如API或mysql，其它客户端能够使用Consul来发现给定服务的提供者。使用DNS或HTTP，应用程序可以轻松找到他们所依赖的服务。</li>
 </ul>
 </li>
 <li>健康检查(health checking)
@@ -345,73 +337,69 @@ Consul v1.2.0
 </ul>
 </li>
 </ul>
-<p>Consul旨在与DevOps和应用程序开发者保持友好，使其成为现代化 ，弹性基础架构的完美选择。</p>
 <br/>
 <br/>
 <h2 id="consul用例">Consul用例</h2>
 <ul>
-<li>
-<p>服务发现(service )
-服务注册，集成健康检查，使用DNS或HTTP接口使得任何服务都能被其它服务发现。</p>
-</li>
-<li>
-<p>服务分割(service segmentation)
-通过自动TLS加密和基于身份的授权实现安全的服务到服务通信。</p>
-</li>
-<li>
-<p>服务配置(service configuration)
-功能丰富的 key/value 可轻易配置服务。</p>
-</li>
+<li>服务发现(service )：服务注册，集成健康检查，使用DNS或HTTP接口使得任何服务都能被其它服务发现。</li>
+<li>服务分割(service segmentation)：通过自动TLS加密和基于身份的授权实现安全的服务到服务通信。</li>
+<li>服务配置(service configuration)：功能丰富的 k/v 可轻易配置服务。</li>
 </ul>
 <br>
 <br/>
 <h2 id="consul基础架构">Consul基础架构</h2>
 <p>Consul是一个分布式、高可用的系统。</p>
-<p>每一个向Consul提供服务的节点都运行一个Consul agent。运行agent对于服务发现或get/set Key/Value不是必需的。agent负责健康检查节点上的服务和节点自身。</p>
-<p>agent可与一个或多个Consul server交流。Consul server是数据存储和复制集所在之地。server之间选出一个leader。虽然Consul可以使用一台服务器，但推荐使用3-5台以避免数据丢失的故障情况。对每一个数据中心都推荐使用Consul server cluster。</p>
+<p>每一个向Consul提供服务的节点都运行一个Consul agent。运行agent对于服务发现或 get/set k/v 不是必需的。agent负责健康检查节点上的服务和节点自身。</p>
+<p>agent可与一个或多个Consul server交流。Consul server是数据存储和复制集所在之地。server之间选出一个leader。虽然Consul可以使用一台服务器，但推荐使用 3-5台 以避免数据丢失的故障情况。对每一个数据中心都推荐使用Consul server cluster。</p>
 <p>需要发现其它服务或节点的基础架构组件 可以查询任何Consul server或Consul agent。agent自动将查询发送到server。</p>
 <p>每个数据中心运行一组consul server cluster。当发生cross-datacenter服务发现或配置请求时，本地consul server将请求转发给远程数据中心并返回结果。</p>
-<br>
 <br/>
 <hr>
 <br>
 <h1 id="快速开始">快速开始</h1>
+<br/>
+<br/>
 <h2 id="安装consul">安装Consul</h2>
-<ul>
-<li>二进制包: <a href="https://www.consul.io/downloads.html">https://www.consul.io/downloads.html</a>
-<ul>
-<li>解压缩，得到一个consul二进制可执行文件，可将其放入系统路径</li>
-</ul>
-</li>
-<li>验证安装: <code>consul</code></li>
-</ul>
+<p>下载 <a href="https://www.consul.io/downloads.html" target="_blank" rel="noopener noreffer ">二进制包</a>，解压缩，得到一个consul二进制可执行文件，编辑配置文件以启动服务。</p>
 <br>
 <br/>
 <h2 id="运行consul-agent">运行consul-agent</h2>
 <p>安装consul后请务必运行agent，agent可运行在server或client模式。每个datacenter必须至少有一台server，推荐3-5台做一个集群。单一server部署非常不安全，在故障情况下数据丢失就不可避免了。</p>
 <p>所有其它agents都以client模式运行。client是一个非常轻量化的进程——它注册服务、运行健康检查、转发查询给server。agent必须运行在集群的每个节点上。</p>
 <br/>
+<br/>
 <h3 id="启动agent">启动agent</h3>
 <p>测试consul development模式，不建议在生产环境使用此方法，此处做测试。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul agent -dev
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul agent -dev
 
 netstat -nltp
 
-#可根据日志看出agent已成为server，并成为集群leader
+consul members
+
+<span class="c1"># 查看主和从</span>
+consul operator raft -list-peers
+
+<span class="c1">#可根据日志看出agent已成为server，并成为集群leader</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<br/>
 <h3 id="consul成员">Consul成员</h3>
-<p><code>members</code>命令基于<code>gossip protocol</code>并最终保持一致。</p>
+<p><code>members</code> 命令基于 gossip protocol 并最终保持一致。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -426,45 +414,44 @@ netstat -nltp
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul members
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul members
 
-#节点名称、监听地址、健康状态、集群角色、版本信息
+<span class="c1">#节点名称、监听地址、健康状态、集群角色、版本信息</span>
 Node     Address         Status  Type    Build  Protocol  DC   Segment
-zhang22  127.0.0.1:8301  alive   server  1.0.6  2         dc1  &lt;all&gt;
+zhang22  127.0.0.1:8301  alive   server  1.0.6  <span class="m">2</span>         dc1  &lt;all&gt;
 
-
-#使用HTTP API将请求转发给server以获取一致的view of world
+<span class="c1">#使用HTTP API将请求转发给server以获取一致的view of world</span>
 culr localhost:8500/v1/catalog/nodes
 
-
-#DNS interface也可以查询节点，默认端口8600
-dig @127.0.0.1 -p 8600 zhang22.node.consul
+<span class="c1">#DNS interface也可以查询节点，默认端口8600</span>
+dig @127.0.0.1 -p <span class="m">8600</span> zhang22.node.consul
 
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<br/>
 <h3 id="停止agent">停止agent</h3>
-<p>可使用<code>Ctrl + C</code>优雅地终止agent，你可以看到它离开集群并关闭。</p>
-<p>优雅关闭，Consul会通知集群其它节点此节点的离开。如果你强制kill agent，则集群的其它节点将检测该节点失败。
-当成员离开时，其服务和健康检查将从catalog中移除。当成员失败时，其健康状态被标记为critical，但不会从catalog中移除。
-Consul会自动尝试重连失败的节点，允许它从当前网络条件中修复，知道离开的节点不在联系。</p>
+<p>可使用<code>Ctrl + C</code> 优雅地终止agent，你可以看到它离开集群并关闭。</p>
+<p>优雅关闭，Consul会通知集群其它节点此节点的离开。如果你强制 kill agent，则集群的其它节点将检测该节点失败。</p>
+<p>当成员离开时，其服务和健康检查将从 catalog 中移除。当成员失败时，其健康状态被标记为 critical，但不会从 catalog 中移除。</p>
+<p>Consul会自动尝试重连失败的节点，允许它从当前网络条件中修复，知道离开的节点不再联系。</p>
 <p>此外，如果agent正作为server在运行，那么优雅地离开对避免造成严重的影响有帮助。</p>
 <br>
 <br/>
 <h2 id="注册服务">注册服务</h2>
 <p>注册(register)服务并查询(query)服务。</p>
 <br/>
-<h3 id="定义一个服务">定义一个服务</h3>
+<br/>
+<h3 id="定义服务">定义服务</h3>
 <p>服务可以通过以下两种方法注册：</p>
 <ul>
 <li>服务定义(service definition)</li>
 <li>调用HTTP API</li>
 </ul>
 <p>服务定义是注册服务最常见的方式，我们将构建前面agent的配置。</p>
+<br/>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -480,92 +467,23 @@ Consul会自动尝试重连失败的节点，允许它从当前网络条件中�
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#创建一个consul配置目录
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#创建一个consul配置目录</span>
 mkdir /etc/consul.d
 
 
-#编写服务定义配置文件
-#假设有一个web服务运行在80端口，添加一个便于query的tag
-echo &#39;{&#34;service&#34;: {&#34;name: &#34;web&#34;, &#34;tag&#34;: [&#34;rails&#34;], &#34;port&#34;: 80 }}&#39; | tee /etc/consul.d/web.json
+<span class="c1">#编写服务定义配置文件</span>
+<span class="c1">#假设有一个web服务运行在80端口，添加一个便于query的tag</span>
+<span class="nb">echo</span> <span class="s1">&#39;{&#34;service&#34;: {&#34;name: &#34;web&#34;, &#34;tag&#34;: [&#34;rails&#34;], &#34;port&#34;: 80 }}&#39;</span> <span class="p">|</span> tee /etc/consul.d/web.json
 
 
-#重启agent，指定配置目录
-consul agent -dev -config-dir=/etc/consul.d
+<span class="c1">#重启agent，指定配置目录</span>
+consul agent -dev -config-dir<span class="o">=</span>/etc/consul.d
 </code></pre></td></tr></table>
 </div>
 </div><p>如果你想注册多个服务，你可以在配置目录下创建多个服务定义文件。</p>
 <br/>
-<h3 id="查询服务">查询服务</h3>
-<p>一旦agent启动并且服务已同步，我们可通过HTTP API或DNS查询(query)服务。</p>
-<br>
-<p><strong>DNS API</strong>
-使用DNS API(默认8600)查询服务</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#DNS name(默认) -- NAME.service.consul
-
-#只有IP
-dig @127.0.0.1 -p 8600 web.service.consul
-
-
-#返回IP/Port
-dig @127.0.0.1 -p 8600 web.service.consul SRV
-</code></pre></td></tr></table>
-</div>
-</div><p>我们还可以用DNS API按tag来过滤service。基于标签的查询格式为<code>tag.name.service.consul</code>。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">dig @127.0.0.1 -p 8600 rails.web.service.consul
-</code></pre></td></tr></table>
-</div>
-</div><br/>
-<p><strong>HTTP API</strong>
-除了DNS API，HTTP API(默认8500)同样可用于查询服务。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#前面定义了web这个service
-curl http://localhost:8500/v1/catalog/service/web
-</code></pre></td></tr></table>
-</div>
-</div><p>catalog API提供了给定服务的所有节点。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#仅仅健康实例的查询
- curl &#39;http://localhost:8500/v1/health/service/web?passing&#39;
-</code></pre></td></tr></table>
-</div>
-</div><br>
-<h3 id="更新服务">更新服务</h3>
-<p>服务定义可以通过更改配置文件并向agent发送SIGHUP来更新。这使得更新服务不会出现任何停机或查询服务不可达的情况。</p>
-<p>另外，HTTP API能够用来动态地添加、移除、修改服务。</p>
-<br>
 <br/>
-<h2 id="consul集群">Consul集群</h2>
-<p>具有多个成员的consul集群。</p>
-<p>当consul节点启动时，它不知道任何其它节点，它是一个孤立的集群。为了了解到集群中的其它成员，agent必须要加入一个存在的集群。要加入一个现有的集群，只需知道一个现有成员。当加入集群后，agent将于其此成员闲聊，并迅速发现集群中的其它成员。一个agent可以加入任何其它agent，而不仅仅是server模式的agent。</p>
-<br>
-<h3 id="启动agents">启动agents</h3>
+<h3 id="通过api注册服务">通过API注册服务</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -583,28 +501,159 @@ curl http://localhost:8500/v1/catalog/service/web
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#node1
-consul agent -server -bootstrap-expect=1 \
-    -data-dir=/tmp/consul -node=agent-one -bind=ip1 \
-    -enable-script-checks=true -config-dir=/etc/consul.d
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 命令行直接指定内容</span>
+curl --location --request PUT <span class="s1">&#39;http://localhost:8500/v1/agent/service/register&#39;</span> --header <span class="s1">&#39;Content-Type: application/json&#39;</span> -d <span class="s1">&#39;{
+</span><span class="s1">    &#34;Name&#34;:&#34;test01&#34;,
+</span><span class="s1">    &#34;Address&#34;:&#34;127.0.0.1&#34;,
+</span><span class="s1">    &#34;Port&#34;:80,
+</span><span class="s1">    &#34;ID&#34;:&#34;test01#127.0.0.1#80&#34;,
+</span><span class="s1">    &#34;Check&#34;:{
+</span><span class="s1">        &#34;TCP&#34;:&#34;127.0.0.1:80&#34;,
+</span><span class="s1">        &#34;Interval&#34;:&#34;15s&#34;,
+</span><span class="s1">        &#34;Timeout&#34;:&#34;10s&#34;
+</span><span class="s1">    }
+</span><span class="s1">}&#39;</span>
 
-#node2
-consul agent -data-dir=/tmp/consul -node=agent-two \
-    -bind=ip2 -enable-script-checks=true -config-dir=/etc/consul.d
+
+<span class="c1"># 指定 json 文件上传</span>
+curl --location --request PUT <span class="s1">&#39;http://localhost:8500/v1/agent/service/register&#39;</span> --header <span class="s1">&#39;Content-Type: application/json&#39;</span> -d@test02.json
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="查询服务">查询服务</h3>
+<p>一旦agent启动并且服务已同步，我们可通过HTTP API或DNS查询(query)服务。</p>
+<br>
+<p><strong>DNS API</strong>：使用DNS API(默认8600)查询服务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#DNS name(默认) -- NAME.service.consul</span>
+
+<span class="c1">#只有IP</span>
+dig @127.0.0.1 -p <span class="m">8600</span> web.service.consul
 
 
-#两个独立的node
+<span class="c1">#返回IP/Port</span>
+dig @127.0.0.1 -p <span class="m">8600</span> web.service.consul SRV
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p>我们还可以用DNS API按tag来过滤service。基于标签的查询格式为 <code>tag.name.service.consul</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">dig @127.0.0.1 -p <span class="m">8600</span> rails.web.service.consul
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><strong>HTTP API</strong>：HTTP API(默认8500)同样可用于查询服务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#前面定义了web这个service</span>
+curl http://localhost:8500/v1/catalog/service/web
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<p><strong>catalog API</strong> 提供了给定服务的所有节点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#仅仅健康实例的查询</span>
+curl <span class="s1">&#39;http://localhost:8500/v1/health/service/web?passing&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="更新服务">更新服务</h3>
+<p>服务定义可以通过更改配置文件并向agent发送SIGHUP来更新。这使得更新服务不会出现任何停机或查询服务不可达的情况。</p>
+<p>另外，HTTP API能够用来动态地添加、移除、修改服务。</p>
+<br/>
+<br/>
+<h3 id="注销服务">注销服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># id 中的 # 号要换成 %23</span>
+curl --request PUT http://127.0.0.1:8500/v1/agent/service/deregister/zhangbinTest%23127.0.0.1%2380
 
-#现在，我们有两个agent在运行中：一个server，一个client。但是他们两者并不知道对方，并仍然是一个单一节点的集群。
-#查看节点
+</code></pre></td></tr></table>
+</div>
+</div><br>
+<br/>
+<h2 id="consul集群">Consul集群</h2>
+<p>具有多个成员的consul集群。</p>
+<p>当consul节点启动时，它不知道任何其它节点，它是一个孤立的集群。为了了解到集群中的其它成员，agent必须要加入一个存在的集群。要加入一个现有的集群，只需知道一个现有成员。</p>
+<p>当加入集群后，agent将与此成员闲聊，并迅速发现集群中的其它成员。一个agent可以加入任何其它agent，而不仅仅是server模式的agent。</p>
+<br>
+<br>
+<h3 id="启动agents">启动agents</h3>
+<p>示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#node1</span>
+consul agent -server -bootstrap-expect<span class="o">=</span><span class="m">1</span> <span class="se">\
+</span><span class="se"></span>    -data-dir<span class="o">=</span>/tmp/consul -node<span class="o">=</span>agent-one -bind<span class="o">=</span>ip1 <span class="se">\
+</span><span class="se"></span>    -enable-script-checks<span class="o">=</span><span class="nb">true</span> -config-dir<span class="o">=</span>/etc/consul.d
+
+<span class="c1">#node2</span>
+consul agent -data-dir<span class="o">=</span>/tmp/consul -node<span class="o">=</span>agent-two <span class="se">\
+</span><span class="se"></span>    -bind<span class="o">=</span>ip2 -enable-script-checks<span class="o">=</span><span class="nb">true</span> -config-dir<span class="o">=</span>/etc/consul.d
+
+<span class="c1">#两个独立的node</span>
+
+<span class="c1">#现在，我们有两个agent在运行中：一个server，一个client。但是他们两者并不知道对方，并仍然是一个单一节点的集群。</span>
 consul member
 </code></pre></td></tr></table>
 </div>
 </div><br>
 <br/>
 <h2 id="加入集群">加入集群</h2>
+<br/>
+<br/>
+<h3 id="手动加入集群">手动加入集群</h3>
 <p>由于我们在启动agent的时候便已指定server，所以从哪个节点加入都一样。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -619,20 +668,22 @@ consul member
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul join ip
-#Successfully joined cluster by contacting 1 nodes.
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul join server-ip
+<span class="c1">#Successfully joined cluster by contacting 1 nodes.</span>
 
 consul members
 
 Node       Address              Status  Type    Build  Protocol  DC   Segment
-agent-one  172.16.129.141:8301  alive   server  1.0.6  2         dc1  &lt;all&gt;
-agent-two  172.16.129.150:8301  alive   client  1.0.6  2         dc1  &lt;default&gt;
+agent-one  172.16.129.141:8301  alive   server  1.0.6  <span class="m">2</span>         dc1  &lt;all&gt;
+agent-two  172.16.129.150:8301  alive   client  1.0.6  <span class="m">2</span>         dc1  &lt;default&gt;
 
 </code></pre></td></tr></table>
 </div>
 </div><br>
+<br>
 <h3 id="在启动时自动加入集群">在启动时自动加入集群</h3>
 <p>理想情况下，每当一个新节点出现在数据中心时，它应该自动加入集群而不需要人工干预。</p>
+<p>直接在 consul 配置文件中填写需要加入的一个或多个 server 的地址。</p>
 <br>
 <br/>
 <h3 id="查询节点">查询节点</h3>
@@ -645,23 +696,24 @@ agent-two  172.16.129.150:8301  alive   client  1.0.6  2         dc1  &lt;defaul
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#NAME.node.consul或NAME.node.DATACENTER.conosul
-dig @localhost -p 8600 agent-one.node.consul
-dig @127.0.0.1 -p 8600 agent-two.node.consul
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#NAME.node.consul或NAME.node.DATACENTER.conosul</span>
+dig @localhost -p <span class="m">8600</span> agent-one.node.consul
+dig @127.0.0.1 -p <span class="m">8600</span> agent-two.node.consul
 
 </code></pre></td></tr></table>
 </div>
 </div><br>
+<br>
 <h3 id="离开集群">离开集群</h3>
 <ul>
-<li>优雅的退出: <code>Ctrl+C</code></li>
-<li>强制<code>kill</code></li>
+<li>优雅的退出: <code>Ctrl+C</code> 或 <code>consul leave</code></li>
+<li>强制 <code>kill</code>（不建议）</li>
 </ul>
 <br>
 <br/>
 <h2 id="健康检查">健康检查</h2>
-<p>对节点和服务添加健康检查(health check)。
-健康检查是服务发现的关键组件，可以防止使用不健康的服务。</p>
+<p>对节点和服务添加健康检查(health check)。健康检查是服务发现的关键组件，可以防止使用不健康的服务。</p>
+<br>
 <br>
 <h3 id="定义检查">定义检查</h3>
 <p>与服务类似，一个检查能够通过定义检查或适当调用HTTP API来两种方式来注册。</p>
@@ -677,16 +729,14 @@ dig @127.0.0.1 -p 8600 agent-two.node.consul
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#在基于脚本的健康检查上，它与consul进程使用同样的用户
-#如果命令以非0状态码退出，则该节点会被标记为unhealthy
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#在基于脚本的健康检查上，它与consul进程使用同样的用户</span>
+<span class="c1">#如果命令以非0状态码退出，则该节点会被标记为unhealthy</span>
 
-echo &#39;{&#34;check&#34;: {&#34;name&#34;: &#34;ping&#34;, &#34;args&#34;: [&#34;ping&#34;, &#34;-c1&#34;, &#34;baidu.com&#34;], &#34;interval&#34;: &#34;30s&#34;}}&#39; &gt;/etc/consul.d/ping.json
+<span class="nb">echo</span> <span class="s1">&#39;{&#34;check&#34;: {&#34;name&#34;: &#34;ping&#34;, &#34;args&#34;: [&#34;ping&#34;, &#34;-c1&#34;, &#34;baidu.com&#34;], &#34;interval&#34;: &#34;30s&#34;}}&#39;</span> &gt;/etc/consul.d/ping.json
 
-echo &#39;{&#34;service&#34;: {&#34;name&#34;: &#34;web&#34;, &#34;tags&#34;: [&#34;rails&#34;], &#34;port&#34;: 80, &#34;check&#34;: {&#34;args&#34;: [&#34;curl&#34;, &#34;localhost&#34;], &#34;interval&#34;: &#34;10s&#34;}}}&#39; &gt;/etc/consul.d/web.json
-
+<span class="nb">echo</span> <span class="s1">&#39;{&#34;service&#34;: {&#34;name&#34;: &#34;web&#34;, &#34;tags&#34;: [&#34;rails&#34;], &#34;port&#34;: 80, &#34;check&#34;: {&#34;args&#34;: [&#34;curl&#34;, &#34;localhost&#34;], &#34;interval&#34;: &#34;10s&#34;}}}&#39;</span> &gt;/etc/consul.d/web.json
 
 consul reload
 </code></pre></td></tr></table>
@@ -700,9 +750,9 @@ consul reload
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl http://localhost:8500/v1/health/state/critical
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl http://localhost:8500/v1/health/state/critical
 
-dig @127.0.0.1 -p 8600 web.service.consul
+dig @127.0.0.1 -p <span class="m">8600</span> web.service.consul
 </code></pre></td></tr></table>
 </div>
 </div><br>
@@ -716,6 +766,7 @@ dig @127.0.0.1 -p 8600 web.service.consul
 <li>HTTP API</li>
 <li>Consul KV CLI</li>
 </ul>
+<br/>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -745,47 +796,42 @@ dig @127.0.0.1 -p 8600 web.service.consul
 </span><span class="lnt">25
 </span><span class="lnt">26
 </span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#CLI
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#CLI</span>
 consul kv --help
 
+consul kv --http-addr<span class="o">=</span><span class="s2">&#34;内网:8500&#34;</span>
+
+consul kv get key-name
 consul kv put name zhang
-consul kv get name
-#zhang
 
 consul kv get -detailed name
 
-consul kv puut -flags=42 who zhang21
-#所有key都支持设置一个64位的整数标志值
+consul kv puut -flags<span class="o">=</span><span class="m">42</span> who zhang21
+<span class="c1">#所有key都支持设置一个64位的整数标志值</span>
 
-
-#列出所有kv
+<span class="c1">#列出所有kv</span>
 consul kv get -recurse
 
-
-#删除
+<span class="c1">#删除</span>
 consul kv delete name
 
-
-#使用 Check-And-Set 进行原子更新
-consul kv put -cas -modify-index=112 NAME zhang
-
+<span class="c1">#使用 Check-And-Set 进行原子更新</span>
+consul kv put -cas -modify-index<span class="o">=</span><span class="m">112</span> NAME zhang
 
 
-#导出与导入
-consul kv export &gt; xxx.json
+<span class="c1">#导出与导入</span>
+consul kv <span class="nb">export</span> &gt; xxx.json
 
-consul kv import $xxx.json
+consul kv import <span class="nv">$xxx</span>.json
 </code></pre></td></tr></table>
 </div>
 </div><br>
 <br/>
 <h2 id="web界面">Web界面</h2>
 <p>Consul支持美观的Web界面。用户界面可以查看所有的服务和节点，查看所有健康检查和当前状态，读取和设置kv数据，并自动支持多数据中心。</p>
+<p>一般 consul server 只监听 localhost，通过 nginx 加认证的方式来代理访问。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -793,24 +839,49 @@ consul kv import $xxx.json
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul agent -ui
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul agent -ui
 
-#localhost:8500/ui
+<span class="c1">#localhost:8500/ui</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
-<br/>
+<p>nginx 示例配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+  listen 18500;
+  server_name localhost;
+  location / {
+    proxy_pass  http://127.0.0.1:8500;
+    auth_basic  &#34;Basic Auth&#34;;
+    auth_basic_user_file  &#34;/opt/nginx/conf/consul.db&#34;;
+  }
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
 <hr>
 <br/>
 <h1 id="内部详情">内部详情</h1>
-<p>Consul Internals</p>
-<p>介绍Consul内部详情。</p>
+<br/>
 <br/>
 <h2 id="架构">架构</h2>
-<p>Architecture</p>
+<br/>
 <br/>
 <h3 id="词汇表">词汇表</h3>
-<p>Glossary</p>
 <ul>
 <li>Agent</li>
 <li>Client</li>
@@ -837,36 +908,19 @@ consul kv import $xxx.json
 <br/>
 <br/>
 <h2 id="consensus协议">Consensus协议</h2>
-<p>Consul使用consensus(共识) protocol来提供一致性(consistency)，它基于<strong>Raft</strong>(In search of an Understandable Consensus Algorithm)</p>
+<p>Consul使用consensus protocol（共识协议）来提供一致性(consistency)，它基于<strong>Raft</strong>(In search of an Understandable Consensus Algorithm)。</p>
 <br>
 <h3 id="raft协议">Raft协议</h3>
 <p>Raft是基于Paxos的共识算法。</p>
+<br/>
 <p>Raft的一些关键术语：</p>
 <ul>
-<li>
-<p>Log
-The primary unit of work in a Raft system is a log entry.</p>
-</li>
-<li>
-<p>FSM(Finite State Machine)
-An FSM(有限状态机) is a collection of finite states with transitions between them.</p>
-</li>
-<li>
-<p>Peer set
-The peer set(对等集) is the set of all members participating in log replication.</p>
-</li>
-<li>
-<p>Quorum
-A quorum(仲裁) is a majority of members from a peer set: for a set of size n, quorum requires at least (n/2)+1 members.</p>
-</li>
-<li>
-<p>Committed Entry
-An entry is considered committed when it is durably stored on a quorum of nodes.</p>
-</li>
-<li>
-<p>Leader
-At any given time, the peer set elects a single node to be the leader.</p>
-</li>
+<li>Log：The primary unit of work in a Raft system is a log entry.</li>
+<li>FSM(Finite State Machine)：An FSM(有限状态机) is a collection of finite states with transitions between them.</li>
+<li>Peer set：The peer set(对等集) is the set of all members participating in log replication.</li>
+<li>Quorum：A quorum(仲裁) is a majority of members from a peer set: for a set of size n, quorum requires at least (n/2)+1 members.</li>
+<li>Committed Entry：An entry is considered committed when it is durably stored on a quorum of nodes.</li>
+<li>Leader：At any given time, the peer set elects a single node to be the leader.</li>
 </ul>
 <br>
 <p>Raft节点总是处于如下三种状态之一：</p>
@@ -875,6 +929,7 @@ At any given time, the peer set elects a single node to be the leader.</p>
 <li>candidate(候选者)</li>
 <li>leader(领导者)</li>
 </ul>
+<br/>
 <p>所有节点最初都是作为follower开始的。在这种状态下，节点可接受leader的日志条目并投票。如果一段时间内没有收到任何条目，则节点会自我提升到candidate。
 在candidate状态下，节点请求来自对等节点的投票。如果候选人获得仲裁(quorum)的票数，那么它将被提升为leader。
 leader必须接受新的日志条目并复制给其它所有follower。另外，如果陈旧读取不可接受，则所有查询也必须在leader上执行。</p>
@@ -883,10 +938,11 @@ leader必须接受新的日志条目并复制给其它所有follower。另外，
 达成共识是容错的，直到法定人数可用。
 建议为每个数据中心配置3-5台Consul Server。3个节点的Raft集群可以容忍单个节点故障，5个节点的Raft集群可以容忍2个节点故障。这可最大限制提高可用性。</p>
 <br>
+<br>
 <h3 id="raft-in-consul">Raft in Consul</h3>
 <p>只有Consul Server节点参与Raft，并且是对等集的一部分。所有的Client节点都将请求转发给Server。</p>
-<p>当启动的时候，单个Consul Server进入<strong>bootstrap</strong>模式，此模式允许它进行自我选举为leader。leader选出后，可以以一致性和安全性的方式将其它Server添加到对等集，之后，就可以禁用bootstrap模式。
-由于所有的Server作为对等集的一部分参与，因此他们都知道当前的leader。当一个RPC请求到达了non-leader Server时，请求被转发给leader。</p>
+<p>当启动的时候，单个Consul Server进入<strong>bootstrap</strong>模式，此模式允许它进行自我选举为leader。leader选出后，可以以一致性和安全性的方式将其它Server添加到对等集，之后，就可以禁用bootstrap模式。</p>
+<p>由于所有的Server作为对等集的一部分参与，因此他们都知道当前的leader。当一个RPC请求到达了non-leader Server时，请求被转发给leader。</p>
 <ul>
 <li>如果RPC是查询(query)类型，意味着它是只读的，则leader根据FSM的当前状态生成结果</li>
 <li>如果RPC是事务(transaction)类型，意味着它是可修改的，则leader生成新的日志条目并使用Raft应用它</li>
@@ -894,15 +950,15 @@ leader必须接受新的日志条目并复制给其它所有follower。另外，
 <p>提交日志条目并将其应用于FSM后，事务就完成了。</p>
 <p>由于Raft副本的性质，性能对网络延迟很敏感。因此，每个数据中心选择一个独立的leader并维护一个不相交的对等集。数据由数据中心分区，每个leader仅负责其数据中心中的数据。</p>
 <br>
+<br>
 <h3 id="一致性模式">一致性模式</h3>
-<p>Consistency Modes</p>
-<p>虽然对副本日志的所有写入都通过Raft，但读取却更加灵活。
-Consul支持3种不同的读取一致性模式：</p>
+<p>虽然对副本日志的所有写入都通过Raft，但读取却更加灵活。Consul支持3种不同的读取一致性模式：</p>
 <ul>
 <li>default</li>
 <li>consistent</li>
 <li>stale</li>
 </ul>
+<br>
 <br>
 <h3 id="部署表">部署表</h3>
 <table>
@@ -956,6 +1012,7 @@ Consul支持3种不同的读取一致性模式：</p>
 <h2 id="gossip协议">Gossip协议</h2>
 <p>Consul 使用gossip协议来管理成员并向集群发送广播信息。所有这些都通过Serf Library提供。</p>
 <br/>
+<br/>
 <h3 id="goossip-in-consul">Goossip in Consul</h3>
 <p>Consul使用两个不同的gossip pools:</p>
 <ul>
@@ -965,11 +1022,10 @@ Consul支持3种不同的读取一致性模式：</p>
 <br/>
 <br/>
 <h2 id="网络坐标">网络坐标</h2>
-<p>Network Coordinates</p>
 <p>Consul使用网络层层析系统来计算集群中节点的网络坐标。这些坐标允许使用非常简单的计算在任意两个节点之间估计网络往返时间。所有这些都通过使用Serf Library。</p>
 <br/>
+<br/>
 <h3 id="consul中的网络坐标">Consul中的网络坐标</h3>
-<p>Network Coordinates in Consul</p>
 <p>网络坐标在Consul中有多种表现方式：</p>
 <ul>
 <li><code>consul rtt</code></li>
@@ -977,6 +1033,7 @@ Consul支持3种不同的读取一致性模式：</p>
 <li>Prepared query</li>
 <li>Coordinate endpoint</li>
 </ul>
+<br/>
 <br/>
 <h3 id="使用坐标">使用坐标</h3>
 <p>一旦你有了两个节点的坐标，则计算它们间的往返时间是很简单的：</p>
@@ -990,39 +1047,39 @@ Consul支持3种不同的读取一致性模式：</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">    &#34;Coord&#34;: {
-        &#34;Adjustment&#34;: 0.1,
-        &#34;Error&#34;: 1.5,
-        &#34;Height&#34;: 0.02,
-        &#34;Vec&#34;: [0.34,0.68,0.003,0.01,0.05,0.1,0.34,0.06]
-    }
+<pre class="chroma"><code class="language-json" data-lang="json">    <span class="s2">&#34;Coord&#34;</span><span class="err">:</span> <span class="p">{</span>
+        <span class="nt">&#34;Adjustment&#34;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="nt">&#34;Error&#34;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span>
+        <span class="nt">&#34;Height&#34;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+        <span class="nt">&#34;Vec&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.34</span><span class="p">,</span><span class="mf">0.68</span><span class="p">,</span><span class="mf">0.003</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.34</span><span class="p">,</span><span class="mf">0.06</span><span class="p">]</span>
+    <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
 <br/>
 <h2 id="会话">会话</h2>
-<p>Sessions</p>
 <p>consul提供了一个用于构建分布式锁的会话机制。会话充当节点、健康检查和K/V数据之间的监听层。</p>
 <br/>
-<h3 id="会话设计">会话设计</h3>
 <br/>
+<h3 id="会话设计">会话设计</h3>
 <br/>
 <hr>
 <br/>
 <h1 id="agent">Agent</h1>
+<br/>
+<br/>
 <h2 id="启动和停止">启动和停止</h2>
-<p>Consul Agent是Consul的核心进程。它维护成员关系信息，注册服务，运行检查，响应查询&hellip;
-Consul Agent必须运行在在Consul集群的每个节点上。</p>
+<p>Consul Agent是Consul的核心进程。它维护成员关系信息，注册服务，运行检查，响应查询&hellip;</p>
+<p>Consul Agent必须运行在Consul集群的每个节点上。</p>
 <p>Agent有两种运行模式：</p>
 <ul>
 <li>server</li>
 <li>client</li>
 </ul>
-<p>Server节点承担了作为**consensus quorum(共识法人)**的额外责任，这些节点参与Raft，并在出现故障时提供强大的一致性和可用性。
-Client节点构成了集群的大部分，它们非常轻便。因为它们与Server进行大部分操作，保持自己的状态则很少。</p>
+<p>Server节点承担了作为 <strong>consensus quorum(共识法人)</strong> 的额外责任，这些节点参与Raft，并在出现故障时提供强大的一致性和可用性。</p>
+<p>Client节点构成了集群的大部分，它们非常轻便。因为它们与Server进行大部分操作，保持自己的状态则很少。</p>
 <br>
-<p><strong>运行Agent</strong>
-以下是一些重要信息：</p>
+<p><strong>运行Agent</strong>：以下是一些重要信息：</p>
 <ul>
 <li>Node name</li>
 <li>Datacenter</li>
@@ -1030,6 +1087,7 @@ Client节点构成了集群的大部分，它们非常轻便。因为它们与Se
 <li>Client addr</li>
 <li>Cluster addr</li>
 </ul>
+<br/>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1040,12 +1098,10 @@ Client节点构成了集群的大部分，它们非常轻便。因为它们与Se
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#直接指定配置项运行</span>
 consul agent -options
-
 
 <span class="c1">#将配置项写入文件，指定配置目录运行</span>
 mkdir /etc/consul.d
@@ -1055,27 +1111,20 @@ consul agent -config-dir<span class="o">=</span>/etc/consul.d
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>停止Agent</strong>
-有两种停止方式：</p>
+<p><strong>停止Agent</strong>，有两种停止方式：</p>
 <ul>
-<li>
-<p>gracefully
-发送中断信号<code>ctrl+c</code>或运行<code>kill -INT</code>。优雅地退出，Agent首先通知集群它要离开集群。这样，集群便会通知其它成员该节点已离开。</p>
-</li>
-<li>
-<p>forcefully
-通过<code>kill signal</code>来强制杀掉Consul。集群的其余部分最终会检测到该节点已死亡并通知集群节点已失效。</p>
-</li>
+<li>gracefully：发送中断信号<code>ctrl+c</code>或运行<code>kill -INT</code>。优雅地退出，Agent首先通知集群它要离开集群。这样，集群便会通知其它成员该节点已离开。</li>
+<li>forcefully：通过<code>kill signal</code>来强制杀掉Consul。集群的其余部分最终会检测到该节点已死亡并通知集群节点已失效。</li>
 </ul>
-<p>特别重要的是允许Server节点优雅地离开，以便对可用性产生最小的影响。
-对于Client Agent来说，节点失效和节点离开的区别对用例并不是那么重要。</p>
+<br/>
+<p>特别重要的是允许Server节点优雅地离开，以便对可用性产生最小的影响。</p>
+<p>对于Client Agent来说，节点失效和节点离开的区别对用例并不是那么重要。</p>
 <br>
-<p><strong>生命周期</strong>
-Consul集群中的每个Agent都会经历一个生命周期(lifecycle)。
-当Agent首次启动时，他并不知道集群中的其它任何节点。要发现它的同伴，它必须加入集群。这使用<code>join</code>命令或在配置文件中配置。一旦一个节点加入，这个信息就会传递给整个集群，这意味着所有节点最终都会意识到对方。
+<p><strong>生命周期</strong>：Consul集群中的每个Agent都会经历一个生命周期(lifecycle)。</p>
+<p>当Agent首次启动时，他并不知道集群中的其它任何节点。要发现它的同伴，它必须加入集群。这使用<code>join</code>命令或在配置文件中配置。一旦一个节点加入，这个信息就会传递给整个集群，这意味着所有节点最终都会意识到对方。
 如果Agent是一个Server，则已经存在的Server就会开始复制(replicating)到新节点。</p>
-<p>在网络故障的情况下，某些节点可能无法被其它节点访问。在这种情况下，无法访问的节点被标记为失败(failed)。无法区分网络故障和Agent崩溃，因此两种情况的处理方式都是相同的。该信息将在service catalog中被更新。</p>
-<p>当一个节点离开时，它指定了它的意图，并且集群将该节点标记为已离开。与失败(failed)不同，节点提供的所有服务都立即注销(deregistered)。如果Agent是Server，则对其的复制(replication)将停止。</p>
+<p>在网络故障的情况下，某些节点可能无法被其它节点访问。在这种情况下，无法访问的节点被标记为失败（failed）。无法区分网络故障和Agent崩溃，因此两种情况的处理方式都是相同的。该信息将在service catalog中被更新。</p>
+<p>当一个节点离开时，它指定了它的意图，并且集群将该节点标记为已离开（left）。与失败(failed)不同，节点提供的所有服务都立即注销(deregistered)。如果Agent是Server，则对其的复制(replication)将停止。</p>
 <p>为了防止死亡(failed/left)节点的堆积，Consul会自动将死亡节点从目录中移除。这个过程被称为<strong>收割(reaping)</strong>。</p>
 <br/>
 <br/>
@@ -1091,8 +1140,7 @@ Consul集群中的每个Agent都会经历一个生命周期(lifecycle)。
 </ul>
 <p><strong>数据中心部分是可选的，如果没有提供，则默认为Agent自身的数据中心。</strong></p>
 <br>
-<p><strong>节点查找</strong>
-为了解析名称(name)，Consul依赖于特定的查询格式。基本上有两种类型的查询：</p>
+<p><strong>节点查找</strong>：为了解析名称(name)，Consul依赖于特定的查询格式。基本上有两种类型的查询：</p>
 <ul>
 <li>node lookup</li>
 <li>service lookup</li>
@@ -1109,23 +1157,21 @@ Consul集群中的每个Agent都会经历一个生命周期(lifecycle)。
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#node lookup
-&lt;node&gt;.node[.datacenter].&lt;domain&gt;
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#node lookup</span>
+&lt;node&gt;.node<span class="o">[</span>.datacenter<span class="o">]</span>.&lt;domain&gt;
 
 node1.node.dc1.consul
 node1.node.consul
 
-dig @127.0.0.1 -p 8600 node1.node.consul
+dig @127.0.0.1 -p <span class="m">8600</span> node1.node.consul
 
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>服务查找</strong>
-服务查找用于查询你服务提供者。</p>
+<p><strong>服务查找</strong>：服务查找用于查询你服务提供者。</p>
 <p>有两种查询方式：</p>
 <ul>
-<li>标准查询
-DNS查询系统利用健康检查信息来防止路由到不健康的节点。为了实现简单的负载均衡，每次返回的节点集都是随机的。</li>
+<li>标准查询：DNS查询系统利用健康检查信息来防止路由到不健康的节点。为了实现简单的负载均衡，每次返回的节点集都是随机的。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1137,17 +1183,17 @@ DNS查询系统利用健康检查信息来防止路由到不健康的节点。�
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[tag.]&lt;service&gt;.service[.datacenter].&lt;domain&gt;
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>tag.<span class="o">]</span>&lt;service&gt;.service<span class="o">[</span>.datacenter<span class="o">]</span>.&lt;domain&gt;
 
 redis.service.consul
 postgresql.service.dc2.consul
 
-dig @127.0.0.1 -p 8600 redis.service.consul SRV
+dig @127.0.0.1 -p <span class="m">8600</span> redis.service.consul SRV
 </code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>RFC 2782查询
-RFC 2782使用<code>_</code>下划线作为查询中服务和协议值的前缀，以防止DNS冲突。</li>
+</div><br/>
+<ul>
+<li>RFC 2782查询：RFC 2782使用<code>_</code>下划线作为查询中服务和协议值的前缀，以防止DNS冲突。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1156,39 +1202,35 @@ RFC 2782使用<code>_</code>下划线作为查询中服务和协议值的前缀�
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">_&lt;service&gt;._&lt;protocol&gt;[.service][.datacenter][.domain]
+<pre class="chroma"><code class="language-sh" data-lang="sh">_&lt;service&gt;._&lt;protocol&gt;<span class="o">[</span>.service<span class="o">][</span>.datacenter<span class="o">][</span>.domain<span class="o">]</span>
 
-dig @127.0.0.1 -p 8600 _rabbitmq._amqp.service.consul SRV
+dig @127.0.0.1 -p <span class="m">8600</span> _rabbitmq._amqp.service.consul SRV
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>Prepared Query Lookups</strong>
-The query or name is the ID or given name of an existing Prepared Query.</p>
+<p><strong>Prepared Query Lookups</strong>：The query or name is the ID or given name of an existing Prepared Query.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;query or name&gt;.query[.datacenter].&lt;domain&gt;
+<pre class="chroma"><code class="language-sh" data-lang="sh">&lt;query or name&gt;.query<span class="o">[</span>.datacenter<span class="o">]</span>.&lt;domain&gt;
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>可连接的服务查找</strong>
-Connect-Capable Service Lookups.</p>
+<p><strong>可连接的服务查找</strong>：Connect-Capable Service Lookups.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;service&gt;.connect.&lt;domain&gt;
+<pre class="chroma"><code class="language-sh" data-lang="sh">&lt;service&gt;.connect.&lt;domain&gt;
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>Caching</strong>
-默认情况下，Consul服务的所有DNS结果都会设置一个为0的TTL。这会禁用DNS结果的缓存。但，很多情况下，缓存对性能和伸缩性都是可取的。</p>
+<p><strong>Caching</strong>：默认情况下，Consul服务的所有DNS结果都会设置一个为0的TTL。这会禁用DNS结果的缓存。但，很多情况下，缓存对性能和伸缩性都是可取的。</p>
 <br>
-<p><strong>WAN地址转换</strong>
-默认情况下，Consul DNS查询将会返回一个节点的本地地址。如果你需要外部地址，则可使用<code>advertise-wan</code>和<code>translate_wan_addrs</code>选项来配置此行为。</p>
+<p><strong>WAN地址转换</strong>：默认情况下，Consul DNS查询将会返回一个节点的本地地址。如果你需要外部地址，则可使用<code>advertise-wan</code>和<code>translate_wan_addrs</code>选项来配置此行为。</p>
 <br/>
 <br/>
 <h2 id="配置">配置</h2>
@@ -1198,38 +1240,21 @@ Connect-Capable Service Lookups.</p>
 <li>环境变量</li>
 <li>配置文件</li>
 </ol>
-<p>配置文件可以是<strong>HCL</strong>或<strong>JSON</strong>格式。
-Consul可通过<code>reload</code>命令重新载入配置文件。</p>
+<p>配置文件可以是 <strong>HCL</strong> 或 <strong>JSON</strong> 格式。Consul可通过 <code>reload</code> 命令重新载入配置文件。</p>
 <br/>
 <br/>
 <h3 id="端口">端口</h3>
 <p>Consul默认使用的端口：</p>
 <ul>
-<li>
-<p>8300(tcp)
-Server RPC. Server用于处理来自其它Agent的传入请求。</p>
-</li>
-<li>
-<p>8301(tcp/udp)
-Serf LAN. 用于处理LAN中的gossip，所有Agent都需要。</p>
-</li>
-<li>
-<p>8302(tcp/udp)
-Serf WAN. Server用于处理WAN上gossip到其它Server。</p>
-</li>
-<li>
-<p>8500(tcp)
-HTTP API.</p>
-</li>
-<li>
-<p>8600(tcp/udp)
-DNS Interface.</p>
-</li>
+<li>8300(tcp)：Server RPC. Server用于处理来自其它Agent的传入请求。</li>
+<li>8301(tcp/udp)：Serf LAN. 用于处理LAN中的gossip，所有Agent都需要。</li>
+<li>8302(tcp/udp)：Serf WAN. Server用于处理WAN上gossip到其它Server。</li>
+<li>8500(tcp)：HTTP API.</li>
+<li>8600(tcp/udp)：DNS Interface.</li>
 </ul>
 <br/>
 <br/>
 <h3 id="可重新加载的配置">可重新加载的配置</h3>
-<p>Reloadable Configuration</p>
 <p>重新加载配置文件不会加载所有配置项，如下这些配置项是可重新载入的：</p>
 <ul>
 <li>log level</li>
@@ -1246,9 +1271,7 @@ DNS Interface.</p>
 <br/>
 <h3 id="配置文件">配置文件</h3>
 <p>配置文件不仅用于设置代理，还用于提供检查和服务定义。</p>
-<p>配置文件选项和命令行参数稍微有点不一样。
-使用<code>consul agent -h</code>查看具体配置项。</p>
-<p>栗子：</p>
+<p>配置文件选项和命令行参数稍微有点不一样。使用 <code>consul agent -h</code> 查看具体配置项。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1270,26 +1293,27 @@ DNS Interface.</p>
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#开始栗子
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#开始栗子</span>
 vim /etc/consul.d/single.json
 
 
-{
-&#34;bind_addr&#34;: &#34;192.168.1.11&#34;,
-&#34;bootstrap&#34;: true,
-&#34;client_addr&#34;: &#34;0.0.0.0&#34;,
-&#34;datacenter&#34;: &#34;zhang&#34;,
-&#34;data_dir&#34;: &#34;/var/lib/consul&#34;,
-&#34;log_level&#34;: &#34;WARN&#34;,
-&#34;node_name&#34;: &#34;zhang21&#34;,
-&#34;server&#34;: true,
-&#34;enable_syslog&#34;: true,
-&#34;ui&#34;: true
-}
+<span class="o">{</span>
+<span class="s2">&#34;bind_addr&#34;</span>: <span class="s2">&#34;192.168.1.11&#34;</span>,
+<span class="s2">&#34;bootstrap&#34;</span>: true,
+<span class="s2">&#34;client_addr&#34;</span>: <span class="s2">&#34;0.0.0.0&#34;</span>,
+<span class="s2">&#34;datacenter&#34;</span>: <span class="s2">&#34;zhang&#34;</span>,
+<span class="s2">&#34;data_dir&#34;</span>: <span class="s2">&#34;/var/lib/consul&#34;</span>,
+<span class="s2">&#34;log_level&#34;</span>: <span class="s2">&#34;WARN&#34;</span>,
+<span class="s2">&#34;node_name&#34;</span>: <span class="s2">&#34;zhang21&#34;</span>,
+<span class="s2">&#34;server&#34;</span>: true,
+<span class="s2">&#34;enable_syslog&#34;</span>: true,
+<span class="s2">&#34;ui&#34;</span>: <span class="nb">true</span>
+<span class="o">}</span>
 
 </code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><br/>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1317,30 +1341,30 @@ vim /etc/consul.d/single.json
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#集群配置
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#集群配置</span>
 vim /etc/consul.d/cluster.json
 
 
-{
-	&#34;bind_addr&#34;: &#34;xxx&#34;,
-	&#34;bootstrap_expect&#34;: 2,
-	&#34;client_addr&#34;: &#34;0.0.0.0&#34;,
-	&#34;datacenter&#34;: &#34;zhang&#34;,
-	&#34;data_dir&#34;: &#34;/var/lib/consul&#34;,
-	&#34;encrypt&#34;: &#34;a1b8vAA2==@xyz&#34;,
-	&#34;log_level&#34;: &#34;WARN&#34;,
-	&#34;node_name&#34;: &#34;zhang21&#34;,
-	&#34;node_id&#34;: &#34;zhang21&#34;,
-	&#34;server&#34;: true,
-	&#34;enable_syslog&#34;: true,
-	&#34;ui&#34;: true,
-	&#34;retry_interval&#34;: 20s,
-	&#34;retry_join&#34;: [
-		&#34;consul.domain.internal&#34;,
-		&#34;10.0.1.2:8301&#34;,
-		&#34;[::1]:8301&#34;
-	]
-}
+<span class="o">{</span>
+	<span class="s2">&#34;bind_addr&#34;</span>: <span class="s2">&#34;xxx&#34;</span>,
+	<span class="s2">&#34;bootstrap_expect&#34;</span>: 2,
+	<span class="s2">&#34;client_addr&#34;</span>: <span class="s2">&#34;0.0.0.0&#34;</span>,
+	<span class="s2">&#34;datacenter&#34;</span>: <span class="s2">&#34;zhang&#34;</span>,
+	<span class="s2">&#34;data_dir&#34;</span>: <span class="s2">&#34;/var/lib/consul&#34;</span>,
+	<span class="s2">&#34;encrypt&#34;</span>: <span class="s2">&#34;a1b8vAA2==@xyz&#34;</span>,
+	<span class="s2">&#34;log_level&#34;</span>: <span class="s2">&#34;WARN&#34;</span>,
+	<span class="s2">&#34;node_name&#34;</span>: <span class="s2">&#34;zhang21&#34;</span>,
+	<span class="s2">&#34;node_id&#34;</span>: <span class="s2">&#34;zhang21&#34;</span>,
+	<span class="s2">&#34;server&#34;</span>: true,
+	<span class="s2">&#34;enable_syslog&#34;</span>: true,
+	<span class="s2">&#34;ui&#34;</span>: true,
+	<span class="s2">&#34;retry_interval&#34;</span>: 20s,
+	<span class="s2">&#34;retry_join&#34;</span>: <span class="o">[</span>
+		<span class="s2">&#34;consul.domain.internal&#34;</span>,
+		<span class="s2">&#34;10.0.1.2:8301&#34;</span>,
+		<span class="s2">&#34;[::1]:8301&#34;</span>
+	<span class="o">]</span>
+<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
@@ -1348,35 +1372,35 @@ vim /etc/consul.d/cluster.json
 <h2 id="服务定义">服务定义</h2>
 <p>服务发现的主要目标之一是提供可用服务的目录(catalog)。为此，Agent提供了一种简单的服务定义格式来声明服务的可用性，并可能将其与健康检查相关联。如果健康检查与服务关联，则认为它是应用程序级别。</p>
 <br>
+<br>
 <h3 id="服务定义-1">服务定义</h3>
 <p>服务定义方式：</p>
 <ul>
 <li>配置文件(推荐)</li>
 <li>HTTP API</li>
 </ul>
+<br/>
 <p>一个服务定义包含的字段：</p>
 <ul>
 <li>name(必须)</li>
-<li>id(可选)</li>
+<li>id(可选)：id必须唯一，如果未设置id，默认使用name。</li>
 <li>tags(可选)</li>
 <li>address(可选)</li>
 <li>port(可选)</li>
 <li>check(可选)</li>
 <li>meta(可选)</li>
-<li><code>enable_tag_override</code>(可选)</li>
+<li>enable_tag_override(可选)</li>
 <li>token(可选)</li>
 </ul>
-<p>id必须唯一，如果未设置id，默认使用name。</p>
 <br>
-<p>服务可以关联健康检查，这是一个强大的功能。
-检查必须是脚本、HTTP、TCP或TTL类型。</p>
+<p>服务可以关联健康检查，这是一个强大的功能。检查必须是脚本、HTTP、TCP或TTL类型。</p>
 <ul>
-<li>脚本类型，必须提供参数和间隔</li>
-<li>HTTP类型，必须提供http和interval</li>
-<li>TCP类型，必须提供tcp和interval</li>
-<li>TTL类型，只能提供ttl</li>
+<li>脚本类型：必须提供参数和间隔</li>
+<li>HTTP类型：必须提供http和interval</li>
+<li>TCP类型：必须提供tcp和interval</li>
+<li>TTL类型：只能提供ttl</li>
 </ul>
-<p>检查名称自动生成为: <code>service:&lt;service-id&gt;</code>，如果有多个服务检查注册，生成的id为： <code>service:&lt;service:-id&gt;:&lt;num&gt;</code>，num是从1开始递增的数字。</p>
+<p>检查名称自动生成为 <code>service:&lt;service-id&gt;</code>，如果有多个服务检查注册，生成的id为： <code>service:&lt;service:-id&gt;:&lt;num&gt;</code>，num是从1开始递增的数字。</p>
 <br>
 <p>栗子：</p>
 <div class="highlight"><div class="chroma">
@@ -1406,35 +1430,33 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">23
 </span><span class="lnt">24
 </span><span class="lnt">25
-</span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vim /etc/consul.d/redis.json
+<pre class="chroma"><code class="language-sh" data-lang="sh">vim /etc/consul.d/redis.json
 
+<span class="o">{</span>
+    <span class="s2">&#34;service&#34;</span>: <span class="o">{</span>
+        <span class="s2">&#34;name&#34;</span>: <span class="s2">&#34;redis&#34;</span>,
+        <span class="s2">&#34;id&#34;</span>: <span class="s2">&#34;redis01&#34;</span>,
+        <span class="s2">&#34;tags&#34;</span>: <span class="o">[</span>
+            <span class="s2">&#34;master&#34;</span>
+        <span class="o">]</span>,
+        <span class="s2">&#34;address&#34;</span>: <span class="s2">&#34;127.0.0.1&#34;</span>,
+        <span class="s2">&#34;port&#34;</span>: 6379,
+        <span class="s2">&#34;meta&#34;</span>: <span class="o">{</span>
+            <span class="s2">&#34;meta&#34;</span>: <span class="s2">&#34;service definition for redis&#34;</span>
+        <span class="o">}</span>,
+        <span class="s2">&#34;enable_tag_override&#34;</span>: false,
 
-{
-    &#34;service&#34;: {
-        &#34;name&#34;: &#34;redis&#34;,
-        &#34;id&#34;: &#34;redis01&#34;,
-        &#34;tags&#34;: [
-            &#34;master&#34;
-        ],
-        &#34;address&#34;: &#34;127.0.0.1&#34;,
-        &#34;port&#34;: 6379,
-        &#34;meta&#34;: {
-            &#34;meta&#34;: &#34;service definition for redis&#34;
-        },
-        &#34;enable_tag_override&#34;: false,
-
-        &#34;check&#34;: {
-            &#34;id&#34;: &#34;redisTCP&#34;,
-            &#34;name&#34;: &#34;redis service check&#34;,
-            &#34;tcp&#34;: &#34;localhost:6379&#34;,
-            &#34;interval&#34;: &#34;10s&#34;,
-            &#34;timeout&#34;: &#34;1s&#34;
-        }
-    }
-}
+        <span class="s2">&#34;check&#34;</span>: <span class="o">{</span>
+            <span class="s2">&#34;id&#34;</span>: <span class="s2">&#34;redisTCP&#34;</span>,
+            <span class="s2">&#34;name&#34;</span>: <span class="s2">&#34;redis service check&#34;</span>,
+            <span class="s2">&#34;tcp&#34;</span>: <span class="s2">&#34;localhost:6379&#34;</span>,
+            <span class="s2">&#34;interval&#34;</span>: <span class="s2">&#34;10s&#34;</span>,
+            <span class="s2">&#34;timeout&#34;</span>: <span class="s2">&#34;1s&#34;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
@@ -1482,51 +1504,50 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;services&#34;: [
-    {
-      &#34;id&#34;: &#34;red0&#34;,
-      &#34;name&#34;: &#34;redis&#34;,
-      &#34;tags&#34;: [
-        &#34;primary&#34;
-      ],
-      &#34;address&#34;: &#34;&#34;,
-      &#34;port&#34;: 6000,
-      &#34;checks&#34;: [
-        {
-          &#34;args&#34;: [&#34;/bin/check_redis&#34;, &#34;-p&#34;, &#34;6000&#34;],
-          &#34;interval&#34;: &#34;5s&#34;,
-          &#34;ttl&#34;: &#34;20s&#34;
-        }
-      ]
-    },
-    {
-      &#34;id&#34;: &#34;red1&#34;,
-      &#34;name&#34;: &#34;redis&#34;,
-      &#34;tags&#34;: [
-        &#34;delayed&#34;,
-        &#34;secondary&#34;
-      ],
-      &#34;address&#34;: &#34;&#34;,
-      &#34;port&#34;: 7000,
-      &#34;checks&#34;: [
-        {
-          &#34;args&#34;: [&#34;/bin/check_redis&#34;, &#34;-p&#34;, &#34;7000&#34;],
-          &#34;interval&#34;: &#34;30s&#34;,
-          &#34;ttl&#34;: &#34;60s&#34;
-        }
-      ]
-    },
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">{</span>
+  <span class="s2">&#34;services&#34;</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">&#34;id&#34;</span>: <span class="s2">&#34;red0&#34;</span>,
+      <span class="s2">&#34;name&#34;</span>: <span class="s2">&#34;redis&#34;</span>,
+      <span class="s2">&#34;tags&#34;</span>: <span class="o">[</span>
+        <span class="s2">&#34;primary&#34;</span>
+      <span class="o">]</span>,
+      <span class="s2">&#34;address&#34;</span>: <span class="s2">&#34;&#34;</span>,
+      <span class="s2">&#34;port&#34;</span>: 6000,
+      <span class="s2">&#34;checks&#34;</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">&#34;args&#34;</span>: <span class="o">[</span><span class="s2">&#34;/bin/check_redis&#34;</span>, <span class="s2">&#34;-p&#34;</span>, <span class="s2">&#34;6000&#34;</span><span class="o">]</span>,
+          <span class="s2">&#34;interval&#34;</span>: <span class="s2">&#34;5s&#34;</span>,
+          <span class="s2">&#34;ttl&#34;</span>: <span class="s2">&#34;20s&#34;</span>
+        <span class="o">}</span>
+      <span class="o">]</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">&#34;id&#34;</span>: <span class="s2">&#34;red1&#34;</span>,
+      <span class="s2">&#34;name&#34;</span>: <span class="s2">&#34;redis&#34;</span>,
+      <span class="s2">&#34;tags&#34;</span>: <span class="o">[</span>
+        <span class="s2">&#34;delayed&#34;</span>,
+        <span class="s2">&#34;secondary&#34;</span>
+      <span class="o">]</span>,
+      <span class="s2">&#34;address&#34;</span>: <span class="s2">&#34;&#34;</span>,
+      <span class="s2">&#34;port&#34;</span>: 7000,
+      <span class="s2">&#34;checks&#34;</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">&#34;args&#34;</span>: <span class="o">[</span><span class="s2">&#34;/bin/check_redis&#34;</span>, <span class="s2">&#34;-p&#34;</span>, <span class="s2">&#34;7000&#34;</span><span class="o">]</span>,
+          <span class="s2">&#34;interval&#34;</span>: <span class="s2">&#34;30s&#34;</span>,
+          <span class="s2">&#34;ttl&#34;</span>: <span class="s2">&#34;60s&#34;</span>
+        <span class="o">}</span>
+      <span class="o">]</span>
+    <span class="o">}</span>,
     ...
-  ]
-}
+  <span class="o">]</span>
+<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
 <br/>
 <h2 id="检查定义">检查定义</h2>
-<p>Agent的主要角色便是管理系统级和应用级的健康检查。
-一个检查的定义有两种方式：</p>
+<p>Agent的主要角色便是管理系统级和应用级的健康检查。一个检查的定义有两种方式：</p>
 <ul>
 <li>配置文件</li>
 <li>HTTP API</li>
@@ -1542,8 +1563,9 @@ vim /etc/consul.d/cluster.json
 <li>gRPC + Interval</li>
 </ul>
 <br/>
+<br/>
 <h3 id="定义检查-1">定义检查</h3>
-<p>A script check:</p>
+<p>脚本检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1557,19 +1579,19 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;check&#34;: {
-    &#34;id&#34;: &#34;mem-util&#34;,
-    &#34;name&#34;: &#34;Memory utilization&#34;,
-    &#34;args&#34;: [&#34;/usr/local/bin/check_mem.py&#34;, &#34;-limit&#34;, &#34;256MB&#34;],
-    &#34;interval&#34;: &#34;10s&#34;,
-    &#34;timeout&#34;: &#34;1s&#34;
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;check&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;mem-util&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Memory utilization&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;/usr/local/bin/check_mem.py&#34;</span><span class="p">,</span> <span class="s2">&#34;-limit&#34;</span><span class="p">,</span> <span class="s2">&#34;256MB&#34;</span><span class="p">],</span>
+    <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;10s&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;timeout&#34;</span><span class="p">:</span> <span class="s2">&#34;1s&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p>A HTTP check:</p>
+<p>HTTP 检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1586,22 +1608,22 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;check&#34;: {
-    &#34;id&#34;: &#34;api&#34;,
-    &#34;name&#34;: &#34;HTTP API on port 5000&#34;,
-    &#34;http&#34;: &#34;https://localhost:5000/health&#34;,
-    &#34;tls_skip_verify&#34;: false,
-    &#34;method&#34;: &#34;POST&#34;,
-    &#34;header&#34;: {&#34;x-foo&#34;:[&#34;bar&#34;, &#34;baz&#34;]},
-    &#34;interval&#34;: &#34;10s&#34;,
-    &#34;timeout&#34;: &#34;1s&#34;
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;check&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;api&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;HTTP API on port 5000&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;http&#34;</span><span class="p">:</span> <span class="s2">&#34;https://localhost:5000/health&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;tls_skip_verify&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;header&#34;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&#34;x-foo&#34;</span><span class="p">:[</span><span class="s2">&#34;bar&#34;</span><span class="p">,</span> <span class="s2">&#34;baz&#34;</span><span class="p">]},</span>
+    <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;10s&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;timeout&#34;</span><span class="p">:</span> <span class="s2">&#34;1s&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p>A TCP check:</p>
+<p>TCP 检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1615,19 +1637,19 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;check&#34;: {
-    &#34;id&#34;: &#34;ssh&#34;,
-    &#34;name&#34;: &#34;SSH TCP on port 22&#34;,
-    &#34;tcp&#34;: &#34;localhost:22&#34;,
-    &#34;interval&#34;: &#34;10s&#34;,
-    &#34;timeout&#34;: &#34;1s&#34;
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;check&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;ssh&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;SSH TCP on port 22&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;tcp&#34;</span><span class="p">:</span> <span class="s2">&#34;localhost:22&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;10s&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;timeout&#34;</span><span class="p">:</span> <span class="s2">&#34;1s&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p>A TTL check:</p>
+<p>TTL 检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1640,18 +1662,18 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;check&#34;: {
-    &#34;id&#34;: &#34;web-app&#34;,
-    &#34;name&#34;: &#34;Web App Status&#34;,
-    &#34;notes&#34;: &#34;Web app does a curl internally every 10 seconds&#34;,
-    &#34;ttl&#34;: &#34;30s&#34;
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;check&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;web-app&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Web App Status&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;notes&#34;</span><span class="p">:</span> <span class="s2">&#34;Web app does a curl internally every 10 seconds&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;ttl&#34;</span><span class="p">:</span> <span class="s2">&#34;30s&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p>A Docker check:</p>
+<p>Docker 检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1666,20 +1688,20 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-&#34;check&#34;: {
-    &#34;id&#34;: &#34;mem-util&#34;,
-    &#34;name&#34;: &#34;Memory utilization&#34;,
-    &#34;docker_container_id&#34;: &#34;f972c95ebf0e&#34;,
-    &#34;shell&#34;: &#34;/bin/bash&#34;,
-    &#34;args&#34;: [&#34;/usr/local/bin/check_mem.py&#34;],
-    &#34;interval&#34;: &#34;10s&#34;
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<span class="nt">&#34;check&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;mem-util&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Memory utilization&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;docker_container_id&#34;</span><span class="p">:</span> <span class="s2">&#34;f972c95ebf0e&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;shell&#34;</span><span class="p">:</span> <span class="s2">&#34;/bin/bash&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;/usr/local/bin/check_mem.py&#34;</span><span class="p">],</span>
+    <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;10s&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p>A gRPC check:</p>
+<p>gRPC 检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1693,35 +1715,27 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-&#34;check&#34;: {
-    &#34;id&#34;: &#34;mem-util&#34;,
-    &#34;name&#34;: &#34;Service health status&#34;,
-    &#34;grpc&#34;: &#34;127.0.0.1:12345&#34;,
-    &#34;grpc_use_tls&#34;: true,
-    &#34;interval&#34;: &#34;10s&#34;
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<span class="nt">&#34;check&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;mem-util&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Service health status&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;grpc&#34;</span><span class="p">:</span> <span class="s2">&#34;127.0.0.1:12345&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;grpc_use_tls&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;10s&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
 <h3 id="检查脚本">检查脚本</h3>
-<p>使用<code>enable_script_checks</code>选项来启用脚本检查。</p>
+<p>使用 <code>enable_script_checks</code> 选项来启用脚本检查。</p>
 <p>检查脚本的退出码(exit code)必须遵循如下约定：</p>
 <ul>
-<li>
-<p>exit code o
-检查通过</p>
-</li>
-<li>
-<p>exit code 1
-检查警告</p>
-</li>
-<li>
-<p>any exit code
-检查失败</p>
-</li>
+<li>0：检查通过</li>
+<li>1：检查警告</li>
+<li>其他状态码：检查失败</li>
 </ul>
+<br/>
 <br/>
 <h3 id="初始化健康检查状态">初始化健康检查状态</h3>
 <p>在某些情况下，可能需要指定健康检查的初始状态。</p>
@@ -1737,20 +1751,21 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;check&#34;: {
-    &#34;id&#34;: &#34;mem&#34;,
-    &#34;args&#34;: [&#34;/bin/check_mem&#34;, &#34;-limit&#34;, &#34;256MB&#34;],
-    &#34;interval&#34;: &#34;10s&#34;,
-    &#34;status&#34;: &#34;passing&#34;
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;check&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;mem&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;/bin/check_mem&#34;</span><span class="p">,</span> <span class="s2">&#34;-limit&#34;</span><span class="p">,</span> <span class="s2">&#34;256MB&#34;</span><span class="p">],</span>
+    <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;10s&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;passing&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<br/>
 <h3 id="绑定服务检查">绑定服务检查</h3>
-<p>健康检查可以选择性地绑定到特定服务。这可以确保健康检查的状态只会影响给定服务的健康状态，而不会影响整个节点。
-服务绑定检查需要添加一个<code>service_id</code>字段：</p>
+<p>健康检查可以选择性地绑定到特定服务。这可以确保健康检查的状态只会影响给定服务的健康状态，而不会影响整个节点。</p>
+<p>服务绑定检查需要添加一个<code>service_id</code>字段：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1763,19 +1778,20 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;check&#34;: {
-    &#34;id&#34;: &#34;web-app&#34;,
-    &#34;name&#34;: &#34;Web App Status&#34;,
-    &#34;service_id&#34;: &#34;web-app&#34;,
-    &#34;ttl&#34;: &#34;30s&#34;
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;check&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;web-app&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Web App Status&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;service_id&#34;</span><span class="p">:</span> <span class="s2">&#34;web-app&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;ttl&#34;</span><span class="p">:</span> <span class="s2">&#34;30s&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<br/>
 <h3 id="定义多个检查">定义多个检查</h3>
-<p>使用<code>checks</code>来定义多个服务检查。</p>
+<p>使用 <code>checks</code> 来定义多个服务检查。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1803,43 +1819,43 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;checks&#34;: [
-    {
-      &#34;id&#34;: &#34;chk1&#34;,
-      &#34;name&#34;: &#34;mem&#34;,
-      &#34;args&#34;: [&#34;/bin/check_mem&#34;, &#34;-limit&#34;, &#34;256MB&#34;],
-      &#34;interval&#34;: &#34;5s&#34;
-    },
-    {
-      &#34;id&#34;: &#34;chk2&#34;,
-      &#34;name&#34;: &#34;/health&#34;,
-      &#34;http&#34;: &#34;http://localhost:5000/health&#34;,
-      &#34;interval&#34;: &#34;15s&#34;
-    },
-    {
-      &#34;id&#34;: &#34;chk3&#34;,
-      &#34;name&#34;: &#34;cpu&#34;,
-      &#34;script&#34;: &#34;/bin/check_cpu&#34;,
-      &#34;interval&#34;: &#34;10s&#34;
-    },
-    ...
-  ]
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;checks&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;chk1&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;mem&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;/bin/check_mem&#34;</span><span class="p">,</span> <span class="s2">&#34;-limit&#34;</span><span class="p">,</span> <span class="s2">&#34;256MB&#34;</span><span class="p">],</span>
+      <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;5s&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;chk2&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;/health&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;http&#34;</span><span class="p">:</span> <span class="s2">&#34;http://localhost:5000/health&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;15s&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;chk3&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;cpu&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;script&#34;</span><span class="p">:</span> <span class="s2">&#34;/bin/check_cpu&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;interval&#34;</span><span class="p">:</span> <span class="s2">&#34;10s&#34;</span>
+    <span class="p">},</span>
+    <span class="err">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
 <br/>
 <h2 id="加密">加密</h2>
-<p>Encryption</p>
 <p>Consul Agent支持加密所有流量。有两个独立的加密系统：</p>
 <ul>
 <li>gossip流量</li>
 <li>RPC</li>
 </ul>
 <br>
+<br>
 <h3 id="gossip加密">gossip加密</h3>
-<p>启用geossip加密只需要你在启动Consul Agent时设置加密密钥(encryption key)。密钥是16Bytes的Base64编码。</p>
+<p>启用geossip加密只需要你在启动Consul Agent时设置加密密钥(encryption key)。密钥是 16Byte 的 Base64编码。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1850,29 +1866,27 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul keygen
-FDGDpW55oCYJlh555Es1gA==
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul keygen
+<span class="nv">FDGDpW55oCYJlh555Es1gA</span><span class="o">==</span>
 
 
 vim /etc/consul.d/cluster.json
-
-{
-    &#34;encrypt&#34;: &#34;FDGDpW55oCYJlh555Es1gA==&#34;,
-}
+<span class="o">{</span>
+    <span class="s2">&#34;encrypt&#34;</span>: <span class="s2">&#34;FDGDpW55oCYJlh555Es1gA==&#34;</span>,
+<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>consul集群的所有节点必须共享相同的加密密钥！</p>
+<br>
 <br>
 <h3 id="rpc加密">RPC加密</h3>
 <p>Consul支持使用TLS来验证Server和Client之间的真实性。它们之间使用由证书机构颁发的密钥对，你可以自己生成CA。</p>
 <br/>
 <br/>
 <h2 id="telemetry">Telemetry</h2>
-<p>Consul Agent收集有关不同库和子系统的各种运行时指标。这些指标以10s为间隔进行汇总，并保留1min。
-查看这些数据，你需要向Consul进程发送信号：</p>
+<p>Consul Agent收集有关不同库和子系统的各种运行时指标。这些指标以10s为间隔进行汇总，并保留1min。查看这些数据，你需要向Consul进程发送信号：</p>
 <ul>
 <li>Unix: USR1</li>
 <li>Windows: BREAK</li>
@@ -1885,8 +1899,8 @@ vim /etc/consul.d/cluster.json
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#USR1 10
-kill -10 ${consul-pid}
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#USR1 10</span>
+<span class="nb">kill</span> -10 <span class="si">${</span><span class="nv">consul</span><span class="p">-pid</span><span class="si">}</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -1894,15 +1908,15 @@ kill -10 ${consul-pid}
 <br/>
 <br/>
 <h2 id="watches">Watches</h2>
-<p>watches是一种指定检测更新的数据视图的方式。检测到更新，将调用外部处理程序。
-watch使用HTTP API中的blocking query，Agent自动进行适当的API调用已检测更新，并在数据视图更新时通知处理程序。
-watch可以配置为Agent configuration的一部分，watch也可以在Agent之外启动。</p>
+<p>watches是一种指定检测更新的数据视图的方式。检测到更新，将调用外部处理程序。</p>
+<p>watch使用HTTP API中的blocking query，Agent自动进行适当的API调用已检测更新，并在数据视图更新时通知处理程序。</p>
+<p>watch可以配置为Agent configuration的一部分，watch也可以在Agent之外启动。</p>
+<br>
 <br>
 <h3 id="处理程序">处理程序</h3>
 <p>监测配置指定要监测的数据视图，更新视图后，将调用指定的处理程序(Handler)。外部程序可为可执行程序(executable)或HTTP endpoint。</p>
 <ul>
-<li><strong>可执行程序</strong>
-可执行处理程序从stdin读取json信息，此外<code>CONSUL_INDEX</code>环境变量将被设置为Consul Index写入stdout。</li>
+<li><strong>可执行程序</strong>：可执行处理程序从stdin读取json信息，此外<code>CONSUL_INDEX</code>环境变量将被设置为Consul Index写入stdout。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1913,23 +1927,21 @@ watch可以配置为Agent configuration的一部分，watch也可以在Agent之�
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;type&#34;: &#34;key&#34;,
-  &#34;key&#34;: &#34;foo/bar/baz&#34;,
-  &#34;handler_type&#34;: &#34;script&#34;,
-  &#34;args&#34;: [&#34;/usr/bin/my-service-handler.sh&#34;, &#34;-redis&#34;]
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;key&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;foo/bar/baz&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;handler_type&#34;</span><span class="p">:</span> <span class="s2">&#34;script&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;/usr/bin/my-service-handler.sh&#34;</span><span class="p">,</span> <span class="s2">&#34;-redis&#34;</span><span class="p">]</span>
+<span class="p">}</span>
 
-#在consul v1.0以后，args数组被添加，以便可在没有shell的情况下运行处理程序
 </code></pre></td></tr></table>
 </div>
-</div><br>
+</div><p>在consul v1.0以后，args数组被添加，以便可在没有shell的情况下运行处理程序</p>
+<br>
 <ul>
-<li><strong>HTTP endpoint</strong>
-当watch被调用时发送HTTP请求给HTTP处理程序。</li>
+<li><strong>HTTP endpoint</strong>：当watch被调用时发送HTTP请求给HTTP处理程序。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1947,21 +1959,22 @@ watch可以配置为Agent configuration的一部分，watch也可以在Agent之�
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;type&#34;: &#34;key&#34;,
-  &#34;key&#34;: &#34;foo/bar/baz&#34;,
-  &#34;handler_type&#34;: &#34;http&#34;,
-  &#34;http_handler_config&#34;: {
-    &#34;path&#34;:&#34;https://localhost:8000/watch&#34;,
-    &#34;method&#34;: &#34;POST&#34;,
-    &#34;header&#34;: {&#34;x-foo&#34;:[&#34;bar&#34;, &#34;baz&#34;]},
-    &#34;timeout&#34;: &#34;10s&#34;,
-    &#34;tls_skip_verify&#34;: false
-  }
-}
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;key&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;foo/bar/baz&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;handler_type&#34;</span><span class="p">:</span> <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;http_handler_config&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;path&#34;</span><span class="p">:</span><span class="s2">&#34;https://localhost:8000/watch&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;header&#34;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&#34;x-foo&#34;</span><span class="p">:[</span><span class="s2">&#34;bar&#34;</span><span class="p">,</span> <span class="s2">&#34;baz&#34;</span><span class="p">]},</span>
+    <span class="nt">&#34;timeout&#34;</span><span class="p">:</span> <span class="s2">&#34;10s&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;tls_skip_verify&#34;</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<br/>
 <h3 id="全局参数">全局参数</h3>
 <p>Global Parameters</p>
 <ul>
@@ -1970,6 +1983,7 @@ watch可以配置为Agent configuration的一部分，watch也可以在Agent之�
 <li>args</li>
 <li>handler</li>
 </ul>
+<br/>
 <br/>
 <h3 id="watch类型">Watch类型</h3>
 <ul>
@@ -1990,7 +2004,7 @@ watch可以配置为Agent configuration的一部分，watch也可以在Agent之�
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul watch -type service -service redis
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul watch -type service -service redis
 
 consul watch -type checks -service redis
 </code></pre></td></tr></table>
@@ -2063,172 +2077,97 @@ consul watch -type checks -service redis
 </span><span class="lnt">63
 </span><span class="lnt">64
 </span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#key
-{
-  &#34;type&#34;: &#34;key&#34;,
-  &#34;key&#34;: &#34;foo/bar/baz&#34;,
-  &#34;args&#34;: [&#34;/usr/bin/my-service-handler.sh&#34;, &#34;-redis&#34;]
-}
-#or
-consul watch -type=key -key=foo/bar/baz /usr/bin/my-key-handler.sh
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#key</span>
+<span class="o">{</span>
+  <span class="s2">&#34;type&#34;</span>: <span class="s2">&#34;key&#34;</span>,
+  <span class="s2">&#34;key&#34;</span>: <span class="s2">&#34;foo/bar/baz&#34;</span>,
+  <span class="s2">&#34;args&#34;</span>: <span class="o">[</span><span class="s2">&#34;/usr/bin/my-service-handler.sh&#34;</span>, <span class="s2">&#34;-redis&#34;</span><span class="o">]</span>
+<span class="o">}</span>
+<span class="c1">#or</span>
+consul watch -type<span class="o">=</span>key -key<span class="o">=</span>foo/bar/baz /usr/bin/my-key-handler.sh
 
+<span class="c1">#keyprefix</span>
+<span class="o">{</span>
+  <span class="s2">&#34;type&#34;</span>: <span class="s2">&#34;keyprefix&#34;</span>,
+  <span class="s2">&#34;prefix&#34;</span>: <span class="s2">&#34;foo/&#34;</span>,
+  <span class="s2">&#34;args&#34;</span>: <span class="o">[</span><span class="s2">&#34;/usr/bin/my-service-handler.sh&#34;</span>, <span class="s2">&#34;-redis&#34;</span><span class="o">]</span>
+<span class="o">}</span>
+<span class="c1">#or</span>
+consul watch -type<span class="o">=</span>keyprefix -prefix<span class="o">=</span>foo/ /usr/bin/my-prefix-handler.sh
 
+<span class="c1">#services</span>
+<span class="o">{</span>
+  <span class="s2">&#34;redis&#34;</span>: <span class="o">[]</span>
+<span class="o">}</span>
 
-#keyprefix
-{
-  &#34;type&#34;: &#34;keyprefix&#34;,
-  &#34;prefix&#34;: &#34;foo/&#34;,
-  &#34;args&#34;: [&#34;/usr/bin/my-service-handler.sh&#34;, &#34;-redis&#34;]
-}
-#or
-consul watch -type=keyprefix -prefix=foo/ /usr/bin/my-prefix-handler.sh
+<span class="c1">#nodes</span>
+<span class="o">[</span>
+  <span class="o">{</span>
+    <span class="s2">&#34;Node&#34;</span>: <span class="s2">&#34;node1&#34;</span>,
+	<span class="s2">&#34;Address&#34;</span>: <span class="s2">&#34;192.168.1.11&#34;</span>
+  <span class="o">}</span>,
+  <span class="o">{</span>
+    <span class="s2">&#34;Node&#34;</span>: <span class="s2">&#34;node2&#34;</span>,
+	<span class="s2">&#34;Address&#34;</span>: <span class="s2">&#34;xxx&#34;</span>
+  <span class="o">}</span>
+<span class="o">]</span>
 
+<span class="c1">#service</span>
+<span class="o">{</span>
+  <span class="s2">&#34;type&#34;</span>: <span class="s2">&#34;service&#34;</span>,
+  <span class="s2">&#34;service&#34;</span>: <span class="s2">&#34;redis&#34;</span>,
+  <span class="s2">&#34;args&#34;</span>: <span class="o">[</span><span class="s2">&#34;/usr/bin/my-service-handler.sh&#34;</span>, <span class="s2">&#34;-redis&#34;</span><span class="o">]</span>
+<span class="o">}</span>
 
+<span class="c1">#check</span>
+<span class="o">[</span>
+  <span class="o">{</span>
+    <span class="s2">&#34;Node&#34;</span>: <span class="s2">&#34;foobar&#34;</span>,
+    <span class="s2">&#34;CheckID&#34;</span>: <span class="s2">&#34;service:redis&#34;</span>,
+    <span class="s2">&#34;Name&#34;</span>: <span class="s2">&#34;Service &#39;redis&#39; check&#34;</span>,
+    <span class="s2">&#34;Status&#34;</span>: <span class="s2">&#34;passing&#34;</span>,
+    <span class="s2">&#34;Notes&#34;</span>: <span class="s2">&#34;&#34;</span>,
+    <span class="s2">&#34;Output&#34;</span>: <span class="s2">&#34;&#34;</span>,
+    <span class="s2">&#34;ServiceID&#34;</span>: <span class="s2">&#34;redis&#34;</span>,
+    <span class="s2">&#34;ServiceName&#34;</span>: <span class="s2">&#34;redis&#34;</span>
+  <span class="o">}</span>
+<span class="o">]</span>
 
-#services
-{
-  &#34;redis&#34;: []
-}
+<span class="c1">#event</span>
+<span class="o">{</span>
+  <span class="s2">&#34;type&#34;</span>: <span class="s2">&#34;event&#34;</span>,
+  <span class="s2">&#34;name&#34;</span>: <span class="s2">&#34;web-deploy&#34;</span>,
+  <span class="s2">&#34;args&#34;</span>: <span class="o">[</span><span class="s2">&#34;/usr/bin/my-service-handler.sh&#34;</span>, <span class="s2">&#34;-web-deploy&#34;</span><span class="o">]</span>
+<span class="o">}</span>
 
-
-
-
-#nodes
-[
-  {
-    &#34;Node&#34;: &#34;node1&#34;,
-	&#34;Address&#34;: &#34;192.168.1.11&#34;
-  },
-  {
-    &#34;Node&#34;: &#34;node2&#34;,
-	&#34;Address&#34;: &#34;xxx&#34;
-  }
-]
-
-
-
-#service
-{
-  &#34;type&#34;: &#34;service&#34;,
-  &#34;service&#34;: &#34;redis&#34;,
-  &#34;args&#34;: [&#34;/usr/bin/my-service-handler.sh&#34;, &#34;-redis&#34;]
-}
-
-
-
-#check
-[
-  {
-    &#34;Node&#34;: &#34;foobar&#34;,
-    &#34;CheckID&#34;: &#34;service:redis&#34;,
-    &#34;Name&#34;: &#34;Service &#39;redis&#39; check&#34;,
-    &#34;Status&#34;: &#34;passing&#34;,
-    &#34;Notes&#34;: &#34;&#34;,
-    &#34;Output&#34;: &#34;&#34;,
-    &#34;ServiceID&#34;: &#34;redis&#34;,
-    &#34;ServiceName&#34;: &#34;redis&#34;
-  }
-]
-
-
-
-#event
-{
-  &#34;type&#34;: &#34;event&#34;,
-  &#34;name&#34;: &#34;web-deploy&#34;,
-  &#34;args&#34;: [&#34;/usr/bin/my-service-handler.sh&#34;, &#34;-web-deploy&#34;]
-}
-#or
-consul watch -type=event -name=web-deploy /usr/bin/my-deploy-handler.sh -web-deploy
+<span class="c1">#or</span>
+consul watch -type<span class="o">=</span>event -name<span class="o">=</span>web-deploy /usr/bin/my-deploy-handler.sh -web-deploy
 </code></pre></td></tr></table>
 </div>
 </div><br/>
-<br/>
 <hr>
 <br/>
 <h1 id="指南">指南</h1>
-<p>Consul Guide</p>
 <p>本节提供了Consul各种常见的操作指南。</p>
-<p>如下：</p>
 <ul>
-<li>
-<p><strong>ACLs</strong>
-Consul访问控制列表，该功能用于控制对资源的访问。</p>
-</li>
-<li>
-<p><strong>Adding/Removing Servers</strong>
-从集群中安全地添加和删除Consul Server，这应该小心操作。</p>
-</li>
-<li>
-<p><strong>Autopilot</strong>
-为Consul Server提供自动友好操作的管理。</p>
-</li>
-<li>
-<p><strong>Bootstrapping</strong>
-引导新的数据中心，包括安全地添加初始化Consul Server。</p>
-</li>
-<li>
-<p><strong>Consul with Container</strong>
-在容器内运行Consul Cluster。</p>
-</li>
-<li>
-<p><strong>DNS Caching</strong>
-为DNS查询缓存启用TTLS</p>
-</li>
-<li>
-<p><strong>DNS Forwarding</strong>
-从BIND转发DNS查询到Consul</p>
-</li>
-<li>
-<p><strong>External Services</strong>
-注册外部服务。允许在Consul框架内使用第三方服务。</p>
-</li>
-<li>
-<p><strong>Federation</strong>
-配置Consul以支持多个数据中心。</p>
-</li>
-<li>
-<p><strong>Geo Failover</strong>
-用准备好的查询来实现服务的地理故障转移。</p>
-</li>
-<li>
-<p><strong>Leader Election</strong>
-使用Consul构建Client端的领导选举。</p>
-</li>
-<li>
-<p><strong>Network Segments</strong>
-配置Consul使用网段-支持部分LAN连接。</p>
-</li>
-<li>
-<p><strong>Outage Recovery</strong>
-恢复因Server故障而无法使用的集群。</p>
-</li>
-<li>
-<p><strong>Semaphore</strong>
-使用KV存储实现一个信号量</p>
-</li>
-<li>
-<p><strong>Sentinel</strong>
-使用哨兵模式在Consul中执行策略。</p>
-</li>
-<li>
-<p><strong>Server Performance</strong>
-Consul Server的最低要求以及生产环境中运行Consul Server的指南。</p>
-</li>
+<li><strong>ACLs</strong>：Consul访问控制列表，该功能用于控制对资源的访问。</li>
+<li><strong>Adding/Removing Servers</strong>：从集群中安全地添加和删除Consul Server，这应该小心操作。</li>
+<li><strong>Autopilot</strong>：为Consul Server提供自动友好操作的管理。</li>
+<li><strong>Bootstrapping</strong>：引导新的数据中心，包括安全地添加初始化Consul Server。</li>
+<li><strong>Consul with Container</strong>：在容器内运行Consul Cluster。</li>
+<li><strong>DNS Caching</strong>：为DNS查询缓存启用TTLS</li>
+<li><strong>DNS Forwarding</strong>：从BIND转发DNS查询到Consul</li>
+<li><strong>External Services</strong>：注册外部服务。允许在Consul框架内使用第三方服务。</li>
+<li><strong>Federation</strong>：配置Consul以支持多个数据中心。</li>
+<li><strong>Geo Failover</strong>：用准备好的查询来实现服务的地理故障转移。</li>
+<li><strong>Leader Election</strong>：使用Consul构建Client端的领导选举。</li>
+<li><strong>Network Segments</strong>：配置Consul使用网段-支持部分LAN连接。</li>
+<li><strong>Outage Recovery</strong>：恢复因Server故障而无法使用的集群。</li>
+<li><strong>Semaphore</strong>：使用KV存储实现一个信号量</li>
+<li><strong>Sentinel</strong>：使用哨兵模式在Consul中执行策略。</li>
+<li><strong>Server Performance</strong>：Consul Server的最低要求以及生产环境中运行Consul Server的指南。</li>
 </ul>
 <br/>
 <br/>
@@ -2236,10 +2175,11 @@ Consul Server的最低要求以及生产环境中运行Consul Server的指南。
 <p>Consul提供可选的访问控制列表系统，用于控制对数据和API的访问。它依赖于规则的token.</p>
 <p>访问控制列表旨在提供易于使用，快速执行和灵活的新策略。</p>
 <br/>
+<br/>
 <h3 id="概述">概述</h3>
-<p><strong>ACL Tokens</strong>
-访问控制列表系统基于token(令牌)，由Consul操作者通过 Consul ACL API进行管理。
-如果没有提供token，则会自动关联与特殊的可配置匿名令牌(anonymous token)的规则。</p>
+<p><strong>ACL Tokens</strong>：访问控制列表系统基于token(令牌)，由Consul操作者通过 Consul ACL API进行管理。</p>
+<p>如果没有提供token，则会自动关联与特殊的可配置匿名令牌(anonymous token)的规则。</p>
+<br/>
 <p>每个token具有：</p>
 <ul>
 <li>ID</li>
@@ -2253,47 +2193,20 @@ Consul Server的最低要求以及生产环境中运行Consul Server的指南。
 <li>rule set(规则集)</li>
 </ul>
 <br>
-<p><strong>ACL Rules and Scope</strong>
-token绑定到一组规则，用于控制令牌可以访问的Consul资源。可在白名单(whitelist)/黑名单(blacklist)下定义策略，这取决于默认策略<code>acl_default_policy</code>的值。</p>
+<p><strong>ACL Rules and Scope</strong>：token绑定到一组规则，用于控制令牌可以访问的Consul资源。可在白名单(whitelist)/黑名单(blacklist)下定义策略，这取决于默认策略<code>acl_default_policy</code>的值。</p>
 <p>构建规则的ACL策略：</p>
 <ul>
-<li>
-<p>agent
-用于Agent API</p>
-</li>
-<li>
-<p>event
-用于Event API</p>
-</li>
-<li>
-<p>key
-用于KV Store API</p>
-</li>
-<li>
-<p>keyring
-用于Keyring API</p>
-</li>
-<li>
-<p>node
-用于Catalog API, Health API, Prepare Query API, Network Coordinate API， Agent API</p>
-</li>
-<li>
-<p>operator
-用于Operator API</p>
-</li>
-<li>
-<p>query
-用于Prepared Query API</p>
-</li>
-<li>
-<p>service
-Catalog API, Health API, Prepared Query API, Agent API</p>
-</li>
-<li>
-<p>session
-用于Session API</p>
-</li>
+<li>agent：用于Agent API</li>
+<li>event：用于Event API</li>
+<li>key：用于KV Store API</li>
+<li>keyring：用于Keyring API</li>
+<li>node：用于Catalog API, Health API, Prepare Query API, Network Coordinate API， Agent API</li>
+<li>operator：用于Operator API</li>
+<li>query：用于Prepared Query API</li>
+<li>service：Catalog API, Health API, Prepared Query API, Agent API</li>
+<li>session：用于Session API</li>
 </ul>
+<br/>
 <p>由于Consul snapshots实际上包含ACL token，因此Snapshot API需要一个管理token进行快照操作。</p>
 <p>ACL策略不包括如下资源：</p>
 <ul>
@@ -2301,8 +2214,7 @@ Catalog API, Health API, Prepared Query API, Agent API</p>
 <li>Catalog API</li>
 </ul>
 <br>
-<p><strong>ACL Datacenter</strong>
-必须使用<code>acl_datacenter</code>配置所有节点(client/server)来启用ACL强制实施，但同时也是权威数据中心。Consul依靠RPC转发来支持多数据中心(multi-datacenter)。但是，由于可以跨数据中心边界发出请求，因此ACL令牌必须在全局范围内有效。为避免一致性问题，单个数据中心被视为具有权威性，并存储规范的令牌集。</p>
+<p><strong>ACL Datacenter</strong>：必须使用<code>acl_datacenter</code>配置所有节点(client/server)来启用ACL强制实施，但同时也是权威数据中心。Consul依靠RPC转发来支持多数据中心(multi-datacenter)。但是，由于可以跨数据中心边界发出请求，因此ACL令牌必须在全局范围内有效。为避免一致性问题，单个数据中心被视为具有权威性，并存储规范的令牌集。</p>
 <br/>
 <br/>
 <h3 id="配置acls">配置ACLs</h3>
@@ -2382,8 +2294,7 @@ Catalog API, Health API, Prepared Query API, Agent API</p>
 </tbody>
 </table>
 <br>
-<p><strong>ACL Agent Master Token</strong>
-由于<code>acl_agent_master_token</code>旨在Consul Server不可用时使用，因此其策略在Agent本地管理，并且不需要通过ACL API在Consul Server上定义token。</p>
+<p><strong>ACL Agent Master Token</strong>：由于<code>acl_agent_master_token</code>旨在Consul Server不可用时使用，因此其策略在Agent本地管理，并且不需要通过ACL API在Consul Server上定义token。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2403,8 +2314,7 @@ node &#34;&#34; {
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>ACL Agent Token</strong>
-<code>acl_agent_token</code>是一个特殊令牌，用于Agent的内部操作。用于Agent的如下操作：</p>
+<p><strong>ACL Agent Token</strong>：<code>acl_agent_token</code>是一个特殊令牌，用于Agent的内部操作。用于Agent的如下操作：</p>
 <ul>
 <li>使用Catalog API更新Agent的节点条目</li>
 <li>执行反熵同步</li>
@@ -2438,10 +2348,8 @@ key &#34;_rexec&#34; {
 <br/>
 <br/>
 <h3 id="引导acls">引导ACLs</h3>
-<p>Bootstrapping ACLs</p>
 <p>在新集群上引导ACLs需要几个步骤：</p>
-<p><strong>Enable ACLs on the Consul Servers</strong>
-引导ACLs的第一步便是在ACL数据中心的Consul Server上启用ACLs，配置如下：</p>
+<p><strong>Enable ACLs on the Consul Servers</strong>：引导ACLs的第一步便是在ACL数据中心的Consul Server上启用ACLs，配置如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2463,8 +2371,7 @@ key &#34;_rexec&#34; {
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>Create an Agent Token</strong>
-使用ACL API和上一步中设置的ACL Master Token创建令牌：</p>
+<p><strong>Create an Agent Token</strong>：使用ACL API和上一步中设置的ACL Master Token创建令牌：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -2477,23 +2384,22 @@ key &#34;_rexec&#34; {
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
-</span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl --request PUT --header &#34;X-Consul-Token: 123abc!@#&#34; --data \
-&#39;{
-   &#34;Name&#34;: &#34;Agent Token&#34;,
-   &#34;Type&#34;: &#34;client&#34;,
-   &#34;Rules&#34;: &#34;node \&#34;\&#34; { policy = \&#34;write\&#34;} service \&#34;\&#34; { policy = \&#34;read\&#34; }&#34;
-}&#39; http://127.0.0.1:8500/v1/acl/create
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl --request PUT --header <span class="s2">&#34;X-Consul-Token: 123abc!@#&#34;</span> --data <span class="se">\
+</span><span class="se"></span><span class="s1">&#39;{
+</span><span class="s1">   &#34;Name&#34;: &#34;Agent Token&#34;,
+</span><span class="s1">   &#34;Type&#34;: &#34;client&#34;,
+</span><span class="s1">   &#34;Rules&#34;: &#34;node \&#34;\&#34; { policy = \&#34;write\&#34;} service \&#34;\&#34; { policy = \&#34;read\&#34; }&#34;
+</span><span class="s1">}&#39;</span> http://127.0.0.1:8500/v1/acl/create
 
 
-
-返回的值便是新创建的token
-{&#34;ID&#34;: &#34;xxxxxxxxxxxxxx&#34;}
+<span class="c1"># 返回的值便是新创建的token</span>
+<span class="o">{</span><span class="s2">&#34;ID&#34;</span>: <span class="s2">&#34;xxxxxxxxxxxxxx&#34;</span><span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>返回的值便是新创建的token。将这个值添加到Consul Server配置中，并重启Server：</p>
+</div><br/>
+<p>返回的值便是新创建的token。将这个值添加到Consul Server配置中，并重启Server：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2516,7 +2422,8 @@ key &#34;_rexec&#34; {
 }
 </code></pre></td></tr></table>
 </div>
-</div><p>或使用API导入token：</p>
+</div><br/>
+<p>或使用API导入token：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2525,15 +2432,14 @@ key &#34;_rexec&#34; {
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl --request PUT --header &#34;X-Consul-Token: 123abc!@#&#34; --data \
-&#39;{
-   &#34;Token&#34;: &#34;xxxxxxxxxxxxx&#34;
-}&#39; http://127.0.0.1:8500/v1/agent/token/acl_agent_token
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl --request PUT --header <span class="s2">&#34;X-Consul-Token: 123abc!@#&#34;</span> --data <span class="se">\
+</span><span class="se"></span><span class="s1">&#39;{
+</span><span class="s1">   &#34;Token&#34;: &#34;xxxxxxxxxxxxx&#34;
+</span><span class="s1">}&#39;</span> http://127.0.0.1:8500/v1/agent/token/acl_agent_token
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>Enable ACLs on the Consul Clients</strong>
-还需再Agent上配置ACL</p>
+<p><strong>Enable ACLs on the Consul Clients</strong>：还需再Agent上配置ACL</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -2551,7 +2457,6 @@ key &#34;_rexec&#34; {
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
-</span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">{
@@ -2559,7 +2464,6 @@ key &#34;_rexec&#34; {
   &#34;acl_down_policy&#34;: &#34;extend-cache&#34;,
   &#34;acl_agent_token&#34;: &#34;前面的acl_agent_token&#34;
 }
-
 
 
 #或使用API
@@ -2574,9 +2478,7 @@ curl \
 </div>
 </div><p>使用由Server创建的相同ACL Agent token，因为它不是特定于任何节点或前缀集。建议每个Client获取一个ACL agent token，该令牌具有对自己的节点名称前缀的节点有写入权限，以及针对预期在该Client上注册的服务前缀的读权限。</p>
 <br>
-<p><strong>Set an Anonymous Policy (Optional)</strong>
-此时，ACL已通过配置的ACL agent token进行引导，但还没有配置其它策略。
-甚至像<code>consul members</code>这样的基本操作也会受到ACL默认策略<code>deny</code>的限制。</p>
+<p><strong>Set an Anonymous Policy (Optional)</strong>：此时，ACL已通过配置的ACL agent token进行引导，但还没有配置其它策略。甚至像<code>consul members</code>这样的基本操作也会受到ACL默认策略<code>deny</code>的限制。</p>
 <p>如果我们提供上面的Token，则能够看到具体信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2586,7 +2488,8 @@ curl \
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">CONSUL_HTTP_TOKEN=xxxxxxxx consul members
 </code></pre></td></tr></table>
 </div>
-</div><p>匿名令牌：</p>
+</div><br/>
+<p>匿名令牌：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -2601,19 +2504,20 @@ curl \
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl \
-    --request PUT \
-    --header &#34;X-Consul-Token: 123abc!@#&#34; \
-    --data \
-&#39;{
-  &#34;ID&#34;: &#34;anonymous&#34;,
-  &#34;Type&#34;: &#34;client&#34;,
-  &#34;Rules&#34;: &#34;node \&#34;\&#34; { policy = \&#34;read\&#34; }&#34;
-}&#39; http://127.0.0.1:8500/v1/acl/update
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl <span class="se">\
+</span><span class="se"></span>    --request PUT <span class="se">\
+</span><span class="se"></span>    --header <span class="s2">&#34;X-Consul-Token: 123abc!@#&#34;</span> <span class="se">\
+</span><span class="se"></span>    --data <span class="se">\
+</span><span class="se"></span><span class="s1">&#39;{
+</span><span class="s1">  &#34;ID&#34;: &#34;anonymous&#34;,
+</span><span class="s1">  &#34;Type&#34;: &#34;client&#34;,
+</span><span class="s1">  &#34;Rules&#34;: &#34;node \&#34;\&#34; { policy = \&#34;read\&#34; }&#34;
+</span><span class="s1">}&#39;</span> http://127.0.0.1:8500/v1/acl/update
 
 </code></pre></td></tr></table>
 </div>
-</div><p>某个服务：</p>
+</div><br/>
+<p>某个服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2627,23 +2531,21 @@ curl \
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl \
-    --request PUT \
-    --header &#34;X-Consul-Token: 123abc!@#&#34; \
-    --data \
-&#39;{
-  &#34;ID&#34;: &#34;anonymous&#34;,
-  &#34;Type&#34;: &#34;client&#34;,
-  &#34;Rules&#34;: &#34;node \&#34;\&#34; { policy = \&#34;read\&#34; } service \&#34;consul\&#34; { policy = \&#34;read\&#34; }&#34;
-}&#39; http://127.0.0.1:8500/v1/acl/update
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl <span class="se">\
+</span><span class="se"></span>    --request PUT <span class="se">\
+</span><span class="se"></span>    --header <span class="s2">&#34;X-Consul-Token: 123abc!@#&#34;</span> <span class="se">\
+</span><span class="se"></span>    --data <span class="se">\
+</span><span class="se"></span><span class="s1">&#39;{
+</span><span class="s1">  &#34;ID&#34;: &#34;anonymous&#34;,
+</span><span class="s1">  &#34;Type&#34;: &#34;client&#34;,
+</span><span class="s1">  &#34;Rules&#34;: &#34;node \&#34;\&#34; { policy = \&#34;read\&#34; } service \&#34;consul\&#34; { policy = \&#34;read\&#34; }&#34;
+</span><span class="s1">}&#39;</span> http://127.0.0.1:8500/v1/acl/update
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>Set Agent-Specific Default Tokens (Optional)</strong>
-匿名令牌的替代方法是<code>acl_token</code>配置项。</p>
+<p><strong>Set Agent-Specific Default Tokens (Optional)</strong>：匿名令牌的替代方法是<code>acl_token</code>配置项。</p>
 <br>
-<p><strong>Create Tokens for UI Use (Optional)</strong>
-如果你使用具有限制性ACL策略的Consul UI，UI将无法使用匿名ACL令牌完整运行。
+<p><strong>Create Tokens for UI Use (Optional)</strong>：如果你使用具有限制性ACL策略的Consul UI，UI将无法使用匿名ACL令牌完整运行。
 建议使用特定于UI的ACL令牌，可以在Web浏览器绘画期间在UI中设置该令牌对进口进行认证。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2658,15 +2560,15 @@ curl \
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl \
-    --request PUT \
-    --header &#34;X-Consul-Token: 123abc!@#&#34; \
-    --data \
-&#39;{
-  &#34;Name&#34;: &#34;UI Token&#34;,
-  &#34;Type&#34;: &#34;client&#34;,
-  &#34;Rules&#34;: &#34;key \&#34;\&#34; { policy = \&#34;write\&#34; } node \&#34;\&#34; { policy = \&#34;read\&#34; } service \&#34;\&#34; { policy = \&#34;read\&#34; }&#34;
-}&#39; http://127.0.0.1:8500/v1/acl/create
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl <span class="se">\
+</span><span class="se"></span>    --request PUT <span class="se">\
+</span><span class="se"></span>    --header <span class="s2">&#34;X-Consul-Token: 123abc!@#&#34;</span> <span class="se">\
+</span><span class="se"></span>    --data <span class="se">\
+</span><span class="se"></span><span class="s1">&#39;{
+</span><span class="s1">  &#34;Name&#34;: &#34;UI Token&#34;,
+</span><span class="s1">  &#34;Type&#34;: &#34;client&#34;,
+</span><span class="s1">  &#34;Rules&#34;: &#34;key \&#34;\&#34; { policy = \&#34;write\&#34; } node \&#34;\&#34; { policy = \&#34;read\&#34; } service \&#34;\&#34; { policy = \&#34;read\&#34; }&#34;
+</span><span class="s1">}&#39;</span> http://127.0.0.1:8500/v1/acl/create
 </code></pre></td></tr></table>
 </div>
 </div><br/>
@@ -2897,27 +2799,29 @@ query &#34;foo&#34; {
 </div><br/>
 <br/>
 <h2 id="引导数据中心">引导数据中心</h2>
-<p>Bootstrapping a Datacenter</p>
 <p>在Consul集群可以开始为请求提供服务之前，必须选在Server节点作为leader。Bootstrapping是将这些初始Server节点加入集群的过程。</p>
-<p>建议的引导方式是使用<code>-bootstrap-expect</code>配置项。此配置项告知Consul预期的Server节点数，并在有许多Server可用时自动引导。为了防止不一致和脑裂情况(多个Server认为自己是leader)，所有Server应该指定相同的<code>-bootstrap-expect</code>，或根本不指定任何值。只有指定值的Server才会尝试引导集群。为了防止脑裂情况，Server不会选举自己作为leader。</p>
+<p>建议的引导方式是使用 <code>-bootstrap-expect</code> 配置项。此配置项告知Consul预期的Server节点数，并在有许多Server可用时自动引导。为了防止不一致和脑裂情况(多个Server认为自己是leader)，所有Server应该指定相同的 <code>-bootstrap-expect</code>，或根本不指定任何值。只有指定值的Server才会尝试引导集群。为了防止脑裂情况，Server不会选举自己作为leader。</p>
 <p>推荐每个数据中心使用3或5台Server。不建议使用单个服务器部署数据中心。</p>
-<p>加入一个集群:</p>
+<br/>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#On NodeB
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 加入一个集群:</span>
+<span class="c1">#On NodeB</span>
 consul join NodeA
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<br/>
 <h3 id="创建集群">创建集群</h3>
 <p>要触发选举leader，必须将这些机器连接在一起并创建一个集群。</p>
 <ul>
-<li>使用<code>-join</code>和<code>start_join</code>选项手动指定机器列表</li>
-<li>使用<code>-retry-join</code>选项手动指定机器列表</li>
+<li>使用 <code>-join</code> 和 <code>start_join</code> 选项手动指定机器列表</li>
+<li>使用 <code>-retry-join</code> 选项手动指定机器列表</li>
 </ul>
 <br/>
 <br/>
@@ -2925,8 +2829,7 @@ consul join NodeA
 <p>使用Consul构建客户端的领导选举。</p>
 <p>有多种方式建立领导选举，我们将专注于Consul sessions。会话允许我们构建一个可以优雅地处理故障的系统。</p>
 <br>
-<p><strong>协调节点</strong>
-Contending Nodes</p>
+<p><strong>协调节点</strong></p>
 <p>假设一组节点试图称为给定服务的领导者，参与的所有节点应该就给定的键进行协调。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2945,12 +2848,13 @@ Contending Nodes</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl -X PUT &#39;{ &#34;Name&#34;: &#34;dbservice&#34; }&#39; http://localhost:8500/v1/session/create
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl -X PUT <span class="s1">&#39;{ &#34;Name&#34;: &#34;dbservice&#34; }&#39;</span> http://localhost:8500/v1/session/create
 
-这回返回一个JSON对象的session ID
+<span class="c1"># 这返回一个JSON对象的session ID</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>下一步是使用<code>?acquirre=&lt;session&gt;</code>查询参数的KV条目上的PUT方法从此节点获取给定键的会话。<code>PUT</code>的<code>&lt;body&gt;</code>应该是表示本地节点的JSON对象。</p>
+</div><br/>
+<p>下一步是使用 <code>?acquirre=&lt;session&gt;</code> 查询参数的KV条目上的PUT方法从此节点获取给定键的会话。<code>PUT</code>的<code>&lt;body&gt;</code>应该是表示本地节点的JSON对象。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2960,26 +2864,26 @@ Contending Nodes</p>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl -X PUT -d &lt;body&gt; http://localhost:8500/v1/kv/&lt;key&gt;?acquire=&lt;session&gt;
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl -X PUT -d &lt;body&gt; http://localhost:8500/v1/kv/&lt;key&gt;?acquire<span class="o">=</span>&lt;session&gt;
 
-如果返回true，则已获得锁定，并且本地节点时领导者
-如果返回false，则某个其它节点已获取锁定
+<span class="c1"># 如果返回true，则已获得锁定，并且本地节点时领导者</span>
+<span class="c1"># 如果返回false，则某个其它节点已获取锁定</span>
 
 </code></pre></td></tr></table>
 </div>
-</div><p>通过对<code>&lt;key&gt;</code>的阻塞查询来监视更改，如果注意到<code>&lt;key&gt;</code>的session是空白的，那么就没有领导者，我们应该重新锁定获取。
-如果领导是自愿下台，这应该通过简单地释放锁来完成：</p>
+</div><br/>
+<p>通过对<code>&lt;key&gt;</code>的阻塞查询来监视更改，如果注意到<code>&lt;key&gt;</code>的session是空白的，那么就没有领导者，我们应该重新锁定获取。</p>
+<p>如果领导是自愿下台，这应该通过简单地释放锁来完成：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl -X PUT http://localhost:8500/v1/kv/&lt;key&gt;?release=&lt;session&gt;
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl -X PUT http://localhost:8500/v1/kv/&lt;key&gt;?release<span class="o">=</span>&lt;session&gt;
 </code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>发现一个领导者</strong>
-Discovering a Leader</p>
+<p><strong>发现一个领导者</strong></p>
 <p>关于领导者选举的另一种常见做法是节点希望识别给定服务的领导者。
 与领导者选举一样，所有参与的节点都应该同意用于协调的密钥(key)。</p>
 <p>Client有一个非常简单的角色，它们只需阅读<code>&lt;key&gt;</code>来发现当前的领导者是谁:</p>
@@ -2988,7 +2892,7 @@ Discovering a Leader</p>
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl  http://localhost:8500/v1/kv/&lt;key&gt;
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl  http://localhost:8500/v1/kv/&lt;key&gt;
 </code></pre></td></tr></table>
 </div>
 </div><p>如果密钥没有关联的话，就没有领导者。
@@ -2998,21 +2902,24 @@ Discovering a Leader</p>
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl http://localhost:8500/v1/session/info/xxxxxxxxxxx
+<pre class="chroma"><code class="language-sh" data-lang="sh">curl http://localhost:8500/v1/session/info/xxxxxxxxxxx
 </code></pre></td></tr></table>
 </div>
 </div><p>Client还应使用阻塞查询来查看密钥的更改，如果领导者退出或失败将清除与密钥相关联的会话。当选出新的领导者时，密钥值也将更新。</p>
-<br/>
 <br/>
 <hr>
 <br/>
 <h1 id="api">API</h1>
 <p>文档链接: <a href="https://www.consul.io/api/index.html">https://www.consul.io/api/index.html</a></p>
-<p>Consul的主要接口是RESTful HTTP API。API可对node，service，check，configuration&hellip;执行基本的CRUD操作。</p>
-<p><strong>版本前缀</strong>
-Version Prefix</p>
-<p>所有API路由都以<code>/v1/</code>为前缀，这适用于v1 API。</p>
-<br/>
+<p>Consul的主要接口是RESTful HTTP API。API可对这些资源执行基本的 CRUD 操作。</p>
+<p><strong>版本前缀</strong>：所有API路由都以<code>/v1/</code>为前缀，这适用于v1 API。</p>
+<ul>
+<li>node</li>
+<li>service</li>
+<li>check</li>
+<li>configuration</li>
+<li>&hellip;</li>
+</ul>
 <br/>
 <hr>
 <br/>
@@ -3055,20 +2962,20 @@ Version Prefix</p>
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">wget https://releases.hashicorp.com/consul-template/0.19.5/consul-template_0.19.5_linux_amd64.tgz
+<pre class="chroma"><code class="language-sh" data-lang="sh">wget https://releases.hashicorp.com/consul-template/0.19.5/consul-template_0.19.5_linux_amd64.tgz
 
 tar -xzvf ./consul-template_0.19.5_linux_amd64.tgz
 mv ./consul-template /bin/
 
 
-#or
+<span class="c1">#or</span>
 mv consul-template /usr/local/bin
 vim /etc/profile
-export PATH=$PATH:/usr/local/bin
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/bin
 
 
 consul-template --version
-consul-template v0.19.5 (57b6c71)
+<span class="c1"># consul-template v0.19.5 (57b6c71)</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
@@ -3081,7 +2988,7 @@ consul-template v0.19.5 (57b6c71)
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul-template -h
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul-template -h
 
 </code></pre></td></tr></table>
 </div>
@@ -3097,24 +3004,26 @@ consul-template v0.19.5 (57b6c71)
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul-template \
-    -template &#34;/tmp/nginx.ctmpl:/var/nginx/nginx.conf:nginx -s reload&#34; \
-    -template &#34;/tmp/redis.ctmpl:/var/redis/redis.conf:service redis restart&#34; \
-    -template &#34;/tmp/haproxy.ctmpl:/var/haproxy/haproxy.conf&#34;
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul-template <span class="se">\
+</span><span class="se"></span>    -template <span class="s2">&#34;/tmp/nginx.ctmpl:/var/nginx/nginx.conf:nginx -s reload&#34;</span> <span class="se">\
+</span><span class="se"></span>    -template <span class="s2">&#34;/tmp/redis.ctmpl:/var/redis/redis.conf:service redis restart&#34;</span> <span class="se">\
+</span><span class="se"></span>    -template <span class="s2">&#34;/tmp/haproxy.ctmpl:/var/haproxy/haproxy.conf&#34;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>监听Consul：</p>
+</div><br/>
+<p>监听Consul：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">consul-template -consul-addr=&#34;consul1:8500&#34; -consul-addr=&#34;consul2:8500&#34;
+<pre class="chroma"><code class="language-sh" data-lang="sh">consul-template -consul-addr<span class="o">=</span><span class="s2">&#34;consul1:8500&#34;</span> -consul-addr<span class="o">=</span><span class="s2">&#34;consul2:8500&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<br/>
 <h3 id="配置文件-1">配置文件</h3>
-<p>配置文件使用 <a href="https://github.com/hashicorp/hcl" target="_blank" rel="noopener noreffer ">HashiCorp Configuration Language</a>编写的。这意味着，配置也是JSON兼容的。</p>
+<p>配置文件使用 <a href="https://github.com/hashicorp/hcl" target="_blank" rel="noopener noreffer ">HashiCorp Configuration Language</a> 编写的。这意味着，配置也是JSON兼容的。</p>
 <p>命令行指定的选项优先于配置文件！</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3125,14 +3034,15 @@ consul-template v0.19.5 (57b6c71)
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /etc/consul-template
+<pre class="chroma"><code class="language-sh" data-lang="sh">mkdir /etc/consul-template
 
 vim consul-template.hcl
 
-consul-template -config=&#39;/etc/consul-template/consul-template.hcl&#39;
+consul-template -config<span class="o">=</span><span class="s1">&#39;/etc/consul-template/consul-template.hcl&#39;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>配置文件详情：</p>
+</div><br/>
+<p>配置文件详情：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">  1
@@ -3893,87 +3803,93 @@ template {
 </span><span class="lnt">40
 </span><span class="lnt">41
 </span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vim /etc/consul-template/consul.hcl
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 配置</span>
+vim /etc/consul-template/consul.hcl
+
+consul <span class="o">{</span>
+  <span class="nv">address</span> <span class="o">=</span> <span class="s2">&#34;127.0.0.1:8500&#34;</span>
+  retry <span class="o">{</span>
+    <span class="nv">enabled</span> <span class="o">=</span> <span class="nb">true</span>
+    <span class="nv">attempts</span> <span class="o">=</span> <span class="m">5</span>
+    <span class="nv">backoff</span> <span class="o">=</span> <span class="s2">&#34;250ms&#34;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nv">max_stale</span> <span class="o">=</span> <span class="s1">&#39;10m&#39;</span>
+<span class="nv">log_level</span> <span class="o">=</span> <span class="s2">&#34;warn&#34;</span>
+
+<span class="nb">wait</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="nv">min</span> <span class="o">=</span> <span class="s1">&#39;2s&#39;</span>
+  <span class="nv">max</span> <span class="o">=</span> <span class="s1">&#39;10s&#39;</span>
+<span class="o">}</span>
+
+template <span class="o">{</span>
+  <span class="nb">source</span> <span class="o">=</span> <span class="s1">&#39;/etc/consul-template/ctmpl/a.ctmpl&#39;</span>
+  <span class="nv">destination</span> <span class="o">=</span> <span class="s1">&#39;/etc/nginx/conf.d/upstream-a.conf&#39;</span>
+  <span class="nb">command</span> <span class="o">=</span> <span class="s1">&#39;systemctl reload nginx&#39;</span>
+  <span class="nv">perms</span> <span class="o">=</span> <span class="m">0644</span>
+<span class="o">}</span>
 
 
-max_stale = &#39;10m&#39;
-wait = {
-  min = &#39;1s&#39;
-  max = &#39;3s&#39;
-}
-
-template {
-  source = &#39;/etc/consul-template/ctmpl/a.ctmpl&#39;
-  destination = &#39;/etc/nginx/conf.d/upstream-a.conf&#39;
-  command = &#39;systemctl reload nginx&#39;
-  perms = 0644
-}
-
-
-
-
-#
+<span class="c1"># 模板</span>
 vim /etc/consul-template/ctmpl/a.ctmpl
 
-
-upstream upstream-a {
-  {{range service &#39;a&#39;}}
-  server {{.Address}}:{{.Port}};
-  {{else}}
-  server 127.0.0.1:12345;
-  {{end}}
-}
-
+upstream upstream-a <span class="o">{</span>
+  <span class="o">{{</span>range service <span class="s1">&#39;a&#39;</span><span class="o">}}</span>
+  server <span class="o">{{</span>.Address<span class="o">}}</span>:<span class="o">{{</span>.Port<span class="o">}}</span><span class="p">;</span>
+  <span class="o">{{</span><span class="k">else</span><span class="o">}}</span>
+  server 127.0.0.1:12345<span class="p">;</span>
+  <span class="o">{{</span>end<span class="o">}}</span>
+<span class="o">}</span>
 
 
-#nginx
+<span class="c1"># 渲染后的效果</span>
 vim /etc/nginx/conf.d/upstream-a.conf
 
-
-upstream upstream-a {
-
-  server 192.168.1.11:12345;
-
-}
+upstream upstream-a <span class="o">{</span>
+  server 192.168.1.11:12345<span class="p">;</span>
+<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
+<br/>
 <h3 id="模板语法">模板语法</h3>
-<p>Consul Template解析文件以 <a href="https://golang.org/pkg/text/template/" target="_blank" rel="noopener noreffer ">Go Template</a>创作。
-Consul Template提供了如下函数：</p>
+<p>Consul Template解析文件以 <a href="https://golang.org/pkg/text/template/" target="_blank" rel="noopener noreffer ">Go Template</a>创作。</p>
+<p>Consul Template提供了如下函数：</p>
 <h4 id="api函数">API函数</h4>
 <p>API函数与远程API进行交互，与Consul等外部服务进行通信。</p>
 <ul>
-<li>datacenters
-查询Consul目录中的所有数据中心。</li>
+<li>datacenters：查询Consul目录中的所有数据中心。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{{ datacenters }}
-
-
-#栗子
-{{ range datacenters }}
-{{ . }}{{ end }}
-
-#效果
-dc1
-dc2
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-tpl" data-lang="tpl"><span class="cp">{{</span> <span class="na">datacenters</span> <span class="cp">}}</span><span class="x">
+</span><span class="x">
+</span><span class="x">#栗子
+</span><span class="x"></span><span class="cp">{{</span> <span class="na">range</span> <span class="na">datacenters</span> <span class="cp">}}</span><span class="x">
+</span><span class="x"></span><span class="cp">{{</span> <span class="o">.</span> <span class="cp">}}{{</span> <span class="na">end</span> <span class="cp">}}</span><span class="x">
+</span><span class="x">
+</span><span class="x">#效果
+</span><span class="x">dc1
+</span><span class="x">dc2
+</span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -4006,7 +3922,7 @@ dc2
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

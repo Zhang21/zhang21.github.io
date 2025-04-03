@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Nginx指南 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Nginx指南" />
+<meta property="og:description" content="Nginx 学习笔记。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/nginx-cookbook/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-01-12T15:40:24&#43;08:00" />
+<meta property="article:modified_time" content="2025-01-12T15:40:24&#43;08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="Nginx指南"/>
+<meta name="twitter:description" content="Nginx 学习笔记。
+"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/nginx-cookbook/" /><link rel="prev" href="https://zhang21.cn/clickhouse/" /><link rel="next" href="https://zhang21.cn/opentelemetry/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Nginx指南",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/nginx-cookbook\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "nginx, web","wordcount":  4727 ,
+        "url": "https:\/\/zhang21.cn\/nginx-cookbook\/","datePublished": "2025-01-12T15:40:24+08:00","dateModified": "2025-01-12T15:40:24+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Nginx指南</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/middleware/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Middleware</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-01-12">2025-01-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4727 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#源仓库安装">源仓库安装</a></li>
+        <li><a href="#源码安装">源码安装</a></li>
+        <li><a href="#命令">命令</a></li>
+        <li><a href="#控制">控制</a></li>
+      </ul>
+    </li>
+    <li><a href="#配置">配置</a>
+      <ul>
+        <li><a href="#配置文件架构">配置文件架构</a></li>
+        <li><a href="#连接处理方法">连接处理方法</a></li>
+        <li><a href="#测量单位">测量单位</a>
+          <ul>
+            <li><a href="#大小和偏移">大小和偏移</a></li>
+            <li><a href="#时间间隔">时间间隔</a></li>
+          </ul>
+        </li>
+        <li><a href="#路径正则匹配">路径正则匹配</a></li>
+        <li><a href="#全局变量">全局变量</a></li>
+        <li><a href="#url重写">URL重写</a></li>
+      </ul>
+    </li>
+    <li><a href="#示例介绍">示例介绍</a>
+      <ul>
+        <li><a href="#nginx如何处理请求">nginx如何处理请求</a>
+          <ul>
+            <li><a href="#基于名称的虚拟服务器">基于名称的虚拟服务器</a></li>
+            <li><a href="#如何防止处理未定义的服务器名称的请求">如何防止处理未定义的服务器名称的请求</a></li>
+            <li><a href="#基于名称和基于ip的混合虚拟服务器">基于名称和基于IP的混合虚拟服务器</a></li>
+          </ul>
+        </li>
+        <li><a href="#服务器名称">服务器名称</a>
+          <ul>
+            <li><a href="#国际化名称">国际化名称</a></li>
+            <li><a href="#虚拟服务器选择">虚拟服务器选择</a></li>
+            <li><a href="#配置优化">配置优化</a></li>
+          </ul>
+        </li>
+        <li><a href="#作为http负载均衡器">作为HTTP负载均衡器</a>
+          <ul>
+            <li><a href="#负载均衡器方法">负载均衡器方法</a></li>
+            <li><a href="#轮询">轮询</a></li>
+            <li><a href="#最少连接数">最少连接数</a></li>
+            <li><a href="#会话保持">会话保持</a></li>
+            <li><a href="#加权负载均衡">加权负载均衡</a></li>
+            <li><a href="#健康检查">健康检查</a></li>
+          </ul>
+        </li>
+        <li><a href="#配置https">配置HTTPS</a>
+          <ul>
+            <li><a href="#ssl证书链">SSL证书链</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#高性能负载均衡">高性能负载均衡</a>
+      <ul>
+        <li><a href="#http负载均衡">HTTP负载均衡</a></li>
+        <li><a href="#tcp负载均衡">TCP负载均衡</a></li>
+        <li><a href="#udp负载均衡">UDP负载均衡</a></li>
+        <li><a href="#负载均衡方式">负载均衡方式</a></li>
+        <li><a href="#plus-sticky">Plus Sticky</a></li>
+        <li><a href="#被动健康检查">被动健康检查</a></li>
+      </ul>
+    </li>
+    <li><a href="#流量管理">流量管理</a>
+      <ul>
+        <li><a href="#ab测试">AB测试</a></li>
+        <li><a href="#定位客户端位置">定位客户端位置</a></li>
+        <li><a href="#限制连接数">限制连接数</a></li>
+        <li><a href="#限制速率">限制速率</a></li>
+        <li><a href="#限制带宽">限制带宽</a></li>
+      </ul>
+    </li>
+    <li><a href="#内容缓存">内容缓存</a>
+      <ul>
+        <li><a href="#缓存区">缓存区</a></li>
+        <li><a href="#缓存哈希键">缓存哈希键</a></li>
+        <li><a href="#缓存锁定">缓存锁定</a></li>
+        <li><a href="#使用陈旧缓存">使用陈旧缓存</a></li>
+        <li><a href="#绕过缓存">绕过缓存</a></li>
+        <li><a href="#缓存切片">缓存切片</a></li>
+      </ul>
+    </li>
+    <li><a href="#可编程性和自动化">可编程性和自动化</a></li>
+    <li><a href="#身份验证">身份验证</a>
+      <ul>
+        <li><a href="#基本身份验证">基本身份验证</a></li>
+        <li><a href="#身份验证子请求">身份验证子请求</a></li>
+      </ul>
+    </li>
+    <li><a href="#安全配置">安全配置</a>
+      <ul>
+        <li><a href="#基于ip的访问">基于IP的访问</a></li>
+        <li><a href="#允许跨域资源共享">允许跨域资源共享</a></li>
+        <li><a href="#客户端加密">客户端加密</a></li>
+        <li><a href="#高级客户端加密">高级客户端加密</a></li>
+        <li><a href="#upstream加密">upstream加密</a></li>
+        <li><a href="#保护location">保护location</a></li>
+        <li><a href="#使用过期日期保护location">使用过期日期保护location</a></li>
+        <li><a href="#生成会过期的链接">生成会过期的链接</a></li>
+        <li><a href="#https重定向">HTTPS重定向</a></li>
+        <li><a href="#基于国家或地区的访问限制">基于国家或地区的访问限制</a></li>
+        <li><a href="#动态应用层ddos防护">动态应用层DDOS防护</a></li>
+        <li><a href="#waf模块">WAF模块</a></li>
+      </ul>
+    </li>
+    <li><a href="#http2和3">HTTP2和3</a>
+      <ul>
+        <li><a href="#启用http2">启用HTTP2</a></li>
+        <li><a href="#启用http3">启用HTTP3</a></li>
+        <li><a href="#grpc">gRPC</a></li>
+      </ul>
+    </li>
+    <li><a href="#媒体流">媒体流</a></li>
+    <li><a href="#性能调优">性能调优</a>
+      <ul>
+        <li><a href="#控制浏览器缓存">控制浏览器缓存</a></li>
+        <li><a href="#保持客户端长链接">保持客户端长链接</a></li>
+        <li><a href="#保持上游长连接">保持上游长连接</a></li>
+        <li><a href="#响应缓冲">响应缓冲</a></li>
+        <li><a href="#日志缓冲">日志缓冲</a></li>
+        <li><a href="#操作系统调优">操作系统调优</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Nginx 学习笔记。</p>
+<br/>
+<p>参考：</p>
+<ul>
+<li>Nginx Cookbook</li>
+<li><a href="https://nginx.org/en/docs/" target="_blank" rel="noopener noreffer ">Nginx docs</a></li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="安装">安装</h1>
+<br/>
+<br/>
+<h2 id="源仓库安装">源仓库安装</h2>
+<p>使用 <code>yum</code> 或 <code>apt</code> 工具进行安装。</p>
+<br/>
+<br/>
+<h2 id="源码安装">源码安装</h2>
+<p>源码安装: <a href="https://nginx.org/en/docs/configure.html">https://nginx.org/en/docs/configure.html</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /usr/local
+
+wget http://xxx.xx.com/nginx.tar.gz
+tar -zxvf nginx.tar.gz
+
+<span class="nb">cd</span> nginx
+./configure
+    --prefix<span class="o">=</span>/opt/nginx
+    --with-http_ssl_module
+    --with-pcre<span class="o">=</span>/tools/pcre2-10.39
+    --with-zlib<span class="o">=</span>/tools/zlib-1.3
+    --with-openssl<span class="o">=</span>/tools/openssl-1.1.1i
+
+make <span class="o">&amp;&amp;</span> make install
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="命令">命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">nginx -h
+
+<span class="c1"># 打印版本</span>
+-v
+<span class="c1"># 打印编译器版本和配置参数</span>
+-V
+
+<span class="c1"># 指定配置文件</span>
+-c file
+
+<span class="c1"># 使用其他错误日志存储日志</span>
+-e file
+
+<span class="c1"># 设置全局配置</span>
+-g directives
+
+<span class="c1"># 在配置测试期间抑制非错误信息</span>
+-q
+
+<span class="c1"># 设置路径前缀</span>
+-p
+
+<span class="c1"># 测试配置文件</span>
+-t
+<span class="c1"># 会将配置文件转储到标准输出</span>
+-T
+
+<span class="c1"># 向主进程发送信号</span>
+nginx -s signal
+<span class="c1"># kill -s signal PID</span>
+<span class="c1"># stop: 立即停止进程</span>
+<span class="c1"># quit: 在完成当前正在处理的请求后停止进程，优雅退出</span>
+<span class="c1"># reload: 重载配置</span>
+<span class="c1"># reopen: 重新打开日志文件</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="控制">控制</h2>
+<p>nginx 可用信号控制。主进程的 PID 文件 <code>nginx.pid</code>。主进程支持以下信号：</p>
+<ul>
+<li>TERM, INT：快速关停进程</li>
+<li>QUIT：优雅关停进程</li>
+<li>HUP：更改配置，使用新配置启动新的工作进程，优雅关闭旧的工作进程</li>
+<li>USR1：重新打开日志文件</li>
+<li>USR2：升级可执行文件</li>
+<li>WINCH：优雅关闭工作进程</li>
+</ul>
+<p>单个工作进程也可以用信号控制，非必须。支持的信号如下：</p>
+<ul>
+<li>TERM, INT</li>
+<li>QUIT</li>
+<li>USR1</li>
+<li>WINCH</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="配置">配置</h1>
+<p>Nginx 由多个模块组成，这些模块由配置文件中的指令控制。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 块指令
+{
+  # 简单指令
+  xxx ;
+  ...
+  
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="配置文件架构">配置文件架构</h2>
+<p>配置文件分为四部分：</p>
+<ul>
+<li>main</li>
+<li>server</li>
+<li>upstream</li>
+<li>location</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">user nginx;
+worker_processes 4;
+
+events {
+  worker_connections 4096;
+}
+
+http {
+  include /etc/nginx/mime.types;
+  ...
+
+  upstream {
+    ...
+  }
+
+  server {
+    ...
+    location / {
+      ...
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="连接处理方法">连接处理方法</h2>
+<p>nginx 支持多种连接处理方法。特定方法的可用性取决于所使用的平台。nginx 通常会自动选择最有效的方法。但可以使用 <code>use</code> 命令指定。</p>
+<p>支持以下连接处理方法：</p>
+<ul>
+<li>select：标准方法。</li>
+<li>poll：标准方法。</li>
+<li>kqueue：在 FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0 和 macOS 上使用的高效方法。</li>
+<li>epoll：在 Linux 2.6+ 上使用的高效方法。</li>
+<li>/dev/poll：在 Solaris, HP/UX, Unix 上使用的高效方法。</li>
+<li>eventport：Solaris 10+ 上使用的方法，由于已知问题，建议使用 /dev/poll 方法。</li>
+</ul>
+<br/>
+<br/>
+<h2 id="测量单位">测量单位</h2>
+<p>nginx 支持多种测量单位，用于在配置文件中指定大小、偏移和时间间隔。</p>
+<br/>
+<h3 id="大小和偏移">大小和偏移</h3>
+<ul>
+<li>k/K: kb</li>
+<li>m/M: mb</li>
+<li>g/G: gb</li>
+</ul>
+<br/>
+<h3 id="时间间隔">时间间隔</h3>
+<p>多个单位可以合并为一个值，如 1h 30m。</p>
+<ul>
+<li>ms: milliseconds</li>
+<li>s: seconds(默认)</li>
+<li>m: minutes</li>
+<li>h: hours</li>
+<li>d: days</li>
+<li>w: weeks</li>
+<li>M: months/30 days</li>
+<li>y: years/365 days</li>
+</ul>
+<br/>
+<br/>
+<h2 id="路径正则匹配">路径正则匹配</h2>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>优先级</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>精确匹配</td>
+<td>最高</td>
+<td><code>location =</code></td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>区分大小写的正则匹配</td>
+<td>次次之</td>
+<td><code>location ~</code></td>
+</tr>
+<tr>
+<td><code>~*</code></td>
+<td>不区分大小写的正则匹配</td>
+<td>次次之</td>
+<td><code>location ~*</code></td>
+</tr>
+<tr>
+<td><code>^~</code></td>
+<td>常规字符串匹配</td>
+<td>次之</td>
+<td><code>location ^~</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>通用匹配</td>
+<td>最低</td>
+<td><code>location /</code></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h2 id="全局变量">全局变量</h2>
+<table>
+<thead>
+<tr>
+<th>变量名称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>args</td>
+<td>请求行中的参数</td>
+</tr>
+<tr>
+<td>body_bytes_sent</td>
+<td>响应时发送的 body 字节数</td>
+</tr>
+<tr>
+<td>content_length</td>
+<td>请求头中的 Content-Length 字段</td>
+</tr>
+<tr>
+<td>content_type</td>
+<td>请求头中的 Content-Type 字段</td>
+</tr>
+<tr>
+<td>document_root</td>
+<td>当前根路径</td>
+</tr>
+<tr>
+<td>host</td>
+<td>请求主机头字段，否则为服务器名称</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>主机名</td>
+</tr>
+<tr>
+<td>http_user_agent</td>
+<td>客户端浏览器信息</td>
+</tr>
+<tr>
+<td>http_cookie</td>
+<td>客户端 cookie 信息</td>
+</tr>
+<tr>
+<td>http_referer</td>
+<td>从哪个页面链接访问过来</td>
+</tr>
+<tr>
+<td>http_x_forward_for</td>
+<td>当前端有代理服务器时，设置节点记录客户端地址</td>
+</tr>
+<tr>
+<td>remote_addr</td>
+<td>客户端地址</td>
+</tr>
+<tr>
+<td>remote_port</td>
+<td>客户端端口</td>
+</tr>
+<tr>
+<td>remote_user</td>
+<td>经过验证的用户名</td>
+</tr>
+<tr>
+<td>request</td>
+<td>请求信息</td>
+</tr>
+<tr>
+<td>request_method</td>
+<td>请求方法</td>
+</tr>
+<tr>
+<td>request_body</td>
+<td>POST 的数据信息</td>
+</tr>
+<tr>
+<td>request_filename</td>
+<td>请求的文件路径</td>
+</tr>
+<tr>
+<td>scheme</td>
+<td>HTTP 方法</td>
+</tr>
+<tr>
+<td>server_protocol</td>
+<td>请求使用的协议</td>
+</tr>
+<tr>
+<td>server_addr</td>
+<td>服务器地址</td>
+</tr>
+<tr>
+<td>server_name</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>server_port</td>
+<td>服务器端口</td>
+</tr>
+<tr>
+<td>status</td>
+<td>状态码</td>
+</tr>
+<tr>
+<td>request_uri</td>
+<td>带参数的 URI 路径，不含主机名</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>不带参数的 URI 路径，不含主机名</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<h2 id="url重写">URL重写</h2>
+<p>rewrite 规则支持 PCRE 正则。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">if (condition) {
+  rewrite regex replacement [flag];
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="示例介绍">示例介绍</h1>
+<br/>
+<h2 id="nginx如何处理请求">nginx如何处理请求</h2>
+<br/>
+<h3 id="基于名称的虚拟服务器">基于名称的虚拟服务器</h3>
+<p>nginx 首先会决定由哪台服务器处理请求。</p>
+<p>下面是一个简单的配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen      80;
+    server_name example.org www.example.org;
+    ...
+}
+
+server {
+    listen      80;
+    server_name example.net www.example.net;
+    ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>此配置下，nginx 只测试请求头的 &ldquo;Host&rdquo; 字段，以确定请求应该路由到哪个服务器。如果请求头不匹配，那么 nginx 就会将请求路由到该端口的默认服务器。如果没有配置默认，则路由到第一个。</p>
+<p>注意，默认服务器是监听端口的属性，而不是服务器名称的属性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen      80 default_server;
+    server_name example.net www.example.net;
+    ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="如何防止处理未定义的服务器名称的请求">如何防止处理未定义的服务器名称的请求</h3>
+<p>如果不允许不带 &ldquo;Host&rdquo; 头字段的请求，则可以定义一个服务器，直接丢弃这些请求。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen      80;
+    server_name &#34;&#34;;
+    return      444;
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="基于名称和基于ip的混合虚拟服务器">基于名称和基于IP的混合虚拟服务器</h3>
+<p>一个更复杂的配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen      192.168.1.1:80;
+    server_name example.org www.example.org;
+    ...
+}
+
+server {
+    listen      192.168.1.1:80 default_server;
+    server_name example.net www.example.net;
+    ...
+}
+
+server {
+    listen      192.168.1.2:80 default_server;
+    server_name example.com www.example.com;
+    ...
+}
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>在此配置中，nginx 首先根据监听指令请求 IP 和端口。然后，根据与 IP 和端口匹配的服务器名称。</p>
+<br/>
+<br/>
+<h2 id="服务器名称">服务器名称</h2>
+<p>服务器名称由 <code>server_name</code> 指令定义，并决定特定请求使用哪个服务器块。</p>
+<p>可以使用精确名称、通配符名称或正则来定义。优先级：</p>
+<ol>
+<li>精确名</li>
+<li>以星号开头的最长通配符名</li>
+<li>以星号结尾的最长通配符名</li>
+<li>第一个匹配的正则表达式</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen       80;
+    server_name  example.org  www.example.org;
+    ...
+}
+
+server {
+    listen       80;
+    server_name  *.example.org;
+    ...
+}
+
+server {
+    listen       80;
+    server_name  mail.*;
+    ...
+}
+
+server {
+    listen       80;
+    server_name  ~^(?&lt;user&gt;.+)\.example\.net$;
+    ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="国际化名称">国际化名称</h3>
+<p>国际化域名应使用 ASCII 表示法指定。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen       80;
+    server_name  xn--e1afmkfd.xn--80akhbyknj4f;  # пример.испытание
+    ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="虚拟服务器选择">虚拟服务器选择</h3>
+<ul>
+<li>在 SSL 握手期间，根据 SNI</li>
+<li>处理请求行之后</li>
+<li>处理 Host 标头后</li>
+<li>如果无法确定服务器名称，nginx 将使用空名称作为服务器名称。</li>
+</ul>
+<br/>
+<br/>
+<h3 id="配置优化">配置优化</h3>
+<p>精确名称、以星号开头的通配符名称，以星号结尾的通配符名称，存储在与监控端口绑定的三个哈希表中。哈希表的大小在配置阶段进行了优化，以便能以最小的 CPU 缓存丢失找到名称。</p>
+<p>首先搜索精确名称哈希表。如果未找到，则搜索以星号开头的通配符哈希表。如果未找到，则搜索以星号结尾的通配符哈希表。</p>
+<p>搜索通配符名称哈希表比精确哈希表要慢，因为名称是按域名部分搜索的。请注意，特殊通配符形式 <code>.example.org</code> 存储在通配符哈希表中，而不是精确哈希表中。</p>
+<p>正则表达式是按顺序测试的，因此是最慢的，而且不可扩展。</p>
+<p>如果定义了许多服务器名称，或定义了很长的服务器名称，则可能需要在 http 层调整 <code>server_names_hash_max_size</code> 和 <code>server_names_hash_bucket_size</code> 指令。</p>
+<br/>
+<br/>
+<h2 id="作为http负载均衡器">作为HTTP负载均衡器</h2>
+<p>可将 nginx 用作高效的 HTTP 负载均衡器，将流量分配给多个应用服务器，并通过 nginx 提高网络应用的性能、可扩展性和可靠性。</p>
+<br/>
+<br/>
+<h3 id="负载均衡器方法">负载均衡器方法</h3>
+<p>nginx 支持的负载均衡器方法：</p>
+<ul>
+<li>轮询</li>
+<li>最少连接</li>
+<li>ip-hash</li>
+</ul>
+<br/>
+<br/>
+<h3 id="轮询">轮询</h3>
+<p>一个简单的负载均衡配置，默认是轮询方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http {
+    upstream myapp1 {
+        server srv1.example.com;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://myapp1;
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>nginx 中的反向代理实现包括 http/https, fastcgi, uwsgi, scgi, memcached 和 grpc。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">fastcgi_pass
+uwsgi_pass
+memecached_pass
+grpc_pass
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="最少连接数">最少连接数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">    upstream myapp1 {
+        least_conn;
+        server srv1.example.com;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="会话保持">会话保持</h3>
+<p>使用 ip-hash 将客户端与特定应用服务器绑定。客户端的 IP 地址会被作为散列密钥，以确定客户端的请求应选择服务器组中的哪台服务器，确保同一客户端的请求始终指向同一服务器，除非该服务器不可用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">upstream myapp1 {
+    ip_hash;
+    server srv1.example.com;
+    server srv2.example.com;
+    server srv3.example.com;
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="加权负载均衡">加权负载均衡</h3>
+<p>通过权重，可进一步影响 nginx 负载均衡算法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">    upstream myapp1 {
+        server srv1.example.com weight=3;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+</code></pre></td></tr></table>
+</div>
+</div><p>在上述配置下，每 5 个新请求的分配：3 个指向 srv1，一个请求指向 srv2，另一个请求指向 srv3。</p>
+<br/>
+<br/>
+<h3 id="健康检查">健康检查</h3>
+<p>nginx 开源版本只有被动式的服务器健康检查。如果某个服务器的响应出现错误，nginx 会将该服务器标记为失败，并在一段时间内尽量避免选择该服务器处理后续入站请求。</p>
+<p>使用 <code>max_fails</code> 和 <code>fail_timeout</code> 指令。</p>
+<br/>
+<br/>
+<h2 id="配置https">配置HTTPS</h2>
+<p>服务器证书是一个公共实体，它会发送给连接服务器的每个客户端。私钥是一个安全实体，应存储在限制访问的文件中，但 nginx 主进程必须能够读取它。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen              443 ssl;
+    server_name         www.example.com;
+    ssl_certificate     www.example.com.crt;
+    ssl_certificate_key www.example.com.key;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="ssl证书链">SSL证书链</h3>
+<p>有些浏览器可能会抱怨由知名机构签署的证书，而其他浏览器可能会接受该证书。出现这种情况的原因是，签发机构使用了中间证书签署服务器证书，而改中间证书不在与特定浏览器一起分发的知名可信证书颁发机构证书库中。</p>
+<p>在这种情况下，证书颁发机构会提供一捆链式证书，这些证书应与以签名服务器证书连接在一起。在合并文件中，服务器证书必须出现在链式证书之前。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">cat www.example.com.crt bundle.crt &gt; www.example.com.chained.crt
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen              443 ssl;
+    server_name         www.example.com;
+    ssl_certificate     www.example.com.chained.crt;
+    ssl_certificate_key www.example.com.key;
+    ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="高性能负载均衡">高性能负载均衡</h1>
+<p>Nginx 支持 HTTP, TCP 和 UDP 的负载均衡。</p>
+<p>Nginx 提供了多种跟踪 cookie 或路由的办法来保证会话保持。</p>
+<p>确保 Nginx 所服务的应用的健康状态很重要，负载均衡器必须足够只能，以检测上游服务器的故障，并停止向他们传输流量。</p>
+<p>Nginx 提供了两种不同类型的健康检查方法：</p>
+<ul>
+<li>被动式（Nginx 开源版提供）</li>
+<li>主动式（Nginx Plus 提供）</li>
+</ul>
+<br/>
+<br/>
+<h2 id="http负载均衡">HTTP负载均衡</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">upstream backend {
+  server 10.10.12.45:80 weight=1;
+  server app.example.com:80 weight=2;
+  server spare.example.com:80 backup;
+ }
+ server {
+  location / {
+    proxy_pass http://backend;
+  }
+ }
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="tcp负载均衡">TCP负载均衡</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">stream {
+  upstream mysql_read {
+    server read1.example.com:3306 weight=5;
+    server read2.example.com:3306;
+    server 10.10.12.34:3306 backup;
+  }
+  server {
+    listen 3306;
+    proxy_pass mysql_read;
+  }
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="udp负载均衡">UDP负载均衡</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">stream {
+  upstream ntp {
+    server ntp1.example.com:123 weight=2;
+    server ntp2.example.com:123;
+  }
+  server {
+    listen 123 udp;
+    proxy_pass ntp;
+  }
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="负载均衡方式">负载均衡方式</h2>
+<ul>
+<li>轮询：默认</li>
+<li>最少连接：least_conn</li>
+<li>最短时间：least_time</li>
+<li>通用哈希：hash</li>
+<li>IP 哈希：ip_hash</li>
+<li>随机算法：random</li>
+</ul>
+<br/>
+<br/>
+<h2 id="plus-sticky">Plus Sticky</h2>
+<p>Plus 支持更多功能。</p>
+<br/>
+<br/>
+<h2 id="被动健康检查">被动健康检查</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">upstream backend {
+  server backend1.example.com:1234 max_fails=3 fail_timeout=3s;
+  server backend2.example.com:1234 max_fails=3 fail_timeout=3s;
+}
+
+# max_fails 默认值 1
+# fail_timeout 默认值 10s
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="流量管理">流量管理</h1>
+<br/>
+<br/>
+<h2 id="ab测试">AB测试</h2>
+<p>使用 <code>split_clients</code> 模块将一定比例的客户流量定向到不同的上游池。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">split_clients &#34;${remote_addr}AAA&#34; $variant {
+  20.0% &#34;backendv2&#34;;
+  * &#34;backendv1&#34;;
+}
+
+location / {
+  proxy_pass http://$variant
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="定位客户端位置">定位客户端位置</h2>
+<p>使用模块 nginx-module-geoip 定位客户端的位置。</p>
+<br/>
+<br/>
+<h2 id="限制连接数">限制连接数</h2>
+<p>使用 <code>limit_conn</code> 限制打开的连接数。</p>
+<br/>
+<br/>
+<h2 id="限制速率">限制速率</h2>
+<p>使用 <code>limit_req_zone</code> 限制请求速率。</p>
+<br/>
+<br/>
+<h2 id="限制带宽">限制带宽</h2>
+<p>使用 <code>limit_rate</code> 和 <code>limit_rate_after</code> 指令限制响应客户端的带宽。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="内容缓存">内容缓存</h1>
+<p>缓存能够存储响应结果，以供未来再次使用，进而加速内容的提供。</p>
+<br/>
+<br/>
+<h2 id="缓存区">缓存区</h2>
+<p>使用 <code>proxy_cache_path</code> 指令定义共享内存缓存区和内容。</p>
+<br/>
+<br/>
+<h2 id="缓存哈希键">缓存哈希键</h2>
+<p>使用 <code>proxy_cache_key</code> 指令和变量定义缓存的命中和未命中。</p>
+<br/>
+<br/>
+<h2 id="缓存锁定">缓存锁定</h2>
+<p>使用 <code>proxy_cache_lock</code> 指令确保一次只能将一个请求写入缓存。</p>
+<br/>
+<br/>
+<h2 id="使用陈旧缓存">使用陈旧缓存</h2>
+<p>使用 <code>proxy_cache_use_stale</code> 指令来定义使用陈旧缓存的场景。</p>
+<br/>
+<br/>
+<h2 id="绕过缓存">绕过缓存</h2>
+<p>使用 <code>proxy_cache_bypass</code> 指令。</p>
+<br/>
+<br/>
+<h2 id="缓存切片">缓存切片</h2>
+<p>使用 <code>slice</code> 将资源分段来提高缓存。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="可编程性和自动化">可编程性和自动化</h1>
+<br/>
+<hr>
+<br/>
+<h1 id="身份验证">身份验证</h1>
+<p>开源版包括基本身份验证和身份验证子请求。Plus 专有的 JWT 验证模块可使用身份验证标准的第三方身份验证提供商集成。</p>
+<br/>
+<br/>
+<h2 id="基本身份验证">基本身份验证</h2>
+<p>Nginx 能理解几种不同的密码格式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 密码文件
+name1:pwd-hash
+name2:pwd2-hash:comment
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">openssl passwd myPWD-123
+
+yum install -y httpd-tools
+htpasswd .auth  user1
+<span class="c1"># 输入密码</span>
+
+curl --user user:myPWD-123 http://localhost
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location / {
+  auth_basic &#34;Private site&#34;;
+  auth_basic_user_file conf.d/passwd;
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="身份验证子请求">身份验证子请求</h2>
+<p>使用 <code>http_auth_request_module</code> 请求访问身份验证服务，在响应之前验证身份。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /private/ {
+  auth_request /auth;
+  auth_request_set $auth_status $upstream_status;
+ }
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="安全配置">安全配置</h1>
+<br/>
+<br/>
+<h2 id="基于ip的访问">基于IP的访问</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">  allow 10.0.0.0/8;
+  deny all
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="允许跨域资源共享">允许跨域资源共享</h2>
+<p>根据 request 方法更改请求头，启用跨域资源共享（CORS）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">map $request_method $cors_method {
+  OPTIONS 11;
+  GET  1;
+  POST 1;
+  default 0;
+ }
+server {
+  # ...
+  location / {
+    if ($cors_method ~ &#39;1&#39;) {
+      add_header &#39;Access-Control-Allow-Methods&#39; 
+        &#39;GET,POST,OPTIONS&#39;;
+      add_header &#39;Access-Control-Allow-Origin&#39; 
+        &#39;*.example.com&#39;;
+      add_header &#39;Access-Control-Allow-Headers&#39;
+        &#39;DNT,
+        ...
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="客户端加密">客户端加密</h2>
+<p>使用 ssl 模块配置证书加密流量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http {
+  server {
+    listen 8443 ssl;
+    ssl_certificate /etc/nginx/ssl/example.crt;
+    ssl_certificate_key /etc/nginx/ssl/example.key;
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="高级客户端加密">高级客户端加密</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http {
+  server {
+    listen 8443 ssl;
+    # 设置接受的协议和密码
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    # 从文件中加载 RSA 证书链
+    ssl_certificate /etc/nginx/ssl/example.crt;
+    # 从文件中加载 RSA 加密密钥
+    ssl_certificate_key /etc/nginx/ssl/example.pem;
+    # 从变量值生成椭圆曲线证书
+    ssl_certificate $ecdsa_cert;
+    # 作为文件路径变量的椭圆曲线密钥
+    ssl_certificate_key data:$ecdsa_key_path;
+    # 客户端-服务器协商缓存
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+  }
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="upstream加密">upstream加密</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location / {
+  proxy_pass https://upstream.example.com;
+  proxy_ssl_verify on;
+  proxy_ssl_verify_depth 2;
+  proxy_ssl_protocols TLSv1.3;
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="保护location">保护location</h2>
+<p>通过 <code>secure_link</code> 和 <code>secure_link_secret</code> 仅允许拥有安全链接的用户访问资源。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /resources {
+  secure_link_secret mySecret;
+  if ($secure_link = &#34;&#34;) { return 403; }
+  rewrite ^ /secured/$secure_link;
+ }
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="使用过期日期保护location">使用过期日期保护location</h2>
+<p>让某个位置的链接在未来某个时间过期。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /resources {
+  root /var/www;
+  secure_link $arg_md5,$arg_expires;
+  secure_link_md5 &#34;$secure_link_expires$uri$remote_addrmySecret&#34;;
+  if ($secure_link = &#34;&#34;) { return 403; }
+  if ($secure_link = &#34;0&#34;) { return 410; }
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="生成会过期的链接">生成会过期的链接</h2>
+<p>生成一个会过期的链接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">index.html?md5=xxx&amp;expires=1924905600
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="https重定向">HTTPS重定向</h2>
+<p>使用 <code>rewrite</code> 将所有 HTTP 流量发送到 HTTPS。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">  listen 80 default_server;
+  listen [::]:80 default_server;
+  server_name _;
+  return 301 https://$host$request_uri;
+  # 或
+  # if ($http_x_forwarded_proto = &#39;http&#39;) {
+  #   return 301 https://$host$request_uri;
+  # }
+ }
+
+ server {
+  listen 443 ssl;
+  listen [::]:443 ssl;
+  ssl_certificate /etc/nginx/ssl/example.crt; 
+  ssl_certificate_key /etc/nginx/ssl/example.key;
+  ...
+ }
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="基于国家或地区的访问限制">基于国家或地区的访问限制</h2>
+<br/>
+<br/>
+<h2 id="动态应用层ddos防护">动态应用层DDOS防护</h2>
+<p>Plus。</p>
+<br/>
+<br/>
+<h2 id="waf模块">WAF模块</h2>
+<p>Plus。</p>
+<br/>
+<hr>
+<br/>
+<h1 id="http2和3">HTTP2和3</h1>
+<br/>
+<br/>
+<h2 id="启用http2">启用HTTP2</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+  listen 443 ssl default_server;
+  http2 on;
+ 
+  ssl_certificate server.crt;
+  ssl_certificate_key server.key;
+  # ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="启用http3">启用HTTP3</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+  # 为了提高兼容性，我们建议
+  # 对 QUIC 和 TCP 使用相同的端口号
+  listen 443 quic reuseport; # QUIC
+  listen 443 ssl; # TCP
+  ssl_certificate certs/example.com.crt;
+  ssl_certificate_key certs/example.com.key;
+  ssl_protocols TLSv1.3;
+  location / {
+    # 告知 QUIC 在配置端口上可用
+    add_header Alt-Svc &#39;h3=&#34;:$server_port&#34;; ma=86400&#39;;
+    # ...
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="grpc">gRPC</h2>
+<p>代理 gRPC 连接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">upstream grpcservers {
+  server backend1.local:50051;
+  server backend2.local:50051;
+}
+
+server {
+  listen 80
+  http2 on;
+  location / {
+    grpc_pass grpc://grpcservers;
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<hr>
+<br/>
+<h1 id="媒体流">媒体流</h1>
+<br/>
+<br/>
+<h1 id="性能调优">性能调优</h1>
+<br/>
+<br/>
+<h2 id="控制浏览器缓存">控制浏览器缓存</h2>
+<p>使用客户端的 <code>cache-control</code> 请求头。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location ~* \.(css|js)$ {
+  expires 1y;
+  add_header Cache-Control &#34;public&#34;;
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="保持客户端长链接">保持客户端长链接</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http {
+  keepalive_requests 320;
+  keepalive_timeout 300s;
+  # ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="保持上游长连接">保持上游长连接</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">proxy_http_version 1.1;
+ proxy_set_header Connection &#34;&#34;
+ upstream backend {
+  server 10.0.0.42;
+  server 10.0.2.56;
+ 
+  keepalive 32;
+ }
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="响应缓冲">响应缓冲</h2>
+<p>允许将响应内容写入缓冲区。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+  proxy_buffering on;
+  proxy_buffer_size 8k;
+  proxy_buffers 8 32k;
+  proxy_busy_buffer_size 64k;
+  # ...
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="日志缓冲">日志缓冲</h2>
+<p>当系统处于高负载时，希望启用日志缓冲，降低 nginx worker 进程发生阻塞的可能性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http {
+  access_log /var/log/nginx/access.log main buffer=32k
+    flush=1m gzip=1;
+}
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="操作系统调优">操作系统调优</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 配置 
+worker_connections
+worker_rlimit_nofile
+
+# 内核可排队等待 nginx 处理的最大连接数
+net.core.comaxconn
+
+# 打开文件描述符
+sys.fs.file_max
+/etc/security/limits.conf
+
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-01-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nginx-cookbook/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/nginx-cookbook/" data-title="Nginx指南" data-hashtags="nginx,web"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/nginx-cookbook/" data-title="Nginx指南"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/nginx-cookbook/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/nginx-cookbook/" data-title="Nginx指南"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/nginx-cookbook/" data-title="Nginx指南"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/nginx/">nginx</a>,&nbsp;<a href="/tags/web/">Web</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/clickhouse/" class="prev" rel="prev" title="ClickHouse文档"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ClickHouse文档</a>
+            <a href="/opentelemetry/" class="next" rel="next" title="OpenTelemetry">OpenTelemetry<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

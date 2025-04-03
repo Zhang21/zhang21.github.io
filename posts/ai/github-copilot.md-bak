@@ -1,0 +1,32 @@
+---
+title: "Github Copilot"
+date: 2025-02-16T11:32:52+08:00
+categories: ["AI"]
+tags: ["ai", "github", "copilot"]
+---
+
+微软 Github Copilot For Paired Programmming 课程学习笔记。
+
+<br/>
+
+<!--more-->
+
+参考：
+
+- [Mastering-GitHub-Copilot-for-Paired-Programming](https://github.com/microsoft/Mastering-GitHub-Copilot-for-Paired-Programming)
+- [GitHub Universe Cloud Skills Challenge](https://learn.microsoft.com/zh-cn/collections/kkqrhmxoqn54)
+
+<br/>
+<br/>
+
+# 概述
+
+利用 VS Code 和 GitHub Copilot 进行协作，提高编程技能。
+
+请先注册 [GitHub Copilot](https://github.com/features/copilot)。
+
+<br/>
+
+---
+
+<br/>

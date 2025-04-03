@@ -4,7 +4,16 @@
         <link>https://zhang21.cn/tags/faq/</link>
         <description>faq - 标签 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 22 May 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/tags/faq/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 16 Aug 2024 15:59:13 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/tags/faq/" rel="self" type="application/rss+xml" /><item>
+    <title>Shell配置文件加载流程</title>
+    <link>https://zhang21.cn/shell-profile/</link>
+    <pubDate>Fri, 16 Aug 2024 15:59:13 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/shell-profile/</guid>
+    <description><![CDATA[<p>Linux 操作系统登录 Shell 时会加载哪些配置文件，它们的顺序和作用是什么。</p>
+<br/>]]></description>
+</item>
+<item>
     <title>CentOS7升级Glibc到2.28</title>
     <link>https://zhang21.cn/glibc-update/</link>
     <pubDate>Mon, 22 May 2023 00:00:00 &#43;0000</pubDate>
@@ -18,6 +27,14 @@
 </ul>
 <br/>
 <hr>]]></description>
+</item>
+<item>
+    <title>Wireshark网络分析工具</title>
+    <link>https://zhang21.cn/wireshark/</link>
+    <pubDate>Wed, 25 Oct 2017 00:00:00 &#43;0000</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/wireshark/</guid>
+    <description><![CDATA[<p>Wireshark 是一个网络数据包分析工具。</p>]]></description>
 </item>
 </channel>
 </rss>

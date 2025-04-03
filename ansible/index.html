@@ -5,18 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Ansible - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="Ansible" />
-<meta property="og:description" content="参考:
-
-Ansible docs: https://docs.ansible.com
-
-
-环境:
-
-RHELx86_64
-Ansible v2.9
-
-
-
+<meta property="og:description" content="ansible 学习笔记。
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhang21.cn/ansible/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
@@ -27,18 +16,7 @@ Ansible v2.9
 <meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
 
 <meta name="twitter:title" content="Ansible"/>
-<meta name="twitter:description" content="参考:
-
-Ansible docs: https://docs.ansible.com
-
-
-环境:
-
-RHELx86_64
-Ansible v2.9
-
-
-
+<meta name="twitter:description" content="ansible 学习笔记。
 "/>
 <meta name="application-name" content="风继续吹">
 <meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -59,7 +37,7 @@ Ansible v2.9
                             "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "Ansible, DevOps","wordcount":  27833 ,
+                        }],"genre": "posts","keywords": "Ansible, DevOps","wordcount":  27247 ,
         "url": "https:\/\/zhang21.cn\/ansible\/","datePublished": "2019-12-26T17:40:11+00:00","dateModified": "2019-12-26T17:40:11+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
@@ -133,8 +111,8 @@ Ansible v2.9
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ansible</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>devops</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-12-26">2019-12-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 27833 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 56 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-12-26">2019-12-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 27247 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 55 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -152,7 +130,7 @@ Ansible v2.9
             <li><a href="#选择版本">选择版本</a></li>
             <li><a href="#在rhel上安装">在RHEL上安装</a></li>
             <li><a href="#使用pip安装">使用pip安装</a></li>
-            <li><a href="#ansible-command-shell-completion">Ansible command shell completion</a></li>
+            <li><a href="#命令行工具">命令行工具</a></li>
           </ul>
         </li>
         <li><a href="#配置ansible">配置Ansible</a>
@@ -187,14 +165,7 @@ Ansible v2.9
             <li><a href="#清单配置样例">清单配置样例</a></li>
           </ul>
         </li>
-        <li><a href="#动态清单">动态清单</a>
-          <ul>
-            <li><a href="#cobbler">cobbler</a></li>
-            <li><a href="#aws-ec2">AWS ec2</a></li>
-            <li><a href="#openstack">OpenStack</a></li>
-            <li><a href="#其它清单脚本">其它清单脚本</a></li>
-          </ul>
-        </li>
+        <li><a href="#动态清单">动态清单</a></li>
         <li><a href="#模式">模式</a>
           <ul>
             <li><a href="#模式使用">模式使用</a></li>
@@ -219,12 +190,12 @@ Ansible v2.9
             <li><a href="#其它连接方法">其它连接方法</a></li>
           </ul>
         </li>
-        <li><a href="#命令行工具">命令行工具</a></li>
+        <li><a href="#命令行工具-1">命令行工具</a></li>
         <li><a href="#playbook">playbook</a>
           <ul>
             <li><a href="#介绍-1">介绍</a>
               <ul>
-                <li><a href="#playbook-language">playbook language</a></li>
+                <li><a href="#playbook语法">playbook语法</a></li>
                 <li><a href="#基本">基本</a></li>
                 <li><a href="#action-shorthand">action shorthand</a></li>
                 <li><a href="#handlers">Handlers</a></li>
@@ -236,7 +207,7 @@ Ansible v2.9
             </li>
             <li><a href="#可重复使用的playbook">可重复使用的playbook</a>
               <ul>
-                <li><a href="#including和importing">including和importing</a></li>
+                <li><a href="#include和import">include和import</a></li>
                 <li><a href="#roles">Roles</a>
                   <ul>
                     <li><a href="#角色目录结构">角色目录结构</a></li>
@@ -268,7 +239,7 @@ Ansible v2.9
                 <li><a href="#使用magic变量访问其它主机的信息">使用magic变量访问其它主机的信息</a></li>
                 <li><a href="#在文件中定义变量">在文件中定义变量</a></li>
                 <li><a href="#在命令行上传递参数">在命令行上传递参数</a></li>
-                <li><a href="#变量的优先级我应该把变量放在哪">变量的优先级：我应该把变量放在哪</a></li>
+                <li><a href="#变量的优先级">变量的优先级</a></li>
               </ul>
             </li>
             <li><a href="#jinja2模板">Jinja2模板</a>
@@ -276,7 +247,7 @@ Ansible v2.9
                 <li><a href="#filters">Filters</a></li>
                 <li><a href="#tests">Tests</a></li>
                 <li><a href="#lookups">Lookups</a></li>
-                <li><a href="#python版本和模板">Python版本和模板</a></li>
+                <li><a href="#python版本">Python版本</a></li>
               </ul>
             </li>
             <li><a href="#条件语句">条件语句</a>
@@ -284,7 +255,7 @@ Ansible v2.9
                 <li><a href="#when语句">When语句</a></li>
                 <li><a href="#循环和条件">循环和条件</a></li>
                 <li><a href="#在自定义facts中载入">在自定义facts中载入</a></li>
-                <li><a href="#applying-when-to-rolesimportsand-includes">Applying when to roles,imports,and includes</a></li>
+                <li><a href="#when语句使用">when语句使用</a></li>
                 <li><a href="#有条件的导入">有条件的导入</a></li>
                 <li><a href="#基于变量来选择文件和模板">基于变量来选择文件和模板</a></li>
                 <li><a href="#注册变量-1">注册变量</a></li>
@@ -378,11 +349,7 @@ Ansible v2.9
                 <li><a href="#变量和拱顶">变量和拱顶</a></li>
               </ul>
             </li>
-            <li><a href="#持续交付和滚动更新">持续交付和滚动更新</a>
-              <ul>
-                <li><a href="#什么是持续交付">什么是持续交付</a></li>
-              </ul>
-            </li>
+            <li><a href="#持续交付和滚动更新">持续交付和滚动更新</a></li>
           </ul>
         </li>
         <li><a href="#特权晋升-1">特权晋升</a>
@@ -407,29 +374,24 @@ Ansible v2.9
     <li><a href="#ansible-galaxy">Ansible Galaxy</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>参考:</p>
+            </div><div class="content" id="content"><p>ansible 学习笔记。</p>
+<br/>
+<p>参考:</p>
 <ul>
-<li>Ansible docs: <a href="https://docs.ansible.com">https://docs.ansible.com</a></li>
+<li><a href="https://docs.ansible.com" target="_blank" rel="noopener noreffer ">ansible docs</a></li>
 </ul>
 <br>
 <p>环境:</p>
 <ul>
-<li>RHELx86_64</li>
 <li>Ansible v2.9</li>
 </ul>
 <br/>
 <br/>
-<hr>
-<br/>
-<br/>
 <h1 id="介绍">介绍</h1>
-<p>About Ansible: <a href="https://docs.ansible.com/ansible/latest/index.html">https://docs.ansible.com/ansible/latest/index.html</a></p>
 <p>Ansible是一个IT自动化工具。它可以配置系统，部署软件和编排更先进的IT任务。Ansible的主要目标是简单和易于使用。它也专注于安全性和可靠性。</p>
 <p>Ansible以无代理(agent-less)方式管理机器。Ansible是分散的，它依赖于现有操作系统的平局来控制访问到远程主机。如果需要，Ansible可以很容易地使用Kerberos, LDAP等集中认证管理系统连接。</p>
 <br/>
-<br/>
 <hr>
-<br/>
 <br/>
 <h1 id="词汇表">词汇表</h1>
 <p><a href="https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html" target="_blank" rel="noopener noreffer ">Glossary</a></p>
@@ -657,9 +619,7 @@ Ansible不想强迫人们编写程序代码来自动化基础设施，因此使�
 </li>
 </ul>
 <br/>
-<br/>
 <hr>
-<br/>
 <br/>
 <h1 id="安装指南">安装指南</h1>
 <p>Installtion Guide: <a href="https://docs.ansible.com/ansible/latest/installation_guide/index.html">https://docs.ansible.com/ansible/latest/installation_guide/index.html</a></p>
@@ -667,23 +627,19 @@ Ansible不想强迫人们编写程序代码来自动化基础设施，因此使�
 <h2 id="安装ansible">安装Ansible</h2>
 <p>Installing Ansible: <a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html</a></p>
 <p>Ansible是一个默认通过SSH协议管理机器的无代理(agentless)的自动化工具。一旦安装，Ansible不添加数据库，并且不需要启动守护进程。你只需要在一台机器上安装它，它可以从该中心点管理远程所有机器。</p>
-<br>
+<br/>
 <br/>
 <h3 id="先决条件">先决条件</h3>
-<p>Prerequisite</p>
 <p>在控制节点上安装Ansible，然后使用SSH(默认)与管理的节点通信。</p>
 <br>
-<p><strong>控制节点的依赖</strong>
-Control node requirements</p>
+<p><strong>控制节点的依赖</strong></p>
 <p>目前，Ansible可以从任何安装了Python2.7或Python3.5+的机器上运行。不支持Windows。</p>
 <br>
 <p><strong>被管理节点的依赖</strong></p>
-<p>Managed node requirements</p>
 <p>在被管理的节点上，你需要一种方法来通信（通常是SSH）。</p>
 <br/>
 <br/>
 <h3 id="选择版本">选择版本</h3>
-<p>Selecting an Ansible version to install</p>
 <p>选择自己需要的Ansible版本进行安装，可选择一下几种方式：</p>
 <ul>
 <li>使用操作系统包管理器进行安装</li>
@@ -693,23 +649,19 @@ Control node requirements</p>
 <br/>
 <br/>
 <h3 id="在rhel上安装">在RHEL上安装</h3>
-<p>Installing Ansible on RHEL, CentOS, or Fedora</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sh" data-lang="sh">yum search ansible
+<pre class="chroma"><code class="language-sh" data-lang="sh">sudo yum install ansible
 
-sudo yum install ansible
 </code></pre></td></tr></table>
 </div>
 </div><br/>
 <br/>
 <h3 id="使用pip安装">使用pip安装</h3>
-<p>Installing Ansible with pip</p>
 <p>使用Python的包管理工具pip来安装Ansible。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -718,6 +670,7 @@ sudo yum install ansible
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># env</span>
@@ -725,11 +678,12 @@ sudo yum install ansible
 <span class="c1"># source ansible/bin/activate</span>
 pip install --user ansible
 pip install --user paramiko
+
 </code></pre></td></tr></table>
 </div>
 </div><br/>
 <br/>
-<h3 id="ansible-command-shell-completion">Ansible command shell completion</h3>
+<h3 id="命令行工具">命令行工具</h3>
 <p>Ansible 2.9的命令行工具由称为<code>argcomplete</code>的依赖提供。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -796,12 +750,10 @@ sudo activate-global-python-argcomplete
 </div>
 </div><br/>
 <br/>
-<br/>
 <h2 id="配置ansible">配置Ansible</h2>
 <p>Configuring Ansible: <a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_configuration.html">https://docs.ansible.com/ansible/latest/installation_guide/intro_configuration.html</a></p>
 <br>
 <h3 id="配置文件">配置文件</h3>
-<p>Configuration file</p>
 <p>Ansible将按照一下顺序搜索配置文件：</p>
 <ul>
 <li><code>ANSIBLE_CONFIG</code>环境变量</li>
@@ -812,16 +764,12 @@ sudo activate-global-python-argcomplete
 <br>
 <p><a href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings" target="_blank" rel="noopener noreffer ">Ansible配置参考</a></p>
 <br/>
-<br/>
 <hr>
-<br/>
 <br/>
 <h1 id="ansible移植指南">Ansible移植指南</h1>
 <p>Ansible Porting Guides: <a href="https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html">https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html</a></p>
 <br/>
-<br/>
 <hr>
-<br/>
 <br/>
 <h1 id="用户指南">用户指南</h1>
 <p>User Guide: <a href="https://docs.ansible.com/ansible/latest/user_guide/index.html">https://docs.ansible.com/ansible/latest/user_guide/index.html</a></p>
@@ -865,14 +813,16 @@ sudo activate-global-python-argcomplete
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 创建一个基本的清单
-# 在此文件中添加远程系统
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 创建一个基本的清单</span>
+<span class="c1"># 在此文件中添加远程系统</span>
 vim /etc/ansible/hosts
 192.0.2.50
 aserver.example.org
 bserver.example.org
+
 </code></pre></td></tr></table>
 </div>
 </div><p>也可以使用别名(aliases)，主机变量(host vars)，组变量(group vars)。</p>
@@ -895,24 +845,22 @@ bserver.example.org
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 运行第一个ansible命令
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 运行第一个ansible命令</span>
 ansible all -m ping
 
 
-# 运行一个节点上的命令
-ansible all -a &#34;/bin/echo hell&#34;
+<span class="c1"># 运行一个节点上的命令</span>
+ansible all -a <span class="s2">&#34;/bin/echo hell&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
 <br>
 <h2 id="如何构建清单">如何构建清单</h2>
-<p>How to build your inventory: <a href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html">https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html</a></p>
 <p>Ansible对多个被管理的节点使用被称为清单的列表或组列表。一旦清单定义，你可以选择主机或组来运行。</p>
 <p>清单的默认位置是<code>/etc/ansible/hosts</code>。可以通过<code>-i</code>选项来指定不同的清单文件。也可以同时使用多个清单文件。从动态或云拉取清单。</p>
 <br>
 <br>
 <h3 id="清单基本">清单基本</h3>
-<p>formats, hosts, groups。</p>
 <p>清单文件有多种形式。最常用的是INI和YAML。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -944,7 +892,8 @@ ansible all -a &#34;/bin/echo hell&#34;
 <span class="na">db3.example.com</span>
 </code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><br/>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1069,12 +1018,10 @@ ansible all -a &#34;/bin/echo hell&#34;
 </div><br>
 <br>
 <h3 id="添加变量到清单">添加变量到清单</h3>
-<p>Adding variables to inventory</p>
 <p>可以在清单中存储涉及到特定主机或组的变量值。</p>
 <br/>
 <br/>
 <h3 id="主机变量">主机变量</h3>
-<p>Assigning a variable to one machine: host variables</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1139,7 +1086,7 @@ ansible all -a &#34;/bin/echo hell&#34;
 </span></code></pre></td></tr></table>
 </div>
 </div><br>
-<p>继承变量值(Inheriting variable values: group variables for groups of groups)。可使用<code>children:</code>(yaml)来构建组的组，同样，可使用<code>vars:</code>来构建组变量的组变量。</p>
+<p>继承变量值。可使用<code>children:</code>(yaml)来构建组的组，同样，可使用<code>vars:</code>来构建组变量的组变量。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1200,13 +1147,11 @@ ansible all -a &#34;/bin/echo hell&#34;
 <br/>
 <br/>
 <h3 id="组织主机和组变量">组织主机和组变量</h3>
-<p>Organizing host and group variables</p>
 <p>尽管你可以将变量存储在清单文件，但存储独立的主机和组变量可以帮助您更轻松地阻止你的变量值。主机和组变量文件必须使用YAML语法。</p>
 <p>Ansible通过搜索清单文件或剧本文件的路径来载入主机和组变量文件。</p>
 <br/>
 <br/>
 <h3 id="变量如何合并">变量如何合并</h3>
-<p>How variables are merged</p>
 <p>默认情况下，在play运行前变量被合并到特定的主机。这使Ansible集中在主机和任务，因此组并没有真正生存在清单和主机匹配之外。Ansible覆盖变量的顺序：</p>
 <ul>
 <li>all group</li>
@@ -1214,6 +1159,7 @@ ansible all -a &#34;/bin/echo hell&#34;
 <li>child group</li>
 <li>host</li>
 </ul>
+<br/>
 <p>默认情况下Ansible在相同的父/子级按字母顺序合并组，并在最后一组加载覆盖前面的组。你可以通过设置组变量<code>ansible_group_priority</code>来改变同级组合并顺序的行为。数字越大，优先级就越高。默认值是1。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1236,7 +1182,6 @@ ansible all -a &#34;/bin/echo hell&#34;
 </div><br/>
 <br/>
 <h3 id="使用多个清单源">使用多个清单源</h3>
-<p>Using multiple inventory sources</p>
 <p>可通过在命令行中或配置<code>ANSIBLE_INVENTORY</code>通过给定多个清单参数在同一时间目标多个清单源（目录，动态清单脚本，清单插件&hellip;）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1249,7 +1194,7 @@ ansible all -a &#34;/bin/echo hell&#34;
 </span></code></pre></td></tr></table>
 </div>
 </div><br>
-<p><strong>以一个目录组合多个清单源(Aggregating inventory sources with a directory)</strong></p>
+<p><strong>以一个目录组合多个清单源</strong></p>
 <p>还可以通过一个目录下结合多个清单源和原类型来创建清单。这对于动静结合主机和管理它们为一体化清单很有用。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1282,12 +1227,10 @@ ansible-playbook example.yml -i inventory
 </div><br/>
 <br/>
 <h3 id="清单参数">清单参数</h3>
-<p>Connecting to hosts: behavioral inventory parameters</p>
 <p>以下变量控制与远程主机如何与Ansible相互作用。</p>
 <br/>
 <br/>
 <h3 id="清单配置样例">清单配置样例</h3>
-<p>Inventory setup examples</p>
 <ul>
 <li>每个环境一个清单(One inventory per environment)</li>
 <li>通过功能分组(Group by function)</li>
@@ -1302,14 +1245,15 @@ ansible-playbook example.yml -i inventory
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Example: One inventory per environment
-# inventory_test
-[dbservers]
-db01.test.example.com
-db02.test.example.com
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="c1"># Example: One inventory per environment</span>
+<span class="c1"># inventory_test</span>
+<span class="k">[dbservers]</span>
+<span class="na">db01.test.example.com</span>
+<span class="na">db02.test.example.com</span>
 </code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><br/>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1331,7 +1275,8 @@ db02.test.example.com
 </span><span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="m">10.0.0.1</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><br/>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1339,38 +1284,22 @@ db02.test.example.com
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Example: Group by location
-[dc1]
-db01.test.example.com
-app01.test.example.com
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="c1"># Example: Group by location</span>
+<span class="k">[dc1]</span>
+<span class="na">db01.test.example.com</span>
+<span class="na">app01.test.example.com</span>
 </code></pre></td></tr></table>
 </div>
 </div><br/>
 <br/>
-<br/>
 <h2 id="动态清单">动态清单</h2>
 <p>Working with dynamic inventory: <a href="https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html">https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html</a></p>
 <br/>
-<h3 id="cobbler">cobbler</h3>
-<br/>
-<br/>
-<h3 id="aws-ec2">AWS ec2</h3>
-<br/>
-<br/>
-<h3 id="openstack">OpenStack</h3>
-<br/>
-<br/>
-<h3 id="其它清单脚本">其它清单脚本</h3>
-<p>Other inventory scripts</p>
-<br/>
-<br/>
 <br/>
 <h2 id="模式">模式</h2>
-<p>Patterns: targeting hosts and groups: <a href="https://docs.ansible.com/ansible/latest/user_guide/intro_patterns.html">https://docs.ansible.com/ansible/latest/user_guide/intro_patterns.html</a></p>
 <p>当你通过<code>ad-hoc</code>或<code>playbook</code>执行Ansible时，你必须选择要对哪些节点或组执行。模式可以让你针对清单中的特定主机或组执行。一个Ansible Pattern可以指定单个主机、IP地址、清单组、一组组、所有主机&hellip;模式非常灵活，可以排除需要的主机子集、使用通配符、正则表达式&hellip;Ansible将在包含在模式上的所有清单主机上执行。</p>
 <br/>
 <h3 id="模式使用">模式使用</h3>
-<p>Using patterns</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1383,7 +1312,8 @@ app01.test.example.com
 ansible webservers -m service -a <span class="s2">&#34;name=httpd state=restarted&#34;</span>
 </code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><br/>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1404,7 +1334,6 @@ ansible webservers -m service -a <span class="s2">&#34;name=httpd state=restarte
 </div><br/>
 <br/>
 <h3 id="常见模式">常见模式</h3>
-<p>Common patterns</p>
 <table>
 <thead>
 <tr>
@@ -1454,60 +1383,54 @@ ansible webservers -m service -a <span class="s2">&#34;name=httpd state=restarte
 <br/>
 <br/>
 <h3 id="模式的局限性">模式的局限性</h3>
-<p>Limitations of patterns</p>
 <p>模式依赖于清单。如果主机或组不在清单中，则不能使用模式来目标它。如果模式中包含清单中不存在的IP地址或主机名，会报错。模式必须匹配清单语法。</p>
 <br/>
 <br/>
 <h3 id="高级的模式选项">高级的模式选项</h3>
-<p>Advanced pattern options</p>
 <p>常用的模式将满足你的大部分需求，但Ansible提供了几种方法来定义你需要定位(target)的主机和组。</p>
-<p><strong>在模式中使用环境变量</strong>
-Using variables in patterns</p>
+<p><strong>在模式中使用环境变量</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># playbook
-webservers:!{{ excluded }}:&amp;{{ required }}
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="c1"># playbook</span>
+<span class="na">webservers:!{{ excluded }}:&amp;{{ required }}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><strong>在模式中使用组位置</strong>
-Using group position in patterns</p>
+</div><br/>
+<p><strong>在模式中使用组位置</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[g1]
-aa
-bb
-cc
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="k">[g1]</span>
+<span class="na">aa</span>
+<span class="na">bb</span>
+<span class="na">cc</span>
 
-
-g1[0]
-g1[-1]
-g1[0:2]
-g1[1:]
+<span class="na">g1[0]</span>
+<span class="na">g1[-1]</span>
+<span class="na">g1[0:2]</span>
+<span class="na">g1[1:]</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><strong>在模式中使用正则</strong>
-Using regexes in patterns</p>
+</div><br/>
+<p><strong>在模式中使用正则</strong></p>
 <p>以<code>~</code>符号开始使用模式的正则: <code>~(web|db).*\.example\.com</code></p>
 <br/>
 <br/>
 <h3 id="playbook标志">playbook标志</h3>
-<p>Patterns and ansible-playbook flags</p>
 <p>可以使用命令行选项改变playbook中定义的行为。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1519,15 +1442,13 @@ Using regexes in patterns</p>
 </div>
 </div><br/>
 <br/>
-<br/>
 <h2 id="ad-hoc">ad-hoc</h2>
-<p>Introduction to ad-hoc commands: <a href="https://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html">https://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html</a></p>
 <p>一个Ansible的<code>ad-hoc</code>命令使用ansible命令行工具在一个或多个管理节点上执行单一任务。<code>ad-hoc</code>命令是快速和容易的，但却无法重复使用。那么为什么首先学习<code>ad-hoc</code>命令呢？它表明Ansible的简单和功能。在这学的内容可直接到playbook里。在执行前，请先阅读构建清单。</p>
 <p><code>ansible</code>命令行实用程序的默认模块是<a href="https://docs.ansible.com/ansible/latest/modules/command_module.html" target="_blank" rel="noopener noreffer ">command module</a>。</p>
 <p>如果像重复一个命令，可使用playbook中的template module。</p>
 <br/>
+<br/>
 <h3 id="为什么使用它">为什么使用它</h3>
-<p>Why use ad-hoc commands?</p>
 <p><code>ad-hoc</code>命令针对的是很少会重复的任务。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1542,7 +1463,6 @@ ansible <span class="o">[</span>pattern<span class="o">]</span> -m <span class="
 </div><br/>
 <br/>
 <h3 id="用例">用例</h3>
-<p>Use cases for ad-hoc tasks</p>
 <p><code>ad-hoc</code>任务可用来重启服务器、复制文件、管理包和用户&hellip;可在<code>ad-hoc</code>任务中使用任意Ansible模块。Ad-hoc tasks与playbooks类似，使用一个声明模型，计算并执行以达到规定的最终状态所需的操作。</p>
 <br>
 <p><strong>重启服务器</strong></p>
@@ -1563,29 +1483,19 @@ ansible <span class="o">[</span>pattern<span class="o">]</span> -m <span class="
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># rebooting servers</span>
 ansible host1 -a <span class="s2">&#34;/sbin/reboot&#34;</span>
 
-
 <span class="c1"># 默认是5并发进程</span>
 ansible host1 -a <span class="s2">&#34;/sbin/reboot&#34;</span> -f <span class="m">10</span>
-
 
 <span class="c1"># ansible将默认为你的用户账户</span>
 ansible host1 -a <span class="s2">&#34;/sbin/reboot&#34;</span> -f <span class="m">10</span> -u username
 
-
-
 <span class="c1"># 重启服务器可能需要特权提升，如从user到root</span>
 ansible host1 -a <span class="s2">&#34;/sbin/reboot&#34;</span> -f <span class="m">10</span> -u username --become <span class="o">[</span>--ask-become-pass<span class="o">]</span>
-
 
 <span class="c1"># 使用不同的模块</span>
 ansible host1 -m shell -a <span class="s1">&#39;echo ${TERM}&#39;</span>
@@ -1667,25 +1577,21 @@ ansible all -m user -a <span class="s2">&#34;name=foo state=absent&#34;</span>
 <p><strong>服务管理</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 确保服务已启动</span>
 ansible webservers -m service -a <span class="s2">&#34;name=httpd state=started&#34;</span>
 
-
 <span class="c1"># 重启服务</span>
 ansible webservers -m service -a <span class="s2">&#34;name=httpd state=restarted&#34;</span>
-
 
 <span class="c1"># 确保服务已停止</span>
 ansible webservers -m service -a <span class="s2">&#34;name=httpd state=stopped&#34;</span>
@@ -1706,16 +1612,14 @@ ansible all -m setup
 </div>
 </div><br/>
 <br/>
-<br/>
 <h2 id="连接方法和详情">连接方法和详情</h2>
-<p>Connection methods and details: <a href="https://docs.ansible.com/ansible/latest/user_guide/connection_details.html">https://docs.ansible.com/ansible/latest/user_guide/connection_details.html</a></p>
+<br/>
 <br/>
 <h3 id="controlpersist和paramiko">ControlPersist和paramiko</h3>
 <p>默认情况下，Ansible使用原生的OpenSSH，因为它支持ControlPersist（一个性能特点），Kerberos，和<code>~/.ssh/config</code>中的配置。如果你的控制机使用的旧版本OpenSSH不支持ControlPersist，Ansible将回退到称为<code>paramiko</code>的一个Python实现的OpenSSH。</p>
 <br/>
 <br/>
 <h3 id="ssh-key配置">ssh-key配置</h3>
-<p>SSH key setup</p>
 <p>默认情况下，Ansible假定您使用SSH keys连接到远程主机。推荐使用key，但可使用<code>--ask-pass</code>选项来使用密码。使用<code>--ask-become-pass</code>选项来使用特权提升。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1732,7 +1636,6 @@ ssh-add ~/.ssh/id_rsa
 </div><br/>
 <br/>
 <h3 id="本地运行">本地运行</h3>
-<p>Running against localhost</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1744,7 +1647,6 @@ ssh-add ~/.ssh/id_rsa
 </div><br/>
 <br/>
 <h3 id="主机密钥检查">主机密钥检查</h3>
-<p>Host key checking</p>
 <p>Ansible默认启用主机密钥检查。如果主机重装并在<code>known_hosts</code>中有不同的密钥，这将导致一个错误消息，知道纠正。</p>
 <p>可在<code>/etc/ansible/ansible.cfg</code>或<code>~/.ansible.cfg</code>中禁用它:</p>
 <div class="highlight"><div class="chroma">
@@ -1761,13 +1663,10 @@ host_key_checking = False
 <br/>
 <br/>
 <h3 id="其它连接方法">其它连接方法</h3>
-<p>Other connection methods</p>
 <p>除了SSH之外，Ansible还可以使用许多连接方法。</p>
 <br/>
 <br/>
-<br/>
-<h2 id="命令行工具">命令行工具</h2>
-<p>Working with command line tools: <a href="https://docs.ansible.com/ansible/latest/user_guide/command_line_tools.html">https://docs.ansible.com/ansible/latest/user_guide/command_line_tools.html</a></p>
+<h2 id="命令行工具-1">命令行工具</h2>
 <p>大多数用户对<code>ansible</code>和<code>ansilbe-playbook</code>比较熟悉，但它们不是Ansible提供的唯一实用工具。下面是完整的Ansible使用工具列表。</p>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/cli/ansible.html" target="_blank" rel="noopener noreffer ">ansible</a>: 在一组主机上定义和运行一个单任务playbook</li>
@@ -1782,22 +1681,21 @@ host_key_checking = False
 </ul>
 <br/>
 <br/>
-<br/>
 <h2 id="playbook">playbook</h2>
-<p>Working With Playbooks: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks.html</a></p>
 <p>Playbooks是Ansible的配置(configuration)、部署(deployment)和编排(orchestration)语言。它可以描述你希望你的远程系统强制执行的策略，或在IT流程的步骤。</p>
 <p>在最基本的级别上，playbook可以被用来管理部署的配置到远程机器。在更高级的，它们可以序列进行涉及多层(mulit-tier)的滚动更新和回滚，并可以委托操作其它主机，与监控服务器进行交互和负载均衡。它有很多功能和信息，详情看文档。</p>
 <p>playbook被设计为人类可读的和基于文本语言开发。有多种方式来组织playbook和它包含的文件。</p>
 <p>你应该看一看<a href="https://github.com/ansible/ansible-examples" target="_blank" rel="noopener noreffer ">Example Playbooks</a>，并与playbook文档一起阅读。这些说明的最佳实践，以及如何把众多的各种概念混合在一起。</p>
 <br/>
+<br/>
 <h3 id="介绍-1">介绍</h3>
-<p>Intro to Playbooks: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html</a></p>
 <p>playbook是比在<code>ad-hoc</code>任务执行模式下的一个完全不同的使用ansible的方式，并且特别强大。</p>
 <p>简单来说，Playbook是一个非常基础的用于配置管理和多机部署系统，不同于任何已存在的，并且非常适合部署复杂的应用程序。</p>
 <p>playbook可以声明配置，但它也可以通过编排任意手动排序进程的步骤，尽管不同的步骤必须来回在特定命令的机器之间。它可以同步(synchronously)或异步(asynchronously)发射任务。</p>
 <p>虽然你为<code>ad-hoc</code>任务运行主要的<code>/usr/bin/ansible</code>程序，playbook更可能被保持在原控制和用于推送配置或保证远程系统上的配置。palybook example中有许多栗子，建议去看一看。</p>
 <br/>
-<h4 id="playbook-language">playbook language</h4>
+<br/>
+<h4 id="playbook语法">playbook语法</h4>
 <p>playbook以YAML语法格式表示，故意不设计成一种编程语言或脚本，而是过程或配置的模型。</p>
 <p>每个playbooks由列表中的play组成。play的目标是映射一组主机到一些良好定义的角色(roles)，由ansible调用任务来表示。通过多个paly组成playbook，有可能协调多机部署，在某个组的所有机器上运行某些步骤&hellip;你可以由相当多的影响你的系统做不同事情的paly。</p>
 <div class="highlight"><div class="chroma">
@@ -2296,7 +2194,6 @@ You cannot notify a handler that is defined inside of an include. As of Ansible 
 <br/>
 <br/>
 <h3 id="可重复使用的playbook">可重复使用的playbook</h3>
-<p>Creating Reusable Playbooks: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse.html</a></p>
 <p>虽然可以在一个非常大的文件里编写playbook，最终你会想重新使用文件和整理东西。在Ansible中，有三种方式可以做到这一点：</p>
 <ul>
 <li>includes</li>
@@ -2306,8 +2203,8 @@ You cannot notify a handler that is defined inside of an include. As of Ansible 
 <p>includes和imports允许用户将大型playbook分解为小型文件，可跨多个parent playbook或设置多次在相同的playbook里。
 roles允许不仅仅是任务可以打包在一起，可以包括变量(variables)，处理程序(handlers)，甚至模块(modules)和其它插件(plugins)。不同于includes和imports，roles也可上传并经由Ansible Galaxy共享。</p>
 <br>
-<h4 id="including和importing">including和importing</h4>
-<p>Including and Importing: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_includes.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_includes.html</a></p>
+<br>
+<h4 id="include和import">include和import</h4>
 <p>include和import语句相似，但Ansible执行引擎处理它们却非常不同。</p>
 <p><code>import*</code>语句在playbook被解析的时候进行预处理(pre-processed)。
 <code>include*</code>语句在playbook的执行过程中遇到才处理。</p>
@@ -2418,11 +2315,10 @@ roles允许不仅仅是任务可以打包在一起，可以包括变量(variable
 </div><br>
 <br>
 <h4 id="roles">Roles</h4>
-<p>roles: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html</a></p>
 <p>角色(role)是基于已知的文件架构自动加载某些变量文件、任务和处理程序的方式。按角色分组的内容还可以方便地与其他用户共享。</p>
 <br>
+<br>
 <h5 id="角色目录结构">角色目录结构</h5>
-<p>Role Directory Structure</p>
 <p>栗子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2638,7 +2534,6 @@ roles允许不仅仅是任务可以打包在一起，可以包括变量(variable
 </div><br>
 <br>
 <h5 id="角色副本和扩展">角色副本和扩展</h5>
-<p>Role Duplication and Execution</p>
 <p>Ansible只允许一个角色执行一次，即使多次定义：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2690,12 +2585,10 @@ roles允许不仅仅是任务可以打包在一起，可以包括变量(variable
 </div><br>
 <br>
 <h5 id="角色默认变量">角色默认变量</h5>
-<p>Role Default Variables</p>
 <p>角色的默认变量允许你为角色设定默认变量。在角色目录中添加<code>defaults/main.yml</code>文件。这些变量具有最低优先级，可以轻易被覆盖。</p>
 <br>
 <br>
 <h5 id="角色依赖">角色依赖</h5>
-<p>Role Dependencies</p>
 <p>角色依赖让你在其它角色使用角色时自动拉取。角色依赖存储在角色目录的<code>meta/main.yml</code>文件。此文件应包含角色和参数列表在指定角色之前插入：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2732,7 +2625,6 @@ roles允许不仅仅是任务可以打包在一起，可以包括变量(variable
 </div><br>
 <br>
 <h5 id="角色中的嵌入模块和插件">角色中的嵌入模块和插件</h5>
-<p>Embedding Modules and Plugins In Roles</p>
 <br>
 <br>
 <h5 id="角色搜索路径">角色搜索路径</h5>
@@ -2749,7 +2641,6 @@ roles允许不仅仅是任务可以打包在一起，可以包括变量(variable
 <br>
 <br>
 <h4 id="动态与静态">动态与静态</h4>
-<p>Dynamic vs. Static</p>
 <p>Ansible有两种操作模式用于可重用内容：动态与静态。</p>
 <p>如果你使用<code>include*</code>，它将是动态的。如果你使用<code>import*</code>，它是静态的。</p>
 <br>
@@ -2795,11 +2686,10 @@ roles允许不仅仅是任务可以打包在一起，可以包括变量(variable
 <br>
 <br>
 <h3 id="使用变量">使用变量</h3>
-<p>Using Variables: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html</a></p>
 <p>Ansible中使用变量可以更好地帮助处理各系统之间的差异。</p>
 <br>
+<br>
 <h4 id="创建有效的变量名">创建有效的变量名</h4>
-<p>Creating valid variable names</p>
 <p>有效的变量名是很重要的。变量名应该是字母 、数字和下划线，且总是以字母开头。</p>
 <p>YAML也支持映射键值对的字典：</p>
 <div class="highlight"><div class="chroma">
@@ -2839,7 +2729,6 @@ add, append, count, decode...
 </div><br>
 <br>
 <h4 id="在清单中定义变量">在清单中定义变量</h4>
-<p>Defining variables in inventory</p>
 <p>通常，你需要为单独的主机或组设置变量。你可以在清单文件(如hosts)中定义所需的变量：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2876,7 +2765,6 @@ add, append, count, decode...
 </div><br>
 <br>
 <h4 id="在playbook中定义变量">在playbook中定义变量</h4>
-<p>Defining variables in a playbook</p>
 <p>你可以直接在playbook中定义变量：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2893,7 +2781,6 @@ add, append, count, decode...
 </div><br>
 <br>
 <h4 id="在文件和角色中定义变量">在文件和角色中定义变量</h4>
-<p>Defining variables in included files and roles</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -2919,7 +2806,6 @@ add, append, count, decode...
 </div><br>
 <br>
 <h4 id="在jinja2中使用变量">在Jinja2中使用变量</h4>
-<p>Using variables with Jinja2</p>
 <p>一旦你定义了变量，便可以在Jinja2的模板系统中引用它：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2932,14 +2818,12 @@ add, append, count, decode...
 </div><br>
 <br>
 <h4 id="使用jinja2过滤器转换变量">使用Jinja2过滤器转换变量</h4>
-<p>Transforming variables with Jinja2 filters</p>
 <p>Jinja2 filters 让你在模板表达式内转换变量的值。如<code>capitalize</code>大写过滤器，<code>to_yaml</code>和<code>to_json</code>过滤器来转换成对应格式。</p>
 <p>Jinja2包含了许多内置过滤器： <a href="https://jinja.palletsprojects.com/en/2.11.x/templates/#builtin-filters">https://jinja.palletsprojects.com/en/2.11.x/templates/#builtin-filters</a>
 Ansible也支持许多过滤器： <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters">https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters</a></p>
 <br>
 <br>
 <h4 id="yaml疑难杂症">YAML疑难杂症</h4>
-<p>Hey wait, a YAML gotcha</p>
 <p>YAML语法要求，如果你使用<code>{{ foo }}</code>值引用整行，它要确保你不是想开始一个YAML字典。所以记得使用双引号。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2966,7 +2850,6 @@ Ansible也支持许多过滤器： <a href="https://docs.ansible.com/ansible/lat
 </div><br>
 <br>
 <h4 id="系统facts中的变量">系统facts中的变量</h4>
-<p>Variables discovered from systems: Facts</p>
 <p>facts是从远程系统获得的信息。你可以从<code>ansible_facts</code>变量中找到。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3017,7 +2900,6 @@ ansible hostname -m setup
 <br>
 <br>
 <h4 id="注册变量">注册变量</h4>
-<p>Registering variables</p>
 <p>另一个主要使用的变量是正在运行一个命令和将此命令的返回的结果注册为一个变量，供其它地方使用。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3042,7 +2924,6 @@ ansible hostname -m setup
 </div><br>
 <br>
 <h4 id="访问复杂的变量数据">访问复杂的变量数据</h4>
-<p>Accessing complex variable data</p>
 <p>有些提供的facts，如网络信息，包含了复杂的嵌套结构。取值会稍微麻烦一些：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3067,7 +2948,6 @@ ansible hostname -m setup
 </div><br>
 <br>
 <h4 id="使用magic变量访问其它主机的信息">使用magic变量访问其它主机的信息</h4>
-<p>Accessing information about other hosts with magic variables</p>
 <p>无论你是否定义变量，你也可以利用特殊的Ansible变量访问有关主机的信息，包括magic, facts, connection变量。magic变量名称被保留，所以不要使用这些名称来设置变量。<code>enviroment</code>变量也同样被保留。</p>
 <p>最常使用的魔术变量有：<code>hostvars</code>, <code>groups</code>, <code>group_names</code>, <code>inventory_hostname</code>。</p>
 <p><code>host_vars</code>允许你访问其它主机的变量，包括该主机的facts。你可以在playbook中的任意一点访问主机变量。即使你在playbook中并没有连接到此主机，你仍可以得到变量。
@@ -3105,7 +2985,6 @@ ansible hostname -m setup
 </div><br>
 <br>
 <h4 id="在文件中定义变量">在文件中定义变量</h4>
-<p>Defining variables in files</p>
 <p>让playbook使用版本控制是很好的想法，但你可能希望让playbook 源公开化，但同时又保证一定的重要的私有变量。</p>
 <p>你可以通过一个外部变量文件来这么做：</p>
 <div class="highlight"><div class="chroma">
@@ -3144,7 +3023,6 @@ ansible hostname -m setup
 <br>
 <br>
 <h4 id="在命令行上传递参数">在命令行上传递参数</h4>
-<p>Passing variables on the command line</p>
 <p>可在命令行上使用<code>--extra-vars</code>参数来设置变量：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3170,8 +3048,7 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </div>
 </div><br>
 <br>
-<h4 id="变量的优先级我应该把变量放在哪">变量的优先级：我应该把变量放在哪</h4>
-<p>Variable precedence: Where should I put a variable?</p>
+<h4 id="变量的优先级">变量的优先级</h4>
 <p>同一名称的变量如果在多个地方被定义，则它们会以特定的顺序发生覆盖，所需需要知道Ansible变量的优先级，以及它们的放置位置。下面是从小到大的优先级：</p>
 <ol>
 <li>command line values</li>
@@ -3200,7 +3077,6 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 <br>
 <br>
 <h3 id="jinja2模板">Jinja2模板</h3>
-<p>Templating (Jinja2): <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_templating.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_templating.html</a></p>
 <p>Ansible使用Jinja2模板化来实现动态表达式和访问变量。Ansilbe大大扩展的filters和tests数量，以及新增了一个插件类型：lookups。</p>
 <p>请注意，所有模板发生在Ansible控制器上，在任务发送和执行在目标主机之前。</p>
 <br>
@@ -3228,18 +3104,16 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </blockquote>
 <br>
 <br>
-<h4 id="python版本和模板">Python版本和模板</h4>
-<p>Python Version and Templating: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_python_version.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_python_version.html</a></p>
+<h4 id="python版本">Python版本</h4>
 <p>Jinja2模板利用Python数据类型和标准函数。这使得可对数据进行丰富的操作。然而，这也意味着潜在的Python的某些细节对模板编写者可见。由于Ansible playbook使用Jinja2用于模板与变量，这意味着playbook作者需要了解这些细节。</p>
 <p>除了这些，请注意在Python2和Python3上运行Ansible的不同。</p>
 <br>
 <br>
 <h3 id="条件语句">条件语句</h3>
-<p>Conditionals: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html</a></p>
 <p>经常的一个play的结果可能依赖于一个变量的值，或之前的任务的结果。在某些情况下，变量的值可能依赖于其它变量。本主题介绍如何在playbook中使用条件语句。</p>
 <br>
+<br>
 <h4 id="when语句">When语句</h4>
-<p>The When Statement</p>
 <p>有时你会想在某个特定主机上跳过特定的步骤。</p>
 <p>在Ansible中使用<code>when</code>子句很容易达到，它不包含Jinja2中的双花括号表达式。它非常简单：</p>
 <div class="highlight"><div class="chroma">
@@ -3260,7 +3134,8 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </span><span class="w">      </span>- <span class="l">ansible_facts[&#39;distribution_major_version&#39;] == &#34;6&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p>许多Jinja2的测试器和过滤器都可在<code>when</code>子句中使用，其中某些是由Ansible单独提供的。</p>
+</div><br/>
+<p>许多Jinja2的测试器和过滤器都可在<code>when</code>子句中使用，其中某些是由Ansible单独提供的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -3295,7 +3170,8 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </span><span class="w">    </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l">result is skipped</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><br/>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3307,7 +3183,8 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </span><span class="w">      </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l">epic or monumental|bool</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><br/>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3328,7 +3205,6 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </div><br>
 <br>
 <h4 id="循环和条件">循环和条件</h4>
-<p>Loops and Conditionals</p>
 <p><code>when</code>和<code>loops</code>结合使用，请注意when语句是根据每个项分别处理。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3347,7 +3223,6 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </div><br>
 <br>
 <h4 id="在自定义facts中载入">在自定义facts中载入</h4>
-<p>Loading in Custom Facts</p>
 <p>如果你想提供自己的facts也很简单。要运行它们，只需要在任务顶部调用你自己定义的模块，这里返回的变量将能访问未来的任务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3367,7 +3242,7 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </div>
 </div><br>
 <br>
-<h4 id="applying-when-to-rolesimportsand-includes">Applying when to roles,imports,and includes</h4>
+<h4 id="when语句使用">when语句使用</h4>
 <p>在roles, imports, includes中使用when语句：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3386,7 +3261,6 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </div><br>
 <br>
 <h4 id="有条件的导入">有条件的导入</h4>
-<p>Conditional Imports</p>
 <p>一个剧本适用于多个平台和操作系统是很好的栗子。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3446,7 +3320,6 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </div><br>
 <br>
 <h4 id="注册变量-1">注册变量</h4>
-<p>Register Variables</p>
 <p>存储一个给定命令的结果，以便后面来访问它，在playbook中可能很有用。</p>
 <blockquote>
 <p>注意：
@@ -3467,14 +3340,12 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
-</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">check registered variable for emptiness</span><span class="w">
 </span><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
 </span><span class="w">
 </span><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">
 </span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">list contents of directory</span><span class="w">
 </span><span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">ls mydir</span><span class="w">
 </span><span class="w">        </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">contents</span><span class="w">
@@ -3488,7 +3359,6 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </div><br>
 <br>
 <h4 id="常用facts">常用facts</h4>
-<p>Commonly Used Facts</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -3498,17 +3368,16 @@ ansible-playbook release.yml --extra-vars <span class="s2">&#34;@some_file.json&
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible_facts[‘distribution’]
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="na">ansible_facts[‘distribution’]</span>
 
-ansible_facts[‘distribution_major_version’]
+<span class="na">ansible_facts[‘distribution_major_version’]</span>
 
-ansible_facts[‘os_family’]
+<span class="na">ansible_facts[‘os_family’]</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
 <br>
 <h3 id="循环">循环</h3>
-<p>Loops: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html</a></p>
 <p>常见的Ansible循环包括改变多个文件/目录的权限、创建多个用户、重复轮询&hellip;Ansible提供了两个关键字来创建循环：</p>
 <ul>
 <li><code>loop</code></li>
@@ -3516,14 +3385,14 @@ ansible_facts[‘os_family’]
 </ul>
 <br>
 <blockquote>
-<p>注意：
+<p>注意：<br/>
 We added loop in Ansible 2.5. It is not yet a full replacement for <code>with_&lt;lookup&gt;</code>, but we recommend it for most use cases.
 We have not deprecated the use of <code>with_&lt;lookup&gt;</code>
 We are looking to improve loop syntax</p>
 </blockquote>
 <br>
+<br>
 <h4 id="两者比较-1">两者比较</h4>
-<p>Comparing <code>loop</code> and <code>with_*</code></p>
 <ul>
 <li><code>with_&lt;lookup&gt;</code>关键字依赖于Lookup插件，即便<code>items</code>也是查找；</li>
 <li><code>loop</code>关键字等于<code>with_list</code>，它是简单循环的最佳选择；</li>
@@ -3554,10 +3423,9 @@ We are looking to improve loop syntax</p>
 </div><br>
 <br>
 <h4 id="标准循环">标准循环</h4>
-<p>Standard loops</p>
+<br>
 <br>
 <h5 id="遍历一个简单列表">遍历一个简单列表</h5>
-<p>Iterating over a simple list</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -3581,8 +3449,8 @@ We are looking to improve loop syntax</p>
 </span></code></pre></td></tr></table>
 </div>
 </div><br>
+<br>
 <h5 id="遍历一个散列列表">遍历一个散列列表</h5>
-<p>Iterating over a list of hashes</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -3638,7 +3506,6 @@ We are looking to improve loop syntax</p>
 </div><br>
 <br>
 <h4 id="循环与注册变量">循环与注册变量</h4>
-<p>Registering variables with a loop</p>
 <p>你可以将循环的输出注册为变量：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3659,10 +3526,8 @@ We are looking to improve loop syntax</p>
 </div><br>
 <br>
 <h4 id="复杂循环">复杂循环</h4>
-<p>Complex loops</p>
 <br>
 <h5 id="遍历嵌套的列表">遍历嵌套的列表</h5>
-<p>Iterating over nested lists</p>
 <p>你可以使用Jinja2的表达式来遍历复杂的列表：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3686,7 +3551,6 @@ We are looking to improve loop syntax</p>
 </div>
 </div><br>
 <h5 id="重试任务直到满足条件">重试任务直到满足条件</h5>
-<p>Retrying a task until a condition is met</p>
 <p>可以使用<code>until</code>关键字来重试任务直到满足特定条件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3706,7 +3570,6 @@ We are looking to improve loop syntax</p>
 </div>
 </div><br>
 <h5 id="循环清单">循环清单</h5>
-<p>Looping over inventory</p>
 <p>遍历资产清单：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3775,11 +3638,9 @@ We are looking to improve loop syntax</p>
 </div><br>
 <br>
 <h4 id="循环控制">循环控制</h4>
-<p>Adding controls to loops</p>
 <p><code>loop_control</code>关键字让你可以以有效的方式管理自己的循环。</p>
 <br>
 <h5 id="限制循环输出">限制循环输出</h5>
-<p>Limiting loop output with label</p>
 <p>当遍历复杂的数据结构，你的任务的控制台输出可能是巨大的。为了限制显示的输出，在<code>loop_control</code>中使用<code>label</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3819,7 +3680,6 @@ We are looking to improve loop syntax</p>
 </div>
 </div><br>
 <h5 id="暂停循环">暂停循环</h5>
-<p>Pausing within a loop</p>
 <p>要控制每个项的执行之间的时间(seconds)，在<code>loop_control</code>中使用<code>pause</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3849,7 +3709,6 @@ We are looking to improve loop syntax</p>
 </div>
 </div><br>
 <h5 id="追踪流程">追踪流程</h5>
-<p>Tracking progress through a loop with <code>index_var</code></p>
 <p>要追踪你在循环的位置，在<code>loop_control</code>中使用<code>index_var</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3877,7 +3736,6 @@ We are looking to improve loop syntax</p>
 </div>
 </div><br>
 <h5 id="inner-and-outer-variable-names">inner and outer variable names</h5>
-<p>Defining inner and outer variable names with <code>loop_var</code></p>
 <p>可使用<code>include_tasks</code>嵌套两个循环任务。然而，默认情况下Ansible为每个循环<code>item</code>设置循环变量。This means the inner, nested loop will overwrite the value of item from the outer loop.你可以在<code>loop_control</code>中使用<code>loop_var</code>来为每个循环指定变量名。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3917,7 +3775,6 @@ We are looking to improve loop syntax</p>
 </div>
 </div><br>
 <h5 id="扩展的循环变量">扩展的循环变量</h5>
-<p>Extended loop variables</p>
 <p>在循环控制中使用<code>extended</code>选项来获取扩展的循环信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3960,7 +3817,6 @@ ansible_loop.nextitem	The item from the following iteration of the loop. Undefin
 </div><br>
 <br>
 <h4 id="从with_x迁移到loop">从with_x迁移到loop</h4>
-<p>Migrating from with_X to loop</p>
 <p>从Ansible 2.5开始，执行循环的推荐的方式是使用新的<code>loop</code>关键字来取代<code>with_x</code>格式的循环。</p>
 <p>在许多情况下，<code>loop</code>语法是使用过滤器的更好的表达，而不是更复杂的<code>query</code>或<code>lookup</code>。</p>
 <br>
@@ -4272,7 +4128,6 @@ ansible_loop.nextitem	The item from the following iteration of the loop. Undefin
 </div><br>
 <br>
 <h3 id="block">Block</h3>
-<p>Blocks: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_blocks.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_blocks.html</a></p>
 <p>块允许任务的逻辑分组，并在play中错误处理。大多数可以适用于单任务的也可适用于块(block)，这使得它很容易设置数据或常见指令到任务。这并不意味着该指令影响块自身，而是有一个块包围的任务继承。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4330,7 +4185,6 @@ ansible_loop.nextitem	The item from the following iteration of the loop. Undefin
 <p>块中的任务名在Ansible 2.3时可用。建议在所有任务中使用名称，无论是块还是其它地方。</p>
 <br>
 <h4 id="块错误处理">块错误处理</h4>
-<p>Blocks error handling</p>
 <p>块同样介绍了类似于大多数编程语言的异常处理的错误处理的方法。块仅处理任务的失败(failed)状态。一个糟糕的任务定义或主机不可达不是rescuable错误。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4397,14 +4251,13 @@ ansible_loop.nextitem	The item from the following iteration of the loop. Undefin
 </div><br>
 <br>
 <h3 id="高级的playbook功能">高级的playbook功能</h3>
-<p>Advanced Playbooks Features: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_special_topics.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_special_topics.html</a></p>
 <p>下面有许多playbook功能不需要每个人都去学习，但可以为特定应用提供有用的功能。浏览这些话题，因为你可能找有一些有用的技巧。</p>
+<br>
 <br>
 <h4 id="特权晋升">特权晋升</h4>
 <br>
 <br>
 <h4 id="异步操作和轮询">异步操作和轮询</h4>
-<p>Asynchronous Actions and Polling: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html</a></p>
 <p>默认情况下，playbook块中的任务，直到任务在每个节点上完成后连接才会断开。这可能不总是可取的，或者你需要运行超过ssh timeout的操作。</p>
 <br>
 <p><strong>限时后台操作(Time-limited background operations)</strong></p>
@@ -4486,11 +4339,9 @@ ansible web1.example.com -m async_status -a <span class="s2">&#34;jid=4883596782
 </div><br>
 <br>
 <h4 id="检查模式">检查模式</h4>
-<p>Check Mode: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_checkmode.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_checkmode.html</a></p>
 <br>
 <br>
 <h4 id="debugger">Debugger</h4>
-<p>Playbook Debugger</p>
 <p>Ansible包含了debugger作为策略插件的一部分。此调试器允许你调试任务。你可以在任务的上下文中访问所有的调试器的功能，以帮助解决失败的问题。</p>
 <p>有多种方式来调用调试器。</p>
 <br>
@@ -4678,7 +4529,6 @@ ANSIBLE_STRATEGY=debug
 <br>
 <br>
 <h4 id="设置环境">设置环境</h4>
-<p>Setting the Environment: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_environment.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_environment.html</a></p>
 <p><code>environment</code>关键字可以允许你为远程目标主机设置环境变量。例如，需要为http请求设置一个代理。获取其它工具需要的环境变量。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4738,7 +4588,6 @@ ANSIBLE_STRATEGY=debug
 </div><br>
 <br>
 <h4 id="特定语言版本管理器">特定语言版本管理器</h4>
-<p>Working With Language-Specific Version Managers</p>
 <p>一些特定语言版本管理器(如nvm)要求，而这些工具在使用中都要求环境变量。挡手动使用这些工具，通常需要在配置文件中添加一些环境变量，在Ansible中，你可使用enviroment代替：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4815,7 +4664,6 @@ ANSIBLE_STRATEGY=debug
 </div><br>
 <br>
 <h4 id="错误处理">错误处理</h4>
-<p>Error Handling In Playbooks: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_error_handling.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_error_handling.html</a></p>
 <p>Ansible通常有默认值来确保检查命令和模块的返回码和是否失败，进行错误处理，除非你做了决定。</p>
 <br>
 <p><strong>忽略错误命令(Ignoring Failed Commands)</strong></p>
@@ -5152,8 +5000,8 @@ Tag Reuse</p>
 <p>Controlling playbook execution: strategies and more: <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html</a></p>
 <p>默认情况下，Ansible在使用5forks任意主机上开始下一个任务之前在所有被play影响的主机上运行每个任务。如果你想要改变此默认的行为，你可以使用不同的策略插件，改变fork数，或应用几个play级别的关键字（如<code>serial</code>）。</p>
 <br>
+<br>
 <h4 id="选择策略">选择策略</h4>
-<p>Selecting a strategy</p>
 <ul>
 <li>linear strategy: <a href="https://docs.ansible.com/ansible/latest/plugins/strategy/linear.html#linear-strategy">https://docs.ansible.com/ansible/latest/plugins/strategy/linear.html#linear-strategy</a></li>
 <li>debug strategy: <a href="https://docs.ansible.com/ansible/latest/plugins/strategy/debug.html#debug-strategy">https://docs.ansible.com/ansible/latest/plugins/strategy/debug.html#debug-strategy</a></li>
@@ -5176,7 +5024,6 @@ Tag Reuse</p>
 </div><br>
 <br>
 <h4 id="设置fork数">设置fork数</h4>
-<p>Setting the number of forks</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -5185,22 +5032,19 @@ Tag Reuse</p>
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ansible.cfg
-[defaults]
-forks = 30
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="c1"># ansible.cfg</span>
+<span class="k">[defaults]</span>
+<span class="na">forks</span> <span class="o">=</span> <span class="s">30</span>
 
-
-# or cli
-ansible-playbook -f 30 my_playbook.ym
+<span class="c1"># or cli</span>
+<span class="na">ansible-playbook -f 30 my_playbook.ym</span>
 </code></pre></td></tr></table>
 </div>
 </div><br>
 <br>
 <h4 id="使用关键字控制执行">使用关键字控制执行</h4>
-<p>Using keywords to control execution</p>
 <p><a href="https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html#playbook-keywords" target="_blank" rel="noopener noreffer ">play level</a>的关键字会影响paly的执行。</p>
 <p>最常见的是<code>serial</code>，还有<code>throttle</code>, <code>ignore_errors</code>, <code>ignore_unreachable</code>, <code>any_errors_fatal</code>。</p>
 <br>
@@ -5210,10 +5054,11 @@ ansible-playbook -f 30 my_playbook.ym
 <p>使用Ansible和playbooks的一些技巧。</p>
 <p>你可以在<a href="https://github.com/ansible/ansible-examples" target="_blank" rel="noopener noreffer ">ansible-examples</a>仓库中找到最佳用法。</p>
 <br>
+<br>
 <h4 id="内容组织">内容组织</h4>
-<p>Content Organization</p>
 <p>下面将介绍组织Playbook内容的多种方式。你的ansible的使用应该适合你的需求，因此你可以按需组合各种方法。</p>
 <p>组织ansible playbook内容的一个关键方式是role。你应该理解它。</p>
+<br>
 <br>
 <h5 id="目录布局">目录布局</h5>
 <p>Directory Layout</p>
@@ -5682,27 +5527,22 @@ ansible boston -i production -m command -a &#39;/sbin/reboot&#39;
 <br>
 <br>
 <h4 id="测试与生产">测试与生产</h4>
-<p>Staging vs Production</p>
 <p>如上所述，让staging(testing)和production环境分离是为不同的环境使用单独的清单文件。你的环境不一定是相同的大小，你可以使用变量来控制它们。</p>
 <br>
 <br>
 <h4 id="滚动更新">滚动更新</h4>
-<p>Rolling Updates</p>
 <p>理解<code>serial</code>关键字。</p>
 <br>
 <br>
 <h4 id="注意状态">注意状态</h4>
-<p>Always Mention The State</p>
 <p><code>state</code>参数对许多模块是可选的。如<code>state=present</code>或<code>state=absent</code>。</p>
 <br>
 <br>
 <h4 id="通过角色分组">通过角色分组</h4>
-<p>Group By Roles</p>
 <p>一个系统可以在多个组。这使得playbook基于角色来选择目标主机。以及使用该组变量系统来分配角色特定的变量。</p>
 <br>
 <br>
 <h4 id="操作系统和发行版本">操作系统和发行版本</h4>
-<p>Operating System and Distribution Variance</p>
 <p>当在两个不同的操作系统之间处理一个参数时，处理它的一个好方法是使用<code>group_by</code>模块。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -5759,32 +5599,26 @@ ansible boston -i production -m command -a &#39;/sbin/reboot&#39;
 </div><br>
 <br>
 <h4 id="使用playbook捆绑ansible模块">使用playbook捆绑ansible模块</h4>
-<p>Bundling Ansible Modules With Playbooks</p>
 <p>如果playbook有相对于其它YAML文件的<code>./library</code>目录，此目录可以用来添加ansible module，它会自动在ansible模块路径。这是一个保持模块与playbook在一起的好方法。</p>
 <br>
 <br>
 <h4 id="空白和注释">空白和注释</h4>
-<p>Whitespace and Comments</p>
 <p>空白和注释有利于文件可读性，值得使用。</p>
 <br>
 <br>
 <h4 id="任务命名">任务命名</h4>
-<p>Always Name Tasks</p>
 <p>给任务建立一个正在做什么的名称。在运行时，playbook显示此名称。</p>
 <br>
 <br>
 <h4 id="使它简单">使它简单</h4>
-<p>Keep It Simple</p>
 <p>当你能够简单地做事，那就简单地做。不要为了达到使用所有ansible功能而一起使用它们。使用你需要的。把复杂的事情简单化。</p>
 <br>
 <br>
 <h4 id="版本控制">版本控制</h4>
-<p>Version Control</p>
 <p>使用版本控制来管理playbook。</p>
 <br>
 <br>
 <h4 id="变量和拱顶">变量和拱顶</h4>
-<p>Variables and Vaults</p>
 <p>当运行playbook，Ansible在未加密的文件中查找变量，并且所有敏感的变量来自加密文件。</p>
 <p>一个最佳实践方法是在组下开始一个<code>group_vars</code>子目录。在此子目录内，创建两个名为<code>vars</code>和<code>vault</code>的文件。<code>vars</code>文件内定义所有需要的变量，包括敏感的。接下来，复制所有的敏感变量到<code>vault</code>文件或以<code>vault_</code>开头的文件。你应该在<code>vars</code>文件内使用Jinja2语法调整变量指向匹配的<code>vault_</code>文件，并确保<code>vault</code>文件是vault encrypted。</p>
 <br>
@@ -5792,15 +5626,10 @@ ansible boston -i production -m command -a &#39;/sbin/reboot&#39;
 <h3 id="持续交付和滚动更新">持续交付和滚动更新</h3>
 <p>Playbook Example: Continuous Delivery and Rolling Upgrades: <a href="https://docs.ansible.com/ansible/latest/user_guide/guide_rolling_upgrade.html">https://docs.ansible.com/ansible/latest/user_guide/guide_rolling_upgrade.html</a></p>
 <br>
-<h4 id="什么是持续交付">什么是持续交付</h4>
-<p>What is continuous delivery</p>
-<p>Continuous delivery(CD)是指经常更新你的软件应用程序。</p>
-<br>
-<br>
 <br>
 <h2 id="特权晋升-1">特权晋升</h2>
-<p>Understanding privilege escalation: become: <a href="https://docs.ansible.com/ansible/latest/user_guide/become.html">https://docs.ansible.com/ansible/latest/user_guide/become.html</a></p>
 <p>Ansible使用现有的权限升级系统来执行具有root或其它权限的任务。此功能允许你成为(<code>become</code>)其它用户，与登录到远程机器不同，我们称之为<code>become</code>。become关键字利用现有的权限提升工具（如<code>sudo</code>, <code>su</code>, <code>pfexec</code>, <code>doas</code>, <code>pbrun</code>, <code>dzdo</code>, <code>ksu</code>, <code>runas</code>）。</p>
+<br>
 <br>
 <h3 id="使用">使用</h3>
 <p>你可以在任务、连接变量、命令行等控制<code>become</code>的使用。如果你以多种方式设置了特权提升，请注意优先级。</p>
@@ -5852,28 +5681,27 @@ ansible boston -i production -m command -a &#39;/sbin/reboot&#39;
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">- name: Ensure the httpd is running
-  become: yes
-  service:
-    name: httpd
-    state: started
-
-- name: Run a command as the apache user
-  command: somecommand
-  become: yes
-  become_user: apache
-
-- name: Run a command as nobody
-  command: somecommand
-  become: yes
-  become_method: su
-  become_user: nobody
-  become_flags: &#39;-s /bin/sh&#39;
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Ensure the httpd is running</span><span class="w">
+</span><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w">  </span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpd</span><span class="w">
+</span><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">started</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run a command as the apache user</span><span class="w">
+</span><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">somecommand</span><span class="w">
+</span><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w">  </span><span class="nt">become_user</span><span class="p">:</span><span class="w"> </span><span class="l">apache</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run a command as nobody</span><span class="w">
+</span><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">somecommand</span><span class="w">
+</span><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w">  </span><span class="nt">become_method</span><span class="p">:</span><span class="w"> </span><span class="l">su</span><span class="w">
+</span><span class="w">  </span><span class="nt">become_user</span><span class="p">:</span><span class="w"> </span><span class="l">nobody</span><span class="w">
+</span><span class="w">  </span><span class="nt">become_flags</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;-s /bin/sh&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><br>
 <p><strong>连接变量</strong></p>
-<p>Become connection variables</p>
 <p>你可以定义不同的选型来管理node或group。你可以在资产中定义这些变量，或将其作为正常的变量使用。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -5914,7 +5742,6 @@ webserver ansible_user=manager ansible_become=yes
 </div><br>
 <br>
 <h3 id="风险和局限性">风险和局限性</h3>
-<p>Risks and limitations of become</p>
 <p>虽然权限提升是很直观的，但它如何工作也有一些限制。用户应该知道这些，以避免意外。</p>
 <br>
 <p><strong>成为一个非特权用户的风险</strong>
@@ -5932,19 +5759,15 @@ Only one method may be enabled per host</p>
 <br>
 <p><strong>特权提升必须通用</strong>
 Privilege escalation must be general</p>
-<p>你不能限制权限提升某些命令的权限。</p>
+<p>你不能限制权限提升某些命令的权限。
 <br>
-<br>
-<br>
+<br></p>
 <h2 id="vault">Vault</h2>
-<p>Ansible Vault: <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">https://docs.ansible.com/ansible/latest/user_guide/vault.html</a></p>
 <p>Ansible Vault是Ansible的一个功能，可以让你在加密的文件中保存敏感数据（如密码、密钥），而不是像普通文本或playbooks或roles中。这些vault文件可以分布或放置在版本控制中。</p>
 <p>要启用此功能，使用命令行选型<code>-ansible-vault</code>，和<code>--vault-password-file</code>。</p>
 <br>
 <br>
-<br>
 <h2 id="modules">Modules</h2>
-<p>Ansible Modules: <a href="https://docs.ansible.com/ansible/latest/user_guide/modules.html">https://docs.ansible.com/ansible/latest/user_guide/modules.html</a></p>
 <p>Ansible包含了大量的模块(module library)，可以直接在远程主机或通过playbook执行。</p>
 <p>用户也可以编写自己的模块。这些模块可以控制系统资源（服务、包、文件&hellip;），或执行系统命令。</p>
 <br>
@@ -5980,7 +5803,6 @@ ansible webservers -m service -a <span class="s2">&#34;name=httpd state=started&
 </div><br>
 <br>
 <h3 id="返回值">返回值</h3>
-<p>Return Values: <a href="https://docs.ansible.com/ansible/latest/reference_appendices/common_return_values.html">https://docs.ansible.com/ansible/latest/reference_appendices/common_return_values.html</a></p>
 <p>Ansible模块通常正常返回一个可以注册为一个变量的数据结构，或直接看到由ansible程序输出。每个模块都可选的记录自己唯一的返回值。</p>
 <p>本章节包含的返回值适用于所有模块。</p>
 <br>
@@ -6013,35 +5835,46 @@ ansible webservers -m service -a <span class="s2">&#34;name=httpd state=started&
 <br>
 <br>
 <h3 id="模块索引">模块索引</h3>
-<p>Module Index: <a href="https://docs.ansible.com/ansible/latest/modules/modules_by_category.html">https://docs.ansible.com/ansible/latest/modules/modules_by_category.html</a></p>
+<p>Module Index: <a href="https://docs.ansible.com/ansible/latest/modules/modules_by_category.html">https://docs.ansible.com/ansible/latest/modules/modules_by_category.html</a>
 <br>
-<br>
-<br>
+<br></p>
 <h2 id="插件">插件</h2>
 <p>Working With Plugins: <a href="https://docs.ansible.com/ansible/latest/plugins/plugins.html">https://docs.ansible.com/ansible/latest/plugins/plugins.html</a></p>
 <p>插件是一段代码，可以扩充Ansible的核心功能。Ansible使用插件架构，以实现丰富的、灵活的、可扩展的功能集。</p>
 <p>Ansible附带了一些方便的插件，你也可以很容易地编写自己的插件。</p>
-<br>
-<br>
-<br>
+<br/>
+<br/>
 <h2 id="collections">collections</h2>
 <p>collections: <a href="https://docs.ansible.com/ansible/latest/user_guide/collections_using.html">https://docs.ansible.com/ansible/latest/user_guide/collections_using.html</a></p>
 <p>Collections是Ansible的内容分发格式，可以包括playbooks, roles, modules, plugins。你可以通过Ansible Galaxy安装和使用collections。</p>
 <br>
-<br>
 <hr>
-<br>
 <br>
 <h1 id="开发指南">开发指南</h1>
 <p>Developer Guide: <a href="https://docs.ansible.com/ansible/latest/dev_guide/index.html">https://docs.ansible.com/ansible/latest/dev_guide/index.html</a></p>
 <br>
-<br>
 <hr>
-<br>
 <br>
 <h1 id="ansible-galaxy">Ansible Galaxy</h1>
 <p>Ansible Galaxy: <a href="https://docs.ansible.com/ansible/latest/galaxy/user_guide.html">https://docs.ansible.com/ansible/latest/galaxy/user_guide.html</a></p>
-<p>Ansible Galaxy是一个查找、分享、下载社区开发的roles的网站。</p></div><div class="post-footer" id="post-footer">
+<p>Ansible Galaxy是一个查找、分享、下载社区开发的roles的网站。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 管理角色</span>
+ansible-galaxy role <span class="o">[</span>import<span class="p">|</span>init<span class="p">|</span>install<span class="p">|</span>login<span class="p">|</span>remove<span class="p">|</span>...<span class="o">]</span>
+
+<span class="c1"># 管理集合</span>
+ansible-galaxy collection <span class="o">[</span>import<span class="p">|</span>init<span class="p">|</span>install<span class="p">|</span>login<span class="p">|</span>remove<span class="p">|</span>...<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -6072,7 +5905,7 @@ ansible webservers -m service -a <span class="s2">&#34;name=httpd state=started&
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

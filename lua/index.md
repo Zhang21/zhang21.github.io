@@ -1,15 +1,17 @@
 # Lua语言
 
 
-参考：
+Lua 文档笔记。
 
-- [Lua 官方文档](http://www.lua.org/docs.html)
-- Lua v5.4
-
-<br/>
+<!--more-->
 
 ---
 
+参考：
+
+- [Lua 官方文档](http://www.lua.org/docs.html)
+
+<br/>
 <br/>
 
 # 介绍

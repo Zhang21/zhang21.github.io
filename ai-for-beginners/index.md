@@ -1,17 +1,18 @@
 # 人工智能
 
 
+微软人工智能课程的笔记。
+
+<!--more-->
+
+---
+
 参考：
 
 - [MS AI for Beginners](https://microsoft.github.io/AI-For-Beginners/)
 - DeepL
 
 <br/>
-
----
-
-<!--more-->
-
 <br/>
 
 # 术语表
@@ -1552,5 +1553,4 @@ Prompt Engineering
 - 遗传算法（Genetic Algorithms）
 - 深度强化学习（Deep Reinforcement Learning）
 - 多代理系统（Multi-Agent Systems）
-
 

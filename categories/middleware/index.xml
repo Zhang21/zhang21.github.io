@@ -1,27 +1,44 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>middleware - 分类 - 风继续吹</title>
+        <title>Middleware - 分类 - 风继续吹</title>
         <link>https://zhang21.cn/categories/middleware/</link>
-        <description>middleware - 分类 - 风继续吹</description>
+        <description>Middleware - 分类 - 风继续吹</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>me@zhang21.cn (Zhang21)</managingEditor>
-            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 15 Mar 2019 16:57:20 &#43;0000</lastBuildDate><atom:link href="https://zhang21.cn/categories/middleware/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>me@zhang21.cn (Zhang21)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 12 Jan 2025 15:40:24 &#43;0800</lastBuildDate><atom:link href="https://zhang21.cn/categories/middleware/" rel="self" type="application/rss+xml" /><item>
+    <title>Nginx指南</title>
+    <link>https://zhang21.cn/nginx-cookbook/</link>
+    <pubDate>Sun, 12 Jan 2025 15:40:24 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/nginx-cookbook/</guid>
+    <description><![CDATA[<p>Nginx 学习笔记。</p>
+<br/>]]></description>
+</item>
+<item>
+    <title>Kafka权威指南</title>
+    <link>https://zhang21.cn/kafka-definitive-guide/</link>
+    <pubDate>Sun, 01 Dec 2024 09:58:41 &#43;0800</pubDate>
+    <author>Zhang21</author>
+    <guid>https://zhang21.cn/kafka-definitive-guide/</guid>
+    <description><![CDATA[<p>Kafka 权威指南一书学习。</p>
+<br/>]]></description>
+</item>
+<item>
     <title>ZooKeeper</title>
     <link>https://zhang21.cn/zookeeper/</link>
-    <pubDate>Fri, 15 Mar 2019 16:57:20 &#43;0000</pubDate>
+    <pubDate>Fri, 15 Mar 2019 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/zookeeper/</guid>
     <description><![CDATA[<p>参考:</p>
 <ul>
 <li>维基百科</li>
-<li>ZooKeeper: <a href="https://zookeeper.apache.org/">https://zookeeper.apache.org/</a></li>
-<li>Docs: <a href="https://zookeeper.apache.org/doc/">https://zookeeper.apache.org/doc/</a></li>
+<li><a href="https://zookeeper.apache.org/" target="_blank" rel="noopener noreffer ">ZooKeeper</a></li>
+<li><a href="https://zookeeper.apache.org/doc/" target="_blank" rel="noopener noreffer ">文档</a></li>
 </ul>
 <p>环境:</p>
 <ul>
 <li>RHEL7x86_64</li>
 <li>ZooKeeper v3.5</li>
 </ul>
-<br/>
 <br/>
 <hr>]]></description>
 </item>
@@ -33,7 +50,7 @@
     <guid>https://zhang21.cn/apollo/</guid>
     <description><![CDATA[<p>参考:</p>
 <ul>
-<li>Apollo官方文档: <a href="https://github.com/ctripcorp/apollo/wiki">https://github.com/ctripcorp/apollo/wiki</a></li>
+<li><a href="https://github.com/ctripcorp/apollo/wiki" target="_blank" rel="noopener noreffer ">Apollo官方文档</a></li>
 </ul>
 <br>
 <p>环境:</p>
@@ -43,23 +60,18 @@
 <li>K8s v1.11</li>
 </ul>
 <br/>
-<br/>]]></description>
+<hr>]]></description>
 </item>
 <item>
     <title>Elatic Stack</title>
     <link>https://zhang21.cn/elastic/</link>
-    <pubDate>Sun, 15 Apr 2018 22:08:11 &#43;0000</pubDate>
+    <pubDate>Sun, 15 Apr 2018 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/elastic/</guid>
     <description><![CDATA[<p>参考：</p>
 <ul>
-<li>Elastic指南: <a href="https://www.elastic.co/guide/index.html">https://www.elastic.co/guide/index.html</a></li>
-<li>Elasticsearch文档: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html</a></li>
-<li>Logstash文档: <a href="https://www.elastic.co/guide/en/logstash/current/index.html">https://www.elastic.co/guide/en/logstash/current/index.html</a></li>
-<li>Kibana文档: <a href="https://www.elastic.co/guide/en/kibana/current/index.html">https://www.elastic.co/guide/en/kibana/current/index.html</a></li>
-<li>Filebeat文档: <a href="https://www.elastic.co/guide/en/beats/filebeat/index.html">https://www.elastic.co/guide/en/beats/filebeat/index.html</a></li>
-<li>Metricbeat文档: <a href="https://www.elastic.co/guide/en/beats/metricbeat/current/index.html">https://www.elastic.co/guide/en/beats/metricbeat/current/index.html</a></li>
-<li>Lucence查询语法: <a href="https://wizardforcel.gitbooks.io/mastering-elasticsearch/content/chapter-1/114_README.html">https://wizardforcel.gitbooks.io/mastering-elasticsearch/content/chapter-1/114_README.html</a></li>
+<li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener noreffer ">Elastic指南</a></li>
+<li><a href="https://wizardforcel.gitbooks.io/mastering-elasticsearch/content/chapter-1/114_README.html" target="_blank" rel="noopener noreffer ">Lucence查询语法</a></li>
 </ul>
 <p>环境：</p>
 <ul>
@@ -69,28 +81,24 @@
 <li>Logstash v6.2.3</li>
 <li>Beats v6.2.3</li>
 </ul>
-<br>
-<br/>]]></description>
+<br/>
+<hr>]]></description>
 </item>
 <item>
     <title>Consul</title>
     <link>https://zhang21.cn/consul/</link>
-    <pubDate>Thu, 05 Apr 2018 22:08:11 &#43;0000</pubDate>
+    <pubDate>Thu, 05 Apr 2018 00:00:00 &#43;0000</pubDate>
     <author>Zhang21</author>
     <guid>https://zhang21.cn/consul/</guid>
     <description><![CDATA[<p>参考：</p>
 <ul>
+<li>Consul v1.2.0</li>
 <li><a href="https://www.consul.io/intro/index.html">https://www.consul.io/intro/index.html</a></li>
 <li><a href="https://www.consul.io/docs/">https://www.consul.io/docs/</a></li>
-<li>Consul Template: <a href="https://www.hashicorp.com/blog/introducing-consul-template">https://www.hashicorp.com/blog/introducing-consul-template</a></li>
+<li><a href="https://www.hashicorp.com/blog/introducing-consul-template" target="_blank" rel="noopener noreffer ">Consul Template</a></li>
 </ul>
-<p>环境：</p>
-<ul>
-<li>CentOS7x86_64</li>
-<li>Consul v1.2.0</li>
-</ul>
-<br>
-<br/>]]></description>
+<br/>
+<p>Consul 介绍。</p>]]></description>
 </item>
 </channel>
 </rss>
