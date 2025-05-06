@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>深入理解计算机系统 - 风继续吹</title><meta name="Description" content="个人博客"><meta property="og:title" content="深入理解计算机系统" />
+<meta property="og:description" content="深入理解计算机系统（CS-APP）笔记。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhang21.cn/cs-app/" /><meta property="og:image" content="https://zhang21.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-04-06T15:28:09&#43;08:00" />
+<meta property="article:modified_time" content="2025-04-06T15:28:09&#43;08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhang21.cn/logo.png"/>
+
+<meta name="twitter:title" content="深入理解计算机系统"/>
+<meta name="twitter:description" content="深入理解计算机系统（CS-APP）笔记。"/>
+<meta name="application-name" content="风继续吹">
+<meta name="apple-mobile-web-app-title" content="风继续吹"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://zhang21.cn/cs-app/" /><link rel="prev" href="https://zhang21.cn/clean-code/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "深入理解计算机系统",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhang21.cn\/cs-app\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/zhang21.cn\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "cs, os, programming","wordcount":  3677 ,
+        "url": "https:\/\/zhang21.cn\/cs-app\/","datePublished": "2025-04-06T15:28:09+08:00","dateModified": "2025-04-06T15:28:09+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Zhang21","logo": "https:\/\/zhang21.cn\/leslie.png"},"author": {
+                "@type": "Person",
+                "name": "Zhang21"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="风继续吹"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>风继续吹</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/zhang21" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">深入理解计算机系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://zhang21.cn" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Zhang21</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/programming/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>programming</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-04-06">2025-04-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3677 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#preface">Preface</a></li>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#a-tour-of-computer-system">A Tour of Computer System</a>
+      <ul>
+        <li><a href="#information-is-bits--context">Information Is Bits + Context</a></li>
+        <li><a href="#programs-are-translated-by-other-programs-into-different-forms">Programs Are Translated by Other Programs into Different Forms</a></li>
+        <li><a href="#it-pays-to-understand-how-compilation-systems-work">It Pays to Understand How Compilation Systems Work</a></li>
+        <li><a href="#processors-read-and-interpret-instructions-stored-in-memory">Processors Read and Interpret Instructions Stored in Memory</a>
+          <ul>
+            <li><a href="#hardware-organization-of-a-system">Hardware Organization of a System</a></li>
+            <li><a href="#running-the-hello-program">Running the hello Program</a></li>
+          </ul>
+        </li>
+        <li><a href="#caches-matter">Caches Matter</a></li>
+        <li><a href="#storage-devices-form-a-hierarchy">Storage Devices Form a Hierarchy</a></li>
+        <li><a href="#the-os-manages-the-hardware">The OS Manages the Hardware</a>
+          <ul>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#threads">Threads</a></li>
+            <li><a href="#virtual-memory">Virtual Memory</a></li>
+            <li><a href="#files">Files</a></li>
+          </ul>
+        </li>
+        <li><a href="#systems-communicate-with-other-systems-using-networks">Systems Communicate with Other Systems Using Networks</a></li>
+        <li><a href="#important-themes">Important Themes</a>
+          <ul>
+            <li><a href="#amdahls-law">Amdahl&rsquo;s Law</a></li>
+            <li><a href="#convurrency-and-parallelism">Convurrency and Parallelism</a>
+              <ul>
+                <li><a href="#thread-level-concurrency">Thread-Level Concurrency</a></li>
+                <li><a href="#instruction-level-parallelism">Instruction-Level Parallelism</a></li>
+                <li><a href="#single-instruction-multiple-data-parallelism">Single-Instruction, Multiple-Data Parallelism</a></li>
+              </ul>
+            </li>
+            <li><a href="#the-importrance-of-abstractions-in-cs">The Importrance of Abstractions in CS</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#representing-and-manipulating-information">Representing and Manipulating Information</a>
+      <ul>
+        <li><a href="#information-storage">Information Storage</a>
+          <ul>
+            <li><a href="#hexadecimal-notation">Hexadecimal Notation</a></li>
+            <li><a href="#data-sizes">Data Sizes</a></li>
+            <li><a href="#addressing-and-byte-ordering">Addressing and Byte Ordering</a></li>
+            <li><a href="#representing-strings">Representing Strings</a></li>
+            <li><a href="#representing-code">Representing Code</a></li>
+            <li><a href="#introduction-to-boolean-algebra">Introduction to Boolean Algebra</a></li>
+          </ul>
+        </li>
+        <li><a href="#integer-representations">Integer Representations</a>
+          <ul>
+            <li><a href="#integral-data-types">Integral Data Types</a></li>
+            <li><a href="#unsigned-encodings">Unsigned Encodings</a></li>
+            <li><a href="#twos-complement-encodings">Two&rsquo;s-Complement Encodings</a></li>
+            <li><a href="#conversions-between-signed-and-unsigned">Conversions between Signed and Unsigned</a></li>
+            <li><a href="#signed-versus-unsigned-in-c">Signed versus Unsigned in C</a></li>
+            <li><a href="#expanding-the-bit-representation-of-a-number">Expanding the Bit Representation of a Number</a></li>
+            <li><a href="#truncating-numbers">Truncating Numbers</a></li>
+            <li><a href="#advice-on-signed-versus-unsigned">Advice on Signed versus Unsigned</a></li>
+          </ul>
+        </li>
+        <li><a href="#integer-arithmetic">Integer Arithmetic</a>
+          <ul>
+            <li><a href="#unsigned-addition">Unsigned Addition</a></li>
+            <li><a href="#twos-complement-addition">Two&rsquo;s-Complement Addition</a></li>
+            <li><a href="#twos-complement-negation">Two&rsquo;s-Complement Negation</a></li>
+            <li><a href="#unsigned-multiplication">Unsigned Multiplication</a></li>
+            <li><a href="#twos-complement-multiplication">Two&rsquo;s-Complement Multiplication</a></li>
+            <li><a href="#multiplying-by-constants">Multiplying by Constants</a></li>
+            <li><a href="#dividing-by-powers-of-2">Dividing by Powers of 2</a></li>
+            <li><a href="#final-thoughts-on-integer-arithmetic">Final Thoughts on Integer Arithmetic</a></li>
+          </ul>
+        </li>
+        <li><a href="#floating-point">Floating Point</a>
+          <ul>
+            <li><a href="#fractional-binary-numbers">Fractional Binary Numbers</a></li>
+            <li><a href="#ieee-floating-point-representation">IEEE Floating-Point Representation</a></li>
+            <li><a href="#rounding">Rounding</a></li>
+            <li><a href="#floating-point-operations">Floating Point Operations</a></li>
+            <li><a href="#floating-point-in-c">Floating Point in C</a></li>
+          </ul>
+        </li>
+        <li><a href="#summary">Summary</a></li>
+      </ul>
+    </li>
+    <li><a href="#machine-level-representation-of-programs">Machine Level Representation of Programs</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>深入理解计算机系统（CS-APP）笔记。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/26912767/" target="_blank" rel="noopener noreffer ">深入理解计算机系统 (原书第3版)</a></li>
+<li><a href="https://book.douban.com/subject/26344642/" target="_blank" rel="noopener noreffer ">Computer Systems: A Programmer&rsquo;s Perspective (3rd Edition)</a></li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="preface">Preface</h1>
+<p>This book is written from a programmer&rsquo;s perspective. This book spands all of these aspects:</p>
+<ul>
+<li>hardware architecture</li>
+<li>operation system</li>
+<li>compiler</li>
+<li>network</li>
+<li>cyber security</li>
+</ul>
+<br/>
+<p><strong>Assumptions about the reader&rsquo;s background</strong></p>
+<ul>
+<li>systems that execute x86-64 machine code</li>
+<li>how these machines execute C programs on Linux</li>
+<li>C or C++</li>
+</ul>
+<br/>
+<p><strong>How to read the book</strong></p>
+<ul>
+<li>the only way to learn systems is to do systems</li>
+</ul>
+<br/>
+<hr>
+<br/>
+<h1 id="overview">Overview</h1>
+<p>12 chapters:</p>
+<ol>
+<li>
+<p><strong>A Tour of Computer Systems</strong>. introduce the major ideas and themes in coumputer systems.</p>
+</li>
+<li>
+<p><strong>Representing and Manipulating Information</strong>. cover computer arithmetic, emphasizing the properties of unsigned and two&rsquo;s-complement number representations that affect programmers.</p>
+</li>
+<li>
+<p><strong>Machine-Level Representation of Programs</strong>. teach you how to read the x86-64 machine code generated by a C compiler.</p>
+</li>
+<li>
+<p><strong>Processor Architecture</strong>. cover basic combinational and sequential logic elements, and shows how these elements can be combined in a datapath that executes a simplified subset of the x86-64 instruction set.</p>
+</li>
+<li>
+<p><strong>Optimizing Program Performance</strong>. introduce a number of techniques for imporving code performance.</p>
+</li>
+<li>
+<p><strong>The Memory Hierarchy</strong>. The memory system is one of the most visible parts of a computer system to application programmers.</p>
+</li>
+<li>
+<p><strong>Linking</strong>. cover both static and dynamic linking, including the ideas of relocatable and executable object files, symbol resolution, relocation, static libraries, shared object libraries, position-independent code, and library interpositioning.</p>
+</li>
+<li>
+<p><strong>Exceptional Control Flow</strong>.</p>
+</li>
+<li>
+<p><strong>Virtual Memory</strong>.</p>
+</li>
+<li>
+<p><strong>System-Level I/O</strong>. Unix I/O such as files and descriptors.</p>
+</li>
+<li>
+<p><strong>Network Programming</strong>. Networks are interesting I/O devices to program.</p>
+</li>
+<li>
+<p><strong>Concurrent Programming</strong>.</p>
+</li>
+</ol>
+<br/>
+<hr>
+<br/>
+<h1 id="a-tour-of-computer-system">A Tour of Computer System</h1>
+<p>A computer system consists of hardware and software that work together to run application programs.All CS have similar hardware and software components that perform similar functions.</p>
+<p>As we follow the lifetime of the hello program, we will briefly introduce the key concepts, terminology, and components that come into play.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;hello, world</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The ASCII text representation of <code>hello.c</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">#       i       n       c       l       u       d       e       SP      &lt;       s       t       d       i       o       .
+35      105     110     99      108     117     100     101     32      60      115     116     100     105     111     46
+h       &gt;       \n      \n      i       n       t       SP      m       a       i       n       (       )       \n      {
+104     62      10      10      105     110     116     32      109     97      105     110     40      41      10      123
+\n      SP      SP      SP      SP      p       r       i       n       t       f       (       &#34;       h       e       l
+10      32      32      32      32      112     114     105     110     116     102     40      34      104     101     108
+l       o       ,       SP      w       o       r       l       d       \       n       &#34;       )       ;       \n      SP
+108     111     44      32      119     111     114     108     100     92      110     34      41      59      10      32
+SP      SP      SP      r       e       t       u       r       n       SP      0       ;       \n      }       \n
+32      32      32      114     101     116     117     114     110     32      48      59      10      125     10
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h2 id="information-is-bits--context">Information Is Bits + Context</h2>
+<p>hello program begins life as a source file(<code>hello.c</code>), is a sequence of <strong>bits</strong>(0 or 1), organized in 8-bit chunks called <strong>bytes</strong>.</p>
+<p>Each byte represents some text charachter in the program.</p>
+<p>Most CS represent text characters using the <strong>ASCII</strong> standard that represents each charachter with a unique byte-size interger value.</p>
+<p>the <code>hello.c</code> is stored in a file as a sequence of bytes. (35-#, 105-i, &hellip;)</p>
+<p>Files such as <code>hello.c</code> that consist exclusively of ASCII characters are known as <strong>text files</strong>. Other files are known as <strong>binary files</strong>.</p>
+<p>The representation of <code>hello.c</code> illustrates a fundamental idea: All info in a system (including disk files, programs in memory, user data in memory, data transferred across a network), is represented as a bunch of bits. The only thing that distiguished different data objects is the context in which we view them.</p>
+<p>As programmers, we need to understand machine representations of numbers, because they are not the same as integers and real numbers.</p>
+<br/>
+<br/>
+<h2 id="programs-are-translated-by-other-programs-into-different-forms">Programs Are Translated by Other Programs into Different Forms</h2>
+<p>hello programs as a high-level C program, because it can be read and understood by human in that form.</p>
+<p>The individual C statements must be translated by other programs into a sequence of low-level machine-language instructions. These instrucstions are then packaged in a form called an executable object program and stored as a binary disk file.</p>
+<p>On a Unix system, the translation from source file to object file is performed by a compiler driver.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.3.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.3.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.3.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.3.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.3.png"
+        title="1.3" /></p>
+<br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">gcc -o hello hello.c
+</code></pre></td></tr></table>
+</div>
+</div><p>GCC compiler driver read source file and translate it into an executable object file.</p>
+<p>Four phases:</p>
+<ul>
+<li>Preprocessing</li>
+<li>Compilation</li>
+<li>Assembly</li>
+<li>Linking</li>
+</ul>
+<br/>
+<blockquote>
+<p>The GNU project<br/>
+Gcc is one of tool developed by the GNU project</p>
+</blockquote>
+<br/>
+<br/>
+<h2 id="it-pays-to-understand-how-compilation-systems-work">It Pays to Understand How Compilation Systems Work</h2>
+<p>Why programmers need to understand how compilation systems work:</p>
+<ul>
+<li>Optimizing program performance</li>
+<li>Understanding link-time errors</li>
+<li>Avoiding security holes</li>
+</ul>
+<br/>
+<br/>
+<h2 id="processors-read-and-interpret-instructions-stored-in-memory">Processors Read and Interpret Instructions Stored in Memory</h2>
+<p>If the first word of the command line does not correspond to a built-in shell command, then the shell assumes that it is the name of an executable file that is should load and run.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">./hello
+hello, world
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="hardware-organization-of-a-system">Hardware Organization of a System</h3>
+<p>To understand what happends to hello program when we run it, we need to understand the hardware organization of a typical system.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.4.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.4.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.4.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.4.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.4.png"
+        title="1.4" /></p>
+<br/>
+<ul>
+<li>Buses: carry bytes of info back and forth between the components.</li>
+<li>I/O Devices: the system&rsquo;s connection to the external world.</li>
+<li>Main Memory: a temporary storage device that holds both a program and the data it manipulates while the processor is executing the program.</li>
+<li>Processor/CPU: the engine that executes instructions stored in main memory.
+<ul>
+<li>Load: copy a byte or a word from main memory into a register(overwrite)</li>
+<li>Store: copy a byte of a word from a register to a location in main memory(overwrite)</li>
+<li>Operate: copy the contents of two registers to the ALU, perform an arithmetic operation on the two words, and store the result in a register(ovewrite)</li>
+<li>Jump: extract a word from the instruction itself and copy that word into the program counter(overwrite)</li>
+</ul>
+</li>
+</ul>
+<br/>
+<br/>
+<h3 id="running-the-hello-program">Running the hello Program</h3>
+<p>As we type <code>./hello</code>, the shell program reads each one into a register and then stores it in memory.</p>
+<p>When hit the enter key, the shell knows that we have finished typing the command. the shell then loads the executable hello file by executing a sequence of instructions that copy the code and data in the hello object file from disk to main memory.</p>
+<p>Once the code and data in the hello object file are loaded into memory, the processor begins executing the machine-language instructions in the hello program&rsquo;s main routine.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.5.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.5.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.5.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.5.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.5.png"
+        title="1.5" /></p>
+<br/>
+<br/>
+<h2 id="caches-matter">Caches Matter</h2>
+<p>A system spends a lot of time moving infos from one place to another.</p>
+<p>The machine instructrions in the hello program are originally stored on disk. When it is loaded, they are copied to main memory. As the processor runs the program, instructions are copied from memory into processor.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">./hello
+<span class="c1"># instructions: disk - memory - processor</span>
+<span class="c1"># data string: disk - memory - display device</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Much of this copying is overhead that slows down the &ldquo;real work&rdquo; of the program. Thus, a major goal for system designers is to make these copy operations run as fast as possible.</p>
+<br/>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.6.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.6.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.6.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.6.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.6.png"
+        title="1.6" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.7.png"
+        title="1.7" /></p>
+<br/>
+<p>The processor read data from the register file almost 100 times faster than from memory（processor-memory gap）. It is easier and cheaper to make processors run faster than it is to make main memory run faster.</p>
+<p>To deal with the processor-memory gap, system designer include smaller, faster storage devices called <strong>cache memories</strong> that serve as temporary staging areas for infos that the processor is likely to need in the near future.</p>
+<p>L1 cache can be accessed nearly as fast as the register file.</p>
+<p>A larger L2 cache is connected to the processor by a special bus. It might take 5 times longer for the processor to access the L2 cache than the L1 cache, but this is still 5 to 10 times faster than than accessing the main memory.</p>
+<p>Newer and more powerful systems even have three levels of caches: L1, L2, L3.</p>
+<p>The L1 and L2 caches are implemented with a hardware technology known as <strong>static random access memory</strong> (SRAM).</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.8.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.8.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.8.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.8.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.8.png"
+        title="1.8" /></p>
+<br/>
+<br/>
+<h2 id="storage-devices-form-a-hierarchy">Storage Devices Form a Hierarchy</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.9.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.9.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.9.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.9.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.9.png"
+        title="1.9" /></p>
+<br/>
+<br/>
+<h2 id="the-os-manages-the-hardware">The OS Manages the Hardware</h2>
+<p>We can think of the OS as a layer of software interposed between the application program and the hardware. All attempts by an application program and the hardware must go through the OS.</p>
+<p>The OS has two primary purposed:</p>
+<ol>
+<li>To protect the hardware from misuse by runaway applications</li>
+<li>To provide applications with simple and uniform mechaisms for manupulating complicated and often wildly different low-level hardware devices.</li>
+</ol>
+<br/>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.10.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.10.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.10.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.10.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.10.png"
+        title="1.10" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.11.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.11.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.11.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.11.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.11.png"
+        title="1.11" /></p>
+<br/>
+<br/>
+<h3 id="process">Process</h3>
+<p>A process is the OS&rsquo;s abstraction for a running program. Multiple processes can run concurrently on the same system, and each process appears to have exclusive use of the hardware.</p>
+<br/>
+<blockquote>
+<p><strong>Aside</strong> Unix, Posix, and the Standard Unix Specification <br/>
+In 1970, Brian Kernighan dubbed the new system &ldquo;Unix&rdquo; as a pun on the complexity of &ldquo;Multics&rdquo;. The kernel was rewritten in C in 1973, and Unix was announced to the outside world in 1974. <br/>
+Because Bell Labs made the source code available to schools, Unix developend a large following. 1980s, the Berkeley researchers adding virtual memory and the Internet protocols in a series of releases called Unix 4.x BSD. Concurrently, Bell Labs was releasing their own versions, which bacame known as System V Unix. <br>
+Posix standards, that cover such issues as the C language interface for Unix system calls, shell programs and utilities, threads and network programming. More recently, a separate standardization effort, known as the &ldquo;Standard Unix Specification&rdquo; has joined forces with Posix to create a single, unified standard for Unix systems. <br>
+As a result of these standardization efforts, the differences between Unix versions have largely disappeared.</p>
+</blockquote>
+<br/>
+<p>The OS performs this interleaving with a mechanism known as <strong>context switching</strong>.</p>
+<p>The OS keeps track of all the state info that the process needs in order to run. This state, which is known as the <strong>context</strong>, includes info such as the current values of the PC, the register file, and the contents of main memory.</p>
+<p>When the OS decides to transfer control from the current process to some new process, it performs a context swtich by saving the context of the current process, restoring the context of the new process, and then passing control to the new process.</p>
+<p>Example:</p>
+<ul>
+<li>Initially, the shell process is running alone, waiting for input on the command line.</li>
+<li>run hello program</li>
+<li>the shell carries out request by invoking a special function known as a system call that pass  control to the OS.</li>
+<li>the OS saves the shell&rsquo;s context, creates a new hello process and its context, and pass control to the new hello process.</li>
+<li>After hello terminates, the OS restores the context of the shell process and passes control back to it, where is watis for the next cmd line input.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.12.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.12.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.12.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.12.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.12.png"
+        title="1.12" /></p>
+<br/>
+<br/>
+<h3 id="threads">Threads</h3>
+<p>In modern systems, a process can actually consist of multiple execution units, called <strong>threads</strong>, each running in the context of the process and sharing the same code and global data.</p>
+<p>It is easier to share data between multiple threads than between multiple processes, and threads are typically more efficient than processes.</p>
+<p>Multi-threading is also one way to make programs run faster when multiple processors are available.</p>
+<br/>
+<br/>
+<h3 id="virtual-memory">Virtual Memory</h3>
+<p>Virtual memory is an abstraction that provides each process with the illusion that it has exclusive of the main memory. Each process has the same uniform view of memory, which is known as its <strong>virtual address space</strong>.</p>
+<ul>
+<li>Program code and data: fixed address</li>
+<li>Heap: expands and contracts dynamically at run time</li>
+<li>Shared libraries</li>
+<li>Stack: expands and contracts dynamically at run time</li>
+<li>Kernel virtual memory</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.13.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.13.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.13.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.13.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.13.png"
+        title="1.13" /></p>
+<br/>
+<br/>
+<h3 id="files">Files</h3>
+<p>A <strong>file</strong> is a sequence of bytes. Every I/O device, including disks, keyboards, displays, and even networks, is modeled as a file. All input and output in the system is performed by reading and writing files.</p>
+<br/>
+<br/>
+<h2 id="systems-communicate-with-other-systems-using-networks">Systems Communicate with Other Systems Using Networks</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.14.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.14.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.14.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.14.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.14.png"
+        title="1.14" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.15.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.15.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.15.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.15.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.15.png"
+        title="1.15" /></p>
+<br/>
+<br/>
+<h2 id="important-themes">Important Themes</h2>
+<p>A system is a collection of intertwined hardware and systems software that must cooperate in order to achieve the ultimate goal of running programs.</p>
+<br/>
+<br/>
+<h3 id="amdahls-law">Amdahl&rsquo;s Law</h3>
+<p>The main idea is that when we speed up one part of a system, the effect on the overall system performance depends on both how significant this part was and how much it sped up.</p>
+<br/>
+<br/>
+<h3 id="convurrency-and-parallelism">Convurrency and Parallelism</h3>
+<ul>
+<li><strong>concurrency</strong> to refer to the general concept of a system with multiple, simultaneous activities.</li>
+<li><strong>parallelism</strong> to refer to the use of concurrency to make a system run faster. Parallelism can be exploited at multiple levels of abstraction in a computer system.</li>
+</ul>
+<br/>
+<br/>
+<h4 id="thread-level-concurrency">Thread-Level Concurrency</h4>
+<p>Building on the process abstraction, we are able to devise systems where multiple programs execute at the same time, leading to concurrency. With threads, we can even have multiple control flows executing within a single process.</p>
+<p>Support for concurrent execution has been found in computer systems since &ldquo;time-sharing&rdquo;.</p>
+<p>Hyperthreading, sometimes called simultaneous multi-threading, is a technique that allows a single CPU to execute multiple flows of control.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.16.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.16.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.16.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.16.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.16.png"
+        title="1.16" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.17.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.17.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.17.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.17.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.17.png"
+        title="1.17" /></p>
+<br/>
+<br/>
+<h4 id="instruction-level-parallelism">Instruction-Level Parallelism</h4>
+<p>At a much lower level of abstraction, modern processors can execure multiple instructions at one time, a property known as instruction-level parallelism.</p>
+<br/>
+<br/>
+<h4 id="single-instruction-multiple-data-parallelism">Single-Instruction, Multiple-Data Parallelism</h4>
+<p>At the lowest leve, many modern processors have special hardware that allows a single instruction to cause multiple operations to be performed in parallel.</p>
+<br/>
+<br/>
+<h3 id="the-importrance-of-abstractions-in-cs">The Importrance of Abstractions in CS</h3>
+<p>The use of <strong>abstractions</strong> is one of the mose important concepts in computer science.</p>
+<p>On the processor side, the instruction set architecture provides an abstraction of the actural processor hardware. With this abstraction, a machine code program behaves as if it were executed on a processor that performs just on instruction at a time.</p>
+<p>The underlying hardware is far more elaborate, executing multiple instructions in parallel, but always in a way that consistent with the simple, sequential model. By keeping the same execution model, different processor implementations can execute the same machein code while offering a range of cost and performance.</p>
+<p>On the OS side, we have introduced three abstractions:</p>
+<ul>
+<li>files as an abstraction of IO devices</li>
+<li>virtual memory a an abstraction of program memory</li>
+<li>processes as an abstraction of a running program</li>
+<li>a new one: virtual machine providing an abstraction of the entire computer, including the OS, the processor, and the programs.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.18.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.18.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.18.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.18.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/1.18.png"
+        title="1.18" /></p>
+<br/>
+<hr>
+<br/>
+<h1 id="representing-and-manipulating-information">Representing and Manipulating Information</h1>
+<p>Modern computer store and process infos represented as two-valued signals. These lowly binary digits, or bits.</p>
+<p>three most important representations of numbers:</p>
+<ul>
+<li>unsigned</li>
+<li>signed</li>
+<li>floating-point</li>
+</ul>
+<p>Computer representations use a limited number of bits to encode a number, and hence come operations can <strong>overflow</strong> when the results are too large to be represented.</p>
+<br/>
+<br/>
+<h2 id="information-storage">Information Storage</h2>
+<p>Rather than accessing individual bits in memory, most computers use blocks of 8 bits, or <strong>bytes</strong>, as the smallest addressable unit of memory.</p>
+<p>A machine-level program views memory as a very large array of bytes, refered to as <strong>virtual memory</strong>.</p>
+<p>Every byte of memory is identified by a unique number, known as its address, and the set of all possible addressed is known as the <strong>virtual address space</strong>.</p>
+<br/>
+<br/>
+<h3 id="hexadecimal-notation">Hexadecimal Notation</h3>
+<p>binary and decimal, neither notation is convenient for describing bit patterns. Instead, we write bit patterns as base-16, or <strong>hexadecimal</strong> numbers.</p>
+<p>hex uses 0-9A-F to represent 16 possbile values.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># byte/8 bits
+binary:  00000000 - 11111111
+decimal: 0 - 255
+hex:     00 - FF
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="data-sizes">Data Sizes</h3>
+<p>Every computer has a <strong>word size</strong>, indicating the nominal size of pointer data. Such as 32 bits, 64 bits word sizes.</p>
+<p>A 32-bit word size limits the virtual address space to 4 gigabytes. Scaling up to 64-bit word size leads to a virtual address space of 16 exabytes.</p>
+<p>Most 64-bit machines can also run programs compiled for use on 32-bit machines, a form of backward compatibility.</p>
+<p>Computers and compilers support multiple data formats using different ways to encode data.</p>
+<p>Programmers should strive to make their programs portable across different machines and compilers.</p>
+<br/>
+<br/>
+<h3 id="addressing-and-byte-ordering">Addressing and Byte Ordering</h3>
+<p>For program objects that span multiple bytes, we must establish two convetions:</p>
+<ul>
+<li>What the address of the object will be</li>
+<li>How we will order the bytes in memory</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># var x of type int has address 0x100
+# assuming int has 32-bit/4 bytes
+# x would be stored in memory locations
+0x100, 0x101, 0x102, 0x103
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+<br/>
+<h3 id="representing-strings">Representing Strings</h3>
+<p>As a consequence, text data are more platform independent than binary data.</p>
+<br/>
+<blockquote>
+<p>Aside: The Unicode standard for text encoding <br>
+The ASCII character set is suitable for encoding english-language documents, but it does not have much in the way of special character, such as Frech, Chines, Greek&hellip; The Unicode Consortium has devised the most comprehensive and widely accepted standard for encoding text. <br>
+The current Unicode standard has a rpertoire of over 100,000 characters supporting.</p>
+</blockquote>
+<br/>
+<br/>
+<h3 id="representing-code">Representing Code</h3>
+<p>Different machine types use different and incompatible instructions and encodings.</p>
+<br/>
+<br/>
+<h3 id="introduction-to-boolean-algebra">Introduction to Boolean Algebra</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.7.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.7.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.7.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.7.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.7.png"
+        title="2.7" /></p>
+<br/>
+<br/>
+<h2 id="integer-representations">Integer Representations</h2>
+<p>bits can be used to encode integers:</p>
+<ul>
+<li>one that can only represent nonnegative numbers</li>
+<li>ont that can present negative, zero, and positive numbers</li>
+</ul>
+<br/>
+<br/>
+<h3 id="integral-data-types">Integral Data Types</h3>
+<br/>
+<br/>
+<h3 id="unsigned-encodings">Unsigned Encodings</h3>
+<br/>
+<br/>
+<h3 id="twos-complement-encodings">Two&rsquo;s-Complement Encodings</h3>
+<p>The most common computer representation of signed numbers is known as two&rsquo;s-complement form.</p>
+<p>When the sign bit is set to 1, the represented value is negative, and when set to 0, the value is nonnegative.</p>
+<br/>
+<br/>
+<h3 id="conversions-between-signed-and-unsigned">Conversions between Signed and Unsigned</h3>
+<br/>
+<br/>
+<h3 id="signed-versus-unsigned-in-c">Signed versus Unsigned in C</h3>
+<p>Generally, most numbers are signed by default.</p>
+<br/>
+<br/>
+<h3 id="expanding-the-bit-representation-of-a-number">Expanding the Bit Representation of a Number</h3>
+<p>To convert an unsigned number to a larger data type, we can simply add leading zeros to the representation, this operation is known as <strong>zero extension</strong>.</p>
+<p>For converting a two&rsquo;s-complement number to a larger data type, the rule is to perform a <strong>sign extension</strong>, adding copies of the most significant bit to the representation.</p>
+<br/>
+<br/>
+<h3 id="truncating-numbers">Truncating Numbers</h3>
+<br/>
+<br/>
+<h3 id="advice-on-signed-versus-unsigned">Advice on Signed versus Unsigned</h3>
+<p>The implicit casting of signed to unsigned leads to some nonintutive behavior. Nonintuitive features often lead to program bugs, and ones involving the nuances of implicit casting can be espcially difficult to see.</p>
+<br/>
+<br/>
+<h2 id="integer-arithmetic">Integer Arithmetic</h2>
+<p>Many programmers are suprised to find that adding two positive numbers can yield a negative result.</p>
+<p>Understanding the nuances of computer arithmetic can help programmers write more reliable code.</p>
+<br/>
+<br/>
+<h3 id="unsigned-addition">Unsigned Addition</h3>
+<br/>
+<br/>
+<h3 id="twos-complement-addition">Two&rsquo;s-Complement Addition</h3>
+<p>With two&rsquo;s complement addition, we must decide what to do when the result is either too large(positive) or to0 samll(negative) to represent.</p>
+<p>In fact, most computers use the same machine instruction to perform either unsigned or signed addition.</p>
+<br/>
+<br/>
+<h3 id="twos-complement-negation">Two&rsquo;s-Complement Negation</h3>
+<br/>
+<br/>
+<h3 id="unsigned-multiplication">Unsigned Multiplication</h3>
+<br/>
+<br/>
+<h3 id="twos-complement-multiplication">Two&rsquo;s-Complement Multiplication</h3>
+<br/>
+<br/>
+<h3 id="multiplying-by-constants">Multiplying by Constants</h3>
+<p>Integer multiply instruction is slow, requiring 10 or more clock cycles, whereas other operations, such as addition, subtraction, bit-level operations, and shifting——required only 1 clock cycle.</p>
+<br/>
+<br/>
+<h3 id="dividing-by-powers-of-2">Dividing by Powers of 2</h3>
+<p>Integer division on most machines is even slower than inter multiplication, requiring 30 or more clock cycles.</p>
+<p>Dividing by a power of 2 can also performed using shift operations, but we use a right shift rather than a left shift.</p>
+<br/>
+<br/>
+<h3 id="final-thoughts-on-integer-arithmetic">Final Thoughts on Integer Arithmetic</h3>
+<p>The integer arithmetic performed by computers is really a form of modular arithmetic.</p>
+<br/>
+<br/>
+<h2 id="floating-point">Floating Point</h2>
+<p>A floating point representation encodes rational numbers of the form $V = Xx2^Y$</p>
+<p>Nowdays, virtually all computers support what has become known as IEEE floating point.</p>
+<br/>
+<br/>
+<h3 id="fractional-binary-numbers">Fractional Binary Numbers</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.31.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.31.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.31.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.31.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.31.png"
+        title="2.31" /></p>
+<br/>
+<p>$$101.11_2=1x2^2+0x2^1+1x2^0+1x2^{-1}+1x2^{-2}=4+0+1+\frac{1}{2}+\frac{1}{4}=5\frac{3}{4}=5.75$$</p>
+<br/>
+<br/>
+<h3 id="ieee-floating-point-representation">IEEE Floating-Point Representation</h3>
+<p>The privious representation would not be efficient for very large numbers.</p>
+<p>The IEEE floating point standard represents a number in form $V = (-1)^s x M x 2^E$</p>
+<ul>
+<li>the sign s determines thether the number is negative or positive.</li>
+<li>the significand M is a fractional binary number.</li>
+<li>the exponent E weights the value by a power of 2.</li>
+</ul>
+<br/>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.32.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.32.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.32.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.32.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.32.png"
+        title="2.32" /></p>
+<br/>
+<br/>
+<h3 id="rounding">Rounding</h3>
+<p>One key problem is to define the direction to round a value that is halfway between two possibilities. If have 1.50 and want to round it to the nearest, should the result be 1 or 2? An alternative approach is to maintain a lower and an upper bound on the actual number.</p>
+<p>The IEEE floating point format defines four different rounding modes. The default method finds a closest match, while the other three can be used for computing upper and lower bounds.</p>
+<br/>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.37.png"
+        data-srcset="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.37.png, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.37.png 1.5x, https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.37.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/zhang21/images/master/cs/cs-app/2.37.png"
+        title="2.37" /></p>
+<br/>
+<br/>
+<h3 id="floating-point-operations">Floating Point Operations</h3>
+<p>For Example, with single precision floating point the expression $(3.14+1e10)-1e10$ evaluates to 0.0, the value 3.14 is lost due to rounding. On the other hand, the expression $3.14+(1e10-1e10)$ evaluates to 3.14.</p>
+<br/>
+<br/>
+<h3 id="floating-point-in-c">Floating Point in C</h3>
+<p>floating point data types in C:</p>
+<ul>
+<li><code>float</code></li>
+<li><code>double</code></li>
+</ul>
+<br/>
+<br/>
+<h2 id="summary">Summary</h2>
+<p>Computers encode info as bits, generally organized as sequences of bytes.</p>
+<p>Different encodings are used for representing integers, real numbers, and character strings. Different models of computers use different conventions for encoding numbers and for ordering the bytes within multi-byte data.</p>
+<p>The advantage of 64-bit programs is that they can go beyond the 4 GB address limitation of 32-bit programs.</p>
+<p>Most machines encode signed numbers using a two&rsquo;s complement representation and encode floating point numbers using IEEE Standard 754. Understanding these encodings at the bit level, as well as understanding the mathematical characteristics of the arithmetic operations, is important for writing programs that operate correctly over the full range of numeric values.</p>
+<p>Due to the finite lengths of the encodings, computer arithmetic has properties quite different from conventional integer and real arithmetic. The finite length can cause numbers to oveflow, when they exceed the range of the representation. Floating point values can also underflow, then they are co close to 0.0 that they are changed to zero.</p>
+<p>Floating point representations approximate real numbers by encoding numbers of the form $Xx2^Y$. IEEE Standard 754 provides for several different precisions, with the most common being single and double.</p>
+<p>Floating point arithmetic must be used very carefully, because it has only limited range and precision, and because it does not obey common mathematical properties such as associativity.</p>
+<br/>
+<hr>
+<br/>
+<h1 id="machine-level-representation-of-programs">Machine Level Representation of Programs</h1></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-04-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/cs-app/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhang21.cn/cs-app/" data-title="深入理解计算机系统" data-hashtags="cs,os,programming"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://zhang21.cn/cs-app/" data-title="深入理解计算机系统"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://zhang21.cn/cs-app/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhang21.cn/cs-app/" data-title="深入理解计算机系统"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhang21.cn/cs-app/" data-title="深入理解计算机系统"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/cs/">cs</a>,&nbsp;<a href="/tags/os/">os</a>,&nbsp;<a href="/tags/programming/">programming</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/clean-code/" class="prev" rel="prev" title="整洁代码的艺术"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>整洁代码的艺术</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2017 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://zhang21.cn" target="_blank">Zhang21</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://zhang21.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"RZ22ZCTIDN","algoliaIndex":"hugo-index","algoliaSearchKey":"11ec277ef4d730e232eda9651548da78","highlightTag":"em","maxResultLength":20,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

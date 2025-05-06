@@ -53,25 +53,6 @@
 <hr>]]></description>
 </item>
 <item>
-    <title>Tornado</title>
-    <link>https://zhang21.cn/tornado/</link>
-    <pubDate>Mon, 14 Oct 2019 16:19:21 &#43;0000</pubDate>
-    <author>Zhang21</author>
-    <guid>https://zhang21.cn/tornado/</guid>
-    <description><![CDATA[<p>环境:</p>
-<ul>
-<li>Tornado: v5.1</li>
-<li>Python: v3.6</li>
-</ul>
-<br>
-<p>参考:</p>
-<ul>
-<li>Docs: <a href="https://www.tornadoweb.org/en/branch5.1/">https://www.tornadoweb.org/en/branch5.1/</a></li>
-</ul>
-<br/>
-<hr>]]></description>
-</item>
-<item>
     <title>Bootstrap</title>
     <link>https://zhang21.cn/bootstrap/</link>
     <pubDate>Tue, 18 Sep 2018 11:11:12 &#43;0000</pubDate>
